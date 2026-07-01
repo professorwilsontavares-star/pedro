@@ -23,9 +23,9 @@ Material escolar do Pedro (13 anos, Ensino Fundamental Anos Finais / 9º ano), p
 
 ## PADRÕES obrigatórios de toda página nova
 
-1. **Botão "🏠 Início" (voltar ao HUB):** TODA página de atividade tem que ter um botão fixo no canto superior esquerdo que leva de volta ao `index.html`. É o padrão do projeto. Snippet:
+1. **Botão "← Voltar" (voltar ao HUB):** TODA página de atividade tem que ter um botão fixo no **topo, centralizado**, que leva de volta ao `index.html`. É o padrão do projeto (coral, texto "← Voltar"). Snippet:
    ```html
-   <a href="index.html" class="btn-voltar-hub" style="position:fixed;top:14px;left:14px;z-index:9999;display:inline-flex;align-items:center;gap:6px;background:#1E2B38;color:#fff;text-decoration:none;font-weight:700;font-size:.88rem;padding:9px 15px;border-radius:30px;box-shadow:0 3px 12px rgba(0,0,0,.22);font-family:'Segoe UI',system-ui,Arial,sans-serif;">🏠 Início</a>
+   <a href="index.html" class="btn-voltar-hub" style="position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:9999;display:inline-flex;align-items:center;gap:7px;background:#E25E42;color:#fff;text-decoration:none;font-weight:800;font-size:1rem;padding:11px 18px;border-radius:30px;box-shadow:0 4px 14px rgba(0,0,0,.3);font-family:'Segoe UI',system-ui,Arial,sans-serif;">← Voltar</a>
    ```
    (Colocar logo depois de `<body>`.)
 2. **Nome do arquivo:** `<materia>-mod<NN>-<tipo>.html` — ex.: `geo-mod08-quiz.html`, `hist-mod01-revisao.html`.
