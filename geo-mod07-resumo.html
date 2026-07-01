@@ -3,109 +3,88 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pedro estuda: A Segunda Guerra Mundial (9º ano)</title>
+<title>Resumo do Pedro: A Segunda Guerra Mundial</title>
 <style>
   :root{
-    --azul:#1d4e89; --azul-claro:#e8f0fb; --verde:#2e7d4f; --verde-claro:#e6f4ea;
-    --vermelho:#c0392b; --vermelho-claro:#fdecea; --amarelo:#f4b400; --amarelo-claro:#fff8e1;
-    --roxo:#6c3fa3; --roxo-claro:#f0e9f8; --cinza:#475569; --tinta:#1f2733;
+    --navy:#1E2B38; --azul:#1d4e89; --azul-claro:#e8f0fb;
+    --verde:#2e7d4f; --verde-claro:#e6f4ea;
+    --vermelho:#c0392b; --vermelho-claro:#fdecea;
+    --amarelo:#f4b400; --amarelo-claro:#fff8e1;
+    --coral:#E25E42; --cinza:#475569; --tinta:#1f2733;
   }
-  *{box-sizing:border-box;}
+  *{box-sizing:border-box; margin:0; padding:0;}
   body{
-    margin:0; background:#f5f7fa; color:var(--tinta);
+    background:#f5f7fa; color:var(--tinta); line-height:1.65; font-size:18px;
     font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;
-    line-height:1.65; font-size:17px;
   }
-  .wrap{max-width:860px; margin:0 auto; padding:0 18px 80px;}
+  .wrap{max-width:820px; margin:0 auto; padding:0 18px 80px;}
+
   header.capa{
     background:linear-gradient(135deg,#1d4e89,#2c3e64); color:#fff;
-    padding:42px 26px 36px; text-align:center; border-radius:0 0 22px 22px;
-    box-shadow:0 8px 24px rgba(0,0,0,.12);
+    padding:46px 26px 34px; text-align:center; border-radius:0 0 22px 22px;
   }
   header.capa .modulo{
-    display:inline-block; background:rgba(255,255,255,.18); color:#fff;
-    font-weight:700; font-size:.8rem; letter-spacing:1.5px; text-transform:uppercase;
+    display:inline-block; background:rgba(255,255,255,.18);
+    font-weight:700; font-size:.78rem; letter-spacing:1.5px; text-transform:uppercase;
     padding:6px 16px; border-radius:30px; margin-bottom:14px;
   }
-  header.capa h1{margin:0 0 8px; font-size:2rem; line-height:1.2;}
-  header.capa p{margin:0; opacity:.9; font-size:1.05rem;}
-  header.capa .oi{margin-top:18px; font-size:.95rem; background:rgba(0,0,0,.15);
-    display:inline-block; padding:10px 18px; border-radius:14px;}
+  header.capa h1{font-size:2rem; line-height:1.2;}
+  header.capa p{opacity:.92; margin-top:6px;}
 
-  nav.indice{
-    background:#fff; border:1px solid #e2e8f0; border-radius:16px;
-    padding:20px 24px; margin:28px 0; box-shadow:0 2px 10px rgba(0,0,0,.04);
-  }
-  nav.indice h2{margin:0 0 12px; font-size:1.1rem; color:var(--azul);}
-  nav.indice ol{margin:0; padding-left:22px; columns:2; column-gap:30px;}
-  nav.indice li{margin-bottom:6px; break-inside:avoid;}
-  nav.indice a{color:var(--tinta); text-decoration:none; border-bottom:1px dotted #b6c2d4;}
-  nav.indice a:hover{color:var(--azul); border-color:var(--azul);}
+  /* Linha do tempo em SVG (figura principal) */
+  .hero-tl{background:#fff; border-radius:18px; box-shadow:0 4px 16px rgba(0,0,0,.07); padding:22px 18px 10px; margin:26px 0;}
+  .hero-tl h2{color:var(--azul); font-size:1.15rem; text-align:center; margin-bottom:6px;}
+  .hero-tl svg{width:100%; height:auto; display:block;}
 
   h2.sec{
-    color:var(--azul); font-size:1.5rem; margin:46px 0 4px; padding-top:10px;
-    border-bottom:3px solid var(--amarelo); padding-bottom:8px;
+    color:var(--azul); font-size:1.5rem; margin:40px 0 6px; padding-bottom:8px;
+    border-bottom:3px solid var(--amarelo); display:flex; align-items:center; gap:12px;
   }
-  h3{color:var(--azul); font-size:1.18rem; margin:28px 0 6px;}
+  h2.sec .ic{
+    flex:0 0 46px; width:46px; height:46px; border-radius:50%;
+    background:var(--azul-claro); display:flex; align-items:center; justify-content:center; font-size:1.5rem;
+  }
   p{margin:12px 0;}
   strong{color:#13325a;}
   .lead{font-size:1.05rem; color:var(--cinza);}
 
-  .card{
-    border-radius:14px; padding:16px 20px; margin:18px 0;
-    border-left:6px solid #ccc; background:#fff; box-shadow:0 1px 6px rgba(0,0,0,.05);
+  ul.top{list-style:none; margin:12px 0; padding:0;}
+  ul.top li{
+    position:relative; padding:8px 0 8px 34px; border-bottom:1px dashed #e2e8f0;
   }
-  .card .tit{font-weight:800; display:block; margin-bottom:6px; font-size:1rem;}
-  .chave{background:var(--azul-claro); border-color:var(--azul);}
-  .chave .tit{color:var(--azul);}
-  .curiosidade{background:var(--amarelo-claro); border-color:var(--amarelo);}
-  .curiosidade .tit{color:#a87b00;}
-  .atencao{background:var(--vermelho-claro); border-color:var(--vermelho);}
-  .atencao .tit{color:var(--vermelho);}
-  .resumao{background:var(--verde-claro); border-color:var(--verde);}
-  .resumao .tit{color:var(--verde);}
-
-  .linha-tempo{list-style:none; padding:0; margin:18px 0;}
-  .linha-tempo li{
-    position:relative; padding:10px 0 10px 90px; border-left:3px solid var(--azul);
-    margin-left:60px;
-  }
-  .linha-tempo li .ano{
-    position:absolute; left:-62px; top:8px; width:108px; text-align:right;
-    font-weight:800; color:var(--azul); padding-right:14px;
-  }
-  .linha-tempo li::before{
-    content:""; position:absolute; left:-9px; top:14px; width:15px; height:15px;
-    background:var(--amarelo); border:3px solid var(--azul); border-radius:50%;
+  ul.top li:last-child{border-bottom:none;}
+  ul.top li::before{
+    content:"▸"; position:absolute; left:8px; top:8px; color:var(--coral); font-weight:900; font-size:1.1rem;
   }
 
-  .glossario{background:#fff; border:1px dashed #c3cedd; border-radius:12px; padding:6px 18px; margin:16px 0;}
-  .glossario dt{font-weight:800; color:var(--roxo); margin-top:10px;}
-  .glossario dd{margin:2px 0 8px;}
+  .card{border-radius:14px; padding:14px 18px; margin:16px 0; border-left:6px solid #ccc; background:#fff;}
+  .card .tit{font-weight:800; display:block; margin-bottom:4px;}
+  .chave{background:var(--azul-claro); border-color:var(--azul);} .chave .tit{color:var(--azul);}
+  .curioso{background:var(--amarelo-claro); border-color:var(--amarelo);} .curioso .tit{color:#a87b00;}
+  .atencao{background:var(--vermelho-claro); border-color:var(--vermelho);} .atencao .tit{color:var(--vermelho);}
+  .lembre{background:var(--verde-claro); border-color:var(--verde);} .lembre .tit{color:var(--verde);}
 
-  /* Gabarito */
-  .questao{
-    background:#fff; border:1px solid #e2e8f0; border-radius:16px;
-    padding:18px 22px; margin:22px 0; box-shadow:0 2px 10px rgba(0,0,0,.05);
-  }
-  .questao .enun{font-style:italic; color:var(--cinza); border-left:4px solid #cbd5e1; padding-left:14px; margin-bottom:14px;}
-  .gabarito{
-    display:inline-block; background:var(--verde); color:#fff; font-weight:800;
-    padding:5px 14px; border-radius:30px; font-size:.95rem; margin-bottom:8px;
-  }
-  .pq-certo{background:var(--verde-claro); border-radius:10px; padding:10px 14px; margin:10px 0;}
-  .pq-erradas{background:var(--vermelho-claro); border-radius:10px; padding:10px 14px; margin:10px 0; font-size:.96rem;}
-  .pq-erradas b{color:var(--vermelho);}
-  .modelo{background:var(--azul-claro); border-radius:10px; padding:12px 16px; margin:10px 0;}
-  .dica{font-size:.92rem; color:var(--cinza); margin-top:8px;}
-  .tag-mc{background:var(--roxo); color:#fff; font-size:.72rem; font-weight:700; padding:3px 10px; border-radius:20px; letter-spacing:.5px;}
-  .tag-diss{background:#0b7285; color:#fff; font-size:.72rem; font-weight:700; padding:3px 10px; border-radius:20px; letter-spacing:.5px;}
+  .palavra{background:#fff; border:1px dashed #c3cedd; border-radius:12px; padding:10px 16px; margin:12px 0;}
+  .palavra b{color:var(--coral);}
 
-  footer{text-align:center; color:#94a3b8; font-size:.85rem; margin-top:50px;}
-  .topo{position:fixed; right:18px; bottom:18px; background:var(--azul); color:#fff;
-    text-decoration:none; width:46px; height:46px; border-radius:50%; display:flex;
-    align-items:center; justify-content:center; font-size:1.3rem; box-shadow:0 4px 12px rgba(0,0,0,.2);}
-  @media(max-width:620px){nav.indice ol{columns:1;} body{font-size:16px;} header.capa h1{font-size:1.5rem;}}
+  /* Times de bandeiras */
+  .times{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:18px 0;}
+  .time{border-radius:14px; padding:14px; color:#fff;}
+  .time.eixo{background:linear-gradient(135deg,#7a2d2d,#a83232);}
+  .time.aliados{background:linear-gradient(135deg,#204a7a,#2c6bb0);}
+  .time h3{font-size:1.05rem; margin-bottom:10px;}
+  .flags{display:flex; flex-wrap:wrap; gap:10px;}
+  .flag{background:rgba(255,255,255,.14); border-radius:10px; padding:7px 9px; display:flex; align-items:center; gap:8px; font-weight:700; font-size:.9rem;}
+  .flag svg{width:38px; height:25px; border-radius:3px; box-shadow:0 1px 3px rgba(0,0,0,.3); display:block;}
+
+  .fig{background:#fff; border-radius:14px; box-shadow:0 3px 12px rgba(0,0,0,.06); padding:16px; margin:16px 0; text-align:center;}
+  .fig svg{max-width:100%; height:auto;}
+  .fig .legenda{font-size:.9rem; color:var(--cinza); margin-top:8px;}
+
+  footer{text-align:center; color:#94a3b8; font-size:.85rem; margin-top:48px;}
+  .topo{position:fixed; right:16px; bottom:16px; background:var(--azul); color:#fff; text-decoration:none;
+    width:46px; height:46px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.3rem; box-shadow:0 4px 12px rgba(0,0,0,.2);}
+  @media(max-width:560px){ .times{grid-template-columns:1fr;} body{font-size:17px;} header.capa h1{font-size:1.6rem;} }
 </style>
 </head>
 <body id="topo">
@@ -113,323 +92,178 @@
 
 <header class="capa">
   <span class="modulo">História · 9º ano · Módulo 7</span>
-  <h1>A Segunda Guerra Mundial:<br>o horror se espalha</h1>
-  <p>O maior conflito da história (1939 a 1945)</p>
-  <div class="oi">👋 Oi, Pedro! Este é o seu guia de estudo. Primeiro vem o <b>resumo</b> da matéria, depois o <b>gabarito comentado</b> de todos os exercícios.</div>
+  <h1>A Segunda Guerra Mundial 🌍</h1>
+  <p>O resumo fácil, com figuras e tópicos</p>
 </header>
 
 <div class="wrap">
 
-<nav class="indice">
-  <h2>📍 O que tem aqui</h2>
-  <ol>
-    <li><a href="#parte1">Parte 1: o resumão da matéria</a></li>
-    <li><a href="#fascismo">Como tudo começou: o fascismo</a></li>
-    <li><a href="#marcha">A marcha para a guerra</a></li>
-    <li><a href="#apaziguamento">A Política de Apaziguamento</a></li>
-    <li><a href="#espanha">A Guerra Civil Espanhola</a></li>
-    <li><a href="#eixoaliados">Eixo x Aliados</a></li>
-    <li><a href="#blitzkrieg">A ofensiva do Eixo e a Blitzkrieg</a></li>
-    <li><a href="#pearl">Pearl Harbor e a entrada dos EUA</a></li>
-    <li><a href="#brasil">O Brasil na guerra</a></li>
-    <li><a href="#reacao">A reação dos Aliados</a></li>
-    <li><a href="#fim">O fim: Hiroshima e Nagasaki</a></li>
-    <li><a href="#consequencias">As consequências e a ONU</a></li>
-    <li><a href="#parte2">Parte 2: gabarito comentado</a></li>
-  </ol>
-</nav>
+<p class="lead">A Segunda Guerra Mundial foi a <strong>maior guerra da história</strong>. Aconteceu de <strong>1939 a 1945</strong> e envolveu quase o mundo inteiro. Aqui vai o resumo em partes bem simples. 👇</p>
 
-<!-- ============== PARTE 1 ============== -->
-<h2 class="sec" id="parte1">📖 Parte 1: o resumão da matéria</h2>
-<p class="lead">A Segunda Guerra Mundial foi a maior e mais destruidora guerra de todos os tempos. Durou de <strong>1939 a 1945</strong> e envolveu dezenas de países em quase todos os continentes. Vamos entender, passo a passo, por que ela aconteceu, como foi e o que ela deixou para o mundo.</p>
-
-<h3 id="fascismo">1. Como tudo começou: o fascismo provoca a guerra</h3>
-<p>Depois da <strong>Primeira Guerra Mundial</strong> (1914 a 1918), a Alemanha saiu derrotada, humilhada e cheia de dívidas por causa do <strong>Tratado de Versalhes</strong>. Para piorar, em 1929 o mundo entrou numa enorme crise econômica (a Crise de 1929). Muita gente estava desempregada, com fome e revoltada.</p>
-<p>Nesse clima de raiva e medo, surgiram líderes <strong>autoritários</strong> que prometiam devolver a grandeza e o orgulho aos seus países. Os dois mais importantes foram:</p>
-<div class="glossario">
-  <dl>
-    <dt>Benito Mussolini (Itália)</dt>
-    <dd>Criou o <strong>fascismo</strong>. Defendia um Estado forte, sem oposição, com muito nacionalismo e culto ao líder.</dd>
-    <dt>Adolf Hitler (Alemanha)</dt>
-    <dd>Líder do <strong>nazismo</strong>. Pregava o ódio, a ideia de uma "raça superior", o militarismo e a vontade de conquistar novos territórios.</dd>
-  </dl>
-</div>
-<div class="card chave">
-  <span class="tit">🔑 Ideia central</span>
-  Esses regimes (fascismo e nazismo) eram <strong>expansionistas</strong>: queriam crescer tomando o território dos vizinhos. Foi essa ambição que, no fim das contas, provocou a guerra.
+<!-- FIGURA: linha do tempo -->
+<div class="hero-tl">
+  <h2>🕒 A guerra em 4 datas</h2>
+  <svg viewBox="0 0 700 130" role="img" aria-label="Linha do tempo da Segunda Guerra">
+    <line x1="40" y1="65" x2="660" y2="65" stroke="#1d4e89" stroke-width="4"/>
+    <!-- 1939 -->
+    <circle cx="90" cy="65" r="14" fill="#f4b400" stroke="#1d4e89" stroke-width="4"/>
+    <text x="90" y="35" text-anchor="middle" font-size="22" font-weight="bold" fill="#1d4e89">1939</text>
+    <text x="90" y="100" text-anchor="middle" font-size="14" fill="#475569">Começa</text>
+    <text x="90" y="117" text-anchor="middle" font-size="14" fill="#475569">a guerra</text>
+    <!-- 1941 -->
+    <circle cx="280" cy="65" r="14" fill="#f4b400" stroke="#1d4e89" stroke-width="4"/>
+    <text x="280" y="35" text-anchor="middle" font-size="22" font-weight="bold" fill="#1d4e89">1941</text>
+    <text x="280" y="100" text-anchor="middle" font-size="14" fill="#475569">Pearl Harbor</text>
+    <text x="280" y="117" text-anchor="middle" font-size="14" fill="#475569">(EUA entram)</text>
+    <!-- 1944 -->
+    <circle cx="470" cy="65" r="14" fill="#f4b400" stroke="#1d4e89" stroke-width="4"/>
+    <text x="470" y="35" text-anchor="middle" font-size="22" font-weight="bold" fill="#1d4e89">1944</text>
+    <text x="470" y="100" text-anchor="middle" font-size="14" fill="#475569">Dia D</text>
+    <text x="470" y="117" text-anchor="middle" font-size="14" fill="#475569">(Normandia)</text>
+    <!-- 1945 -->
+    <circle cx="640" cy="65" r="14" fill="#E25E42" stroke="#1d4e89" stroke-width="4"/>
+    <text x="640" y="35" text-anchor="middle" font-size="22" font-weight="bold" fill="#1d4e89">1945</text>
+    <text x="640" y="100" text-anchor="middle" font-size="14" fill="#475569">Fim +</text>
+    <text x="640" y="117" text-anchor="middle" font-size="14" fill="#475569">bombas</text>
+  </svg>
 </div>
 
-<h3 id="marcha">2. A marcha para a guerra (a "linha do tempo")</h3>
-<p>Hitler foi dando passos cada vez maiores, e ninguém o impedia. Veja a sequência que levou ao estouro da guerra:</p>
-<ul class="linha-tempo">
-  <li><span class="ano">1933</span> Hitler chega ao poder na Alemanha.</li>
-  <li><span class="ano">1936</span> A Alemanha volta a militarizar a região da Renânia, quebrando o Tratado de Versalhes.</li>
-  <li><span class="ano">1938</span> A Alemanha anexa a Áustria (o "Anschluss") e depois a região dos <strong>Sudetos</strong>, na Tchecoslováquia.</li>
-  <li><span class="ano">março/1939</span> Hitler invade <strong>todo</strong> o resto da Tchecoslováquia, mostrando que não ia parar.</li>
-  <li><span class="ano">agosto/1939</span> Alemanha e União Soviética assinam o <strong>Pacto de Não Agressão</strong> (combinam não atacar um ao outro).</li>
-  <li><span class="ano">1º/set/1939</span> A Alemanha invade a <strong>Polônia</strong>. Inglaterra e França declaram guerra. <strong>Começa a Segunda Guerra Mundial.</strong></li>
+<!-- 1 -->
+<h2 class="sec"><span class="ic">😠</span>Por que a guerra começou?</h2>
+<p>Depois da <strong>Primeira Guerra</strong>, a Alemanha ficou pobre, humilhada e cheia de dívidas. Em 1929 veio uma <strong>crise mundial</strong> e muita gente ficou sem emprego e com raiva.</p>
+<p>Nessa época surgiram <strong>líderes autoritários</strong> que prometiam devolver a força ao país:</p>
+<div class="palavra"><b>Fascismo e nazismo:</b> ideias de um governo forte, sem oposição, com muito nacionalismo, ódio a quem era "diferente" e vontade de <strong>conquistar terras dos vizinhos</strong>.</div>
+<ul class="top">
+  <li><strong>Adolf Hitler</strong> mandava na Alemanha (nazismo).</li>
+  <li><strong>Benito Mussolini</strong> mandava na Itália (fascismo).</li>
+  <li>Os dois queriam <strong>crescer invadindo outros países</strong>. Foi isso que provocou a guerra.</li>
 </ul>
 
-<h3 id="apaziguamento">3. A Política de Apaziguamento</h3>
-<p>Antes da guerra, países como a Inglaterra e a França tentaram <strong>evitar o conflito cedendo</strong> aos pedidos de Hitler. Essa estratégia ficou conhecida como <strong>Política de Apaziguamento</strong>. O exemplo mais famoso foi o <strong>Acordo de Munique (1938)</strong>: o primeiro-ministro inglês <strong>Neville Chamberlain</strong> aceitou entregar os Sudetos a Hitler, acreditando que assim ele se acalmaria.</p>
-<div class="card atencao">
-  <span class="tit">⚠️ Deu errado!</span>
-  Hitler havia prometido que os Sudetos seriam sua "última ambição". Mentira: em 1939 ele invadiu o resto da Tchecoslováquia e depois a Polônia. <strong>Ceder não acalmou o agressor, só deu mais força a ele.</strong>
+<!-- 2 -->
+<h2 class="sec"><span class="ic">⚔️</span>Quem lutou contra quem?</h2>
+<p>A guerra teve <strong>dois lados</strong>:</p>
+<div class="times">
+  <div class="time eixo">
+    <h3>🟥 O Eixo (os que atacavam)</h3>
+    <div class="flags">
+      <span class="flag"><svg viewBox="0 0 60 40"><rect width="60" height="13.3" fill="#000"/><rect width="60" height="13.3" y="13.3" fill="#D00"/><rect width="60" height="13.4" y="26.6" fill="#FFCE00"/></svg>Alemanha</span>
+      <span class="flag"><svg viewBox="0 0 60 40"><rect width="20" height="40" fill="#009246"/><rect width="20" height="40" x="20" fill="#fff"/><rect width="20" height="40" x="40" fill="#CE2B37"/></svg>Itália</span>
+      <span class="flag"><svg viewBox="0 0 60 40"><rect width="60" height="40" fill="#fff"/><circle cx="30" cy="20" r="10" fill="#BC002D"/></svg>Japão</span>
+    </div>
+  </div>
+  <div class="time aliados">
+    <h3>🟦 Os Aliados (os que resistiam)</h3>
+    <div class="flags">
+      <span class="flag"><svg viewBox="0 0 60 40"><rect width="60" height="40" fill="#012169"/><path d="M0,0 L60,40 M60,0 L0,40" stroke="#fff" stroke-width="8"/><path d="M0,0 L60,40 M60,0 L0,40" stroke="#C8102E" stroke-width="4"/><rect x="25" width="10" height="40" fill="#fff"/><rect y="15" width="60" height="10" fill="#fff"/><rect x="27" width="6" height="40" fill="#C8102E"/><rect y="17" width="60" height="6" fill="#C8102E"/></svg>Inglaterra</span>
+      <span class="flag"><svg viewBox="0 0 60 40"><rect width="20" height="40" fill="#0055A4"/><rect width="20" height="40" x="20" fill="#fff"/><rect width="20" height="40" x="40" fill="#EF4135"/></svg>França</span>
+      <span class="flag"><svg viewBox="0 0 60 40"><rect width="60" height="40" fill="#CC0000"/><text x="6" y="26" font-size="20" fill="#FFD700">★</text></svg>URSS</span>
+      <span class="flag"><svg viewBox="0 0 60 40"><g fill="#B22234"><rect width="60" height="3.1"/><rect width="60" height="3.1" y="6.1"/><rect width="60" height="3.1" y="12.2"/><rect width="60" height="3.1" y="18.3"/><rect width="60" height="3.1" y="24.4"/><rect width="60" height="3.1" y="30.5"/><rect width="60" height="3.1" y="36.6"/></g><rect width="26" height="21" fill="#3C3B6E"/><text x="2" y="15" font-size="9" fill="#fff">★★★</text></svg>EUA</span>
+      <span class="flag"><svg viewBox="0 0 60 40"><rect width="60" height="40" fill="#009C3B"/><polygon points="30,5 55,20 30,35 5,20" fill="#FFDF00"/><circle cx="30" cy="20" r="7" fill="#002776"/></svg>Brasil</span>
+    </div>
+  </div>
+</div>
+<div class="card chave"><span class="tit">🔑 Não esqueça</span> O <strong>Brasil lutou com os Aliados</strong>, contra o Eixo.</div>
+
+<!-- 3 -->
+<h2 class="sec"><span class="ic">✈️</span>A Blitzkrieg (guerra-relâmpago)</h2>
+<p>No começo, a Alemanha venceu quase tudo. Ela usava uma tática super rápida:</p>
+<div class="palavra"><b>Blitzkrieg</b> = "guerra-relâmpago". Um ataque <strong>rápido e de surpresa</strong>, juntando <strong>tanques + aviões + soldados</strong> ao mesmo tempo, pra vencer antes do inimigo reagir.</div>
+<ul class="top">
+  <li>Com ela, a Alemanha invadiu vários países bem depressa.</li>
+  <li>Até a <strong>França</strong> foi ocupada.</li>
+  <li><strong>Mas falhou contra a Inglaterra:</strong> os aviões ingleses resistiram e o mar (Canal da Mancha) atrapalhou a invasão. Foi o primeiro tropeço de Hitler.</li>
+</ul>
+<div class="card curioso"><span class="tit">🎬 Curiosidade</span> O ator <strong>Charlie Chaplin</strong> fez o filme <strong>"O Grande Ditador"</strong> tirando sarro de Hitler. A arte também virou uma forma de lutar.</div>
+
+<!-- 4 -->
+<h2 class="sec"><span class="ic">💥</span>Pearl Harbor: a guerra vira mundial</h2>
+<ul class="top">
+  <li>Em <strong>7 de dezembro de 1941</strong>, o <strong>Japão atacou de surpresa</strong> a base americana de <strong>Pearl Harbor</strong> (no Havaí).</li>
+  <li>Com isso, os <strong>Estados Unidos entraram na guerra</strong>.</li>
+  <li>Os EUA eram muito fortes em <strong>indústria</strong> (fabricavam armas, aviões e navios sem parar). Isso ajudou a virar o jogo.</li>
+</ul>
+
+<!-- 5 -->
+<h2 class="sec"><span class="ic">🇧🇷</span>O Brasil na guerra</h2>
+<ul class="top">
+  <li>No início, o Brasil quis ficar <strong>de fora</strong>.</li>
+  <li>Mas <strong>submarinos alemães afundaram navios brasileiros</strong>, matando pessoas.</li>
+  <li>Aí o Brasil entrou na guerra, do lado dos <strong>Aliados</strong>.</li>
+  <li>Mandou a <strong>FEB</strong> (Força Expedicionária Brasileira) pra lutar na <strong>Itália</strong>. Os soldados eram chamados de <strong>"pracinhas"</strong>.</li>
+</ul>
+<div class="fig">
+  <svg viewBox="0 0 220 90" role="img" aria-label="Navio no mar e submarino">
+    <rect width="220" height="90" fill="#bfe3f5"/>
+    <rect y="55" width="220" height="35" fill="#4a90c2"/>
+    <!-- navio -->
+    <polygon points="30,55 100,55 90,70 40,70" fill="#37474f"/>
+    <rect x="52" y="42" width="30" height="14" fill="#eceff1"/>
+    <rect x="60" y="30" width="6" height="14" fill="#90a4ae"/>
+    <!-- submarino -->
+    <ellipse cx="160" cy="74" rx="34" ry="9" fill="#263238"/>
+    <rect x="154" y="63" width="12" height="8" rx="2" fill="#263238"/>
+    <line x1="160" y1="63" x2="160" y2="56" stroke="#263238" stroke-width="2"/>
+  </svg>
+  <div class="legenda">Submarinos alemães afundaram navios do Brasil. Foi o que fez o país entrar na guerra.</div>
 </div>
 
-<h3 id="espanha">4. A Guerra Civil Espanhola (1936 a 1939)</h3>
-<p>Na Espanha houve uma guerra civil entre o governo republicano e os rebeldes do general <strong>Franco</strong> (ligado ao fascismo). Hitler e Mussolini <strong>ajudaram Franco</strong> com armas, aviões e soldados.</p>
-<div class="card chave">
-  <span class="tit">🔑 Por que isso importa?</span>
-  A Guerra Civil Espanhola é chamada de <strong>"ensaio" da Segunda Guerra</strong>: os mesmos países (Alemanha e Itália) testaram ali novas armas e táticas. O bombardeio aéreo da cidade de <strong>Guernica</strong> contra civis foi um "teste" do horror que viria depois.
+<!-- 6 -->
+<h2 class="sec"><span class="ic">🔄</span>A virada dos Aliados</h2>
+<p>A partir de <strong>1942</strong>, os Aliados começaram a <strong>ganhar</strong>. As batalhas mais importantes:</p>
+<ul class="top">
+  <li><strong>El Alamein</strong> (na África): expulsaram o Eixo do norte da África.</li>
+  <li><strong>Stalingrado</strong> (na União Soviética): grande derrota alemã.</li>
+  <li><strong>Dia D</strong> (6 de junho de 1944): os Aliados <strong>desembarcaram na França (Normandia)</strong> e foram libertando a Europa.</li>
+</ul>
+
+<!-- 7 -->
+<h2 class="sec"><span class="ic">💣</span>O fim da guerra</h2>
+<p><strong>Na Europa (1945):</strong></p>
+<ul class="top">
+  <li>Mussolini foi preso e morto.</li>
+  <li>Hitler, cercado em Berlim, <strong>se matou</strong>.</li>
+  <li>A Alemanha <strong>se rendeu</strong>.</li>
+</ul>
+<p><strong>No Japão:</strong> ele ainda não queria se render. Então os EUA jogaram <strong>duas bombas atômicas</strong>:</p>
+<div class="fig">
+  <svg viewBox="0 0 240 110" role="img" aria-label="Explosão de bomba atômica">
+    <rect width="240" height="110" fill="#fff3e0"/>
+    <rect y="88" width="240" height="22" fill="#8d6e63"/>
+    <!-- cogumelo -->
+    <ellipse cx="120" cy="34" rx="46" ry="26" fill="#ff8a65"/>
+    <ellipse cx="120" cy="30" rx="30" ry="16" fill="#ffab91"/>
+    <rect x="108" y="52" width="24" height="40" fill="#ffb59a"/>
+    <rect x="112" y="60" width="16" height="30" fill="#ff8a65"/>
+  </svg>
+  <div class="legenda">Bombas atômicas em <strong>Hiroshima</strong> (a 1ª) e depois em <strong>Nagasaki</strong> (a 2ª), em 1945. O Japão se rendeu e a guerra acabou.</div>
 </div>
 
-<h3 id="eixoaliados">5. Eixo x Aliados: quem lutou contra quem</h3>
-<div class="card">
-  <span class="tit" style="color:var(--vermelho)">🟥 O Eixo (os agressores)</span>
-  <strong>Alemanha</strong> (Hitler), <strong>Itália</strong> (Mussolini) e <strong>Japão</strong>.
-</div>
-<div class="card">
-  <span class="tit" style="color:var(--azul)">🟦 Os Aliados (a resistência)</span>
-  <strong>Inglaterra</strong>, <strong>França</strong>, depois a <strong>União Soviética</strong> e os <strong>Estados Unidos</strong> (e vários outros, incluindo o <strong>Brasil</strong>).
-</div>
-
-<h3 id="blitzkrieg">6. A ofensiva do Eixo e a Blitzkrieg</h3>
-<p>No começo, o Eixo venceu quase tudo. A Alemanha usava uma tática chamada <strong>Blitzkrieg</strong>, que em alemão quer dizer <strong>"guerra-relâmpago"</strong>: ataques rápidos e coordenados, juntando tanques, aviões e infantaria para esmagar o inimigo antes que ele reagisse.</p>
-<p>Assim a Alemanha derrotou rapidamente vários países e até ocupou a <strong>França</strong> (que ficou dividida; a parte controlada pelos alemães virou a chamada <strong>República de Vichy</strong>).</p>
-<div class="card atencao">
-  <span class="tit">⚠️ Onde a Blitzkrieg falhou</span>
-  Contra a <strong>Inglaterra</strong> a tática não funcionou. Na <strong>Batalha da Grã-Bretanha</strong>, a força aérea inglesa (RAF) resistiu aos bombardeios, e o Canal da Mancha impediu a invasão. Foi o primeiro grande fracasso alemão.
-</div>
-<div class="card curiosidade">
-  <span class="tit">🎬 Curiosidade: Chaplin contra Hitler</span>
-  O ator <strong>Charlie Chaplin</strong> fez o filme <strong>"O Grande Ditador" (1940)</strong>, ridicularizando Hitler e Mussolini. Foi um jeito de usar o humor e a arte para criticar a tirania e defender a liberdade.
-</div>
-
-<h3 id="pearl">7. Pearl Harbor: a guerra fica mundial</h3>
-<p>Em <strong>7 de dezembro de 1941</strong>, o Japão atacou de surpresa a base naval norte-americana de <strong>Pearl Harbor</strong>, no Havaí. Foi o momento em que os <strong>Estados Unidos entraram oficialmente na guerra</strong>, ao lado dos Aliados.</p>
-<div class="card resumao">
-  <span class="tit">✅ Guarde isto</span>
-  A entrada dos EUA mudou tudo: com sua enorme <strong>capacidade industrial</strong>, os Aliados ganharam força para virar o jogo. A partir daí o conflito se tornou verdadeiramente <strong>mundial</strong>.
-</div>
-
-<h3 id="brasil">8. O Brasil na Segunda Guerra Mundial</h3>
-<p>No início o Brasil tentou ficar neutro. Mas submarinos alemães <strong>afundaram navios brasileiros</strong> na costa, matando civis. Revoltado, o Brasil <strong>entrou na guerra ao lado dos Aliados</strong>.</p>
-<p>O país enviou a <strong>FEB (Força Expedicionária Brasileira)</strong>, com cerca de 25 mil soldados, para lutar na <strong>Itália</strong>. Esses combatentes ficaram conhecidos como os <strong>"pracinhas"</strong>.</p>
-
-<h3 id="reacao">9. A reação dos Aliados (a virada, a partir de 1942)</h3>
-<p>Depois de 1942, os Aliados começaram a vencer. Os pontos mais importantes da virada foram:</p>
-<div class="card chave">
-  <span class="tit">🔑 As batalhas que mudaram a guerra</span>
-  <ul>
-    <li><strong>Batalha de El Alamein</strong> (no Egito): os Aliados expulsaram o Eixo do norte da África.</li>
-    <li><strong>Batalha de Stalingrado</strong> (na União Soviética): derrota devastadora para a Alemanha no Leste.</li>
-    <li><strong>Dia D / Desembarque na Normandia</strong> (6 de junho de 1944): os Aliados desembarcaram na França e começaram a libertar a Europa.</li>
+<!-- 8 -->
+<h2 class="sec"><span class="ic">🕊️</span>O que sobrou depois da guerra</h2>
+<ul class="top">
+  <li>Cerca de <strong>40 milhões de mortos</strong> e cidades destruídas.</li>
+  <li><strong>EUA</strong> e <strong>União Soviética</strong> viraram as duas nações mais fortes (as "superpotências"). A rivalidade entre elas virou a <strong>Guerra Fria</strong>.</li>
+  <li>Em 1948 nasceu o <strong>Estado de Israel</strong>.</li>
+</ul>
+<p>Depois de tanto horror, o mundo criou formas de tentar <strong>evitar novas guerras</strong>:</p>
+<div class="card lembre"><span class="tit">✅ Guarde isto</span>
+  <ul class="top" style="margin:6px 0 0;">
+    <li><strong>ONU</strong> (1945): organização para cuidar da <strong>paz</strong> no mundo.</li>
+    <li><strong>Declaração dos Direitos Humanos</strong> (1948): garante direitos para <strong>todo ser humano</strong>, sem exceção.</li>
   </ul>
 </div>
 
-<h3 id="fim">10. O fim da guerra</h3>
-<p><strong>Na Europa (1945):</strong> Mussolini foi capturado e morto pela resistência italiana. Hitler, cercado em Berlim, <strong>se suicidou</strong>. A Alemanha se rendeu.</p>
-<p><strong>No Pacífico:</strong> o Japão ainda resistia. Para forçar a rendição, os Estados Unidos lançaram <strong>duas bombas atômicas</strong>: sobre <strong>Hiroshima</strong> e, dias depois, sobre <strong>Nagasaki</strong> (agosto de 1945). A destruição foi enorme, com centenas de milhares de mortos. O Japão se rendeu e a guerra acabou.</p>
-<div class="card atencao">
-  <span class="tit">⚠️ O poema "Rosa de Hiroshima"</span>
-  O poeta <strong>Vinicius de Moraes</strong> escreveu a "Rosa de Hiroshima" sobre as vítimas da bomba. Lembre: Hiroshima foi a <strong>primeira</strong> das duas bombas; a outra destruiu <strong>Nagasaki</strong>.
-</div>
+<!-- Resumão -->
+<h2 class="sec"><span class="ic">🧠</span>Resumão em 5 frases</h2>
+<ul class="top">
+  <li>O <strong>fascismo/nazismo</strong> queria conquistar terras. Isso começou a guerra em <strong>1939</strong>.</li>
+  <li>Foram dois lados: <strong>Eixo</strong> (Alemanha, Itália, Japão) contra <strong>Aliados</strong> (Inglaterra, França, URSS, EUA e Brasil).</li>
+  <li>A guerra virou mundial com <strong>Pearl Harbor</strong> (1941).</li>
+  <li>Os Aliados venceram (Stalingrado, <strong>Dia D</strong>) e a guerra acabou em <strong>1945</strong>, depois das bombas de <strong>Hiroshima e Nagasaki</strong>.</li>
+  <li>Sobraram a <strong>Guerra Fria</strong>, a <strong>ONU</strong> e os <strong>Direitos Humanos</strong>.</li>
+</ul>
 
-<h3 id="consequencias">11. As consequências e o nascimento da ONU</h3>
-<p>A Segunda Guerra deixou marcas profundas:</p>
-<div class="card resumao">
-  <span class="tit">✅ As principais consequências</span>
-  <ul>
-    <li>Cerca de <strong>40 milhões de mortos</strong> e cidades inteiras destruídas.</li>
-    <li><strong>Estados Unidos</strong> e <strong>União Soviética</strong> viraram as duas <strong>superpotências</strong>, dando início à <strong>Guerra Fria</strong>.</li>
-    <li>Em 1948 foi criado o <strong>Estado de Israel</strong>, gerando conflitos na Palestina que duram até hoje.</li>
-  </ul>
-</div>
-<p>Depois de tanto horror, o mundo quis evitar que algo assim se repetisse. Em <strong>1945</strong> foi criada a <strong>ONU (Organização das Nações Unidas)</strong>, para promover a paz. E em <strong>1948</strong> a ONU aprovou a <strong>Declaração Universal dos Direitos Humanos</strong>.</p>
-<div class="card chave">
-  <span class="tit">🔑 O que são os Direitos Humanos?</span>
-  São direitos que valem para <strong>todo ser humano</strong>, sem distinção de raça, religião, sexo ou opinião. A palavra-chave é <strong>universal</strong>: basta "ser humano" para ter direito a eles (dignidade, liberdade, igualdade, proteção contra a tortura).
-</div>
-
-<div class="card resumao">
-  <span class="tit">🧠 Resumão de tudo em 5 frases</span>
-  <ol>
-    <li>O <strong>fascismo</strong> e o <strong>nazismo</strong>, expansionistas, provocaram a guerra ao invadir territórios vizinhos.</li>
-    <li>A <strong>Política de Apaziguamento</strong> tentou ceder a Hitler, mas só deu errado.</li>
-    <li>A guerra ficou mundial com <strong>Pearl Harbor</strong> (1941) e a entrada dos <strong>EUA</strong>.</li>
-    <li>Os Aliados viraram o jogo (Stalingrado, El Alamein, <strong>Dia D</strong>) e venceram em 1945, após as bombas de <strong>Hiroshima e Nagasaki</strong>.</li>
-    <li>Sobraram duas superpotências (EUA e URSS), a <strong>Guerra Fria</strong>, a <strong>ONU</strong> e os <strong>Direitos Humanos</strong>.</li>
-  </ol>
-</div>
-
-<!-- ============== PARTE 2 ============== -->
-<h2 class="sec" id="parte2">✍️ Parte 2: gabarito comentado</h2>
-<p class="lead">Aqui estão as respostas explicadas. Nas questões de marcar (a, b, c...), eu mostro a certa <b>e</b> por que as outras estão erradas. Nas questões para escrever, dou uma <b>resposta-modelo</b> que você pode adaptar com suas palavras.</p>
-
-<!-- MULTIPLA ESCOLHA -->
-<h3>📝 Questões de múltipla escolha</h3>
-
-<div class="questao">
-  <span class="tag-mc">QUESTÃO 1 · ENEM</span>
-  <p class="enun">A partir do discurso de Chamberlain (1938), sabendo que Hitler rompeu o compromisso em 1939, infere-se que...</p>
-  <span class="gabarito">Resposta: A</span>
-  <div class="pq-certo"><b>Por que a "a" está certa:</b> Hitler havia prometido que os Sudetos seriam sua "última ambição territorial". Como ele rompeu a promessa em 1939 (invadindo o resto da Tchecoslováquia e depois a Polônia), fica claro que ele <b>queria muito mais territórios</b> além dos Sudetos. A promessa era só uma desculpa.</div>
-  <div class="pq-erradas">
-    <b>b)</b> O próprio texto diz que nada (nem a aliança) teria salvado a Tchecoslováquia. ·
-    <b>c)</b> Inverte a ordem: o apaziguamento veio <i>antes</i> e <i>causou</i> o problema, não foi inspirado pelo rompimento. ·
-    <b>d)</b> Chamberlain <i>representava</i> as potências aliadas, não era contrário a elas. ·
-    <b>e)</b> A destruição veio da ambição de Hitler, não da forma como Chamberlain tratou os Sudetos.
-  </div>
-</div>
-
-<div class="questao">
-  <span class="tag-mc">QUESTÃO 2 · UEMT</span>
-  <p class="enun">A Segunda Guerra adquiriu caráter mundial em 7 de dezembro de 1941, quando...</p>
-  <span class="gabarito">Resposta: E</span>
-  <div class="pq-certo"><b>Por que a "e" está certa:</b> Em <b>7 de dezembro de 1941</b> os <b>japoneses atacaram a base norte-americana de Pearl Harbor</b>. Esse ataque fez os Estados Unidos entrarem na guerra, e foi aí que o conflito virou mundial de verdade.</div>
-  <div class="pq-erradas"><b>a, b, c, d)</b> São acontecimentos inventados ou fora de lugar. A data 7/12/1941 é a "marca registrada" de Pearl Harbor: se você decorar isso, acerta na hora.</div>
-</div>
-
-<div class="questao">
-  <span class="tag-mc">QUESTÃO 3 · IMED-RS</span>
-  <p class="enun">Sobre o poema "Rosa de Hiroshima", de Vinicius de Moraes, marque a alternativa correta.</p>
-  <span class="gabarito">Resposta: E</span>
-  <div class="pq-certo"><b>Por que a "e" está certa:</b> A bomba de <b>Hiroshima</b> foi a <b>primeira</b> das <b>duas</b> bombas atômicas lançadas pelos EUA sobre o Japão na Segunda Guerra; a segunda destruiu <b>Nagasaki</b>. Tudo verdade.</div>
-  <div class="pq-erradas">
-    <b>a)</b> Erra a guerra: foi na <i>Segunda</i> Guerra, não na Primeira. ·
-    <b>b)</b> Hiroshima é cidade <i>japonesa</i>, não chinesa, e os EUA <i>venceram</i>, não foram derrotados. ·
-    <b>c)</b> Falso: bombas nucleares <i>foram</i> usadas (justamente em Hiroshima e Nagasaki). ·
-    <b>d)</b> Pegadinha! O fato histórico está certo, mas Vinicius de Moraes <b>não</b> participou da Semana de Arte Moderna de 1922 (ele nasceu em 1913, era criança na época). Por causa desse errinho, a alternativa fica incorreta.
-  </div>
-  <p class="dica">💡 Sacada: às vezes a alternativa erra por <b>um único detalhe</b>. Leia até o fim antes de marcar.</p>
-</div>
-
-<!-- ATIVIDADES DO CAPITULO -->
-<h3>📚 Atividades do capítulo</h3>
-
-<div class="questao">
-  <span class="tag-diss">ATIVIDADE 1</span>
-  <p class="enun">a) Refaça o infográfico "Marcha para a guerra", em ordem cronológica, com os acontecimentos da década de 1930. b) Explique o subtítulo "O fascismo provoca a guerra?".</p>
-  <div class="modelo">
-    <b>a) Linha do tempo (modelo):</b><br>
-    1933 → Hitler chega ao poder · 1936 → remilitarização da Renânia · 1936 a 1939 → Guerra Civil Espanhola · 1938 → anexação da Áustria e dos Sudetos (Acordo de Munique) · março/1939 → invasão do resto da Tchecoslováquia · agosto/1939 → Pacto de Não Agressão com a URSS · 1º de setembro de 1939 → invasão da Polônia (começa a guerra).
-  </div>
-  <div class="modelo">
-    <b>b) Resposta-modelo:</b> Sim. O fascismo e o nazismo eram regimes <b>expansionistas e militaristas</b>: pregavam o nacionalismo extremo e a conquista de novos territórios. Foi essa ambição de Hitler e Mussolini, somada à fraqueza da Política de Apaziguamento, que levou o mundo à guerra.
-  </div>
-</div>
-
-<div class="questao">
-  <span class="tag-diss">ATIVIDADE 2</span>
-  <p class="enun">Capa da revista Collier's Magazine (fevereiro de 1943). a) Descreva a imagem. b) Que mensagem(ns) a charge transmite?</p>
-  <div class="modelo">
-    <b>a) Para descrever, observe e cite:</b> a capa é uma <b>charge de propaganda dos Aliados</b> que retrata os líderes do Eixo (como Hitler, Mussolini e o Japão) de forma <b>monstruosa e ridicularizada</b>, em situação de confusão ou derrota. Descreva as figuras, as cores fortes e o tom de deboche.
-  </div>
-  <div class="modelo">
-    <b>b) Mensagem:</b> é uma <b>propaganda de guerra</b>. Ela quer mostrar o Eixo como <b>brutal e fadado à derrota</b>, animando a população aliada a confiar na vitória e a apoiar o esforço de guerra. A arte vira uma arma para levantar o ânimo do próprio lado.
-  </div>
-</div>
-
-<div class="questao">
-  <span class="tag-diss">ATIVIDADE 3</span>
-  <p class="enun">Texto de Eric Hobsbawm sobre a "impessoalidade da guerra". a) Qual a relação entre o avanço tecnológico e o aumento da crueldade? b) Por que países e grupos continuam estimulando conflitos armados?</p>
-  <div class="modelo">
-    <b>a) Resposta-modelo:</b> A tecnologia tornou o matar <b>impessoal e à distância</b>. Apertando um botão ou soltando bombas de um avião, o soldado não vê a vítima: ela vira só um "alvo" ou uma estatística. Sem o envolvimento pessoal, ficou mais fácil cometer crueldades enormes (como os bombardeios e os campos de extermínio). Por isso Hobsbawm diz que as piores crueldades do século foram "impessoais, decididas à distância".
-  </div>
-  <div class="modelo">
-    <b>b) Resposta-modelo (opinião):</b> Mesmo sabendo do horror, conflitos continuam por causa de <b>interesses econômicos</b> (riquezas, território, venda de armas), <b>disputa de poder político</b>, e <b>intolerância</b> (ódio por questões de religião, etnia ou ideologia). Enquanto esses interesses falarem mais alto que a vida humana, as guerras se repetem.
-  </div>
-</div>
-
-<!-- EM CASA -->
-<h3>🏠 Questões "Em casa"</h3>
-
-<div class="questao">
-  <span class="tag-diss">EM CASA · 1</span>
-  <p class="enun">Charge de Belmonte (Chamberlain conversa com Hitler). a) Associe à "Política de Apaziguamento". b) Reveja suas hipóteses; elas se confirmaram?</p>
-  <div class="modelo">
-    <b>a) Resposta-modelo:</b> A charge mostra Chamberlain tentando <b>agradar e acalmar Hitler</b>, em vez de enfrentá-lo. É exatamente a <b>Política de Apaziguamento</b>: as potências liberais (Inglaterra e França) cederam às exigências de Hitler (como entregar os Sudetos em Munique) achando que assim evitariam a guerra. Na prática, só deixaram Hitler mais ousado.
-  </div>
-  <p class="dica">💡 A letra "b" é pessoal: compare o que você achava no começo do módulo com o que aprendeu. Provavelmente você concluiu que <b>ceder ao agressor não evitou a guerra</b>.</p>
-</div>
-
-<div class="questao">
-  <span class="tag-diss">EM CASA · 2</span>
-  <p class="enun">Cartaz da Frente Popular na Guerra Civil Espanhola. a) Interprete o cartaz. b) Por que fascistas e nazistas se envolveram? c) Por que essa guerra é "ensaio" da Segunda Guerra?</p>
-  <div class="modelo">
-    <b>a)</b> O cartaz pede que os civis ("Camaradas da Retaguarda") <b>construam mais abrigos</b> para se proteger dos bombardeios aéreos alemães e italianos e <b>evitar mais mortes</b>. Mostra que a guerra atingia diretamente a população.
-  </div>
-  <div class="modelo">
-    <b>b)</b> Hitler e Mussolini apoiaram o general <b>Franco</b> (rebelde de extrema direita) porque tinham a <b>mesma ideologia</b> e queriam <b>espalhar o fascismo</b>. Também aproveitaram para testar armas e táticas.
-  </div>
-  <div class="modelo">
-    <b>c)</b> Porque ali se <b>testaram as armas e as táticas</b> (como o bombardeio aéreo de cidades, caso de Guernica) e os <b>mesmos lados</b> da Segunda Guerra já se enfrentaram. Foi um "treino" para o conflito maior que viria.
-  </div>
-</div>
-
-<div class="questao">
-  <span class="tag-diss">EM CASA · 3</span>
-  <p class="enun">Charge "O combate" (revista Punch, 1940). a) Interprete a charge. b) O que foi a Blitzkrieg? Relacione com a charge. c) A Blitzkrieg foi bem-sucedida contra a Inglaterra?</p>
-  <div class="modelo">
-    <b>a)</b> Em 1940 a charge mostra a <b>Inglaterra praticamente sozinha</b> enfrentando a poderosa Alemanha, depois da queda da França (momento da Batalha da Grã-Bretanha).
-  </div>
-  <div class="modelo">
-    <b>b)</b> A <b>Blitzkrieg</b> ("guerra-relâmpago") era a tática alemã de <b>ataques rápidos e coordenados</b>, usando tanques, aviões e infantaria juntos para vencer o inimigo antes que ele reagisse. Foi assim que a Alemanha avançou tão depressa no início.
-  </div>
-  <div class="modelo">
-    <b>c)</b> <b>Não.</b> Contra a Inglaterra a Blitzkrieg <b>falhou</b>. Na <b>Batalha da Grã-Bretanha</b>, a aviação inglesa (RAF) resistiu aos bombardeios e o Canal da Mancha impediu a invasão terrestre. Foi o primeiro grande fracasso de Hitler.
-  </div>
-</div>
-
-<div class="questao">
-  <span class="tag-diss">EM CASA · 4</span>
-  <p class="enun">Charge de abril de 1941 (capacidade produtiva americana e poder marítimo britânico x vitórias nazistas). a) Interprete. b) A charge se confirmou? c) Que elemento importante ela não abordou?</p>
-  <div class="modelo">
-    <b>a)</b> Apesar das <b>vitórias nazistas</b>, ainda restavam dois grandes obstáculos no caminho de Hitler: o <b>poder naval britânico</b> e a <b>capacidade industrial dos Estados Unidos</b> ("eles ainda estão aí, chefe!").
-  </div>
-  <div class="modelo">
-    <b>b)</b> <b>Sim, se confirmou.</b> A resistência britânica e, principalmente, a entrada dos EUA na guerra (após Pearl Harbor, em dezembro de 1941) com sua enorme produção industrial foram decisivas para virar o jogo contra o Eixo.
-  </div>
-  <div class="modelo">
-    <b>c)</b> A charge não mostra a <b>União Soviética / a Frente Leste</b>. A resistência soviética, com a vitória em <b>Stalingrado</b>, foi um dos fatores mais decisivos para a derrota da Alemanha.
-  </div>
-</div>
-
-<div class="questao">
-  <span class="tag-diss">EM CASA · 5</span>
-  <p class="enun">"Um bombardeio de poesia": aviões ingleses jogaram o poema "Liberdade", de Paul Éluard, sobre a França (1942). a) Qual era a finalidade? b) Por que o poema se chamava "Liberdade"? c) Que evento em terras francesas foi importante para o início da derrota nazista?</p>
-  <div class="modelo">
-    <b>a)</b> A finalidade era <b>animar e dar esperança à Resistência francesa</b> contra a ocupação nazista. Era um "bombardeio" do bem: em vez de bombas, palavras para fortalecer o ânimo de quem lutava contra Hitler.
-  </div>
-  <div class="modelo">
-    <b>b)</b> Porque a França estava <b>ocupada e sem liberdade</b>. O poema era um chamado à <b>resistência</b> e ao sonho de reconquistar a liberdade perdida, o maior ideal pelo qual se lutava.
-  </div>
-  <div class="modelo">
-    <b>c)</b> O <b>Dia D, o Desembarque na Normandia</b> (6 de junho de 1944): os Aliados desembarcaram na costa francesa, libertaram a França e abriram caminho para a <b>derrota final da Alemanha nazista</b>.
-  </div>
-</div>
-
-<div class="questao">
-  <span class="tag-diss">EM CASA · 6</span>
-  <p class="enun">Texto de Leandro Karnal, "Por quem os sinos dobram?". a) Qual a importância do respeito aos direitos humanos? b) Explique: "O relativismo no campo da lei cria monstros e é a gênese de todo fascismo".</p>
-  <div class="modelo">
-    <b>a)</b> Para Karnal, os direitos humanos são <b>universais</b>: valem para <b>todo ser humano</b>, sem exceção ("basta ser humano para ter direito ao direito"). Respeitá-los protege a <b>dignidade de toda vida</b> e impede que a sociedade caia na <b>barbárie</b>. Defender o direito de todos é também uma forma de proteger a si mesmo.
-  </div>
-  <div class="modelo">
-    <b>b)</b> "Relativismo no campo da lei" é começar a <b>abrir exceções</b>, decidindo que algumas pessoas <b>não merecem</b> direitos. Karnal alerta que é <b>exatamente assim que o fascismo nasce</b>: tirando direitos de um grupo, depois de outro, até liberar a violência contra todos. Por isso os direitos precisam valer para <b>todos, sempre</b>, sem relativizar.
-  </div>
-</div>
-
-<div class="card resumao" style="margin-top:34px;">
-  <span class="tit">🎯 Dica final para a prova, Pedro</span>
-  Decore as <b>datas-chave</b> (1939 início, 1941 Pearl Harbor, 1944 Dia D, 1945 fim e bombas, 1948 Direitos Humanos) e os <b>3 grandes "porquês"</b>: por que começou (fascismo expansionista), por que virou (entrada dos EUA + Stalingrado) e o que sobrou (Guerra Fria + ONU + Direitos Humanos). Com isso você resolve quase qualquer questão deste módulo. Bons estudos! 💪
-</div>
-
-<footer>
-  Guia de estudo feito para o Pedro · História, 9º ano, Módulo 7 · A Segunda Guerra Mundial
-</footer>
-
+<footer>Resumo de estudo do Pedro · História, 9º ano, Módulo 7</footer>
 </div>
 <a href="#topo" class="topo" title="Voltar ao topo">↑</a>
 </body>
