@@ -67,7 +67,6 @@
   .proxima.mostrar{display:block;}
   .proxima:hover{filter:brightness(1.08);}
 
-  /* Tela final */
   .final{text-align:center; padding:14px 6px;}
   .final .emoji{font-size:3.4rem;}
   .final h2{font-size:1.6rem; margin:10px 0;}
@@ -85,7 +84,7 @@
     <div class="selo">História · 9º ano · Quiz</div>
     <h1>A Segunda Guerra Mundial 🌍</h1>
     <div class="barra-topo">
-      <span id="contador">Questão 1 de 20</span>
+      <span id="contador">Questão 1 de 40</span>
       <span id="placar">Acertos: 0</span>
     </div>
     <div class="progresso"><span id="barra"></span></div>
@@ -101,66 +100,137 @@
 
 <script>
 const questoes = [
-  { q:"Em que ano começou a Segunda Guerra Mundial?",
-    alt:["1914","1939","1969"], c:1,
-    e:"Começou em 1939, quando a Alemanha invadiu a Polônia. (1914 foi a Primeira Guerra.)" },
-  { q:"Quem era o líder da Alemanha nazista?",
-    alt:["Adolf Hitler","Charlie Chaplin","Winston Churchill"], c:0,
-    e:"Hitler liderava o nazismo. Chaplin era ator e Churchill era o líder inglês (inimigo de Hitler)." },
-  { q:"Quem era o líder fascista da Itália?",
-    alt:["Franco","Benito Mussolini","Josef Stálin"], c:1,
-    e:"Mussolini criou o fascismo na Itália e era aliado de Hitler." },
-  { q:"A guerra estourou quando a Alemanha invadiu:",
-    alt:["a Polônia","o Brasil","os Estados Unidos"], c:0,
-    e:"Foi a invasão da Polônia, em 1º de setembro de 1939, que fez Inglaterra e França declararem guerra." },
-  { q:"Como se chamava a tática alemã de ataque rápido?",
-    alt:["Blitzkrieg","Apaziguamento","Anschluss"], c:0,
-    e:"Blitzkrieg era a tática de atacar rápido com tanques, aviões e infantaria juntos." },
-  { q:"A palavra 'Blitzkrieg' significa:",
-    alt:["guerra-relâmpago","guerra fria","guerra nas estrelas"], c:0,
-    e:"Blitzkrieg = 'guerra-relâmpago', porque era muito rápida." },
-  { q:"Qual ataque japonês levou os Estados Unidos à guerra?",
-    alt:["Pearl Harbor","a queda de Berlim","o bombardeio de Londres"], c:0,
-    e:"O ataque à base americana de Pearl Harbor, no Havaí, fez os EUA entrarem na guerra." },
-  { q:"Em que data foi o ataque a Pearl Harbor?",
-    alt:["7 de setembro de 1822","7 de dezembro de 1941","1º de janeiro de 2000"], c:1,
-    e:"7 de dezembro de 1941. Essa data marca o momento em que a guerra ficou mundial." },
-  { q:"Os três países principais do Eixo eram Alemanha, Itália e...",
-    alt:["Japão","França","Inglaterra"], c:0,
-    e:"O Eixo era Alemanha + Itália + Japão. França e Inglaterra eram Aliados." },
-  { q:"O Brasil lutou na Segunda Guerra ao lado:",
-    alt:["do Eixo","dos Aliados","de ninguém, ficou neutro"], c:1,
-    e:"O Brasil entrou ao lado dos Aliados depois que submarinos alemães afundaram navios brasileiros." },
-  { q:"Como eram chamados os soldados brasileiros que foram à Itália?",
-    alt:["pracinhas","samurais","cossacos"], c:0,
-    e:"Os soldados da FEB ficaram conhecidos como 'pracinhas'." },
-  { q:"Qual era o nome da força brasileira enviada à guerra?",
-    alt:["FEB (Força Expedicionária Brasileira)","ONU","RAF"], c:0,
-    e:"FEB = Força Expedicionária Brasileira, com cerca de 25 mil soldados." },
-  { q:"O desembarque dos Aliados na França, em 1944, é conhecido como:",
-    alt:["Dia D","Guerra Fria","Semana de Arte Moderna"], c:0,
-    e:"O Dia D (6 de junho de 1944) foi o desembarque na Normandia, que ajudou a libertar a Europa." },
-  { q:"As duas cidades japonesas destruídas por bombas atômicas foram Hiroshima e...",
-    alt:["Tóquio","Nagasaki","Osaka"], c:1,
-    e:"Hiroshima foi a primeira e Nagasaki a segunda cidade atingida pela bomba atômica." },
-  { q:"O que aconteceu com Hitler no fim da guerra?",
-    alt:["Suicidou-se, cercado em Berlim","Foi eleito presidente","Ganhou um prêmio de paz"], c:0,
-    e:"Cercado pelos Aliados em Berlim, em 1945, Hitler se suicidou." },
-  { q:"Em que ano terminou a Segunda Guerra Mundial?",
-    alt:["1945","1955","1930"], c:0,
+  // --- Datas ---
+  { q:"Em que ano começou a Segunda Guerra Mundial?", alt:["1914","1939","1969"], c:1,
+    e:"Começou em 1939, quando a Alemanha invadiu a Polônia." },
+  { q:"Em que ano terminou a Segunda Guerra Mundial?", alt:["1945","1955","1930"], c:0,
     e:"Terminou em 1945, com a rendição da Alemanha e depois do Japão." },
-  { q:"Como se chamou a política de ceder às exigências de Hitler para evitar a guerra?",
-    alt:["Apaziguamento","Blitzkrieg","Nazismo"], c:0,
-    e:"A Política de Apaziguamento cedeu a Hitler (como em Munique), mas só o deixou mais ousado." },
-  { q:"Qual guerra serviu de 'ensaio' para a Segunda Guerra Mundial?",
-    alt:["a Guerra Civil Espanhola","a Guerra Civil Americana","a Guerra do Brasil"], c:0,
-    e:"Na Guerra Civil Espanhola, Alemanha e Itália testaram armas e táticas (como o bombardeio de Guernica)." },
-  { q:"Que organização foi criada em 1945 para promover a paz no mundo?",
-    alt:["a ONU","a FIFA","a NASA"], c:0,
-    e:"A ONU (Organização das Nações Unidas) nasceu em 1945 para evitar novas guerras." },
-  { q:"O documento de 1948 que garante direitos a todo ser humano é a Declaração Universal dos...",
-    alt:["Direitos Humanos","Jogos Olímpicos","Direitos do Consumidor"], c:0,
-    e:"A Declaração Universal dos Direitos Humanos (1948) vale para todo ser humano, sem distinção." },
+  { q:"A guerra durou de 1939 até...", alt:["1945","1980","1939"], c:0,
+    e:"De 1939 a 1945. Foram 6 anos de guerra." },
+
+  // --- Líderes (pares) ---
+  { q:"Quem era o líder da Alemanha nazista?", alt:["Adolf Hitler","Charlie Chaplin","Winston Churchill"], c:0,
+    e:"Hitler = Alemanha, nazismo." },
+  { q:"Hitler era o líder de qual país?", alt:["Alemanha","Japão","Brasil"], c:0,
+    e:"Hitler = Alemanha. (Guarde esse par: Hitler e Alemanha.)" },
+  { q:"Quem era o líder fascista da Itália?", alt:["Benito Mussolini","Franco","Josef Stálin"], c:0,
+    e:"Mussolini = Itália, fascismo." },
+  { q:"Mussolini era o líder de qual país?", alt:["Itália","França","Estados Unidos"], c:0,
+    e:"Mussolini = Itália. (Par: Mussolini e Itália.)" },
+
+  // --- Estopim / Polônia (par) ---
+  { q:"A guerra começou quando a Alemanha invadiu...", alt:["a Polônia","o Brasil","os Estados Unidos"], c:0,
+    e:"A invasão da Polônia, em 1939, foi o estopim da guerra." },
+  { q:"Qual país foi invadido e deu início à Segunda Guerra?", alt:["A Polônia","Portugal","A China"], c:0,
+    e:"A Polônia. Foi aí que a guerra estourou, em 1939." },
+
+  // --- Fascismo/nazismo: expansionismo ---
+  { q:"O que o fascismo e o nazismo queriam fazer?", alt:["Conquistar terras dos vizinhos","Criar videogames","Acabar com as escolas"], c:0,
+    e:"Eram expansionistas: queriam crescer conquistando territórios. Foi isso que provocou a guerra." },
+
+  // --- Blitzkrieg (par + reforço) ---
+  { q:"Como se chamava a tática alemã de ataque rápido?", alt:["Blitzkrieg","Apaziguamento","Anschluss"], c:0,
+    e:"Blitzkrieg: a famosa 'guerra-relâmpago'." },
+  { q:"O que significa a palavra 'Blitzkrieg'?", alt:["Guerra-relâmpago","Guerra fria","Guerra santa"], c:0,
+    e:"Guerra-relâmpago: um ataque rápido e de surpresa." },
+  { q:"Na Blitzkrieg, a Alemanha atacava de que jeito?", alt:["Rápido e de surpresa","Devagar e avisando antes","Só de navio, sem pressa"], c:0,
+    e:"Rápido e de surpresa, juntando tanques, aviões e soldados de uma vez." },
+  { q:"A Blitzkrieg deu certo contra a Inglaterra?", alt:["Não, os ingleses resistiram","Sim, a Inglaterra caiu logo","Sim, sem nenhuma luta"], c:0,
+    e:"Não! Na Batalha da Grã-Bretanha os aviões ingleses resistiram. Foi o 1º tropeço de Hitler." },
+
+  // --- Pearl Harbor (vários jeitos para massificar) ---
+  { q:"Qual ataque fez os Estados Unidos entrarem na guerra?", alt:["O ataque à base americana de Pearl Harbor","A queda de Berlim","O bombardeio de Paris"], c:0,
+    e:"O ataque à base americana de Pearl Harbor. Foi ele que puxou os EUA para a guerra." },
+  { q:"Em 1941, o Japão atacou de surpresa qual base americana?", alt:["Pearl Harbor","Normandia","Stalingrado"], c:0,
+    e:"Pearl Harbor, no Havaí. Depois disso, os EUA entraram na guerra." },
+  { q:"Quem atacou a base americana de Pearl Harbor?", alt:["O Japão","A Itália","O Brasil"], c:0,
+    e:"O Japão. Esse ataque japonês fez a guerra virar mundial." },
+  { q:"Em que data foi o ataque a Pearl Harbor?", alt:["7 de dezembro de 1941","7 de setembro de 1822","1º de janeiro de 2000"], c:0,
+    e:"7 de dezembro de 1941. É a data que marca a guerra ficando mundial." },
+  { q:"Depois do ataque a Pearl Harbor, quem entrou na guerra?", alt:["Os Estados Unidos","O Brasil","A Alemanha"], c:0,
+    e:"Os Estados Unidos. Pearl Harbor → entrada dos EUA." },
+
+  // --- Eixo x Aliados (pares/reforço) ---
+  { q:"Os três países principais do Eixo eram Alemanha, Itália e...", alt:["Japão","França","Inglaterra"], c:0,
+    e:"Eixo = Alemanha + Itália + Japão." },
+  { q:"O Japão fazia parte de qual lado?", alt:["Do Eixo","Dos Aliados","De nenhum lado"], c:0,
+    e:"Do Eixo (junto com Alemanha e Itália)." },
+  { q:"A Inglaterra fazia parte de qual lado?", alt:["Dos Aliados","Do Eixo","De nenhum lado"], c:0,
+    e:"Dos Aliados (com França, URSS, EUA e Brasil)." },
+  { q:"Os Estados Unidos lutaram de que lado?", alt:["Dos Aliados","Do Eixo","Ficaram neutros"], c:0,
+    e:"Dos Aliados." },
+
+  // --- Brasil (pares) ---
+  { q:"De que lado o Brasil lutou na guerra?", alt:["Dos Aliados","Do Eixo","Ficou neutro o tempo todo"], c:0,
+    e:"O Brasil lutou com os Aliados." },
+  { q:"O Brasil lutou contra quem?", alt:["Contra o Eixo","Contra os Aliados","Contra os Estados Unidos"], c:0,
+    e:"Contra o Eixo. (Brasil = Aliados, então luta contra o Eixo.)" },
+  { q:"Por que o Brasil entrou na guerra?", alt:["Submarinos alemães afundaram navios brasileiros","Porque queria conquistar a Europa","Por causa de um jogo de futebol"], c:0,
+    e:"Submarinos alemães afundaram navios brasileiros e mataram pessoas. Aí o Brasil entrou." },
+  { q:"Qual era o nome da força brasileira enviada à guerra?", alt:["FEB (Força Expedicionária Brasileira)","ONU","RAF"], c:0,
+    e:"FEB = Força Expedicionária Brasileira." },
+  { q:"Como eram chamados os soldados brasileiros que foram à Itália?", alt:["Pracinhas","Samurais","Cossacos"], c:0,
+    e:"Pracinhas. Eram os soldados da FEB." },
+  { q:"Os pracinhas brasileiros foram lutar em qual país?", alt:["Itália","Japão","Rússia"], c:0,
+    e:"Na Itália." },
+
+  // --- Dia D (par) ---
+  { q:"O desembarque dos Aliados na França, em 1944, é conhecido como...", alt:["Dia D","Guerra Fria","Semana de Arte Moderna"], c:0,
+    e:"Dia D: o desembarque na Normandia, na França." },
+  { q:"O Dia D aconteceu em qual país?", alt:["França (na Normandia)","Alemanha","Japão"], c:0,
+    e:"Na França, na praia da Normandia. Ajudou a libertar a Europa." },
+
+  // --- Batalhas da virada ---
+  { q:"Qual batalha foi uma grande derrota da Alemanha na União Soviética?", alt:["Stalingrado","Pearl Harbor","Semana de Arte"], c:0,
+    e:"A Batalha de Stalingrado. A partir dela, os Aliados foram vencendo." },
+
+  // --- Fim da guerra ---
+  { q:"O que aconteceu com Hitler no fim da guerra?", alt:["Suicidou-se, cercado em Berlim","Foi eleito presidente","Ganhou um prêmio de paz"], c:0,
+    e:"Cercado em Berlim, em 1945, Hitler se matou." },
+  { q:"O que aconteceu com Mussolini no fim da guerra?", alt:["Foi preso e morto","Virou rei da Itália","Fugiu para a Lua"], c:0,
+    e:"Mussolini foi capturado e morto pela resistência italiana." },
+
+  // --- Bombas atômicas (vários jeitos) ---
+  { q:"As duas cidades japonesas destruídas por bombas atômicas foram Hiroshima e...", alt:["Nagasaki","Tóquio","Osaka"], c:0,
+    e:"Hiroshima e Nagasaki, em 1945." },
+  { q:"Hiroshima foi destruída por qual tipo de bomba?", alt:["Bomba atômica","Bomba de fumaça","Bomba de água"], c:0,
+    e:"Bomba atômica. A mais poderosa e destruidora." },
+  { q:"Qual cidade sofreu a PRIMEIRA bomba atômica?", alt:["Hiroshima","Nagasaki","Tóquio"], c:0,
+    e:"Hiroshima foi a 1ª; Nagasaki foi a 2ª. Depois disso o Japão se rendeu." },
+  { q:"Quem lançou as bombas atômicas no Japão?", alt:["Os Estados Unidos","A Alemanha","O Brasil"], c:0,
+    e:"Os Estados Unidos, para forçar o Japão a se render." },
+
+  // --- Apaziguamento (par) ---
+  { q:"Como se chamou a política de ceder às exigências de Hitler para evitar a guerra?", alt:["Apaziguamento","Blitzkrieg","Nazismo"], c:0,
+    e:"Política de Apaziguamento. Cederam a Hitler achando que ele pararia." },
+  { q:"A Política de Apaziguamento deu certo?", alt:["Não, Hitler continuou invadindo","Sim, evitou a guerra","Sim, Hitler virou amigo de todos"], c:0,
+    e:"Não! Hitler continuou invadindo. Ceder ao agressor não funcionou." },
+
+  // --- Guerra Civil Espanhola ---
+  { q:"Qual guerra foi um 'ensaio' para a Segunda Guerra Mundial?", alt:["A Guerra Civil Espanhola","A Guerra do Brasil","A Guerra de Troia"], c:0,
+    e:"A Guerra Civil Espanhola. Ali a Alemanha e a Itália testaram armas e táticas." },
+
+  // --- Chaplin (curiosidade) ---
+  { q:"Qual ator fez um filme tirando sarro de Hitler ('O Grande Ditador')?", alt:["Charlie Chaplin","Neymar","Albert Einstein"], c:0,
+    e:"Charlie Chaplin. A arte também virou uma arma contra a tirania." },
+
+  // --- ONU (par) ---
+  { q:"Que organização foi criada em 1945 para cuidar da paz no mundo?", alt:["A ONU","A FIFA","A NASA"], c:0,
+    e:"A ONU (Organização das Nações Unidas), em 1945." },
+  { q:"Em que ano foi criada a ONU?", alt:["1945","1900","2010"], c:0,
+    e:"Em 1945, logo depois da guerra." },
+
+  // --- Direitos Humanos ---
+  { q:"O documento de 1948 que garante direitos a todo ser humano é a Declaração Universal dos...", alt:["Direitos Humanos","Jogos Olímpicos","Direitos do Consumidor"], c:0,
+    e:"Declaração Universal dos Direitos Humanos (1948). Vale para todos, sem exceção." },
+
+  // --- Consequências / Guerra Fria (par) ---
+  { q:"Depois da guerra, quais foram as duas nações mais fortes do mundo?", alt:["Estados Unidos e União Soviética","Brasil e Itália","Japão e França"], c:0,
+    e:"EUA e União Soviética viraram as duas superpotências." },
+  { q:"A rivalidade entre Estados Unidos e União Soviética depois da guerra ficou conhecida como...", alt:["Guerra Fria","Guerra Santa","Copa do Mundo"], c:0,
+    e:"Guerra Fria: uma disputa entre EUA e URSS, sem luta direta entre eles." },
+  { q:"Quantas pessoas, mais ou menos, morreram na Segunda Guerra?", alt:["Cerca de 40 milhões","Cerca de 100","Ninguém morreu"], c:0,
+    e:"Cerca de 40 milhões de pessoas. Foi a guerra mais mortal da história." },
 ];
 
 let atual = 0, acertos = 0;
@@ -216,10 +286,11 @@ $("proxima").onclick = ()=>{
 function final(){
   const total = questoes.length;
   const nota = Math.round((acertos/total)*10*10)/10;
+  const pct = acertos/total;
   let emoji, msg;
-  if(acertos >= 18){ emoji="🏆"; msg="Fera! Você mandou muito bem. Está pronto para a prova!"; }
-  else if(acertos >= 14){ emoji="😃"; msg="Muito bom! Só falta revisar alguns pontinhos."; }
-  else if(acertos >= 9){ emoji="🙂"; msg="Bom começo! Dá uma relida no resumo e refaça o quiz."; }
+  if(pct >= 0.9){ emoji="🏆"; msg="Fera! Você mandou muito bem. Está pronto para a prova!"; }
+  else if(pct >= 0.7){ emoji="😃"; msg="Muito bom! Só falta revisar alguns pontinhos."; }
+  else if(pct >= 0.45){ emoji="🙂"; msg="Bom começo! Dá uma relida no resumo e refaça o quiz."; }
   else { emoji="💪"; msg="Sem problema! Leia o resumo com calma e tente de novo. Você consegue!"; }
   $("barra").style.width = "100%";
   $("contador").textContent = "Fim do quiz";
