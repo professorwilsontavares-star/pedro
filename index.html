@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estudos do Pedro</title>
+<style>
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family:"Segoe UI",system-ui,Arial,sans-serif;
+    background:linear-gradient(160deg,#eef3f9,#dfe8f4); color:#1E2B38;
+    min-height:100vh; padding:26px 18px 60px;
+  }
+  .wrap{max-width:600px; margin:0 auto;}
+  header{text-align:center; margin-bottom:26px;}
+  header .emoji{font-size:2.6rem;}
+  header h1{font-size:1.7rem; color:#1d4e89; margin-top:6px;}
+  header p{color:#64748b; margin-top:4px;}
+
+  .materia{
+    background:#fff; border-radius:20px; box-shadow:0 8px 26px rgba(30,43,56,.1);
+    padding:20px 22px; margin-bottom:22px;
+  }
+  .materia h2{font-size:1.15rem; color:#1E2B38; margin-bottom:2px;}
+  .materia .tag{font-size:.72rem; letter-spacing:1.2px; text-transform:uppercase; color:#E25E42; font-weight:800;}
+  .materia .desc{color:#64748b; font-size:.92rem; margin:8px 0 16px;}
+
+  a.card{
+    display:flex; align-items:center; gap:14px; text-decoration:none; color:inherit;
+    border:2px solid #e2e8f0; border-radius:14px; padding:14px 16px; margin-bottom:10px;
+    transition:all .15s ease;
+  }
+  a.card:hover{border-color:#1d4e89; background:#f2f7fd; transform:translateY(-2px);}
+  a.card .ico{font-size:1.7rem; flex:0 0 auto;}
+  a.card .txt b{display:block; font-size:1.05rem;}
+  a.card .txt span{font-size:.85rem; color:#64748b;}
+  a.card .seta{margin-left:auto; color:#94a3b8; font-size:1.3rem;}
+  a.card.destaque{border-color:#2e7d4f; background:#eafaf0;}
+  a.card.destaque:hover{background:#dcf3e4;}
+
+  footer{text-align:center; color:#94a3b8; font-size:.82rem; margin-top:14px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="emoji">📚</div>
+    <h1>Estudos do Pedro</h1>
+    <p>Escolha o que quer estudar hoje 👇</p>
+  </header>
+
+  <section class="materia">
+    <div class="tag">Geografia · Módulo 7</div>
+    <h2>A Segunda Guerra Mundial 🌍</h2>
+    <p class="desc">Começe pela revisão em cartões. Depois teste o que aprendeu no quiz. O resumo é pra tirar dúvidas.</p>
+
+    <a class="card destaque" href="geo-mod07-revisao.html">
+      <span class="ico">🃏</span>
+      <span class="txt"><b>Revisão em cartões</b><span>Os pontos principais, rapidinho</span></span>
+      <span class="seta">→</span>
+    </a>
+
+    <a class="card" href="geo-mod07-quiz.html">
+      <span class="ico">🎯</span>
+      <span class="txt"><b>Quiz interativo</b><span>20 perguntas pra testar você</span></span>
+      <span class="seta">→</span>
+    </a>
+
+    <a class="card" href="geo-mod07-resumo.html">
+      <span class="ico">📖</span>
+      <span class="txt"><b>Resumo completo</b><span>A matéria explicada + respostas dos exercícios</span></span>
+      <span class="seta">→</span>
+    </a>
+  </section>
+
+  <footer>Material de estudo do Pedro · Prof. Wilson Tavares</footer>
+</div>
+</body>
+</html>

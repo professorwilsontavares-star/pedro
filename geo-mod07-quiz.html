@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz do Pedro: A Segunda Guerra Mundial</title>
+<style>
+  :root{
+    --navy:#1E2B38; --azul:#1d4e89; --azul-claro:#e8f0fb;
+    --laranja:#FFE4CC; --coral:#E25E42;
+    --verde:#2e7d4f; --verde-claro:#d7f0df;
+    --vermelho:#c0392b; --vermelho-claro:#fbe0dc;
+    --cinza:#64748b;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;
+    background:linear-gradient(160deg,#eef3f9,#e5ecf6); color:var(--navy);
+    min-height:100vh; display:flex; align-items:center; justify-content:center;
+    padding:20px; line-height:1.55;
+  }
+  .app{
+    width:100%; max-width:640px; background:#fff; border-radius:24px;
+    box-shadow:0 12px 40px rgba(30,43,56,.15); overflow:hidden;
+  }
+  header{
+    background:linear-gradient(135deg,var(--navy),var(--azul));
+    color:#fff; padding:22px 26px 18px;
+  }
+  header .selo{font-size:.72rem; letter-spacing:1.5px; text-transform:uppercase; opacity:.8; font-weight:700;}
+  header h1{font-size:1.35rem; margin-top:4px;}
+  .barra-topo{display:flex; justify-content:space-between; align-items:center; margin-top:14px; font-size:.9rem; font-weight:700;}
+  .progresso{height:9px; background:rgba(255,255,255,.25); border-radius:20px; margin-top:10px; overflow:hidden;}
+  .progresso span{display:block; height:100%; width:0; background:var(--coral); border-radius:20px; transition:width .35s ease;}
+
+  main{padding:26px 26px 30px;}
+  .pergunta{font-size:1.25rem; font-weight:800; color:var(--navy); margin-bottom:20px; min-height:60px;}
+  .alternativas{display:flex; flex-direction:column; gap:12px;}
+  .alt{
+    text-align:left; font-size:1.05rem; padding:15px 18px; border:2px solid #d9e2ec;
+    background:#f8fafc; border-radius:14px; cursor:pointer; transition:all .15s ease;
+    display:flex; align-items:center; gap:12px; font-family:inherit; color:var(--navy);
+  }
+  .alt:hover:not(:disabled){border-color:var(--azul); background:var(--azul-claro); transform:translateY(-1px);}
+  .alt:disabled{cursor:default;}
+  .alt .letra{
+    flex:0 0 30px; height:30px; border-radius:50%; background:var(--navy); color:#fff;
+    display:flex; align-items:center; justify-content:center; font-weight:800; font-size:.95rem;
+  }
+  .alt.certo{border-color:var(--verde); background:var(--verde-claro);}
+  .alt.certo .letra{background:var(--verde);}
+  .alt.errado{border-color:var(--vermelho); background:var(--vermelho-claro);}
+  .alt.errado .letra{background:var(--vermelho);}
+
+  .feedback{margin-top:20px; padding:15px 18px; border-radius:14px; display:none; font-size:1rem;}
+  .feedback.mostrar{display:block; animation:sobe .25s ease;}
+  .feedback.ok{background:var(--verde-claro); border-left:6px solid var(--verde);}
+  .feedback.no{background:var(--vermelho-claro); border-left:6px solid var(--vermelho);}
+  .feedback b{display:block; margin-bottom:3px;}
+  @keyframes sobe{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
+
+  .proxima{
+    margin-top:20px; width:100%; padding:15px; font-size:1.1rem; font-weight:800;
+    background:var(--coral); color:#fff; border:none; border-radius:14px; cursor:pointer;
+    font-family:inherit; display:none; transition:filter .15s;
+  }
+  .proxima.mostrar{display:block;}
+  .proxima:hover{filter:brightness(1.08);}
+
+  /* Tela final */
+  .final{text-align:center; padding:14px 6px;}
+  .final .emoji{font-size:3.4rem;}
+  .final h2{font-size:1.6rem; margin:10px 0;}
+  .final .placar{font-size:1.15rem; color:var(--cinza); margin-bottom:6px;}
+  .final .nota{font-size:3rem; font-weight:900; color:var(--azul); margin:6px 0;}
+  .final .recado{background:var(--laranja); border-radius:14px; padding:14px 18px; margin:18px 0; color:var(--navy);}
+  .refazer{padding:14px 28px; font-size:1.05rem; font-weight:800; background:var(--navy); color:#fff; border:none; border-radius:14px; cursor:pointer; font-family:inherit;}
+  .refazer:hover{filter:brightness(1.15);}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="selo">História · 9º ano · Quiz</div>
+    <h1>A Segunda Guerra Mundial 🌍</h1>
+    <div class="barra-topo">
+      <span id="contador">Questão 1 de 20</span>
+      <span id="placar">Acertos: 0</span>
+    </div>
+    <div class="progresso"><span id="barra"></span></div>
+  </header>
+
+  <main id="palco">
+    <div class="pergunta" id="pergunta"></div>
+    <div class="alternativas" id="alternativas"></div>
+    <div class="feedback" id="feedback"></div>
+    <button class="proxima" id="proxima">Próxima ➜</button>
+  </main>
+</div>
+
+<script>
+const questoes = [
+  { q:"Em que ano começou a Segunda Guerra Mundial?",
+    alt:["1914","1939","1969"], c:1,
+    e:"Começou em 1939, quando a Alemanha invadiu a Polônia. (1914 foi a Primeira Guerra.)" },
+  { q:"Quem era o líder da Alemanha nazista?",
+    alt:["Adolf Hitler","Charlie Chaplin","Winston Churchill"], c:0,
+    e:"Hitler liderava o nazismo. Chaplin era ator e Churchill era o líder inglês (inimigo de Hitler)." },
+  { q:"Quem era o líder fascista da Itália?",
+    alt:["Franco","Benito Mussolini","Josef Stálin"], c:1,
+    e:"Mussolini criou o fascismo na Itália e era aliado de Hitler." },
+  { q:"A guerra estourou quando a Alemanha invadiu:",
+    alt:["a Polônia","o Brasil","os Estados Unidos"], c:0,
+    e:"Foi a invasão da Polônia, em 1º de setembro de 1939, que fez Inglaterra e França declararem guerra." },
+  { q:"Como se chamava a tática alemã de ataque rápido?",
+    alt:["Blitzkrieg","Apaziguamento","Anschluss"], c:0,
+    e:"Blitzkrieg era a tática de atacar rápido com tanques, aviões e infantaria juntos." },
+  { q:"A palavra 'Blitzkrieg' significa:",
+    alt:["guerra-relâmpago","guerra fria","guerra nas estrelas"], c:0,
+    e:"Blitzkrieg = 'guerra-relâmpago', porque era muito rápida." },
+  { q:"Qual ataque japonês levou os Estados Unidos à guerra?",
+    alt:["Pearl Harbor","a queda de Berlim","o bombardeio de Londres"], c:0,
+    e:"O ataque à base americana de Pearl Harbor, no Havaí, fez os EUA entrarem na guerra." },
+  { q:"Em que data foi o ataque a Pearl Harbor?",
+    alt:["7 de setembro de 1822","7 de dezembro de 1941","1º de janeiro de 2000"], c:1,
+    e:"7 de dezembro de 1941. Essa data marca o momento em que a guerra ficou mundial." },
+  { q:"Os três países principais do Eixo eram Alemanha, Itália e...",
+    alt:["Japão","França","Inglaterra"], c:0,
+    e:"O Eixo era Alemanha + Itália + Japão. França e Inglaterra eram Aliados." },
+  { q:"O Brasil lutou na Segunda Guerra ao lado:",
+    alt:["do Eixo","dos Aliados","de ninguém, ficou neutro"], c:1,
+    e:"O Brasil entrou ao lado dos Aliados depois que submarinos alemães afundaram navios brasileiros." },
+  { q:"Como eram chamados os soldados brasileiros que foram à Itália?",
+    alt:["pracinhas","samurais","cossacos"], c:0,
+    e:"Os soldados da FEB ficaram conhecidos como 'pracinhas'." },
+  { q:"Qual era o nome da força brasileira enviada à guerra?",
+    alt:["FEB (Força Expedicionária Brasileira)","ONU","RAF"], c:0,
+    e:"FEB = Força Expedicionária Brasileira, com cerca de 25 mil soldados." },
+  { q:"O desembarque dos Aliados na França, em 1944, é conhecido como:",
+    alt:["Dia D","Guerra Fria","Semana de Arte Moderna"], c:0,
+    e:"O Dia D (6 de junho de 1944) foi o desembarque na Normandia, que ajudou a libertar a Europa." },
+  { q:"As duas cidades japonesas destruídas por bombas atômicas foram Hiroshima e...",
+    alt:["Tóquio","Nagasaki","Osaka"], c:1,
+    e:"Hiroshima foi a primeira e Nagasaki a segunda cidade atingida pela bomba atômica." },
+  { q:"O que aconteceu com Hitler no fim da guerra?",
+    alt:["Suicidou-se, cercado em Berlim","Foi eleito presidente","Ganhou um prêmio de paz"], c:0,
+    e:"Cercado pelos Aliados em Berlim, em 1945, Hitler se suicidou." },
+  { q:"Em que ano terminou a Segunda Guerra Mundial?",
+    alt:["1945","1955","1930"], c:0,
+    e:"Terminou em 1945, com a rendição da Alemanha e depois do Japão." },
+  { q:"Como se chamou a política de ceder às exigências de Hitler para evitar a guerra?",
+    alt:["Apaziguamento","Blitzkrieg","Nazismo"], c:0,
+    e:"A Política de Apaziguamento cedeu a Hitler (como em Munique), mas só o deixou mais ousado." },
+  { q:"Qual guerra serviu de 'ensaio' para a Segunda Guerra Mundial?",
+    alt:["a Guerra Civil Espanhola","a Guerra Civil Americana","a Guerra do Brasil"], c:0,
+    e:"Na Guerra Civil Espanhola, Alemanha e Itália testaram armas e táticas (como o bombardeio de Guernica)." },
+  { q:"Que organização foi criada em 1945 para promover a paz no mundo?",
+    alt:["a ONU","a FIFA","a NASA"], c:0,
+    e:"A ONU (Organização das Nações Unidas) nasceu em 1945 para evitar novas guerras." },
+  { q:"O documento de 1948 que garante direitos a todo ser humano é a Declaração Universal dos...",
+    alt:["Direitos Humanos","Jogos Olímpicos","Direitos do Consumidor"], c:0,
+    e:"A Declaração Universal dos Direitos Humanos (1948) vale para todo ser humano, sem distinção." },
+];
+
+let atual = 0, acertos = 0;
+const letras = ["A","B","C"];
+const $ = id => document.getElementById(id);
+
+function render(){
+  const item = questoes[atual];
+  $("contador").textContent = `Questão ${atual+1} de ${questoes.length}`;
+  $("placar").textContent = `Acertos: ${acertos}`;
+  $("barra").style.width = `${(atual/questoes.length)*100}%`;
+  $("pergunta").textContent = item.q;
+  const box = $("alternativas"); box.innerHTML = "";
+  item.alt.forEach((texto,i)=>{
+    const b = document.createElement("button");
+    b.className = "alt";
+    b.innerHTML = `<span class="letra">${letras[i]}</span><span>${texto}</span>`;
+    b.onclick = ()=>responder(i,b);
+    box.appendChild(b);
+  });
+  const fb = $("feedback"); fb.className = "feedback"; fb.innerHTML = "";
+  $("proxima").className = "proxima";
+  $("proxima").textContent = atual === questoes.length-1 ? "Ver resultado 🏁" : "Próxima ➜";
+}
+
+function responder(escolha, botao){
+  const item = questoes[atual];
+  const botoes = document.querySelectorAll(".alt");
+  botoes.forEach((b,i)=>{
+    b.disabled = true;
+    if(i === item.c) b.classList.add("certo");
+    if(i === escolha && escolha !== item.c) b.classList.add("errado");
+  });
+  const fb = $("feedback");
+  if(escolha === item.c){
+    acertos++;
+    fb.className = "feedback ok mostrar";
+    fb.innerHTML = `<b>✅ Acertou!</b>${item.e}`;
+  } else {
+    fb.className = "feedback no mostrar";
+    fb.innerHTML = `<b>❌ Quase!</b> A resposta certa é <b style="display:inline">${letras[item.c]}</b>. ${item.e}`;
+  }
+  $("placar").textContent = `Acertos: ${acertos}`;
+  $("proxima").classList.add("mostrar");
+}
+
+$("proxima").onclick = ()=>{
+  atual++;
+  if(atual < questoes.length) render();
+  else final();
+};
+
+function final(){
+  const total = questoes.length;
+  const nota = Math.round((acertos/total)*10*10)/10;
+  let emoji, msg;
+  if(acertos >= 18){ emoji="🏆"; msg="Fera! Você mandou muito bem. Está pronto para a prova!"; }
+  else if(acertos >= 14){ emoji="😃"; msg="Muito bom! Só falta revisar alguns pontinhos."; }
+  else if(acertos >= 9){ emoji="🙂"; msg="Bom começo! Dá uma relida no resumo e refaça o quiz."; }
+  else { emoji="💪"; msg="Sem problema! Leia o resumo com calma e tente de novo. Você consegue!"; }
+  $("barra").style.width = "100%";
+  $("contador").textContent = "Fim do quiz";
+  $("palco").innerHTML = `
+    <div class="final">
+      <div class="emoji">${emoji}</div>
+      <h2>Quiz concluído!</h2>
+      <div class="placar">Você acertou <b>${acertos}</b> de <b>${total}</b> questões</div>
+      <div class="nota">Nota ${nota}</div>
+      <div class="recado">${msg}</div>
+      <button class="refazer" onclick="reiniciar()">🔁 Fazer de novo</button>
+    </div>`;
+}
+
+function reiniciar(){
+  atual = 0; acertos = 0;
+  $("palco").innerHTML = `
+    <div class="pergunta" id="pergunta"></div>
+    <div class="alternativas" id="alternativas"></div>
+    <div class="feedback" id="feedback"></div>
+    <button class="proxima" id="proxima">Próxima ➜</button>`;
+  $("proxima").onclick = ()=>{ atual++; if(atual<questoes.length) render(); else final(); };
+  render();
+}
+
+render();
+</script>
+</body>
+</html>
