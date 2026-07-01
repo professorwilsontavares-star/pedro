@@ -19,7 +19,7 @@ Material escolar do Pedro (13 anos, Ensino Fundamental Anos Finais / 9º ano), p
 | `geo-mod07-quiz.html` | Quiz interativo (20 questões) |
 | `geo-mod07-resumo.html` | Resumo da matéria + gabarito comentado |
 
-> Obs.: o "Módulo 7" está rotulado como Geografia pelo Pedro, mas o conteúdo é **História** (2ª Guerra Mundial).
+> ⚠ **PENDENTE (ajustar depois):** a matéria é **HISTÓRIA**, não Geografia (o Wilsi tinha falado errado). Renomear os arquivos `geo-mod07-*` → `hist-mod07-*`, atualizar os links no `index.html` e a pasta `fontes/Geografia` → `fontes/Historia`. Os títulos DENTRO das páginas já dizem "História". Não renomear antes de combinar, pra não quebrar o link já compartilhado.
 
 ## PADRÕES obrigatórios de toda página nova
 
