@@ -15,20 +15,25 @@ Material escolar do Pedro (13 anos, Ensino Fundamental Anos Finais / 9º ano), p
 | Arquivo | O que é |
 |---|---|
 | `index.html` | **Hub** — página inicial que lista todas as atividades |
-| `geo-mod07-revisao.html` | Revisão em cartões (pontos principais) |
-| `geo-mod07-quiz.html` | Quiz interativo (20 questões) |
-| `geo-mod07-resumo.html` | Resumo da matéria + gabarito comentado |
+| `hist-mod07-revisao.html` | Revisão em cartões (pontos principais) |
+| `hist-mod07-quiz.html` | Quiz interativo (48 questões, embaralha sozinho) |
+| `hist-mod07-resumo.html` | Resumo da matéria (linguagem simples + figuras) + gabarito |
 
-> ⚠ **PENDENTE (ajustar depois):** a matéria é **HISTÓRIA**, não Geografia (o Wilsi tinha falado errado). Renomear os arquivos `geo-mod07-*` → `hist-mod07-*`, atualizar os links no `index.html` e a pasta `fontes/Geografia` → `fontes/Historia`. Os títulos DENTRO das páginas já dizem "História". Não renomear antes de combinar, pra não quebrar o link já compartilhado.
+> A matéria do Módulo 7 é **História** (2ª Guerra Mundial). Geografia fica para o futuro (usar prefixo `geo-` quando chegar).
 
 ## PADRÕES obrigatórios de toda página nova
+(seguir SEMPRE — foi assim que o Wilsi pediu)
 
-1. **Botão "← Voltar" (voltar ao HUB):** TODA página de atividade tem que ter um botão fixo no **topo, centralizado**, que leva de volta ao `index.html`. É o padrão do projeto (coral, texto "← Voltar"). Snippet:
+1. **Botão "← Voltar" (voltar ao HUB):** TODA página tem um botão fixo no **topo, centralizado**, que volta pro `index.html` (coral, texto "← Voltar"). Colocar logo depois de `<body>`. Snippet:
    ```html
    <a href="index.html" class="btn-voltar-hub" style="position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:9999;display:inline-flex;align-items:center;gap:7px;background:#E25E42;color:#fff;text-decoration:none;font-weight:800;font-size:1rem;padding:11px 18px;border-radius:30px;box-shadow:0 4px 14px rgba(0,0,0,.3);font-family:'Segoe UI',system-ui,Arial,sans-serif;">← Voltar</a>
    ```
-   (Colocar logo depois de `<body>`.)
-2. **Nome do arquivo:** `<materia>-mod<NN>-<tipo>.html` — ex.: `geo-mod08-quiz.html`, `hist-mod01-revisao.html`.
-3. **Registrar no hub:** todo material novo entra como um card no `index.html`.
-4. **Autocontido:** CSS e JS inline no próprio `.html` (funciona offline, sem depender de internet ou de outros arquivos).
+2. **Nome do arquivo:** `<materia>-mod<NN>-<tipo>.html` — ex.: `hist-mod08-quiz.html`, `geo-mod01-revisao.html`. Prefixo = matéria REAL (história = `hist`, geografia = `geo`).
+3. **Registrar no hub:** todo material novo entra como um card no `index.html`, com a **contagem certa** (ex.: "48 perguntas", não deixar número velho).
+4. **Autocontido:** CSS e JS inline no próprio `.html` (funciona offline).
 5. **Estilo:** simples, linguagem de adolescente, interativo. NÃO é apostila de concurso — foco em lembrar os pontos principais.
+
+### Padrões por tipo de página
+- **Quiz:** 3 alternativas; **embaralhar automaticamente** a ordem das perguntas E das alternativas a cada rodada (Fisher-Yates); resposta de cada questão **reforça o conceito** (ex.: "O ataque à base americana de Pearl Harbor…"); incluir **pares de questões parecidas** (mesmo conceito perguntado de 2-3 jeitos) para massificar; botão final "🔀 Embaralhar e refazer".
+- **Resumo:** linguagem BEM simples, **tópicos** (listas) no lugar de textão, e **figuras** feitas em SVG na própria página (bandeiras, linha do tempo, ícones) — nada de imagem externa. Evitar símbolos impróprios (ex.: nada de suástica; usar bandeira atual do país).
+- **Revisão:** cartões curtos (pergunta → clicar → resposta curta), só os pontos principais.
