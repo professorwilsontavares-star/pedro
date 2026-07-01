@@ -233,15 +233,27 @@ const questoes = [
     e:"Cerca de 40 milhões de pessoas. Foi a guerra mais mortal da história." },
 ];
 
+// embaralha uma lista no lugar (Fisher-Yates)
+function embaralhar(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+// monta uma rodada nova: ordem das PERGUNTAS e das ALTERNATIVAS embaralhadas
+function preparar(){
+  return embaralhar(questoes.slice()).map(q=>{
+    const alts = q.alt.map((texto,i)=>({ texto, certa:i===q.c }));
+    embaralhar(alts);
+    return { q:q.q, alt:alts.map(a=>a.texto), c:alts.findIndex(a=>a.certa), e:q.e };
+  });
+}
+let jogo = preparar();
+
 let atual = 0, acertos = 0;
 const letras = ["A","B","C"];
 const $ = id => document.getElementById(id);
 
 function render(){
-  const item = questoes[atual];
-  $("contador").textContent = `Questão ${atual+1} de ${questoes.length}`;
+  const item = jogo[atual];
+  $("contador").textContent = `Questão ${atual+1} de ${jogo.length}`;
   $("placar").textContent = `Acertos: ${acertos}`;
-  $("barra").style.width = `${(atual/questoes.length)*100}%`;
+  $("barra").style.width = `${(atual/jogo.length)*100}%`;
   $("pergunta").textContent = item.q;
   const box = $("alternativas"); box.innerHTML = "";
   item.alt.forEach((texto,i)=>{
@@ -253,11 +265,11 @@ function render(){
   });
   const fb = $("feedback"); fb.className = "feedback"; fb.innerHTML = "";
   $("proxima").className = "proxima";
-  $("proxima").textContent = atual === questoes.length-1 ? "Ver resultado 🏁" : "Próxima ➜";
+  $("proxima").textContent = atual === jogo.length-1 ? "Ver resultado 🏁" : "Próxima ➜";
 }
 
 function responder(escolha, botao){
-  const item = questoes[atual];
+  const item = jogo[atual];
   const botoes = document.querySelectorAll(".alt");
   botoes.forEach((b,i)=>{
     b.disabled = true;
@@ -279,12 +291,12 @@ function responder(escolha, botao){
 
 $("proxima").onclick = ()=>{
   atual++;
-  if(atual < questoes.length) render();
+  if(atual < jogo.length) render();
   else final();
 };
 
 function final(){
-  const total = questoes.length;
+  const total = jogo.length;
   const nota = Math.round((acertos/total)*10*10)/10;
   const pct = acertos/total;
   let emoji, msg;
@@ -301,18 +313,18 @@ function final(){
       <div class="placar">Você acertou <b>${acertos}</b> de <b>${total}</b> questões</div>
       <div class="nota">Nota ${nota}</div>
       <div class="recado">${msg}</div>
-      <button class="refazer" onclick="reiniciar()">🔁 Fazer de novo</button>
+      <button class="refazer" onclick="reiniciar()">🔀 Embaralhar e refazer</button>
     </div>`;
 }
 
 function reiniciar(){
-  atual = 0; acertos = 0;
+  atual = 0; acertos = 0; jogo = preparar();
   $("palco").innerHTML = `
     <div class="pergunta" id="pergunta"></div>
     <div class="alternativas" id="alternativas"></div>
     <div class="feedback" id="feedback"></div>
     <button class="proxima" id="proxima">Próxima ➜</button>`;
-  $("proxima").onclick = ()=>{ atual++; if(atual<questoes.length) render(); else final(); };
+  $("proxima").onclick = ()=>{ atual++; if(atual<jogo.length) render(); else final(); };
   render();
 }
 
