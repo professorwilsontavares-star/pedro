@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz do Pedro: Felicidade Clandestina</title>
+<style>
+  :root{
+    --navy:#1E2B38; --roxo:#6c3fa3; --roxo-claro:#f0e9f8;
+    --laranja:#FFE4CC; --coral:#E25E42;
+    --verde:#2e7d4f; --verde-claro:#d7f0df;
+    --vermelho:#c0392b; --vermelho-claro:#fbe0dc;
+    --cinza:#64748b;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;
+    background:linear-gradient(160deg,#f3eefb,#e7dcf5); color:var(--navy);
+    min-height:100vh; display:flex; align-items:center; justify-content:center;
+    padding:20px; line-height:1.55;
+  }
+  .app{width:100%; max-width:640px; background:#fff; border-radius:24px; box-shadow:0 12px 40px rgba(60,36,101,.16); overflow:hidden;}
+  header{background:linear-gradient(135deg,#6c3fa3,#3d2465); color:#fff; padding:22px 26px 18px;}
+  header .selo{font-size:.72rem; letter-spacing:1.5px; text-transform:uppercase; opacity:.8; font-weight:700;}
+  header h1{font-size:1.35rem; margin-top:4px;}
+  .barra-topo{display:flex; justify-content:space-between; align-items:center; margin-top:14px; font-size:.9rem; font-weight:700;}
+  .progresso{height:9px; background:rgba(255,255,255,.25); border-radius:20px; margin-top:10px; overflow:hidden;}
+  .progresso span{display:block; height:100%; width:0; background:var(--coral); border-radius:20px; transition:width .35s ease;}
+  main{padding:26px 26px 30px;}
+  .pergunta{font-size:1.25rem; font-weight:800; color:var(--navy); margin-bottom:20px; min-height:60px;}
+  .alternativas{display:flex; flex-direction:column; gap:12px;}
+  .alt{text-align:left; font-size:1.05rem; padding:15px 18px; border:2px solid #e0d7ee; background:#faf8fd; border-radius:14px; cursor:pointer; transition:all .15s ease; display:flex; align-items:center; gap:12px; font-family:inherit; color:var(--navy);}
+  .alt:hover:not(:disabled){border-color:var(--roxo); background:var(--roxo-claro); transform:translateY(-1px);}
+  .alt:disabled{cursor:default;}
+  .alt .letra{flex:0 0 30px; height:30px; border-radius:50%; background:var(--roxo); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:.95rem;}
+  .alt.certo{border-color:var(--verde); background:var(--verde-claro);} .alt.certo .letra{background:var(--verde);}
+  .alt.errado{border-color:var(--vermelho); background:var(--vermelho-claro);} .alt.errado .letra{background:var(--vermelho);}
+  .feedback{margin-top:20px; padding:15px 18px; border-radius:14px; display:none; font-size:1rem;}
+  .feedback.mostrar{display:block; animation:sobe .25s ease;}
+  .feedback.ok{background:var(--verde-claro); border-left:6px solid var(--verde);}
+  .feedback.no{background:var(--vermelho-claro); border-left:6px solid var(--vermelho);}
+  .feedback b{display:block; margin-bottom:3px;}
+  @keyframes sobe{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
+  .proxima{margin-top:20px; width:100%; padding:15px; font-size:1.1rem; font-weight:800; background:var(--coral); color:#fff; border:none; border-radius:14px; cursor:pointer; font-family:inherit; display:none; transition:filter .15s;}
+  .proxima.mostrar{display:block;} .proxima:hover{filter:brightness(1.08);}
+  .final{text-align:center; padding:14px 6px;}
+  .final .emoji{font-size:3.4rem;} .final h2{font-size:1.6rem; margin:10px 0;}
+  .final .placar{font-size:1.15rem; color:var(--cinza); margin-bottom:6px;}
+  .final .nota{font-size:3rem; font-weight:900; color:var(--roxo); margin:6px 0;}
+  .final .recado{background:var(--laranja); border-radius:14px; padding:14px 18px; margin:18px 0; color:var(--navy);}
+  .refazer{padding:14px 28px; font-size:1.05rem; font-weight:800; background:var(--roxo); color:#fff; border:none; border-radius:14px; cursor:pointer; font-family:inherit;}
+  .refazer:hover{filter:brightness(1.15);}
+</style>
+</head>
+<body>
+<a href="index.html" class="btn-voltar-hub" style="position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:9999;display:inline-flex;align-items:center;gap:7px;background:#E25E42;color:#fff;text-decoration:none;font-weight:800;font-size:1rem;padding:11px 18px;border-radius:30px;box-shadow:0 4px 14px rgba(0,0,0,.3);font-family:'Segoe UI',system-ui,Arial,sans-serif;">← Voltar</a>
+<div class="app">
+  <header>
+    <div class="selo">Português · 9º ano · Quiz</div>
+    <h1>Felicidade Clandestina 📖</h1>
+    <div class="barra-topo">
+      <span id="contador">Questão 1</span>
+      <span id="placar">Acertos: 0</span>
+    </div>
+    <div class="progresso"><span id="barra"></span></div>
+  </header>
+  <main id="palco">
+    <div class="pergunta" id="pergunta"></div>
+    <div class="alternativas" id="alternativas"></div>
+    <div class="feedback" id="feedback"></div>
+    <button class="proxima" id="proxima">Próxima ➜</button>
+  </main>
+</div>
+<script>
+const questoes = [
+  { q:"Quem escreveu 'Felicidade Clandestina'?", alt:["Clarice Lispector","Monteiro Lobato","Machado de Assis"], c:0,
+    e:"Foi Clarice Lispector, uma das maiores escritoras do Brasil." },
+  { q:"Que tipo de texto é 'Felicidade Clandestina'?", alt:["Um conto (história curta)","Um poema","Uma notícia de jornal"], c:0,
+    e:"É um conto: uma narrativa curta, com poucos personagens." },
+  { q:"A história é contada em que pessoa?", alt:["1ª pessoa (a menina conta, com 'eu')","3ª pessoa","Não tem narrador"], c:0,
+    e:"Em 1ª pessoa: é a própria menina que conta, usando 'eu'." },
+  { q:"Em qual cidade a história se passa?", alt:["Recife","São Paulo","Salvador"], c:0,
+    e:"Em Recife, cidade onde Clarice cresceu." },
+  { q:"Qual livro a menina desejava tanto?", alt:["As Reinações de Narizinho","Dom Casmurro","O Pequeno Príncipe"], c:0,
+    e:"'As Reinações de Narizinho', de Monteiro Lobato." },
+  { q:"De quem era o livro 'As Reinações de Narizinho'?", alt:["De Monteiro Lobato","De Clarice Lispector","De Vinicius de Moraes"], c:0,
+    e:"De Monteiro Lobato. (Cuidado: quem escreveu o CONTO foi Clarice; o LIVRO desejado é de Monteiro Lobato.)" },
+  { q:"O que a menina má tinha que a narradora invejava?", alt:["Um pai dono de livraria","Muito dinheiro","Uma bicicleta nova"], c:0,
+    e:"Um pai dono de livraria, cheio de livros." },
+  { q:"A menina má gostava de ler?", alt:["Não, ela nem lia os livros","Sim, lia o tempo todo","Só lia gibi"], c:0,
+    e:"Não! Ela tinha os livros mas nem gostava de ler. A narradora é que amava ler." },
+  { q:"Como a menina má era cruel com a narradora?", alt:["Prometia o livro e dizia 'volte amanhã' todo dia","Batia nela","Ria da sua roupa"], c:0,
+    e:"Ela prometia emprestar e mandava a menina 'voltar amanhã' sem parar, por pura maldade." },
+  { q:"Qual frase a menina má repetia para torturar a narradora?", alt:["'Volte amanhã'","'Nunca mais venha'","'O livro é seu'"], c:0,
+    e:"'Volte amanhã': ela brincava com a esperança da menina dia após dia." },
+  { q:"O livro chegou a sair da casa da menina má?", alt:["Não, nunca saiu de casa","Sim, ela emprestou logo","Sim, mas rasgado"], c:0,
+    e:"Não! O livro nunca saiu de casa, e ela nem queria lê-lo. Tudo era maldade." },
+  { q:"Quem descobriu a maldade e resolveu a situação?", alt:["A mãe da menina má","O professor","O dono da livraria"], c:0,
+    e:"A mãe da menina má descobriu tudo e mandou emprestar o livro na hora." },
+  { q:"O que a mãe disse à narradora sobre o livro?", alt:["Que podia ficar com ele o tempo que quisesse","Que devolvesse no dia seguinte","Que comprasse o seu"], c:0,
+    e:"Disse para ficar com o livro 'pelo tempo que quisesse'. Isso valeu mais que o próprio livro!" },
+  { q:"O que a menina fez assim que ganhou o livro?", alt:["Adiou a leitura para saborear devagar","Leu tudo correndo","Deu o livro para outra pessoa"], c:0,
+    e:"Ela adiou de propósito, fingindo que nem tinha o livro, só para prolongar o prazer." },
+  { q:"O que significa a palavra 'clandestina'?", alt:["Escondida, secreta","Barulhenta","Rápida"], c:0,
+    e:"Clandestina = escondida, secreta." },
+  { q:"Por que a felicidade dela era 'clandestina'?", alt:["Era uma alegria íntima que ela guardava só para si","Porque era proibida por lei","Porque ninguém mais era feliz"], c:0,
+    e:"Era uma alegria tão grande e secreta que ela queria saborear escondido, só para si." },
+  { q:"Qual é o tema principal do conto?", alt:["O amor pela leitura","A viagem de férias","Um jogo de futebol"], c:0,
+    e:"O amor pela leitura: um livro pode valer o mundo para quem ama ler." },
+  { q:"Como termina o conto?", alt:["'Não era mais uma menina com um livro: era uma mulher com o seu amante'","'E foram felizes para sempre'","'Fim'"], c:0,
+    e:"Com essa frase famosa: o livro virou um grande amor para a menina." },
+  { q:"Clarice Lispector nasceu em qual país?", alt:["Ucrânia","Brasil","Portugal"], c:0,
+    e:"Nasceu na Ucrânia, mas veio para o Brasil com só 2 meses de idade." },
+  { q:"'Boquiaberta' quer dizer:", alt:["De boca aberta, surpresa","Com fome","Com sono"], c:0,
+    e:"Boquiaberta = de boca aberta, pasma de surpresa." },
+];
+function embaralhar(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function preparar(){
+  return embaralhar(questoes.slice()).map(q=>{
+    const alts = q.alt.map((texto,i)=>({ texto, certa:i===q.c }));
+    embaralhar(alts);
+    return { q:q.q, alt:alts.map(a=>a.texto), c:alts.findIndex(a=>a.certa), e:q.e };
+  });
+}
+let jogo = preparar();
+let atual = 0, acertos = 0;
+const letras = ["A","B","C"];
+const $ = id => document.getElementById(id);
+function render(){
+  const item = jogo[atual];
+  $("contador").textContent = `Questão ${atual+1} de ${jogo.length}`;
+  $("placar").textContent = `Acertos: ${acertos}`;
+  $("barra").style.width = `${(atual/jogo.length)*100}%`;
+  $("pergunta").textContent = item.q;
+  const box = $("alternativas"); box.innerHTML = "";
+  item.alt.forEach((texto,i)=>{
+    const b = document.createElement("button");
+    b.className = "alt";
+    b.innerHTML = `<span class="letra">${letras[i]}</span><span>${texto}</span>`;
+    b.onclick = ()=>responder(i,b);
+    box.appendChild(b);
+  });
+  const fb = $("feedback"); fb.className = "feedback"; fb.innerHTML = "";
+  $("proxima").className = "proxima";
+  $("proxima").textContent = atual === jogo.length-1 ? "Ver resultado 🏁" : "Próxima ➜";
+}
+function responder(escolha){
+  const item = jogo[atual];
+  document.querySelectorAll(".alt").forEach((b,i)=>{
+    b.disabled = true;
+    if(i === item.c) b.classList.add("certo");
+    if(i === escolha && escolha !== item.c) b.classList.add("errado");
+  });
+  const fb = $("feedback");
+  if(escolha === item.c){ acertos++; fb.className = "feedback ok mostrar"; fb.innerHTML = `<b>✅ Acertou!</b>${item.e}`; }
+  else { fb.className = "feedback no mostrar"; fb.innerHTML = `<b>❌ Quase!</b> A resposta certa é <b style="display:inline">${letras[item.c]}</b>. ${item.e}`; }
+  $("placar").textContent = `Acertos: ${acertos}`;
+  $("proxima").classList.add("mostrar");
+}
+$("proxima").onclick = ()=>{ atual++; if(atual < jogo.length) render(); else final(); };
+function final(){
+  const total = jogo.length;
+  const nota = Math.round((acertos/total)*10*10)/10;
+  const pct = acertos/total;
+  let emoji, msg;
+  if(pct >= 0.9){ emoji="🏆"; msg="Fera! Você entendeu o conto muito bem. Está pronto para a prova!"; }
+  else if(pct >= 0.7){ emoji="😃"; msg="Muito bom! Só falta revisar alguns pontinhos."; }
+  else if(pct >= 0.45){ emoji="🙂"; msg="Bom começo! Dá uma relida no resumo e refaça o quiz."; }
+  else { emoji="💪"; msg="Sem problema! Leia o resumo com calma e tente de novo. Você consegue!"; }
+  $("barra").style.width = "100%"; $("contador").textContent = "Fim do quiz";
+  $("palco").innerHTML = `
+    <div class="final">
+      <div class="emoji">${emoji}</div>
+      <h2>Quiz concluído!</h2>
+      <div class="placar">Você acertou <b>${acertos}</b> de <b>${total}</b> questões</div>
+      <div class="nota">Nota ${nota}</div>
+      <div class="recado">${msg}</div>
+      <button class="refazer" onclick="reiniciar()">🔀 Embaralhar e refazer</button>
+    </div>`;
+}
+function reiniciar(){
+  atual = 0; acertos = 0; jogo = preparar();
+  $("palco").innerHTML = `
+    <div class="pergunta" id="pergunta"></div>
+    <div class="alternativas" id="alternativas"></div>
+    <div class="feedback" id="feedback"></div>
+    <button class="proxima" id="proxima">Próxima ➜</button>`;
+  $("proxima").onclick = ()=>{ atual++; if(atual<jogo.length) render(); else final(); };
+  render();
+}
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revisão do Pedro: Felicidade Clandestina</title>
+<style>
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family:"Segoe UI",system-ui,Arial,sans-serif;
+    background:linear-gradient(160deg,#f3eefb,#e7dcf5);
+    min-height:100vh; display:flex; align-items:center; justify-content:center;
+    padding:20px; color:#1E2B38;
+  }
+  .box{width:100%; max-width:520px; text-align:center;}
+  h1{font-size:1.3rem; color:#6c3fa3; margin-bottom:4px;}
+  .sub{color:#64748b; font-size:.9rem; margin-bottom:18px;}
+  .contador{font-weight:700; color:#64748b; margin-bottom:12px;}
+  .cartao{
+    background:#fff; border-radius:22px; box-shadow:0 12px 34px rgba(60,36,101,.16);
+    padding:36px 28px; min-height:250px; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; gap:20px;
+  }
+  .rotulo{font-size:.75rem; letter-spacing:1.5px; text-transform:uppercase; font-weight:800;}
+  .rotulo.p{color:#E25E42;} .rotulo.r{color:#2e7d4f;}
+  .pergunta{font-size:1.4rem; font-weight:800; line-height:1.4;}
+  .resposta{font-size:1.2rem; line-height:1.5; color:#3d2465; display:none;}
+  .resposta.mostrar{display:block; animation:sobe .2s ease;}
+  @keyframes sobe{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+  .bts{display:flex; gap:10px; margin-top:18px; justify-content:center; flex-wrap:wrap;}
+  button{font-family:inherit; font-size:1rem; font-weight:800; border:none; cursor:pointer; padding:14px 22px; border-radius:14px; transition:filter .15s;}
+  button:hover{filter:brightness(1.08);}
+  .ver{background:#6c3fa3; color:#fff;} .prox{background:#E25E42; color:#fff;} .voltar{background:#e2e8f0; color:#1E2B38;}
+</style>
+</head>
+<body>
+<a href="index.html" class="btn-voltar-hub" style="position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:9999;display:inline-flex;align-items:center;gap:7px;background:#E25E42;color:#fff;text-decoration:none;font-weight:800;font-size:1rem;padding:11px 18px;border-radius:30px;box-shadow:0 4px 14px rgba(0,0,0,.3);font-family:'Segoe UI',system-ui,Arial,sans-serif;">← Voltar</a>
+<div class="box">
+  <h1>📖 Felicidade Clandestina em cartões</h1>
+  <div class="sub">Leia a pergunta, pense na resposta e depois confira. Pontos principais!</div>
+  <div class="contador" id="contador"></div>
+  <div class="cartao">
+    <div>
+      <div class="rotulo p">Pergunta</div>
+      <div class="pergunta" id="pergunta"></div>
+    </div>
+    <div class="resposta" id="resposta"></div>
+  </div>
+  <div class="bts">
+    <button class="voltar" id="voltar">← Voltar</button>
+    <button class="ver" id="ver">👁️ Ver resposta</button>
+    <button class="prox" id="prox">Próximo →</button>
+  </div>
+</div>
+<script>
+const cartoes = [
+  ["Quem escreveu 'Felicidade Clandestina'?", "A escritora Clarice Lispector."],
+  ["Que tipo de texto é 'Felicidade Clandestina'?", "É um conto (uma história curta)."],
+  ["Em que pessoa a história é narrada?", "Em 1ª pessoa: a própria menina conta, usando 'eu'."],
+  ["Em qual cidade se passa a história?", "Em Recife."],
+  ["O que a menina má tinha que a narradora queria muito?", "Um pai dono de livraria (e o livro que a narradora desejava)."],
+  ["Qual era o livro que a menina desejava?", "'As Reinações de Narizinho', de Monteiro Lobato."],
+  ["Como a menina má era cruel?", "Prometia emprestar o livro e dizia 'volte amanhã' todo dia, por pura maldade."],
+  ["O livro chegou a sair da casa da menina má?", "Não! Ela nunca emprestou, e nem queria ler o livro."],
+  ["Quem descobriu a maldade e resolveu tudo?", "A mãe da menina má, que mandou emprestar o livro na hora."],
+  ["O que a mãe disse à narradora sobre o livro?", "Que ela podia ficar com o livro pelo tempo que quisesse."],
+  ["O que a menina fez ao ganhar o livro?", "Não leu de imediato: adiou e saboreou devagar, para prolongar o prazer."],
+  ["O que significa 'clandestina'?", "Escondida, secreta."],
+  ["Por que a felicidade era 'clandestina' para ela?", "Porque era uma alegria tão grande e íntima que ela queria guardar só para si, saboreando em segredo."],
+  ["Qual é o principal tema do conto?", "O amor pela leitura (e o desejo/felicidade que um livro pode dar)."],
+  ["Qual é a frase famosa do final?", "'Não era mais uma menina com um livro: era uma mulher com o seu amante.'"],
+];
+let i = 0;
+const $ = id => document.getElementById(id);
+function mostrar(){
+  $("contador").textContent = `Cartão ${i+1} de ${cartoes.length}`;
+  $("pergunta").textContent = cartoes[i][0];
+  $("resposta").textContent = cartoes[i][1];
+  $("resposta").className = "resposta";
+  $("ver").style.display = "inline-block";
+  $("voltar").disabled = (i === 0); $("voltar").style.opacity = (i === 0) ? .4 : 1;
+  $("prox").textContent = (i === cartoes.length-1) ? "🔁 Recomeçar" : "Próximo →";
+}
+$("ver").onclick = ()=>{ $("resposta").className = "resposta mostrar"; $("ver").style.display = "none"; };
+$("prox").onclick = ()=>{ i = (i+1) % cartoes.length; mostrar(); };
+$("voltar").onclick = ()=>{ if(i > 0){ i--; mostrar(); } };
+mostrar();
+</script>
+</body>
+</html>

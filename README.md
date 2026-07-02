@@ -18,8 +18,11 @@ Material escolar do Pedro (13 anos, Ensino Fundamental Anos Finais / 9º ano), p
 | `hist-mod07-revisao.html` | Revisão em cartões (pontos principais) |
 | `hist-mod07-quiz.html` | Quiz interativo (48 questões, embaralha sozinho) |
 | `hist-mod07-resumo.html` | Resumo da matéria (linguagem simples + figuras) + gabarito |
+| `port-felicidade-clandestina-revisao.html` | Revisão em cartões do conto |
+| `port-felicidade-clandestina-quiz.html` | Quiz interativo (20 questões, embaralha) |
+| `port-felicidade-clandestina-resumo.html` | Resumo do conto (enredo, personagens, temas) + figuras |
 
-> A matéria do Módulo 7 é **História** (2ª Guerra Mundial). Geografia fica para o futuro (usar prefixo `geo-` quando chegar).
+> História Módulo 7 = 2ª Guerra Mundial. Português = conto "Felicidade Clandestina" (Clarice Lispector). Geografia fica para o futuro (prefixo `geo-`). Para obras literárias, o nome do arquivo usa o título da obra em vez de `modNN`.
 
 ## PADRÕES obrigatórios de toda página nova
 (seguir SEMPRE — foi assim que o Wilsi pediu)
