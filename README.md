@@ -15,6 +15,7 @@ Material escolar do Pedro (13 anos, Ensino Fundamental Anos Finais / 9º ano), p
 | Arquivo | O que é |
 |---|---|
 | `index.html` | **Hub** — página inicial que lista todas as atividades |
+| `hist-mod06-*.html` | História Mód. 6 — Fascismo e Nazismo (revisão/quiz 32q/resumo) |
 | `hist-mod07-revisao.html` | Revisão em cartões (pontos principais) |
 | `hist-mod07-quiz.html` | Quiz interativo (48 questões, embaralha sozinho) |
 | `hist-mod07-resumo.html` | Resumo da matéria (linguagem simples + figuras) + gabarito |
