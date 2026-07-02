@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz do Pedro: Opinar e Argumentar</title>
+<style>
+  :root{--navy:#1E2B38; --roxo:#6c3fa3; --roxo-claro:#f0e9f8; --laranja:#FFE4CC; --coral:#E25E42; --verde:#2e7d4f; --verde-claro:#d7f0df; --vermelho:#c0392b; --vermelho-claro:#fbe0dc; --cinza:#64748b;}
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif; background:linear-gradient(160deg,#f3eefb,#e7dcf5); color:var(--navy); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px; line-height:1.55;}
+  .app{width:100%; max-width:640px; background:#fff; border-radius:24px; box-shadow:0 12px 40px rgba(60,36,101,.16); overflow:hidden;}
+  header{background:linear-gradient(135deg,#6c3fa3,#3d2465); color:#fff; padding:22px 26px 18px;}
+  header .selo{font-size:.72rem; letter-spacing:1.5px; text-transform:uppercase; opacity:.8; font-weight:700;}
+  header h1{font-size:1.35rem; margin-top:4px;}
+  .barra-topo{display:flex; justify-content:space-between; align-items:center; margin-top:14px; font-size:.9rem; font-weight:700;}
+  .progresso{height:9px; background:rgba(255,255,255,.25); border-radius:20px; margin-top:10px; overflow:hidden;}
+  .progresso span{display:block; height:100%; width:0; background:var(--coral); border-radius:20px; transition:width .35s ease;}
+  main{padding:26px 26px 30px;}
+  .pergunta{font-size:1.25rem; font-weight:800; color:var(--navy); margin-bottom:20px; min-height:60px;}
+  .alternativas{display:flex; flex-direction:column; gap:12px;}
+  .alt{text-align:left; font-size:1.05rem; padding:15px 18px; border:2px solid #e0d7ee; background:#faf8fd; border-radius:14px; cursor:pointer; transition:all .15s ease; display:flex; align-items:center; gap:12px; font-family:inherit; color:var(--navy);}
+  .alt:hover:not(:disabled){border-color:var(--roxo); background:var(--roxo-claro); transform:translateY(-1px);}
+  .alt:disabled{cursor:default;}
+  .alt .letra{flex:0 0 30px; height:30px; border-radius:50%; background:var(--roxo); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:.95rem;}
+  .alt.certo{border-color:var(--verde); background:var(--verde-claro);} .alt.certo .letra{background:var(--verde);}
+  .alt.errado{border-color:var(--vermelho); background:var(--vermelho-claro);} .alt.errado .letra{background:var(--vermelho);}
+  .feedback{margin-top:20px; padding:15px 18px; border-radius:14px; display:none; font-size:1rem;}
+  .feedback.mostrar{display:block; animation:sobe .25s ease;}
+  .feedback.ok{background:var(--verde-claro); border-left:6px solid var(--verde);}
+  .feedback.no{background:var(--vermelho-claro); border-left:6px solid var(--vermelho);}
+  .feedback b{display:block; margin-bottom:3px;}
+  @keyframes sobe{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
+  .proxima{margin-top:20px; width:100%; padding:15px; font-size:1.1rem; font-weight:800; background:var(--coral); color:#fff; border:none; border-radius:14px; cursor:pointer; font-family:inherit; display:none; transition:filter .15s;}
+  .proxima.mostrar{display:block;} .proxima:hover{filter:brightness(1.08);}
+  .final{text-align:center; padding:14px 6px;}
+  .final .emoji{font-size:3.4rem;} .final h2{font-size:1.6rem; margin:10px 0;}
+  .final .placar{font-size:1.15rem; color:var(--cinza); margin-bottom:6px;}
+  .final .nota{font-size:3rem; font-weight:900; color:var(--roxo); margin:6px 0;}
+  .final .recado{background:var(--laranja); border-radius:14px; padding:14px 18px; margin:18px 0; color:var(--navy);}
+  .refazer{padding:14px 28px; font-size:1.05rem; font-weight:800; background:var(--roxo); color:#fff; border:none; border-radius:14px; cursor:pointer; font-family:inherit;}
+  .refazer:hover{filter:brightness(1.15);}
+</style>
+</head>
+<body>
+<a href="index.html" class="btn-voltar-hub" style="position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:9999;display:inline-flex;align-items:center;gap:7px;background:#E25E42;color:#fff;text-decoration:none;font-weight:800;font-size:1rem;padding:11px 18px;border-radius:30px;box-shadow:0 4px 14px rgba(0,0,0,.3);font-family:'Segoe UI',system-ui,Arial,sans-serif;">← Voltar</a>
+<div class="app">
+  <header>
+    <div class="selo">Português · 9º ano · Quiz</div>
+    <h1>Opinar e Argumentar 💬</h1>
+    <div class="barra-topo">
+      <span id="contador">Questão 1</span>
+      <span id="placar">Acertos: 0</span>
+    </div>
+    <div class="progresso"><span id="barra"></span></div>
+  </header>
+  <main id="palco">
+    <div class="pergunta" id="pergunta"></div>
+    <div class="alternativas" id="alternativas"></div>
+    <div class="feedback" id="feedback"></div>
+    <button class="proxima" id="proxima">Próxima ➜</button>
+  </main>
+</div>
+<script>
+const questoes = [
+  // opiniao x verdade
+  { q:"Qual das frases é uma VERDADE (fato)?", alt:["'O filme Ainda Estou Aqui ganhou o Oscar em 2025'","'Esse é o melhor filme de todos'","'Cinema nacional é o melhor'"], c:0,
+    e:"Fato pode ser provado. Que o filme ganhou o Oscar realmente aconteceu; o resto é opinião." },
+  { q:"Qual das frases é uma OPINIÃO?", alt:["'Walter Salles é o melhor diretor do Brasil'","'Walter Salles dirigiu Ainda Estou Aqui'","'O filme ganhou o Oscar em 2025'"], c:0,
+    e:"'Melhor diretor' é ponto de vista pessoal, não dá para provar: é opinião." },
+  { q:"A verdade se diferencia da opinião porque...", alt:["pode ser comprovada (ninguém discorda)","é sempre mais bonita","é dita mais alto"], c:0,
+    e:"A verdade pode ser provada; a opinião é um ponto de vista pessoal." },
+  // tese e argumento
+  { q:"O que é a 'tese' de um texto?", alt:["A opinião/ponto de vista que se defende","O título do texto","O nome do autor"], c:0,
+    e:"Tese = a opinião que você defende no texto." },
+  { q:"O que é um 'argumento'?", alt:["A prova/razão que sustenta a tese","Uma briga","Um resumo"], c:0,
+    e:"Argumento = a prova ou razão usada para convencer alguém da tese." },
+  { q:"Para convencer o leitor, a opinião precisa de...", alt:["argumentos que a justifiquem","letra bonita","muitas páginas"], c:0,
+    e:"Uma opinião só convence quando é fundamentada com bons argumentos." },
+  { q:"Qual destas NÃO serve como argumento?", alt:["'Todo mundo concorda comigo'","Um dado estatístico","O exemplo de um fato real"], c:0,
+    e:"'Todo mundo concorda' não prova nada: não é um argumento válido." },
+  // 4 tipos - por definicao
+  { q:"O argumento que usa DADOS ESTATÍSTICOS/números chama-se:", alt:["Prova concreta","Autoridade","Exemplificação"], c:0,
+    e:"Prova concreta = usar dados/estatísticas ou fatos conhecidos." },
+  { q:"Citar um ESPECIALISTA ou instituição respeitada é argumento de:", alt:["Autoridade","Prova concreta","Raciocínio lógico"], c:0,
+    e:"Argumento de autoridade: quem entende do assunto dá mais força à tese." },
+  { q:"Usar EXEMPLOS concretos e fatos para provar é argumento de:", alt:["Exemplificação","Autoridade","Dados"], c:0,
+    e:"Exemplificação = provar com exemplos e casos reais." },
+  { q:"Um pensamento organizado que leva a uma conclusão é argumento de:", alt:["Raciocínio lógico","Autoridade","Exemplificação"], c:0,
+    e:"Raciocínio lógico: uma dedução que chega a uma conclusão." },
+  // 4 tipos - por exemplo (pares)
+  { q:"'Segundo uma pesquisa da Universidade de Harvard...' — que argumento é esse?", alt:["Autoridade","Exemplificação","Raciocínio lógico"], c:0,
+    e:"É de autoridade: cita uma instituição respeitada (Harvard)." },
+  { q:"'Em 2019-2020 foram registradas 320 mil novas armas' — que argumento é esse?", alt:["Prova concreta (dados)","Autoridade","Exemplificação"], c:0,
+    e:"São dados estatísticos: argumento de prova concreta." },
+  { q:"'Shows de Gilberto Gil e Marisa Monte lotam de jovens' — que argumento é esse?", alt:["Exemplificação","Dados estatísticos","Autoridade"], c:0,
+    e:"É exemplificação: usa exemplos reais para provar a tese." },
+  { q:"'O curso exigia 100%. Mário tirou 98%. Logo, não passou.' — que argumento é esse?", alt:["Raciocínio lógico","Autoridade","Exemplificação"], c:0,
+    e:"É raciocínio lógico: uma dedução que leva à conclusão." },
+  // falacia
+  { q:"O que é uma falácia?", alt:["Um argumento falso que finge ser verdadeiro","Um argumento muito forte","Uma opinião sincera"], c:0,
+    e:"Falácia = raciocínio falso que simula a verdade, escondendo informações." },
+  { q:"A falácia costuma...", alt:["esconder ou omitir informações","usar muitos dados reais","citar bons especialistas"], c:0,
+    e:"Ela engana escondendo parte da verdade." },
+  // estrutura
+  { q:"Como se organiza um texto de opinião?", alt:["Tema+tese → argumentos → conclusão","Só uma frase","Começa pela conclusão"], c:0,
+    e:"1º parágrafo: tema e tese; depois os argumentos; no fim, a conclusão." },
+  { q:"No texto de opinião, a tese aparece principalmente...", alt:["no começo (e é retomada na conclusão)","só no meio","nunca aparece"], c:0,
+    e:"A tese é apresentada no início e retomada na conclusão." },
+  { q:"Quantos parágrafos, em geral, ficam com os argumentos?", alt:["Dois ou três","Nenhum","Dez"], c:0,
+    e:"Costumam ser 2 ou 3 parágrafos, cada um com um argumento forte." },
+  { q:"Como deve ser o título de um texto de opinião?", alt:["Mostrar a opinião e ser atraente como manchete","Ser bem comprido","Não ter relação com o texto"], c:0,
+    e:"O título traz a opinião (às vezes escondida) e chama a atenção, como uma manchete." },
+  // charge
+  { q:"O que é uma charge?", alt:["Um desenho de humor que critica um tema atual","Um poema","Uma tabela de dados"], c:0,
+    e:"Charge = gênero jornalístico que usa humor para criticar ou satirizar algo atual." },
+  { q:"A charge geralmente expressa sua crítica de forma...", alt:["irônica e com exagero","séria e sem graça","apenas com números"], c:0,
+    e:"Usa ironia e exagero: diz uma coisa para dar a entender outra." },
+  { q:"Quem é o 'enunciador' de um texto?", alt:["Quem produz o texto/fala (quem argumenta)","Quem lê o texto","O personagem principal"], c:0,
+    e:"Enunciador = quem produz o texto e apresenta a opinião." },
+];
+function embaralhar(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function preparar(){
+  return embaralhar(questoes.slice()).map(q=>{
+    const alts = q.alt.map((texto,i)=>({ texto, certa:i===q.c }));
+    embaralhar(alts);
+    return { q:q.q, alt:alts.map(a=>a.texto), c:alts.findIndex(a=>a.certa), e:q.e };
+  });
+}
+let jogo = preparar();
+let atual = 0, acertos = 0;
+const letras = ["A","B","C"];
+const $ = id => document.getElementById(id);
+function render(){
+  const item = jogo[atual];
+  $("contador").textContent = `Questão ${atual+1} de ${jogo.length}`;
+  $("placar").textContent = `Acertos: ${acertos}`;
+  $("barra").style.width = `${(atual/jogo.length)*100}%`;
+  $("pergunta").textContent = item.q;
+  const box = $("alternativas"); box.innerHTML = "";
+  item.alt.forEach((texto,i)=>{
+    const b = document.createElement("button");
+    b.className = "alt";
+    b.innerHTML = `<span class="letra">${letras[i]}</span><span>${texto}</span>`;
+    b.onclick = ()=>responder(i,b);
+    box.appendChild(b);
+  });
+  const fb = $("feedback"); fb.className = "feedback"; fb.innerHTML = "";
+  $("proxima").className = "proxima";
+  $("proxima").textContent = atual === jogo.length-1 ? "Ver resultado 🏁" : "Próxima ➜";
+}
+function responder(escolha){
+  const item = jogo[atual];
+  document.querySelectorAll(".alt").forEach((b,i)=>{
+    b.disabled = true;
+    if(i === item.c) b.classList.add("certo");
+    if(i === escolha && escolha !== item.c) b.classList.add("errado");
+  });
+  const fb = $("feedback");
+  if(escolha === item.c){ acertos++; fb.className = "feedback ok mostrar"; fb.innerHTML = `<b>✅ Acertou!</b>${item.e}`; }
+  else { fb.className = "feedback no mostrar"; fb.innerHTML = `<b>❌ Quase!</b> A resposta certa é <b style="display:inline">${letras[item.c]}</b>. ${item.e}`; }
+  $("placar").textContent = `Acertos: ${acertos}`;
+  $("proxima").classList.add("mostrar");
+}
+$("proxima").onclick = ()=>{ atual++; if(atual < jogo.length) render(); else final(); };
+function final(){
+  const total = jogo.length;
+  const nota = Math.round((acertos/total)*10*10)/10;
+  const pct = acertos/total;
+  let emoji, msg;
+  if(pct >= 0.9){ emoji="🏆"; msg="Fera! Você entendeu argumentação muito bem. Pronto para a prova!"; }
+  else if(pct >= 0.7){ emoji="😃"; msg="Muito bom! Só falta revisar alguns pontinhos."; }
+  else if(pct >= 0.45){ emoji="🙂"; msg="Bom começo! Dá uma relida no resumo e refaça o quiz."; }
+  else { emoji="💪"; msg="Sem problema! Leia o resumo com calma e tente de novo. Você consegue!"; }
+  $("barra").style.width = "100%"; $("contador").textContent = "Fim do quiz";
+  $("palco").innerHTML = `
+    <div class="final">
+      <div class="emoji">${emoji}</div>
+      <h2>Quiz concluído!</h2>
+      <div class="placar">Você acertou <b>${acertos}</b> de <b>${total}</b> questões</div>
+      <div class="nota">Nota ${nota}</div>
+      <div class="recado">${msg}</div>
+      <button class="refazer" onclick="reiniciar()">🔀 Embaralhar e refazer</button>
+    </div>`;
+}
+function reiniciar(){
+  atual = 0; acertos = 0; jogo = preparar();
+  $("palco").innerHTML = `
+    <div class="pergunta" id="pergunta"></div>
+    <div class="alternativas" id="alternativas"></div>
+    <div class="feedback" id="feedback"></div>
+    <button class="proxima" id="proxima">Próxima ➜</button>`;
+  $("proxima").onclick = ()=>{ atual++; if(atual<jogo.length) render(); else final(); };
+  render();
+}
+render();
+</script>
+</body>
+</html>
