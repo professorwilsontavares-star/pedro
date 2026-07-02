@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz do Pedro: Fascismo e Nazismo</title>
+<style>
+  :root{--navy:#1E2B38; --azul:#8a1f1f; --azul-claro:#f6e9e9; --laranja:#FFE4CC; --coral:#E25E42; --verde:#2e7d4f; --verde-claro:#d7f0df; --vermelho:#c0392b; --vermelho-claro:#fbe0dc; --cinza:#64748b;}
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif; background:linear-gradient(160deg,#eef3f9,#e3d7d7); color:var(--navy); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px; line-height:1.55;}
+  .app{width:100%; max-width:640px; background:#fff; border-radius:24px; box-shadow:0 12px 40px rgba(30,43,56,.16); overflow:hidden;}
+  header{background:linear-gradient(135deg,#8a1f1f,#3d1414); color:#fff; padding:22px 26px 18px;}
+  header .selo{font-size:.72rem; letter-spacing:1.5px; text-transform:uppercase; opacity:.8; font-weight:700;}
+  header h1{font-size:1.35rem; margin-top:4px;}
+  .barra-topo{display:flex; justify-content:space-between; align-items:center; margin-top:14px; font-size:.9rem; font-weight:700;}
+  .progresso{height:9px; background:rgba(255,255,255,.25); border-radius:20px; margin-top:10px; overflow:hidden;}
+  .progresso span{display:block; height:100%; width:0; background:var(--coral); border-radius:20px; transition:width .35s ease;}
+  main{padding:26px 26px 30px;}
+  .pergunta{font-size:1.25rem; font-weight:800; color:var(--navy); margin-bottom:20px; min-height:60px;}
+  .alternativas{display:flex; flex-direction:column; gap:12px;}
+  .alt{text-align:left; font-size:1.05rem; padding:15px 18px; border:2px solid #e6d5d5; background:#fbf7f7; border-radius:14px; cursor:pointer; transition:all .15s ease; display:flex; align-items:center; gap:12px; font-family:inherit; color:var(--navy);}
+  .alt:hover:not(:disabled){border-color:var(--azul); background:var(--azul-claro); transform:translateY(-1px);}
+  .alt:disabled{cursor:default;}
+  .alt .letra{flex:0 0 30px; height:30px; border-radius:50%; background:var(--azul); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:.95rem;}
+  .alt.certo{border-color:var(--verde); background:var(--verde-claro);} .alt.certo .letra{background:var(--verde);}
+  .alt.errado{border-color:var(--vermelho); background:var(--vermelho-claro);} .alt.errado .letra{background:var(--vermelho);}
+  .feedback{margin-top:20px; padding:15px 18px; border-radius:14px; display:none; font-size:1rem;}
+  .feedback.mostrar{display:block; animation:sobe .25s ease;}
+  .feedback.ok{background:var(--verde-claro); border-left:6px solid var(--verde);}
+  .feedback.no{background:var(--vermelho-claro); border-left:6px solid var(--vermelho);}
+  .feedback b{display:block; margin-bottom:3px;}
+  @keyframes sobe{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
+  .proxima{margin-top:20px; width:100%; padding:15px; font-size:1.1rem; font-weight:800; background:var(--coral); color:#fff; border:none; border-radius:14px; cursor:pointer; font-family:inherit; display:none; transition:filter .15s;}
+  .proxima.mostrar{display:block;} .proxima:hover{filter:brightness(1.08);}
+  .final{text-align:center; padding:14px 6px;}
+  .final .emoji{font-size:3.4rem;} .final h2{font-size:1.6rem; margin:10px 0;}
+  .final .placar{font-size:1.15rem; color:var(--cinza); margin-bottom:6px;}
+  .final .nota{font-size:3rem; font-weight:900; color:var(--azul); margin:6px 0;}
+  .final .recado{background:var(--laranja); border-radius:14px; padding:14px 18px; margin:18px 0; color:var(--navy);}
+  .refazer{padding:14px 28px; font-size:1.05rem; font-weight:800; background:var(--azul); color:#fff; border:none; border-radius:14px; cursor:pointer; font-family:inherit;}
+  .refazer:hover{filter:brightness(1.15);}
+</style>
+</head>
+<body>
+<a href="index.html" class="btn-voltar-hub" style="position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:9999;display:inline-flex;align-items:center;gap:7px;background:#E25E42;color:#fff;text-decoration:none;font-weight:800;font-size:1rem;padding:11px 18px;border-radius:30px;box-shadow:0 4px 14px rgba(0,0,0,.3);font-family:'Segoe UI',system-ui,Arial,sans-serif;">← Voltar</a>
+<div class="app">
+  <header>
+    <div class="selo">História · 9º ano · Quiz</div>
+    <h1>Fascismo e Nazismo ⚫</h1>
+    <div class="barra-topo">
+      <span id="contador">Questão 1</span>
+      <span id="placar">Acertos: 0</span>
+    </div>
+    <div class="progresso"><span id="barra"></span></div>
+  </header>
+  <main id="palco">
+    <div class="pergunta" id="pergunta"></div>
+    <div class="alternativas" id="alternativas"></div>
+    <div class="feedback" id="feedback"></div>
+    <button class="proxima" id="proxima">Próxima ➜</button>
+  </main>
+</div>
+<script>
+const questoes = [
+  { q:"O que abriu espaço para os extremismos na Europa?", alt:["A crise econômica (pós-guerra e Crise de 1929)","Muitos empregos e riqueza","Uma copa do mundo"], c:0,
+    e:"A crise econômica foi o 'combustível': com fome e medo, o povo apoiou líderes extremistas." },
+  { q:"Em que ano foi a grande crise que ajudou os extremismos?", alt:["1929","1789","2008"], c:0,
+    e:"A Crise de 1929 espalhou desemprego e desespero pela Europa." },
+  { q:"De onde vem a palavra 'fascismo'?", alt:["De 'fascio' (feixe)","De 'fácil'","De 'família'"], c:0,
+    e:"Fascio = feixe. Gravetos juntos = o povo unido e obediente ao Estado." },
+  { q:"O feixe (fascio) representava a ideia de...", alt:["povo unido e obediente ao Estado","liberdade total","paz entre os países"], c:0,
+    e:"Vários gravetos juntos são difíceis de quebrar: a força do Estado sobre todos." },
+  { q:"Onde surgiu o fascismo?", alt:["Na Itália","No Brasil","nos Estados Unidos"], c:0,
+    e:"O fascismo nasceu na Itália, com Mussolini." },
+  { q:"Quem era o líder do fascismo italiano?", alt:["Benito Mussolini","Adolf Hitler","Winston Churchill"], c:0,
+    e:"Mussolini criou o fascismo na Itália." },
+  { q:"Qual foi a versão alemã do fascismo?", alt:["O nazismo","O comunismo","A democracia"], c:0,
+    e:"O nazismo foi o fascismo alemão, ainda mais racista." },
+  { q:"Quem era o líder do nazismo?", alt:["Adolf Hitler","Mussolini","Franco"], c:0,
+    e:"Adolf Hitler liderou o nazismo na Alemanha." },
+  { q:"Além de Itália e Alemanha, onde houve regimes parecidos?", alt:["Espanha (Franco) e Portugal (Salazar)","Estados Unidos e Canadá","China e Japão"], c:0,
+    e:"Na Espanha (Franco) e em Portugal (Salazar)." },
+  { q:"O que significa 'totalitarismo'?", alt:["O Estado controla tudo, até a vida privada","O povo decide tudo por voto","Não existe governo"], c:0,
+    e:"Totalitarismo = o Estado controla tudo, inclusive a vida privada das pessoas." },
+  { q:"Qual a diferença entre autoritário e TOTALITÁRIO?", alt:["O totalitário controla até a vida privada","Não há diferença","O totalitário é mais fraco"], c:0,
+    e:"O autoritário controla a vida pública; o totalitário controla também a vida privada e íntima." },
+  { q:"Qual era o lema do totalitarismo fascista?", alt:["'Tudo no Estado, nada fora do Estado'","'Cada um por si'","'Liberdade acima de tudo'"], c:0,
+    e:"'Tudo no Estado, nada contra o Estado, nada fora do Estado.'" },
+  { q:"O fascismo era a favor ou contra a democracia?", alt:["Contra a democracia","A favor da democracia","Não se importava"], c:0,
+    e:"Contra: proibia oposição e reprimia quem discordava." },
+  { q:"Quantos partidos podiam existir num regime fascista?", alt:["Só um (partido único)","Vários","Nenhum"], c:0,
+    e:"Só o partido do governo: é o partido único." },
+  { q:"O 'culto ao líder' significa que...", alt:["o chefe era obedecido como um herói, sem discussão","o líder era eleito todo ano","ninguém obedecia a ninguém"], c:0,
+    e:"O líder era quase um herói, obedecido sem questionamento." },
+  { q:"O fascismo valorizava mais...", alt:["a força física e a emoção (contra a razão)","o pensamento crítico","a ciência acima de tudo"], c:0,
+    e:"Valorizava a força e a emoção e rejeitava a razão (chegaram a queimar livros)." },
+  { q:"No nazismo, crianças eram estimuladas a...", alt:["delatar (dedurar) os próprios pais","escolher o governo","não ir à escola"], c:0,
+    e:"Delatar os pais que criticassem o regime: o totalitarismo dentro de casa." },
+  { q:"Como Hitler chegou ao poder?", alt:["Por eleições (democraticamente), em 1933","Com um golpe militar","Por herança do trono"], c:0,
+    e:"Curiosamente, pelo voto, em 1933. Depois destruiu a própria democracia." },
+  { q:"Depois de eleito, o que Hitler fez com a democracia?", alt:["Destruiu-a e virou ditador","Fortaleceu-a","Nada mudou"], c:0,
+    e:"Ele acabou com a democracia e montou uma ditadura." },
+  { q:"O que foi o incêndio do Reichstag (1933)?", alt:["O incêndio do parlamento, usado como pretexto por Hitler","Uma festa nazista","Um acidente sem importância"], c:0,
+    e:"Hitler culpou os comunistas pelo incêndio e usou isso como pretexto para virar ditador." },
+  { q:"Quem Hitler culpou pelo incêndio do Reichstag?", alt:["Os comunistas","Os italianos","Os professores"], c:0,
+    e:"Culpou os comunistas, para justificar o governo totalitário." },
+  { q:"O que era o 'Führer'?", alt:["O título de líder de Hitler","Um partido","Uma cidade alemã"], c:0,
+    e:"Führer = 'guia/líder'. A vontade dele virou a base de toda a lei." },
+  { q:"Quem era o ministro da Propaganda nazista?", alt:["Goebbels","Franco","Salazar"], c:0,
+    e:"Goebbels cuidava da propaganda: filmes, cartazes e rádio para convencer o povo." },
+  { q:"Para que servia a propaganda nazista?", alt:["Para o culto ao líder e espalhar ódio aos 'inimigos'","Para ensinar matemática","Para vender comida"], c:0,
+    e:"Servia para exaltar o líder e criar ódio contra os 'inimigos'." },
+  { q:"Segundo os regimes totalitários, o 'inimigo' servia para...", alt:["justificar a violência e o terror","fazer a paz","ajudar o povo"], c:0,
+    e:"'O inimigo é a grande justificativa do terror': criavam um inimigo para justificar a repressão." },
+  { q:"Quais destas eram polícias do medo no nazismo?", alt:["SA, SS e Gestapo","ONU e FIFA","RAF e FEB"], c:0,
+    e:"SA, SS e Gestapo vigiavam, prendiam e reprimiam os opositores." },
+  { q:"Para onde os 'inimigos' do regime eram enviados?", alt:["Campos de concentração","Escolas","Hospitais"], c:0,
+    e:"Eram enviados aos campos de concentração." },
+  { q:"Quem eram as principais vítimas do nazismo?", alt:["Os judeus (e também ciganos, comunistas e outros)","Os alemães ricos","Os soldados nazistas"], c:0,
+    e:"Sobretudo os judeus, mas também ciganos, comunistas, homossexuais, testemunhas de Jeová e prisioneiros políticos." },
+  { q:"O extermínio em massa de judeus e outros grupos é chamado de...", alt:["Holocausto","Renascimento","Iluminismo"], c:0,
+    e:"Holocausto: o extermínio em massa promovido pelos nazistas." },
+  { q:"Qual campo de concentração teve mais de 1 milhão de mortos?", alt:["Auschwitz","Pearl Harbor","Estocolmo"], c:0,
+    e:"Auschwitz-Birkenau, na Polônia: mais de 1 milhão de vítimas." },
+  { q:"O que são as 'pedras de tropeço' (stolpersteine)?", alt:["Placas nas calçadas que lembram as vítimas do nazismo","Pedras para construção","Um jogo antigo"], c:0,
+    e:"São memoriais nas calçadas da Europa, cada um lembrando uma vítima do nazismo." },
+  { q:"'Antissemitismo' quer dizer:", alt:["ódio e perseguição aos judeus","amor à ciência","medo de altura"], c:0,
+    e:"Antissemitismo = ódio aos judeus, marca central do nazismo." },
+];
+function embaralhar(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function preparar(){
+  return embaralhar(questoes.slice()).map(q=>{
+    const alts = q.alt.map((texto,i)=>({ texto, certa:i===q.c }));
+    embaralhar(alts);
+    return { q:q.q, alt:alts.map(a=>a.texto), c:alts.findIndex(a=>a.certa), e:q.e };
+  });
+}
+let jogo = preparar();
+let atual = 0, acertos = 0;
+const letras = ["A","B","C"];
+const $ = id => document.getElementById(id);
+function render(){
+  const item = jogo[atual];
+  $("contador").textContent = `Questão ${atual+1} de ${jogo.length}`;
+  $("placar").textContent = `Acertos: ${acertos}`;
+  $("barra").style.width = `${(atual/jogo.length)*100}%`;
+  $("pergunta").textContent = item.q;
+  const box = $("alternativas"); box.innerHTML = "";
+  item.alt.forEach((texto,i)=>{
+    const b = document.createElement("button");
+    b.className = "alt";
+    b.innerHTML = `<span class="letra">${letras[i]}</span><span>${texto}</span>`;
+    b.onclick = ()=>responder(i,b);
+    box.appendChild(b);
+  });
+  const fb = $("feedback"); fb.className = "feedback"; fb.innerHTML = "";
+  $("proxima").className = "proxima";
+  $("proxima").textContent = atual === jogo.length-1 ? "Ver resultado 🏁" : "Próxima ➜";
+}
+function responder(escolha){
+  const item = jogo[atual];
+  document.querySelectorAll(".alt").forEach((b,i)=>{
+    b.disabled = true;
+    if(i === item.c) b.classList.add("certo");
+    if(i === escolha && escolha !== item.c) b.classList.add("errado");
+  });
+  const fb = $("feedback");
+  if(escolha === item.c){ acertos++; fb.className = "feedback ok mostrar"; fb.innerHTML = `<b>✅ Acertou!</b>${item.e}`; }
+  else { fb.className = "feedback no mostrar"; fb.innerHTML = `<b>❌ Quase!</b> A resposta certa é <b style="display:inline">${letras[item.c]}</b>. ${item.e}`; }
+  $("placar").textContent = `Acertos: ${acertos}`;
+  $("proxima").classList.add("mostrar");
+}
+$("proxima").onclick = ()=>{ atual++; if(atual < jogo.length) render(); else final(); };
+function final(){
+  const total = jogo.length;
+  const nota = Math.round((acertos/total)*10*10)/10;
+  const pct = acertos/total;
+  let emoji, msg;
+  if(pct >= 0.9){ emoji="🏆"; msg="Fera! Você entendeu o módulo muito bem. Pronto para a prova!"; }
+  else if(pct >= 0.7){ emoji="😃"; msg="Muito bom! Só falta revisar alguns pontinhos."; }
+  else if(pct >= 0.45){ emoji="🙂"; msg="Bom começo! Dá uma relida no resumo e refaça o quiz."; }
+  else { emoji="💪"; msg="Sem problema! Leia o resumo com calma e tente de novo. Você consegue!"; }
+  $("barra").style.width = "100%"; $("contador").textContent = "Fim do quiz";
+  $("palco").innerHTML = `
+    <div class="final">
+      <div class="emoji">${emoji}</div>
+      <h2>Quiz concluído!</h2>
+      <div class="placar">Você acertou <b>${acertos}</b> de <b>${total}</b> questões</div>
+      <div class="nota">Nota ${nota}</div>
+      <div class="recado">${msg}</div>
+      <button class="refazer" onclick="reiniciar()">🔀 Embaralhar e refazer</button>
+    </div>`;
+}
+function reiniciar(){
+  atual = 0; acertos = 0; jogo = preparar();
+  $("palco").innerHTML = `
+    <div class="pergunta" id="pergunta"></div>
+    <div class="alternativas" id="alternativas"></div>
+    <div class="feedback" id="feedback"></div>
+    <button class="proxima" id="proxima">Próxima ➜</button>`;
+  $("proxima").onclick = ()=>{ atual++; if(atual<jogo.length) render(); else final(); };
+  render();
+}
+render();
+</script>
+</body>
+</html>
