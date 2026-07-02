@@ -126,6 +126,24 @@ const questoes = [
     e:"São memoriais nas calçadas da Europa, cada um lembrando uma vítima do nazismo." },
   { q:"'Antissemitismo' quer dizer:", alt:["ódio e perseguição aos judeus","amor à ciência","medo de altura"], c:0,
     e:"Antissemitismo = ódio aos judeus, marca central do nazismo." },
+
+  // --- Mais 8 questões ---
+  { q:"Mussolini tomou o poder na Itália com a chamada 'Marcha sobre...'", alt:["Roma","Paris","Berlim"], c:0,
+    e:"A Marcha sobre Roma (1922) levou Mussolini ao poder na Itália." },
+  { q:"O fascismo defendia um governo...", alt:["forte e sem oposição","trocado a cada ano","sem nenhum chefe"], c:0,
+    e:"Um governo forte, sem oposição, para 'resolver' a crise." },
+  { q:"Ao queimar livros, o nazismo mostrava rejeição a...", alt:["pensamento e à razão","esportes","música"], c:0,
+    e:"O fascismo valorizava a força e a emoção e rejeitava a razão e o pensamento crítico." },
+  { q:"Quem avisou: 'Onde se queimam livros, acaba-se queimando pessoas'?", alt:["O poeta Heinrich Heine","Mussolini","Goebbels"], c:0,
+    e:"O poeta alemão Heinrich Heine. Infelizmente, o aviso se confirmou." },
+  { q:"O nazismo acreditava em quê sobre os povos?", alt:["Na ideia de uma 'raça superior' (racismo)","Na igualdade entre todos","Na paz mundial"], c:0,
+    e:"O nazismo era racista: pregava a ideia falsa de uma 'raça superior'." },
+  { q:"Franco foi o ditador de qual país?", alt:["Espanha","Itália","França"], c:0,
+    e:"Franco governou a Espanha (o franquismo), regime parecido com o fascismo." },
+  { q:"O salazarismo foi o regime autoritário de qual país?", alt:["Portugal","Alemanha","Brasil"], c:0,
+    e:"Portugal, com Salazar. Outro regime da mesma família do fascismo." },
+  { q:"Nos regimes fascistas, o Estado na economia...", alt:["intervinha bastante (inclusive em gastos militares)","não fazia nada","era proibido de agir"], c:0,
+    e:"O Estado intervinha na economia para tentar superar a crise, inclusive com gastos militares." },
 ];
 function embaralhar(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
 function preparar(){
