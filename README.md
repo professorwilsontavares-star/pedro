@@ -32,7 +32,7 @@ Material escolar do Pedro (13 anos, Ensino Fundamental Anos Finais / 9º ano), p
    <a href="index.html" class="btn-voltar-hub" style="position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:9999;display:inline-flex;align-items:center;gap:7px;background:#E25E42;color:#fff;text-decoration:none;font-weight:800;font-size:1rem;padding:11px 18px;border-radius:30px;box-shadow:0 4px 14px rgba(0,0,0,.3);font-family:'Segoe UI',system-ui,Arial,sans-serif;">← Voltar</a>
    ```
 2. **Nome do arquivo:** `<materia>-mod<NN>-<tipo>.html` — ex.: `hist-mod08-quiz.html`, `geo-mod01-revisao.html`. Prefixo = matéria REAL (história = `hist`, geografia = `geo`).
-3. **Registrar no hub:** todo material novo entra como um card no `index.html`, com a **contagem certa** (ex.: "48 perguntas", não deixar número velho).
+3. **Registrar no hub:** todo material novo entra como um card no `index.html`, com a **contagem certa** (ex.: "48 perguntas", não deixar número velho). O **nome da disciplina** (a `.tag`, ex.: "PORTUGUÊS · ...") fica sempre em **destaque grande** no topo de cada bloco.
 4. **Autocontido:** CSS e JS inline no próprio `.html` (funciona offline).
 5. **Estilo:** simples, linguagem de adolescente, interativo. NÃO é apostila de concurso — foco em lembrar os pontos principais.
 
