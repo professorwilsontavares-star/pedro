@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz do Pedro: Distribuição Eletrônica</title>
+<style>
+  :root{--navy:#1E2B38; --teal:#0f766e; --teal-claro:#d5f5f0; --laranja:#FFE4CC; --coral:#E25E42; --verde:#2e7d4f; --verde-claro:#d7f0df; --vermelho:#c0392b; --vermelho-claro:#fbe0dc; --cinza:#64748b;}
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif; background:linear-gradient(160deg,#e3f5f1,#d0ece7); color:var(--navy); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px; line-height:1.55;}
+  .app{width:100%; max-width:640px; background:#fff; border-radius:24px; box-shadow:0 12px 40px rgba(15,118,110,.16); overflow:hidden;}
+  header{background:linear-gradient(135deg,#0f766e,#0a4a45); color:#fff; padding:22px 26px 18px;}
+  header .selo{font-size:.72rem; letter-spacing:1.5px; text-transform:uppercase; opacity:.8; font-weight:700;}
+  header h1{font-size:1.35rem; margin-top:4px;}
+  .barra-topo{display:flex; justify-content:space-between; align-items:center; margin-top:14px; font-size:.9rem; font-weight:700;}
+  .progresso{height:9px; background:rgba(255,255,255,.25); border-radius:20px; margin-top:10px; overflow:hidden;}
+  .progresso span{display:block; height:100%; width:0; background:var(--coral); border-radius:20px; transition:width .35s ease;}
+  main{padding:26px 26px 30px;}
+  .pergunta{font-size:1.25rem; font-weight:800; color:var(--navy); margin-bottom:20px; min-height:60px;}
+  .alternativas{display:flex; flex-direction:column; gap:12px;}
+  .alt{text-align:left; font-size:1.05rem; padding:15px 18px; border:2px solid #cfe9e4; background:#f5fbfa; border-radius:14px; cursor:pointer; transition:all .15s ease; display:flex; align-items:center; gap:12px; font-family:inherit; color:var(--navy);}
+  .alt:hover:not(:disabled){border-color:var(--teal); background:var(--teal-claro); transform:translateY(-1px);}
+  .alt:disabled{cursor:default;}
+  .alt .letra{flex:0 0 30px; height:30px; border-radius:50%; background:var(--teal); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:.95rem;}
+  .alt.certo{border-color:var(--verde); background:var(--verde-claro);} .alt.certo .letra{background:var(--verde);}
+  .alt.errado{border-color:var(--vermelho); background:var(--vermelho-claro);} .alt.errado .letra{background:var(--vermelho);}
+  .feedback{margin-top:20px; padding:15px 18px; border-radius:14px; display:none; font-size:1rem;}
+  .feedback.mostrar{display:block; animation:sobe .25s ease;}
+  .feedback.ok{background:var(--verde-claro); border-left:6px solid var(--verde);}
+  .feedback.no{background:var(--vermelho-claro); border-left:6px solid var(--vermelho);}
+  .feedback b{display:block; margin-bottom:3px;}
+  @keyframes sobe{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
+  .proxima{margin-top:20px; width:100%; padding:15px; font-size:1.1rem; font-weight:800; background:var(--coral); color:#fff; border:none; border-radius:14px; cursor:pointer; font-family:inherit; display:none; transition:filter .15s;}
+  .proxima.mostrar{display:block;} .proxima:hover{filter:brightness(1.08);}
+  .final{text-align:center; padding:14px 6px;}
+  .final .emoji{font-size:3.4rem;} .final h2{font-size:1.6rem; margin:10px 0;}
+  .final .placar{font-size:1.15rem; color:var(--cinza); margin-bottom:6px;}
+  .final .nota{font-size:3rem; font-weight:900; color:var(--teal); margin:6px 0;}
+  .final .recado{background:var(--laranja); border-radius:14px; padding:14px 18px; margin:18px 0; color:var(--navy);}
+  .refazer{padding:14px 28px; font-size:1.05rem; font-weight:800; background:var(--teal); color:#fff; border:none; border-radius:14px; cursor:pointer; font-family:inherit;}
+  .refazer:hover{filter:brightness(1.15);}
+</style>
+</head>
+<body>
+<a href="index.html" class="btn-voltar-hub" style="position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:9999;display:inline-flex;align-items:center;gap:7px;background:#E25E42;color:#fff;text-decoration:none;font-weight:800;font-size:1rem;padding:11px 18px;border-radius:30px;box-shadow:0 4px 14px rgba(0,0,0,.3);font-family:'Segoe UI',system-ui,Arial,sans-serif;">← Voltar</a>
+<div class="app">
+  <header>
+    <div class="selo">Química · 9º ano · Quiz</div>
+    <h1>Distribuição Eletrônica ⚛️</h1>
+    <div class="barra-topo">
+      <span id="contador">Questão 1</span>
+      <span id="placar">Acertos: 0</span>
+    </div>
+    <div class="progresso"><span id="barra"></span></div>
+  </header>
+  <main id="palco">
+    <div class="pergunta" id="pergunta"></div>
+    <div class="alternativas" id="alternativas"></div>
+    <div class="feedback" id="feedback"></div>
+    <button class="proxima" id="proxima">Próxima ➜</button>
+  </main>
+</div>
+<script>
+const questoes = [
+  { q:"Num átomo neutro, o número atômico (Z) é igual a...", alt:["número de prótons e de elétrons","número de nêutrons","peso do átomo"], c:0,
+    e:"Z = prótons = elétrons (no átomo neutro). Sabendo o Z, você sabe quantos elétrons distribuir." },
+  { q:"Quantos elétrons o Magnésio (Z=12) tem para distribuir?", alt:["12","6","24"], c:0,
+    e:"Z = 12, então são 12 elétrons (átomo neutro)." },
+  { q:"Quantos elétrons cabem no subnível s?", alt:["2","6","10"], c:0,
+    e:"s cabe 2 elétrons." },
+  { q:"Quantos elétrons cabem no subnível p?", alt:["6","2","14"], c:0,
+    e:"p cabe 6 elétrons." },
+  { q:"Quantos elétrons cabem no subnível d?", alt:["10","6","2"], c:0,
+    e:"d cabe 10 elétrons." },
+  { q:"Quantos elétrons cabem no subnível f?", alt:["14","10","8"], c:0,
+    e:"f cabe 14 elétrons. (A sequência é 2, 6, 10, 14.)" },
+  { q:"Como se chama a 1ª camada (nível) dos elétrons?", alt:["K","A","1"], c:0,
+    e:"As camadas são K, L, M, N, O, P, Q. A 1ª é o K." },
+  { q:"Quais são os subníveis?", alt:["s, p, d, f","a, b, c","x, y, z"], c:0,
+    e:"Os subníveis são s, p, d e f." },
+  { q:"Para que serve o diagrama de Linus Pauling?", alt:["Mostrar a ordem de preenchimento dos subníveis","Pesar o átomo","Contar os nêutrons"], c:0,
+    e:"Ele mostra a ordem em que os subníveis são preenchidos (seguindo as diagonais)." },
+  { q:"Qual subnível é preenchido PRIMEIRO: 4s ou 3d?", alt:["4s","3d","os dois juntos"], c:0,
+    e:"O 4s vem antes do 3d (por causa da energia). É a pegadinha mais comum!" },
+  { q:"Na ordem de Pauling, o que vem logo DEPOIS do 4s?", alt:["3d","4p","5s"], c:0,
+    e:"Depois do 4s vem o 3d, e só então o 4p." },
+  { q:"Qual é o primeiro subnível de todos a ser preenchido?", alt:["1s","2s","3s"], c:0,
+    e:"Tudo começa pelo 1s." },
+  { q:"O que é um íon?", alt:["Um átomo que ganhou ou perdeu elétrons","Um átomo sem núcleo","Um tipo de gás"], c:0,
+    e:"Íon = átomo que ganhou ou perdeu elétrons." },
+  { q:"Um CÁTION (+) é um íon que...", alt:["perdeu elétrons","ganhou elétrons","não mudou"], c:0,
+    e:"Cátion (+) perdeu elétrons. Ex.: Na⁺." },
+  { q:"Um ÂNION (–) é um íon que...", alt:["ganhou elétrons","perdeu elétrons","virou nêutron"], c:0,
+    e:"Ânion (–) ganhou elétrons. Ex.: O⁻²." },
+  { q:"O íon Na⁺ (Z=11) fica com quantos elétrons?", alt:["10","11","12"], c:0,
+    e:"Na⁺ perdeu 1 elétron: 11 − 1 = 10." },
+  { q:"O íon O⁻² (Z=8) fica com quantos elétrons?", alt:["10","8","6"], c:0,
+    e:"O⁻² ganhou 2 elétrons: 8 + 2 = 10." },
+  { q:"A distribuição 1s² 2s² 2p⁶ tem quantos elétrons?", alt:["10","8","18"], c:0,
+    e:"2 + 2 + 6 = 10 elétrons (é a distribuição do Neônio)." },
+  { q:"Os metais alcalinos formam qual grupo?", alt:["1A (Li, Na, K...)","7A","gases nobres"], c:0,
+    e:"Metais alcalinos = grupo 1A: Li, Na, K, Rb, Cs, Fr." },
+  { q:"Qual destes é um GÁS NOBRE?", alt:["Neônio (Ne)","Sódio (Na)","Oxigênio (O)"], c:0,
+    e:"Neônio é gás nobre. Os gases nobres são He, Ne, Ar, Kr, Xe, Rn." },
+  { q:"Qual destes é um HALOGÊNIO?", alt:["Bromo (Br)","Magnésio (Mg)","Potássio (K)"], c:0,
+    e:"Bromo é halogênio (7A): F, Cl, Br, I, At, Ts." },
+  { q:"Qual é o 2º gás nobre?", alt:["Neônio (Ne)","Hélio (He)","Argônio (Ar)"], c:0,
+    e:"He é o 1º; o 2º é o Neônio (Ne)." },
+  { q:"Qual é o 4º metal alcalino?", alt:["Rubídio (Rb)","Sódio (Na)","Potássio (K)"], c:0,
+    e:"Li, Na, K, Rb → o 4º é o Rubídio." },
+  { q:"Qual elemento termina a distribuição em 3p⁶?", alt:["Argônio (Ar), Z=18","Neônio (Ne), Z=10","Cloro (Cl), Z=17"], c:0,
+    e:"1s² 2s² 2p⁶ 3s² 3p⁶ = 18 elétrons = Argônio." },
+  { q:"Qual elemento termina a distribuição em 6s²?", alt:["Bário (Ba), Z=56","Cálcio (Ca), Z=20","Bário... não sei"], c:0,
+    e:"Somando até 6s² dá 56 elétrons = Bário." },
+  { q:"A distribuição do Magnésio (Z=12) é...", alt:["1s² 2s² 2p⁶ 3s²","1s² 2s² 2p⁶","1s² 2s² 2p⁶ 3s² 3p²"], c:0,
+    e:"Mg (12 elétrons): 1s² 2s² 2p⁶ 3s²." },
+  { q:"Em camadas, o Magnésio (Z=12) fica...", alt:["K=2, L=8, M=2","K=2, L=10","K=8, L=4"], c:0,
+    e:"K=2, L=8, M=2 (somando 12)." },
+  { q:"O Silício (Si, Z=14) termina em qual subnível?", alt:["3p²","3s²","4s²"], c:0,
+    e:"Si: 1s² 2s² 2p⁶ 3s² 3p². Termina em 3p²." },
+  { q:"Átomos ou íons com o mesmo número de elétrons são...", alt:["isoeletrônicos","isótopos","radioativos"], c:0,
+    e:"Isoeletrônicos = mesmo número de elétrons (ex.: Na⁺, O⁻² e Ne têm 10)." },
+  { q:"Na fila de Pauling, o que vem logo depois de 4p?", alt:["5s","3d","4d"], c:0,
+    e:"...4s, 3d, 4p, 5s... Depois do 4p vem o 5s." },
+];
+function embaralhar(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function preparar(){
+  return embaralhar(questoes.slice()).map(q=>{
+    const alts = q.alt.map((texto,i)=>({ texto, certa:i===q.c }));
+    embaralhar(alts);
+    return { q:q.q, alt:alts.map(a=>a.texto), c:alts.findIndex(a=>a.certa), e:q.e };
+  });
+}
+let jogo = preparar();
+let atual = 0, acertos = 0;
+const letras = ["A","B","C"];
+const $ = id => document.getElementById(id);
+function render(){
+  const item = jogo[atual];
+  $("contador").textContent = `Questão ${atual+1} de ${jogo.length}`;
+  $("placar").textContent = `Acertos: ${acertos}`;
+  $("barra").style.width = `${(atual/jogo.length)*100}%`;
+  $("pergunta").textContent = item.q;
+  const box = $("alternativas"); box.innerHTML = "";
+  item.alt.forEach((texto,i)=>{
+    const b = document.createElement("button");
+    b.className = "alt";
+    b.innerHTML = `<span class="letra">${letras[i]}</span><span>${texto}</span>`;
+    b.onclick = ()=>responder(i,b);
+    box.appendChild(b);
+  });
+  const fb = $("feedback"); fb.className = "feedback"; fb.innerHTML = "";
+  $("proxima").className = "proxima";
+  $("proxima").textContent = atual === jogo.length-1 ? "Ver resultado 🏁" : "Próxima ➜";
+}
+function responder(escolha){
+  const item = jogo[atual];
+  document.querySelectorAll(".alt").forEach((b,i)=>{
+    b.disabled = true;
+    if(i === item.c) b.classList.add("certo");
+    if(i === escolha && escolha !== item.c) b.classList.add("errado");
+  });
+  const fb = $("feedback");
+  if(escolha === item.c){ acertos++; fb.className = "feedback ok mostrar"; fb.innerHTML = `<b>✅ Acertou!</b>${item.e}`; }
+  else { fb.className = "feedback no mostrar"; fb.innerHTML = `<b>❌ Quase!</b> A resposta certa é <b style="display:inline">${letras[item.c]}</b>. ${item.e}`; }
+  $("placar").textContent = `Acertos: ${acertos}`;
+  $("proxima").classList.add("mostrar");
+}
+$("proxima").onclick = ()=>{ atual++; if(atual < jogo.length) render(); else final(); };
+function final(){
+  const total = jogo.length;
+  const nota = Math.round((acertos/total)*10*10)/10;
+  const pct = acertos/total;
+  let emoji, msg;
+  if(pct >= 0.9){ emoji="🏆"; msg="Fera! Você dominou a distribuição eletrônica. Pronto para a prova!"; }
+  else if(pct >= 0.7){ emoji="😃"; msg="Muito bom! Só falta revisar alguns pontinhos."; }
+  else if(pct >= 0.45){ emoji="🙂"; msg="Bom começo! Dá uma relida no resumo e refaça o quiz."; }
+  else { emoji="💪"; msg="Sem problema! Estude o diagrama de Pauling e tente de novo. Você consegue!"; }
+  $("barra").style.width = "100%"; $("contador").textContent = "Fim do quiz";
+  $("palco").innerHTML = `
+    <div class="final">
+      <div class="emoji">${emoji}</div>
+      <h2>Quiz concluído!</h2>
+      <div class="placar">Você acertou <b>${acertos}</b> de <b>${total}</b> questões</div>
+      <div class="nota">Nota ${nota}</div>
+      <div class="recado">${msg}</div>
+      <button class="refazer" onclick="reiniciar()">🔀 Embaralhar e refazer</button>
+    </div>`;
+}
+function reiniciar(){
+  atual = 0; acertos = 0; jogo = preparar();
+  $("palco").innerHTML = `
+    <div class="pergunta" id="pergunta"></div>
+    <div class="alternativas" id="alternativas"></div>
+    <div class="feedback" id="feedback"></div>
+    <button class="proxima" id="proxima">Próxima ➜</button>`;
+  $("proxima").onclick = ()=>{ atual++; if(atual<jogo.length) render(); else final(); };
+  render();
+}
+render();
+</script>
+</body>
+</html>
