@@ -47,6 +47,12 @@
   footer{text-align:center; color:#94a3b8; font-size:.85rem; margin-top:48px;}
   .topo{position:fixed; right:16px; bottom:16px; background:var(--teal); color:#fff; text-decoration:none; width:46px; height:46px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.3rem; box-shadow:0 4px 12px rgba(0,0,0,.2);}
   .rolar{overflow-x:auto;}
+  .sol{background:#fff; border:1px solid #d9e2ec; border-left:5px solid var(--teal); border-radius:12px; padding:12px 16px; margin:12px 0;}
+  .sol h4{color:#0a4a45; font-size:1.08rem; margin-bottom:6px;}
+  .sol .passo{margin:5px 0; font-size:.98rem;}
+  .sol .passo b{color:var(--teal);}
+  .sol .conta{font-family:"Consolas",monospace; background:#eef2f4; border-radius:6px; padding:7px 10px; display:block; margin:6px 0; overflow-x:auto; white-space:nowrap; font-size:.95rem;}
+  .resp{display:inline-block; background:var(--verde); color:#fff; font-weight:800; padding:5px 13px; border-radius:20px; margin-top:8px; font-size:.95rem;}
   @media(max-width:560px){ body{font-size:17px;} header.capa h1{font-size:1.5rem;} }
 </style>
 </head>
@@ -164,49 +170,175 @@
 <h2 class="sec"><span class="ic">✅</span>Gabarito da revisão do quadro</h2>
 
 <h3 style="color:#0a4a45;margin-top:18px;">1) Distribuição em camadas e subníveis</h3>
-<div class="rolar"><table class="gab">
-  <tr><th>Elemento</th><th>Subníveis (ordem de energia)</th><th>Camadas (K L M N)</th></tr>
-  <tr><td>a) Mg (Z=12)</td><td>1s² 2s² 2p⁶ 3s²</td><td>K=2 · L=8 · M=2</td></tr>
-  <tr><td>b) Br (Z=35)</td><td>1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d¹⁰ 4p⁵</td><td>K=2 · L=8 · M=18 · N=7</td></tr>
-  <tr><td>c) Kr (Z=36)</td><td>1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d¹⁰ 4p⁶</td><td>K=2 · L=8 · M=18 · N=8</td></tr>
-  <tr><td>d) Si (Z=14)</td><td>1s² 2s² 2p⁶ 3s² 3p²</td><td>K=2 · L=8 · M=4</td></tr>
-</table></div>
+<p style="color:var(--cinza);font-size:.95rem;">Receita: (1) ache o Z = nº de elétrons; (2) preencha na ordem de Pauling até somar tudo; (3) junte por camada (pelo número da frente: 1=K, 2=L, 3=M, 4=N).</p>
+
+<div class="sol">
+  <h4>a) Mg (Magnésio), Z = 12</h4>
+  <div class="passo"><b>1.</b> Z = 12 → são <b>12 elétrons</b>.</div>
+  <div class="passo"><b>2.</b> Preenchendo na ordem até dar 12:</div>
+  <span class="conta">1s² 2s² 2p⁶ 3s²  →  2+2+6+2 = 12 ✓</span>
+  <div class="passo"><b>3.</b> Juntando por camada: K(1s)=2 · L(2s+2p)=8 · M(3s)=2.</div>
+  <span class="resp">Subníveis: 1s² 2s² 2p⁶ 3s²  |  Camadas: K=2, L=8, M=2</span>
+</div>
+
+<div class="sol">
+  <h4>b) Br (Bromo), Z = 35</h4>
+  <div class="passo"><b>1.</b> Z = 35 → <b>35 elétrons</b>.</div>
+  <div class="passo"><b>2.</b> Preenchendo na ordem (lembre: <b>4s vem antes do 3d!</b>):</div>
+  <span class="conta">1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d¹⁰ 4p⁵  →  soma = 35 ✓</span>
+  <div class="passo"><b>3.</b> Juntando por camada (o 3d entra no M, porque é "3"): K=2 · L=8 · M(3s+3p+3d)=2+6+10=18 · N(4s+4p)=2+5=7.</div>
+  <span class="resp">Subníveis: …4s² 3d¹⁰ 4p⁵  |  Camadas: K=2, L=8, M=18, N=7</span>
+</div>
+
+<div class="sol">
+  <h4>c) Kr (Criptônio), Z = 36</h4>
+  <div class="passo"><b>1.</b> Z = 36 → <b>36 elétrons</b> (é só 1 a mais que o Br).</div>
+  <span class="conta">1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d¹⁰ 4p⁶  →  soma = 36 ✓</span>
+  <div class="passo"><b>2.</b> Camadas: K=2 · L=8 · M=18 · N(4s+4p)=2+6=8.</div>
+  <div class="passo">💡 O Kr é <b>gás nobre</b>: por isso a última camada fica "completa" (8).</div>
+  <span class="resp">Camadas: K=2, L=8, M=18, N=8</span>
+</div>
+
+<div class="sol">
+  <h4>d) Si (Silício), Z = 14</h4>
+  <div class="passo"><b>1.</b> Z = 14 → <b>14 elétrons</b>.</div>
+  <span class="conta">1s² 2s² 2p⁶ 3s² 3p²  →  2+2+6+2+2 = 14 ✓</span>
+  <div class="passo"><b>2.</b> Camadas: K=2 · L=8 · M(3s+3p)=2+2=4.</div>
+  <span class="resp">Subníveis: 1s² 2s² 2p⁶ 3s² 3p²  |  Camadas: K=2, L=8, M=4</span>
+</div>
 
 <h3 style="color:#0a4a45;margin-top:18px;">2) Distribuição dos íons</h3>
-<div class="rolar"><table class="gab">
-  <tr><th>Íon</th><th>Nº de elétrons</th><th>Distribuição</th></tr>
-  <tr><td>a) O⁻² (Z=8)</td><td>8 + 2 = 10</td><td>1s² 2s² 2p⁶</td></tr>
-  <tr><td>b) Na⁺ (Z=11)</td><td>11 − 1 = 10</td><td>1s² 2s² 2p⁶</td></tr>
-  <tr><td>c) Mg⁺² (Z=12)</td><td>12 − 2 = 10</td><td>1s² 2s² 2p⁶</td></tr>
-  <tr><td>d) N⁻³ (Z=7)</td><td>7 + 3 = 10</td><td>1s² 2s² 2p⁶</td></tr>
-</table></div>
-<div class="card lembre"><span class="tit">😲 Sacada bonita</span> Os quatro íons ficaram com <strong>10 elétrons</strong> e a mesma distribuição (igual ao gás nobre <strong>Neônio</strong>). Isso se chama serem <strong>isoeletrônicos</strong>.</div>
+<p style="color:var(--cinza);font-size:.95rem;">Receita: (1) veja o Z do átomo; (2) ajuste os elétrons pela carga — sinal <b>+</b> tira elétron, sinal <b>–</b> põe elétron; (3) distribua o novo total.</p>
+
+<div class="sol">
+  <h4>a) O⁻² — Oxigênio, Z = 8</h4>
+  <div class="passo"><b>1.</b> O tem 8 elétrons. A carga é <b>−2</b> → <b>ganhou 2</b> elétrons.</div>
+  <span class="conta">8 + 2 = 10 elétrons  →  1s² 2s² 2p⁶</span>
+  <span class="resp">1s² 2s² 2p⁶</span>
+</div>
+
+<div class="sol">
+  <h4>b) Na⁺ — Sódio, Z = 11</h4>
+  <div class="passo"><b>1.</b> Na tem 11 elétrons. A carga é <b>+1</b> → <b>perdeu 1</b> elétron.</div>
+  <span class="conta">11 − 1 = 10 elétrons  →  1s² 2s² 2p⁶</span>
+  <span class="resp">1s² 2s² 2p⁶</span>
+</div>
+
+<div class="sol">
+  <h4>c) Mg⁺² — Magnésio, Z = 12</h4>
+  <div class="passo"><b>1.</b> Mg tem 12 elétrons. A carga é <b>+2</b> → <b>perdeu 2</b>.</div>
+  <span class="conta">12 − 2 = 10 elétrons  →  1s² 2s² 2p⁶</span>
+  <span class="resp">1s² 2s² 2p⁶</span>
+</div>
+
+<div class="sol">
+  <h4>d) N⁻³ — Nitrogênio, Z = 7</h4>
+  <div class="passo"><b>1.</b> N tem 7 elétrons. A carga é <b>−3</b> → <b>ganhou 3</b>.</div>
+  <span class="conta">7 + 3 = 10 elétrons  →  1s² 2s² 2p⁶</span>
+  <span class="resp">1s² 2s² 2p⁶</span>
+</div>
+
+<div class="card lembre"><span class="tit">😲 Sacada bonita</span> Repare: os <strong>quatro íons</strong> ficaram com <strong>10 elétrons</strong> e a mesmíssima distribuição (a do gás nobre <strong>Neônio</strong>). Quando têm o mesmo número de elétrons, dizemos que são <strong>isoeletrônicos</strong>. Por isso os átomos "viram íons": eles buscam ficar iguais ao gás nobre mais perto.</div>
 
 <h3 style="color:#0a4a45;margin-top:18px;">3) Encontre os elementos</h3>
-<div class="rolar"><table class="gab">
-  <tr><th>Pedido</th><th>Elemento</th></tr>
-  <tr><td>a) 2º gás nobre</td><td>Neônio (Ne), Z=10 — os gases nobres são He, <b>Ne</b>, Ar...</td></tr>
-  <tr><td>b) 2º período / Grupo 1</td><td>Lítio (Li), Z=3</td></tr>
-  <tr><td>c) 4º metal alcalino</td><td>Rubídio (Rb), Z=37 — Li, Na, K, <b>Rb</b></td></tr>
-  <tr><td>d) 1º lantanídeo</td><td>Lantânio (La), Z=57</td></tr>
-  <tr><td>e) 6º calcogênio</td><td>Livermório (Lv), Z=116 — O, S, Se, Te, Po, <b>Lv</b></td></tr>
-  <tr><td>f) 7º período / Grupo 7 (7A, halogênios)</td><td>Tennessino (Ts), Z=117</td></tr>
-</table></div>
-<div class="card atencao"><span class="tit">⚠️ Confira na sua tabela</span> Os itens <strong>e</strong> e <strong>f</strong> caem em elementos raros (feitos em laboratório). Confirme a contagem na tabela do seu caderno, e veja se o professor conta o Grupo 7 como <strong>7A (halogênios)</strong> ou como grupo 7 dos metais de transição (aí seria Bóhrio, Bh, Z=107).</div>
+<p style="color:var(--cinza);font-size:.95rem;">Aqui é caça na tabela: quando pede "o Nº tal da família", conte de cima para baixo dentro daquela coluna.</p>
+
+<div class="sol">
+  <h4>a) 2º gás nobre</h4>
+  <div class="passo">Gases nobres, de cima pra baixo: <b>He (1º)</b>, <b>Ne (2º)</b>, Ar, Kr, Xe, Rn.</div>
+  <span class="resp">Neônio (Ne), Z = 10</span>
+</div>
+
+<div class="sol">
+  <h4>b) 2º período / Grupo 1</h4>
+  <div class="passo">"2º período" = 2ª linha da tabela. "Grupo 1" = coluna dos metais alcalinos. O cruzamento é o <b>Lítio</b>.</div>
+  <span class="resp">Lítio (Li), Z = 3</span>
+</div>
+
+<div class="sol">
+  <h4>c) 4º metal alcalino</h4>
+  <div class="passo">Metais alcalinos, de cima pra baixo: Li (1º), Na (2º), K (3º), <b>Rb (4º)</b>.</div>
+  <span class="resp">Rubídio (Rb), Z = 37</span>
+</div>
+
+<div class="sol">
+  <h4>d) 1º lantanídeo</h4>
+  <div class="passo">Os lantanídeos são aquela fileira de baixo da tabela; ela começa no <b>Lantânio</b>.</div>
+  <span class="resp">Lantânio (La), Z = 57</span>
+</div>
+
+<div class="sol">
+  <h4>e) 6º calcogênio</h4>
+  <div class="passo">Calcogênios (grupo 16), de cima pra baixo: O (1º), S (2º), Se (3º), Te (4º), Po (5º), <b>Lv (6º)</b>.</div>
+  <span class="resp">Livermório (Lv), Z = 116</span>
+  <div class="passo" style="color:var(--vermelho);font-size:.9rem;">⚠️ Elemento raro, feito em laboratório. Confira na sua tabela.</div>
+</div>
+
+<div class="sol">
+  <h4>f) 7º período / Grupo 7</h4>
+  <div class="passo">"7º período" = última linha. Se o "Grupo 7" for a família <b>7A (halogênios)</b>: F, Cl, Br, I, At, <b>Ts</b> → o de baixo é o Tennessino.</div>
+  <span class="resp">Tennessino (Ts), Z = 117</span>
+  <div class="passo" style="color:var(--vermelho);font-size:.9rem;">⚠️ Confirme com o professor: se "Grupo 7" for o grupo 7 dos metais de transição (não o 7A), a resposta seria <b>Bóhrio (Bh), Z = 107</b>.</div>
+</div>
 
 <h3 style="color:#0a4a45;margin-top:18px;">4) Elemento a partir do último subnível</h3>
-<p style="color:var(--cinza);font-size:.95rem;">Monte a distribuição na ordem de Pauling até terminar no subnível dado e some os elétrons para achar o Z.</p>
-<div class="rolar"><table class="gab">
-  <tr><th>Termina em</th><th>Elemento (Z)</th></tr>
-  <tr><td>a) 5p³</td><td>Antimônio (Sb), Z=51</td></tr>
-  <tr><td>b) 3d⁷</td><td>Cobalto (Co), Z=27</td></tr>
-  <tr><td>c) 4p¹</td><td>Gálio (Ga), Z=31</td></tr>
-  <tr><td>d) 6s²</td><td>Bário (Ba), Z=56</td></tr>
-  <tr><td>e) 4d³</td><td>Nióbio (Nb), Z=41</td></tr>
-  <tr><td>f) 3p⁶</td><td>Argônio (Ar), Z=18</td></tr>
-  <tr><td>g) 5p²</td><td>Estanho (Sn), Z=50</td></tr>
-  <tr><td>h) 4d¹</td><td>Ítrio (Y), Z=39</td></tr>
-</table></div>
+<p style="color:var(--cinza);font-size:.95rem;">Receita: o subnível dado é o <b>último</b> da fila de Pauling. Escreva tudo o que vem antes dele (completo), coloque ele por último, <b>some todos os elétrons</b> = esse é o Z, aí é só achar na tabela.</p>
+
+<div class="sol">
+  <h4>a) termina em 5p³</h4>
+  <span class="conta">1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d¹⁰ 4p⁶ 5s² 4d¹⁰ 5p³</span>
+  <div class="passo">Soma: 2+2+6+2+6+2+10+6+2+10+3 = <b>51</b>.</div>
+  <span class="resp">Antimônio (Sb), Z = 51</span>
+</div>
+
+<div class="sol">
+  <h4>b) termina em 3d⁷</h4>
+  <span class="conta">1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d⁷</span>
+  <div class="passo">Soma: 2+2+6+2+6+2+7 = <b>27</b>. (o 4s vem antes do 3d!)</div>
+  <span class="resp">Cobalto (Co), Z = 27</span>
+</div>
+
+<div class="sol">
+  <h4>c) termina em 4p¹</h4>
+  <span class="conta">1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d¹⁰ 4p¹</span>
+  <div class="passo">Soma: 2+2+6+2+6+2+10+1 = <b>31</b>.</div>
+  <span class="resp">Gálio (Ga), Z = 31</span>
+</div>
+
+<div class="sol">
+  <h4>d) termina em 6s²</h4>
+  <span class="conta">1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d¹⁰ 4p⁶ 5s² 4d¹⁰ 5p⁶ 6s²</span>
+  <div class="passo">Soma: 2+2+6+2+6+2+10+6+2+10+6+2 = <b>56</b>.</div>
+  <span class="resp">Bário (Ba), Z = 56</span>
+</div>
+
+<div class="sol">
+  <h4>e) termina em 4d³</h4>
+  <span class="conta">1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d¹⁰ 4p⁶ 5s² 4d³</span>
+  <div class="passo">Soma: 2+2+6+2+6+2+10+6+2+3 = <b>41</b>.</div>
+  <span class="resp">Nióbio (Nb), Z = 41</span>
+</div>
+
+<div class="sol">
+  <h4>f) termina em 3p⁶</h4>
+  <span class="conta">1s² 2s² 2p⁶ 3s² 3p⁶</span>
+  <div class="passo">Soma: 2+2+6+2+6 = <b>18</b>. (é um gás nobre!)</div>
+  <span class="resp">Argônio (Ar), Z = 18</span>
+</div>
+
+<div class="sol">
+  <h4>g) termina em 5p²</h4>
+  <span class="conta">1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d¹⁰ 4p⁶ 5s² 4d¹⁰ 5p²</span>
+  <div class="passo">Soma: 2+2+6+2+6+2+10+6+2+10+2 = <b>50</b>.</div>
+  <span class="resp">Estanho (Sn), Z = 50</span>
+</div>
+
+<div class="sol">
+  <h4>h) termina em 4d¹</h4>
+  <span class="conta">1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d¹⁰ 4p⁶ 5s² 4d¹</span>
+  <div class="passo">Soma: 2+2+6+2+6+2+10+6+2+1 = <b>39</b>.</div>
+  <span class="resp">Ítrio (Y), Z = 39</span>
+</div>
 
 <!-- Glossario -->
 <h2 class="sec"><span class="ic">🔤</span>Palavras importantes</h2>
