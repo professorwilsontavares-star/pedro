@@ -237,6 +237,61 @@
   </svg>
   <div class="legenda">Azul = <b>s</b>, verde = <b>p</b>, laranja = <b>d</b>, roxo = <b>f</b>. Siga as setas laranja (↙).</div>
 </div>
+
+<p>Muitos livros mostram o diagrama <strong>deste outro jeito</strong> (é o mesmo!). A seta azul "Energia" lembra que, de cima para baixo, os subníveis vão ficando com <strong>mais energia</strong>. As setas vermelhas são as diagonais que você segue.</p>
+<div class="fig">
+  <svg viewBox="0 0 590 660" role="img" aria-label="Diagrama de Linus Pauling versão clássica com seta de energia">
+    <defs>
+      <marker id="setaE" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#e53935"/></marker>
+      <marker id="setaAzul" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#1e40af"/></marker>
+    </defs>
+    <!-- Energia -->
+    <text x="8" y="42" font-family="Segoe UI,Arial" font-size="24" font-weight="bold" fill="#1e40af">Energia</text>
+    <line x1="30" y1="58" x2="30" y2="632" stroke="#1e40af" stroke-width="4" marker-end="url(#setaAzul)"/>
+    <!-- n labels -->
+    <g font-family="Segoe UI,Arial" font-size="17" font-weight="bold" fill="#1f2733" text-anchor="end">
+      <text x="150" y="116">n = 1</text><text x="150" y="191">n = 2</text><text x="150" y="266">n = 3</text>
+      <text x="150" y="341">n = 4</text><text x="150" y="416">n = 5</text><text x="150" y="491">n = 6</text><text x="150" y="566">n = 7</text>
+    </g>
+    <!-- setas vermelhas (diagonais, atrás das bolinhas) -->
+    <g stroke="#e53935" stroke-width="2.5" marker-end="url(#setaE)">
+      <line x1="285" y1="58"  x2="175" y2="162"/>
+      <line x1="285" y1="133" x2="175" y2="237"/>
+      <line x1="365" y1="133" x2="175" y2="312"/>
+      <line x1="365" y1="208" x2="175" y2="387"/>
+      <line x1="445" y1="208" x2="175" y2="462"/>
+      <line x1="445" y1="283" x2="175" y2="537"/>
+      <line x1="525" y1="283" x2="175" y2="612"/>
+      <line x1="525" y1="358" x2="255" y2="612"/>
+    </g>
+    <!-- bolinhas -->
+    <g font-family="Segoe UI,Arial" font-size="14" font-weight="bold" fill="#1f2733" text-anchor="middle">
+      <g>
+        <circle cx="230" cy="110" r="18" fill="#F4C430" stroke="#e0a800" stroke-width="1.5"/><text x="230" y="115">1s</text>
+        <circle cx="230" cy="185" r="18" fill="#F4C430" stroke="#e0a800" stroke-width="1.5"/><text x="230" y="190">2s</text>
+        <circle cx="310" cy="185" r="18" fill="#F4C430" stroke="#e0a800" stroke-width="1.5"/><text x="310" y="190">2p</text>
+        <circle cx="230" cy="260" r="18" fill="#F4C430" stroke="#e0a800" stroke-width="1.5"/><text x="230" y="265">3s</text>
+        <circle cx="310" cy="260" r="18" fill="#F4C430" stroke="#e0a800" stroke-width="1.5"/><text x="310" y="265">3p</text>
+        <circle cx="390" cy="260" r="18" fill="#F4C430" stroke="#e0a800" stroke-width="1.5"/><text x="390" y="265">3d</text>
+        <circle cx="230" cy="335" r="18" fill="#F4C430" stroke="#e0a800" stroke-width="1.5"/><text x="230" y="340">4s</text>
+        <circle cx="310" cy="335" r="18" fill="#F4C430" stroke="#e0a800" stroke-width="1.5"/><text x="310" y="340">4p</text>
+        <circle cx="390" cy="335" r="18" fill="#F4C430" stroke="#e0a800" stroke-width="1.5"/><text x="390" y="340">4d</text>
+        <circle cx="470" cy="335" r="18" fill="#F4C430" stroke="#e0a800" stroke-width="1.5"/><text x="470" y="340">4f</text>
+        <circle cx="230" cy="410" r="18" fill="#F4C430" stroke="#e0a800" stroke-width="1.5"/><text x="230" y="415">5s</text>
+        <circle cx="310" cy="410" r="18" fill="#F4C430" stroke="#e0a800" stroke-width="1.5"/><text x="310" y="415">5p</text>
+        <circle cx="390" cy="410" r="18" fill="#F4C430" stroke="#e0a800" stroke-width="1.5"/><text x="390" y="415">5d</text>
+        <circle cx="470" cy="410" r="18" fill="#F4C430" stroke="#e0a800" stroke-width="1.5"/><text x="470" y="415">5f</text>
+        <circle cx="230" cy="485" r="18" fill="#F4C430" stroke="#e0a800" stroke-width="1.5"/><text x="230" y="490">6s</text>
+        <circle cx="310" cy="485" r="18" fill="#F4C430" stroke="#e0a800" stroke-width="1.5"/><text x="310" y="490">6p</text>
+        <circle cx="390" cy="485" r="18" fill="#F4C430" stroke="#e0a800" stroke-width="1.5"/><text x="390" y="490">6d</text>
+        <circle cx="230" cy="560" r="18" fill="#F4C430" stroke="#e0a800" stroke-width="1.5"/><text x="230" y="565">7s</text>
+        <circle cx="310" cy="560" r="18" fill="#F4C430" stroke="#e0a800" stroke-width="1.5"/><text x="310" y="565">7p</text>
+      </g>
+    </g>
+  </svg>
+  <div class="legenda">🔴 As setas vermelhas são as diagonais (a ordem de preenchimento). 🔵 A seta azul mostra a energia aumentando de cima para baixo.</div>
+</div>
+
 <p>Seguindo as diagonais, a <strong>ordem de preenchimento</strong> fica assim (decore esta fila!):</p>
 <div class="ordem rolar">
   <b>1s²</b> → <b>2s²</b> → <b>2p⁶</b> → <b>3s²</b> → <b>3p⁶</b> → <b>4s²</b> → <b>3d¹⁰</b> → <b>4p⁶</b> → <b>5s²</b> → <b>4d¹⁰</b> → <b>5p⁶</b> → <b>6s²</b> → <b>4f¹⁴</b> → <b>5d¹⁰</b> → <b>6p⁶</b> → <b>7s²</b> → <b>5f¹⁴</b> → <b>6d¹⁰</b> → <b>7p⁶</b>
