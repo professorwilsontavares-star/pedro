@@ -1,6 +1,6 @@
 # Estudos do Pedro — site
 
-Material escolar do Pedro (13 anos, Ensino Fundamental Anos Finais / 9º ano), publicado como um site simples via **GitHub Pages**.
+Material escolar do Pedro (14 anos, Ensino Fundamental Anos Finais / 9º ano), publicado como um site simples via **GitHub Pages**.
 
 - **Link (mandar pro Pedro):** https://professorwilsontavares-star.github.io/pedro/
 - **Repositório:** `professorwilsontavares-star/pedro` (público — exigência do GitHub Pages no plano gratuito)
