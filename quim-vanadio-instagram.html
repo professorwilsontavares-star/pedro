@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trabalho do Pedro: Vanádio no Instagram</title>
+<style>
+  :root{--tinta:#1f2733; --cinza:#64748b; --linha:#dbdbdb; --azul:#0095f6;}
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif; background:#fafafa; color:var(--tinta); line-height:1.5;}
+  .fone{max-width:470px; margin:0 auto; background:#fff; min-height:100vh; border-left:1px solid var(--linha); border-right:1px solid var(--linha);}
+
+  /* topo do "app" */
+  .barra{display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border-bottom:1px solid var(--linha); position:sticky; top:0; background:#fff; z-index:5;}
+  .barra .user{font-weight:800; font-size:1.05rem; display:flex; align-items:center; gap:5px;}
+  .verif{color:var(--azul); font-size:.95rem;}
+
+  /* header do perfil */
+  .perfil{padding:18px 16px 6px;}
+  .linha1{display:flex; align-items:center; gap:22px;}
+  .avatar{width:86px; height:86px; border-radius:50%; flex:0 0 auto; padding:3px; background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);}
+  .avatar .in{width:100%; height:100%; border-radius:50%; background:linear-gradient(135deg,#8a97a3,#5b6b78); display:flex; align-items:center; justify-content:center; color:#fff; font-size:2.4rem; font-weight:900; border:3px solid #fff;}
+  .stats{display:flex; gap:20px; text-align:center; flex:1 1 auto; justify-content:space-around;}
+  .stats b{display:block; font-size:1.1rem;} .stats span{font-size:.85rem; color:var(--cinza);}
+  .bio{padding:10px 0 4px;}
+  .bio .nome{font-weight:800;}
+  .bio .txt{font-size:.95rem; white-space:pre-line;}
+  .bio .link{color:#00376b; font-weight:700; font-size:.95rem;}
+  .destaques{display:flex; gap:16px; padding:14px 2px 4px; overflow-x:auto;}
+  .dest{text-align:center; flex:0 0 auto; width:66px;}
+  .dest .c{width:60px; height:60px; border-radius:50%; background:#eef2f4; border:1px solid var(--linha); display:flex; align-items:center; justify-content:center; font-size:1.5rem;}
+  .dest span{font-size:.72rem; display:block; margin-top:4px;}
+
+  .abas{display:flex; border-top:1px solid var(--linha); margin-top:6px;}
+  .abas div{flex:1; text-align:center; padding:10px; font-size:1.3rem; border-bottom:2px solid transparent;}
+  .abas div.on{border-bottom-color:#111;}
+
+  /* posts (feed) */
+  .post{border-bottom:1px solid var(--linha);}
+  .phead{display:flex; align-items:center; gap:9px; padding:10px 14px;}
+  .phead .mini{width:34px; height:34px; border-radius:50%; padding:2px; background:linear-gradient(45deg,#f09433,#dc2743,#bc1888);}
+  .phead .mini i{display:block; width:100%; height:100%; border-radius:50%; background:linear-gradient(135deg,#8a97a3,#5b6b78); color:#fff; font-weight:900; font-size:.9rem; display:flex; align-items:center; justify-content:center; font-style:normal; border:2px solid #fff;}
+  .phead .u{font-weight:700; font-size:.9rem; flex:1;}
+  .phead .dots{color:#111; font-weight:900; letter-spacing:1px;}
+  .img{position:relative; aspect-ratio:1/1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; color:#fff; padding:20px;}
+  .img .emj{font-size:3.4rem; line-height:1;}
+  .img .big{font-size:2.4rem; font-weight:900; margin-top:6px; text-shadow:0 2px 8px rgba(0,0,0,.25);}
+  .img .sub{font-size:1.05rem; font-weight:700; margin-top:4px; opacity:.95;}
+  .acoes{display:flex; align-items:center; gap:14px; padding:10px 14px 4px; font-size:1.5rem;}
+  .acoes .salvar{margin-left:auto;}
+  .curtidas{padding:0 14px; font-weight:700; font-size:.9rem;}
+  .legenda{padding:4px 14px 12px; font-size:.92rem;}
+  .legenda b{font-weight:800;}
+  .tags{color:#00376b;}
+  .quando{padding:0 14px 12px; font-size:.72rem; color:var(--cinza); text-transform:uppercase;}
+
+  footer{text-align:center; color:#b0b8c1; font-size:.8rem; padding:22px 10px 40px;}
+</style>
+</head>
+<body>
+<a href="index.html" class="btn-voltar-hub" style="position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:9999;display:inline-flex;align-items:center;gap:7px;background:#E25E42;color:#fff;text-decoration:none;font-weight:800;font-size:1rem;padding:11px 18px;border-radius:30px;box-shadow:0 4px 14px rgba(0,0,0,.3);font-family:'Segoe UI',system-ui,Arial,sans-serif;">← Voltar</a>
+
+<div class="fone">
+  <div class="barra">
+    <span class="user">vanadio_oficial <span class="verif">✔</span></span>
+    <span style="font-weight:900;">···</span>
+  </div>
+
+  <div class="perfil">
+    <div class="linha1">
+      <div class="avatar"><div class="in">V</div></div>
+      <div class="stats">
+        <div><b>9</b><span>posts</span></div>
+        <div><b>23</b><span>seguidores</span></div>
+        <div><b>5</b><span>seguindo</span></div>
+      </div>
+    </div>
+    <div class="bio">
+      <div class="nome">Vanádio (V) ⚗️</div>
+      <div class="txt">Metal de transição 🔩
+Número atômico: 23 · Massa ≈ 51 u
+Grupo 5 · Período 4
+Deixo o aço mais forte 💪 e piloto nas cores 🎨</div>
+      <div class="link">🔗 tabela-periodica.com/vanadio</div>
+    </div>
+    <div class="destaques">
+      <div class="dest"><div class="c">🪪</div><span>ID</span></div>
+      <div class="dest"><div class="c">🎨</div><span>cores</span></div>
+      <div class="dest"><div class="c">🔧</div><span>usos</span></div>
+      <div class="dest"><div class="c">📜</div><span>história</span></div>
+    </div>
+    <div class="abas"><div class="on">▦</div><div>🏷️</div></div>
+  </div>
+
+  <!-- POST 1 -->
+  <div class="post">
+    <div class="phead"><span class="mini"><i>V</i></span><span class="u">vanadio_oficial</span><span class="dots">···</span></div>
+    <div class="img" style="background:linear-gradient(135deg,#6b7a88,#3b4753);">
+      <div class="emj">⚗️</div><div class="big">V</div><div class="sub">Z = 23 · massa ≈ 51 u</div>
+    </div>
+    <div class="acoes">❤️ 💬 📤 <span class="salvar">🔖</span></div>
+    <div class="curtidas">2.323 curtidas</div>
+    <div class="legenda"><b>vanadio_oficial</b> Oi, pessoal! Eu sou o Vanádio 👋 Meu símbolo é <b>V</b>, meu número atômico é <b>23</b> (tenho 23 prótons e 23 elétrons!) e minha massa atômica é ≈ <b>51 u</b>. Prazer! <span class="tags">#quimica #vanadio #tabelaperiodica</span></div>
+    <div class="quando">há 2 horas</div>
+  </div>
+
+  <!-- POST 2 -->
+  <div class="post">
+    <div class="phead"><span class="mini"><i>V</i></span><span class="u">vanadio_oficial</span><span class="dots">···</span></div>
+    <div class="img" style="background:linear-gradient(135deg,#2e7d4f,#1c5233);">
+      <div class="emj">🔩</div><div class="big">Metal de transição</div><div class="sub">Grupo 5 · Período 4</div>
+    </div>
+    <div class="acoes">❤️ 💬 📤 <span class="salvar">🔖</span></div>
+    <div class="curtidas">1.845 curtidas</div>
+    <div class="legenda"><b>vanadio_oficial</b> Sobre mim: sou um <b>metal de transição</b>! Fico no <b>Grupo 5</b> e no <b>Período 4</b> da tabela periódica, no meio da galera dos metais. 🔩 <span class="tags">#metaisdetransicao #grupo5 #periodo4</span></div>
+    <div class="quando">há 5 horas</div>
+  </div>
+
+  <!-- POST 3 -->
+  <div class="post">
+    <div class="phead"><span class="mini"><i>V</i></span><span class="u">vanadio_oficial</span><span class="dots">···</span></div>
+    <div class="img" style="background:linear-gradient(135deg,#0f766e,#0a4a45);">
+      <div class="emj">⚛️</div><div class="big" style="font-size:1.35rem;">1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d³</div><div class="sub">K=2 · L=8 · M=11 · N=2</div>
+    </div>
+    <div class="acoes">❤️ 💬 📤 <span class="salvar">🔖</span></div>
+    <div class="curtidas">3.203 curtidas</div>
+    <div class="legenda"><b>vanadio_oficial</b> Meu "endereço" dos elétrons (distribuição eletrônica): <b>1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d³</b>. Em camadas fica <b>K=2, L=8, M=11, N=2</b>. Termino no <b>3d³</b> 😎 (lembra: o 4s vem antes do 3d!) <span class="tags">#distribuicaoeletronica #linuspauling #23eletrons</span></div>
+    <div class="quando">há 8 horas</div>
+  </div>
+
+  <!-- POST 4 -->
+  <div class="post">
+    <div class="phead"><span class="mini"><i>V</i></span><span class="u">vanadio_oficial</span><span class="dots">···</span></div>
+    <div class="img" style="background:linear-gradient(135deg,#c9d2da,#8a97a3);color:#2b3540;">
+      <div class="emj">✨</div><div class="big">Cinza-prateado</div><div class="sub">metal brilhante · sólido</div>
+    </div>
+    <div class="acoes">❤️ 💬 📤 <span class="salvar">🔖</span></div>
+    <div class="curtidas">1.510 curtidas</div>
+    <div class="legenda"><b>vanadio_oficial</b> Minha aparência: sou um metal <b>cinza-prateado</b>, brilhante e <b>sólido</b> na temperatura ambiente. Firmeza! ✨ <span class="tags">#metal #solido #brilho</span></div>
+    <div class="quando">há 12 horas</div>
+  </div>
+
+  <!-- POST 5 -->
+  <div class="post">
+    <div class="phead"><span class="mini"><i>V</i></span><span class="u">vanadio_oficial</span><span class="dots">···</span></div>
+    <div class="img" style="background:linear-gradient(135deg,#f97316,#c0392b);">
+      <div class="emj">🔥</div><div class="big">Aguento o calor!</div><div class="sub">funde a ≈ 1.910 °C</div>
+    </div>
+    <div class="acoes">❤️ 💬 📤 <span class="salvar">🔖</span></div>
+    <div class="curtidas">1.977 curtidas</div>
+    <div class="legenda"><b>vanadio_oficial</b> Sou resistente pra caramba! 🔥 Só derreto a ≈ <b>1.910 °C</b> (ponto de fusão) e fervo a ≈ <b>3.407 °C</b>. Minha densidade é ≈ <b>6,1 g/cm³</b>. 💪 <span class="tags">#pontodefusao #resistente #altatemperatura</span></div>
+    <div class="quando">há 1 dia</div>
+  </div>
+
+  <!-- POST 6 -->
+  <div class="post">
+    <div class="phead"><span class="mini"><i>V</i></span><span class="u">vanadio_oficial</span><span class="dots">···</span></div>
+    <div class="img" style="background:linear-gradient(135deg,#7c3aed,#2e7d4f 40%,#1d4e89 70%,#f4b400);">
+      <div class="emj">🎨</div><div class="big">Rei das cores</div><div class="sub">roxo · verde · azul · amarelo</div>
+    </div>
+    <div class="acoes">❤️ 💬 📤 <span class="salvar">🔖</span></div>
+    <div class="curtidas">4.204 curtidas</div>
+    <div class="legenda"><b>vanadio_oficial</b> Meu talento secreto 🎨 meus compostos <b>mudam de cor</b> conforme o estado de oxidação: <b>roxo (+2)</b>, <b>verde (+3)</b>, <b>azul (+4)</b> e <b>amarelo (+5)</b>! Por isso meu nome vem de <b>Vanadis</b>, a deusa nórdica da beleza. 💜💚💙💛 <span class="tags">#quimicacolorida #vanadis #arcoiris</span></div>
+    <div class="quando">há 1 dia</div>
+  </div>
+
+  <!-- POST 7 -->
+  <div class="post">
+    <div class="phead"><span class="mini"><i>V</i></span><span class="u">vanadio_oficial</span><span class="dots">···</span></div>
+    <div class="img" style="background:linear-gradient(135deg,#475569,#1e293b);">
+      <div class="emj">🔧</div><div class="big">Personal do aço</div><div class="sub">aço-vanádio super forte</div>
+    </div>
+    <div class="acoes">❤️ 💬 📤 <span class="salvar">🔖</span></div>
+    <div class="curtidas">2.688 curtidas</div>
+    <div class="legenda"><b>vanadio_oficial</b> Meu trampo principal: deixo o <b>aço</b> super forte e resistente! 🔧 O <b>aço-vanádio</b> vira ferramenta, mola, engrenagem e até peça de avião ✈️. Sou o personal trainer dos metais! <span class="tags">#acovanadio #ligas #resistencia</span></div>
+    <div class="quando">há 2 dias</div>
+  </div>
+
+  <!-- POST 8 -->
+  <div class="post">
+    <div class="phead"><span class="mini"><i>V</i></span><span class="u">vanadio_oficial</span><span class="dots">···</span></div>
+    <div class="img" style="background:linear-gradient(135deg,#16a34a,#065f46);">
+      <div class="emj">🔋</div><div class="big">Também sou verde</div><div class="sub">catalisador · baterias</div>
+    </div>
+    <div class="acoes">❤️ 💬 📤 <span class="salvar">🔖</span></div>
+    <div class="curtidas">2.055 curtidas</div>
+    <div class="legenda"><b>vanadio_oficial</b> Moderninho também 🔋 Viro <b>catalisador</b> (o V₂O₅ ajuda a fabricar o ácido sulfúrico) e trabalho dentro das <b>baterias de vanádio</b>, que guardam energia limpa ⚡🌱 <span class="tags">#energia #catalisador #sustentabilidade</span></div>
+    <div class="quando">há 2 dias</div>
+  </div>
+
+  <!-- POST 9 -->
+  <div class="post">
+    <div class="phead"><span class="mini"><i>V</i></span><span class="u">vanadio_oficial</span><span class="dots">···</span></div>
+    <div class="img" style="background:linear-gradient(135deg,#a16207,#713f12);">
+      <div class="emj">📜</div><div class="big">Minha história</div><div class="sub">1801 → 1830</div>
+    </div>
+    <div class="acoes">❤️ 💬 📤 <span class="salvar">🔖</span></div>
+    <div class="curtidas">1.830 curtidas</div>
+    <div class="legenda"><b>vanadio_oficial</b> Um pouco da minha história 📜 Fui descoberto em <b>1801</b> pelo mexicano <b>Andrés del Río</b> (mas acabei esquecido) e "redescoberto" em <b>1830</b> pelo sueco <b>Nils Sefström</b>, que me deu o nome de Vanádio. Nasci pra brilhar! 🌟 <span class="tags">#historia #descoberta #1830</span></div>
+    <div class="quando">há 3 dias</div>
+  </div>
+
+  <footer>Trabalho de Química do Pedro · O elemento Vanádio (V) em formato de perfil do Instagram 📸</footer>
+</div>
+</body>
+</html>
