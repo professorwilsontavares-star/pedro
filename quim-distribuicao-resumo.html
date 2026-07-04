@@ -53,6 +53,12 @@
   .sol .passo b{color:var(--teal);}
   .sol .conta{font-family:"Consolas",monospace; background:#eef2f4; border-radius:6px; padding:7px 10px; display:block; margin:6px 0; overflow-x:auto; white-space:nowrap; font-size:.95rem;}
   .resp{display:inline-block; background:var(--verde); color:#fff; font-weight:800; padding:5px 13px; border-radius:20px; margin-top:8px; font-size:.95rem;}
+  .elems{display:grid; grid-template-columns:repeat(auto-fill,minmax(78px,1fr)); gap:8px; margin:14px 0;}
+  .el{background:#fff; border:1px solid #cfe9e4; border-radius:10px; text-align:center; padding:7px 3px; box-shadow:0 1px 3px rgba(0,0,0,.05);}
+  .el .z{font-size:.68rem; color:#94a3b8; display:block; font-weight:700;}
+  .el .sim{font-size:1.35rem; font-weight:900; color:var(--teal); line-height:1.1;}
+  .el .nome{font-size:.66rem; color:var(--cinza); display:block; margin-top:1px;}
+  .decore .tit{font-size:1.05rem;}
   @media(max-width:560px){ body{font-size:17px;} header.capa h1{font-size:1.5rem;} }
 </style>
 </head>
@@ -68,6 +74,74 @@
 <div class="wrap">
 
 <p class="lead">Distribuição eletrônica é o "endereço" dos elétrons dentro do átomo. Com o <strong>diagrama de Linus Pauling</strong>, dá para montar isso passo a passo. Aqui vai o guia + o <strong>gabarito da revisão do quadro</strong>. 👇</p>
+
+<!-- DECORE -->
+<h2 class="sec"><span class="ic">⭐</span>Antes de começar: DECORE isto</h2>
+<p>Guarde estas <strong>5 coisas</strong> na cabeça <strong>antes</strong> de resolver. Com elas, você faz qualquer questão da revisão. 💪</p>
+
+<div class="card chave decore"><span class="tit">1️⃣ A ordem de preenchimento (a MAIS importante)</span>
+  <div class="ordem rolar" style="margin-top:8px;"><b>1s</b> → <b>2s</b> → <b>2p</b> → <b>3s</b> → <b>3p</b> → <b>4s</b> → <b>3d</b> → <b>4p</b> → <b>5s</b> → <b>4d</b> → <b>5p</b> → <b>6s</b> → <b>4f</b> → <b>5d</b> → <b>6p</b> → <b>7s</b> → <b>5f</b> → <b>6d</b> → <b>7p</b></div>
+  Repare no pulo: depois do <strong>4s</strong> vem o <strong>3d</strong> (e não o 3p → 4s → 3d → 4p). Essa é a pegadinha nº 1.
+</div>
+
+<div class="card exemplo decore"><span class="tit">2️⃣ Quanto cabe em cada subnível</span>
+  <strong>s = 2</strong> · <strong>p = 6</strong> · <strong>d = 10</strong> · <strong>f = 14</strong><br>
+  Macete: 2, 6, 10, 14 → vai <strong>somando 4</strong>.
+</div>
+
+<div class="card chave decore"><span class="tit">3️⃣ As camadas (níveis) e o máximo de cada</span>
+  <strong>K L M N O P Q</strong> = níveis <strong>1 a 7</strong>.<br>
+  Máximo: K=2 · L=8 · M=18 · N=32 · O=32 · P=18 · Q=8.
+</div>
+
+<div class="card lembre decore"><span class="tit">4️⃣ A regrinha Z = p = e⁻</span>
+  No átomo <strong>neutro</strong>: número atômico = prótons = <strong>elétrons</strong>. É por aí que você descobre quantos elétrons distribuir.
+</div>
+
+<div class="card exemplo decore"><span class="tit">5️⃣ As famílias da tabela (e um macete pra cada)</span>
+  <ul class="top" style="margin:6px 0 0;">
+    <li><strong>1A — alcalinos:</strong> Li, Na, K, Rb, Cs, Fr. <span style="color:#a87b00">("Li Na K Rb Cs Fr")</span></li>
+    <li><strong>2A — alcalino-terrosos:</strong> Be, Mg, Ca, Sr, Ba, Ra.</li>
+    <li><strong>6A — calcogênios:</strong> O, S, Se, Te, Po, Lv.</li>
+    <li><strong>7A — halogênios:</strong> F, Cl, Br, I, At, Ts. <span style="color:#a87b00">("Foi Cláudio Brincar Já Atrás")</span></li>
+    <li><strong>8A — gases nobres:</strong> He, Ne, Ar, Kr, Xe, Rn.</li>
+  </ul>
+</div>
+
+<h3 style="color:#0a4a45;margin-top:24px;">🎴 Tabela de bolso — símbolos que valem a pena decorar</h3>
+<p style="color:var(--cinza);font-size:.95rem;">Saber o número (Z) e o símbolo destes ajuda MUITO nas questões 3 e 4. Comece pelos 20 primeiros.</p>
+<div class="elems">
+  <div class="el"><span class="z">1</span><span class="sim">H</span><span class="nome">Hidrogênio</span></div>
+  <div class="el"><span class="z">2</span><span class="sim">He</span><span class="nome">Hélio</span></div>
+  <div class="el"><span class="z">3</span><span class="sim">Li</span><span class="nome">Lítio</span></div>
+  <div class="el"><span class="z">4</span><span class="sim">Be</span><span class="nome">Berílio</span></div>
+  <div class="el"><span class="z">5</span><span class="sim">B</span><span class="nome">Boro</span></div>
+  <div class="el"><span class="z">6</span><span class="sim">C</span><span class="nome">Carbono</span></div>
+  <div class="el"><span class="z">7</span><span class="sim">N</span><span class="nome">Nitrogênio</span></div>
+  <div class="el"><span class="z">8</span><span class="sim">O</span><span class="nome">Oxigênio</span></div>
+  <div class="el"><span class="z">9</span><span class="sim">F</span><span class="nome">Flúor</span></div>
+  <div class="el"><span class="z">10</span><span class="sim">Ne</span><span class="nome">Neônio</span></div>
+  <div class="el"><span class="z">11</span><span class="sim">Na</span><span class="nome">Sódio</span></div>
+  <div class="el"><span class="z">12</span><span class="sim">Mg</span><span class="nome">Magnésio</span></div>
+  <div class="el"><span class="z">13</span><span class="sim">Al</span><span class="nome">Alumínio</span></div>
+  <div class="el"><span class="z">14</span><span class="sim">Si</span><span class="nome">Silício</span></div>
+  <div class="el"><span class="z">15</span><span class="sim">P</span><span class="nome">Fósforo</span></div>
+  <div class="el"><span class="z">16</span><span class="sim">S</span><span class="nome">Enxofre</span></div>
+  <div class="el"><span class="z">17</span><span class="sim">Cl</span><span class="nome">Cloro</span></div>
+  <div class="el"><span class="z">18</span><span class="sim">Ar</span><span class="nome">Argônio</span></div>
+  <div class="el"><span class="z">19</span><span class="sim">K</span><span class="nome">Potássio</span></div>
+  <div class="el"><span class="z">20</span><span class="sim">Ca</span><span class="nome">Cálcio</span></div>
+  <div class="el"><span class="z">26</span><span class="sim">Fe</span><span class="nome">Ferro</span></div>
+  <div class="el"><span class="z">29</span><span class="sim">Cu</span><span class="nome">Cobre</span></div>
+  <div class="el"><span class="z">30</span><span class="sim">Zn</span><span class="nome">Zinco</span></div>
+  <div class="el"><span class="z">35</span><span class="sim">Br</span><span class="nome">Bromo</span></div>
+  <div class="el"><span class="z">36</span><span class="sim">Kr</span><span class="nome">Criptônio</span></div>
+  <div class="el"><span class="z">47</span><span class="sim">Ag</span><span class="nome">Prata</span></div>
+  <div class="el"><span class="z">53</span><span class="sim">I</span><span class="nome">Iodo</span></div>
+  <div class="el"><span class="z">56</span><span class="sim">Ba</span><span class="nome">Bário</span></div>
+  <div class="el"><span class="z">79</span><span class="sim">Au</span><span class="nome">Ouro</span></div>
+</div>
+<div class="card lembre"><span class="tit">✅ Como decorar sem sofrer</span> Leia a <strong>ordem de Pauling</strong> em voz alta 5 vezes, depois tente escrever de memória. Faça o mesmo com os <strong>20 primeiros elementos</strong>. Só depois abra a <strong>revisão em cartões</strong> e o <strong>quiz</strong> — eles vão fixar o resto.</div>
 
 <!-- 1 -->
 <h2 class="sec"><span class="ic">🔢</span>A regrinha de ouro</h2>
