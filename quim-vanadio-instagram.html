@@ -51,10 +51,43 @@
   .pf .tags{color:#00376b;}
 
   footer{text-align:center; color:#9aa4b0; font-size:.82rem; margin-top:28px;}
+
+  /* ===== IMPRESSÃO: cabe em 1 folha A4 ===== */
+  @media print{
+    @page{ size:A4 portrait; margin:7mm; }
+    *{ -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+    body{ background:#fff !important; padding:0 !important; }
+    .btn-voltar-hub, .btn-imprimir{ display:none !important; }
+    .wrap{ max-width:none; padding:0; }
+    header.perfil{ box-shadow:none; border:1px solid #ccc; border-radius:10px; padding:7px 10px; margin-bottom:6px; }
+    header.perfil .selo{ padding:2px 8px; font-size:.58rem; margin-bottom:5px; }
+    .avatar{ width:48px; height:48px; padding:2px; }
+    .avatar .in{ font-size:1.35rem; border-width:2px; }
+    .stats{ gap:16px; } .stats b{ font-size:.85rem; } .stats span{ font-size:.6rem; }
+    .nome{ font-size:.92rem; margin-top:5px; } .handle{ font-size:.7rem; }
+    .bio{ font-size:.66rem; margin-top:3px; max-width:none; }
+    .grade{ gap:6px; grid-template-columns:repeat(3,1fr) !important; }
+    .card{ break-inside:avoid; box-shadow:none; border:1px solid #ccc; border-radius:8px; padding:6px 8px; }
+    .ch{ gap:6px; margin-bottom:4px; }
+    .ch .mini{ width:24px; height:24px; padding:1px; } .ch .mini i{ font-size:.65rem; border-width:1px; }
+    .ch .nm{ font-size:.64rem; } .ch .hd{ font-size:.56rem; }
+    .banner{ font-size:.78rem; padding:4px 6px; margin-bottom:4px; border-radius:6px; box-shadow:none; }
+    .tt{ font-size:.8rem; margin-bottom:3px; } .tt .em{ font-size:.9rem; }
+    .card p{ font-size:.64rem; margin-bottom:3px; }
+    .card ul{ margin:0 0 3px; }
+    .card li{ font-size:.64rem; padding:2px 0 2px 13px; border-bottom:none; }
+    .card li::before{ font-size:.8rem; top:2px; }
+    .cfg{ font-size:.9em; padding:1px 3px; }
+    .acoes{ font-size:.8rem; gap:8px; padding-top:3px; }
+    .acoes .n{ font-size:.58rem; }
+    .pf{ font-size:.54rem; margin-top:4px; padding-top:3px; }
+    footer{ font-size:.58rem; margin-top:8px; }
+  }
 </style>
 </head>
 <body>
 <a href="index.html" class="btn-voltar-hub" style="position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:9999;display:inline-flex;align-items:center;gap:7px;background:#E25E42;color:#fff;text-decoration:none;font-weight:800;font-size:1rem;padding:11px 18px;border-radius:30px;box-shadow:0 4px 14px rgba(0,0,0,.3);font-family:'Segoe UI',system-ui,Arial,sans-serif;">← Voltar</a>
+<button onclick="window.print()" class="btn-imprimir" style="position:fixed;top:12px;right:12px;z-index:9999;background:#0f766e;color:#fff;border:none;font-weight:800;font-size:.95rem;padding:11px 16px;border-radius:30px;box-shadow:0 4px 14px rgba(0,0,0,.25);cursor:pointer;font-family:'Segoe UI',system-ui,Arial,sans-serif;">🖨️ Imprimir</button>
 
 <header class="perfil">
   <span class="selo">Química · Trabalho do Pedro</span>
