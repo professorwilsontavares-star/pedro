@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz do Pedro: Europa — Agropecuária</title>
+<style>
+  :root{--navy:#1E2B38; --verde:#4d7c0f; --verde-cl:#eef6e6; --laranja:#FFE4CC; --coral:#E25E42; --ok:#2e7d4f; --ok-cl:#d7f0df; --no:#c0392b; --no-cl:#fbe0dc; --cinza:#64748b;}
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif; background:linear-gradient(160deg,#eef6e6,#dcecc9); color:var(--navy); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px; line-height:1.55;}
+  .app{width:100%; max-width:640px; background:#fff; border-radius:24px; box-shadow:0 12px 40px rgba(77,124,15,.16); overflow:hidden;}
+  header{background:linear-gradient(135deg,#4d7c0f,#1a2e05); color:#fff; padding:22px 26px 18px;}
+  header .selo{font-size:.72rem; letter-spacing:1.5px; text-transform:uppercase; opacity:.8; font-weight:700;}
+  header h1{font-size:1.35rem; margin-top:4px;}
+  .barra-topo{display:flex; justify-content:space-between; align-items:center; margin-top:14px; font-size:.9rem; font-weight:700;}
+  .progresso{height:9px; background:rgba(255,255,255,.25); border-radius:20px; margin-top:10px; overflow:hidden;}
+  .progresso span{display:block; height:100%; width:0; background:var(--coral); border-radius:20px; transition:width .35s ease;}
+  main{padding:26px 26px 30px;}
+  .pergunta{font-size:1.25rem; font-weight:800; color:var(--navy); margin-bottom:20px; min-height:60px;}
+  .alternativas{display:flex; flex-direction:column; gap:12px;}
+  .alt{text-align:left; font-size:1.05rem; padding:15px 18px; border:2px solid #d7e8cf; background:#f7fbf3; border-radius:14px; cursor:pointer; transition:all .15s ease; display:flex; align-items:center; gap:12px; font-family:inherit; color:var(--navy);}
+  .alt:hover:not(:disabled){border-color:var(--verde); background:var(--verde-cl); transform:translateY(-1px);}
+  .alt:disabled{cursor:default;}
+  .alt .letra{flex:0 0 30px; height:30px; border-radius:50%; background:var(--verde); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:.95rem;}
+  .alt.certo{border-color:var(--ok); background:var(--ok-cl);} .alt.certo .letra{background:var(--ok);}
+  .alt.errado{border-color:var(--no); background:var(--no-cl);} .alt.errado .letra{background:var(--no);}
+  .feedback{margin-top:20px; padding:15px 18px; border-radius:14px; display:none; font-size:1rem;}
+  .feedback.mostrar{display:block; animation:sobe .25s ease;}
+  .feedback.ok{background:var(--ok-cl); border-left:6px solid var(--ok);}
+  .feedback.no{background:var(--no-cl); border-left:6px solid var(--no);}
+  .feedback b{display:block; margin-bottom:3px;}
+  @keyframes sobe{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
+  .proxima{margin-top:20px; width:100%; padding:15px; font-size:1.1rem; font-weight:800; background:var(--coral); color:#fff; border:none; border-radius:14px; cursor:pointer; font-family:inherit; display:none;}
+  .proxima.mostrar{display:block;} .proxima:hover{filter:brightness(1.08);}
+  .final{text-align:center; padding:14px 6px;}
+  .final .emoji{font-size:3.4rem;} .final h2{font-size:1.6rem; margin:10px 0;}
+  .final .placar{font-size:1.15rem; color:var(--cinza); margin-bottom:6px;}
+  .final .nota{font-size:3rem; font-weight:900; color:var(--verde); margin:6px 0;}
+  .final .recado{background:var(--laranja); border-radius:14px; padding:14px 18px; margin:18px 0; color:var(--navy);}
+  .refazer{padding:14px 28px; font-size:1.05rem; font-weight:800; background:var(--verde); color:#fff; border:none; border-radius:14px; cursor:pointer; font-family:inherit;}
+</style>
+</head>
+<body>
+<a href="index.html" class="btn-voltar-hub" style="position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:9999;display:inline-flex;align-items:center;gap:7px;background:#E25E42;color:#fff;text-decoration:none;font-weight:800;font-size:1rem;padding:11px 18px;border-radius:30px;box-shadow:0 4px 14px rgba(0,0,0,.3);font-family:'Segoe UI',system-ui,Arial,sans-serif;">← Voltar</a>
+<div class="app">
+  <header>
+    <div class="selo">Geografia · 9º ano · Quiz</div>
+    <h1>Europa: setor primário 🌾</h1>
+    <div class="barra-topo"><span id="contador">Questão 1</span><span id="placar">Acertos: 0</span></div>
+    <div class="progresso"><span id="barra"></span></div>
+  </header>
+  <main id="palco">
+    <div class="pergunta" id="pergunta"></div>
+    <div class="alternativas" id="alternativas"></div>
+    <div class="feedback" id="feedback"></div>
+    <button class="proxima" id="proxima">Próxima ➜</button>
+  </main>
+</div>
+<script>
+const questoes = [
+  { q:"O setor primário é o de...", alt:["agricultura e pecuária","fábricas","serviços"], c:0, e:"Primário = produção que vem da terra (agropecuária)." },
+  { q:"A agricultura europeia é...", alt:["moderna e intensiva","atrasada e manual","inexistente"], c:0, e:"Moderna e intensiva: muita tecnologia e produção em pouco espaço." },
+  { q:"As propriedades agrícolas europeias costumam ser...", alt:["pequenas e médias","gigantescas","todas do governo"], c:0, e:"Pequenas e médias, geralmente associadas à pecuária." },
+  { q:"A agricultura europeia geralmente vem junto com...", alt:["a pecuária","a mineração","o turismo"], c:0, e:"É comum a agricultura associada à criação de animais." },
+  { q:"São culturas de INVERNO na Europa:", alt:["trigo, centeio e aveia","milho e soja","uva e azeitona"], c:0, e:"Inverno: trigo, centeio, aveia e triticale (plantadas no outono)." },
+  { q:"São culturas de PRIMAVERA/VERÃO:", alt:["milho, soja e batata","trigo e centeio","só uvas"], c:0, e:"Primavera/verão: milho, girassol, arroz, soja, batata e beterraba." },
+  { q:"Quais países mais produzem UVAS para vinho?", alt:["França, Itália e Espanha","Rússia e Ucrânia","Noruega e Suécia"], c:0, e:"França, Itália e Espanha lideram o vinho." },
+  { q:"Quais países lideram a produção de AZEITE?", alt:["Espanha, Itália e Grécia","Alemanha e Polônia","Reino Unido e Irlanda"], c:0, e:"Espanha, Itália e Grécia (região do Mediterrâneo)." },
+  { q:"Por que o SUL da Europa produz uva e azeitona?", alt:["Por causa do clima Mediterrâneo (verão quente e seco)","Por ser muito frio","Por não ter sol"], c:0, e:"O clima Mediterrâneo favorece uvas e azeitonas." },
+  { q:"A Europa é a maior produtora mundial de qual cultura (≈50%)?", alt:["Beterraba (para açúcar)","Café","Cacau"], c:0, e:"Beterraba, usada para produzir açúcar." },
+  { q:"Comparadas às dos EUA, as fazendas europeias são...", alt:["cerca de 10 vezes menores","muito maiores","do mesmo tamanho"], c:0, e:"Em média 10 vezes menores que as dos Estados Unidos." },
+  { q:"Onde estão as MAIORES fazendas da Europa?", alt:["No norte","No sul","No leste"], c:0, e:"As maiores ficam no norte; as menores, no sul e no leste." },
+  { q:"O que vem acontecendo com as pequenas fazendas familiares?", alt:["Estão diminuindo (concentração de terras)","Estão aumentando muito","Sumiram totalmente"], c:0, e:"Diminuindo: as grandes fazendas crescem e concentram a produção." },
+  { q:"O que é a PAC?", alt:["A Política Agrícola Comum da União Europeia","Um imposto sobre carros","Um partido político"], c:0, e:"PAC = Política Agrícola Comum, as regras da UE para a agricultura." },
+  { q:"O que a PAC dá aos agricultores?", alt:["Subsídios (ajuda em dinheiro)","Terras de graça","Nada"], c:0, e:"Dá subsídios para deixar os produtos mais competitivos." },
+  { q:"Por que os subsídios são polêmicos?", alt:["Vão contra a ideia de livre-comércio","Deixam a comida mais cara","São ilegais"], c:0, e:"Dão vantagem 'artificial' aos produtos europeus, contra o livre-comércio." },
+  { q:"Qual animal a Europa mais cria?", alt:["Suínos (porcos)","Camelos","Cangurus"], c:0, e:"≈134 milhões de suínos, além de bovinos e ovinos/caprinos." },
+  { q:"A Espanha se destaca na criação de...", alt:["porcos e ovelhas","cabras","renas"], c:0, e:"A Espanha tem cerca de 1/4 dos porcos e das ovelhas da UE." },
+  { q:"Qual país lidera a criação de cabras na UE?", alt:["Grécia","Alemanha","Portugal"], c:0, e:"A Grécia lidera em caprinos." },
+  { q:"A Europa é uma grande ___ de produtos agrícolas.", alt:["importadora","produtora que não comercia","não participa do comércio"], c:0, e:"É uma das maiores importadoras de produtos agrícolas do mundo." },
+  { q:"Qual país é grande fornecedor de soja e frutas para a UE?", alt:["Brasil","Japão","Egito"], c:0, e:"O Brasil é um dos maiores fornecedores agrícolas da UE." },
+  { q:"De onde vêm os melhores queijos da Europa?", alt:["Do noroeste do continente (clima ameno)","Do deserto","Do extremo norte gelado"], c:0, e:"O noroeste, com clima ameno, produz alguns dos melhores queijos." },
+];
+function embaralhar(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function preparar(){ return embaralhar(questoes.slice()).map(q=>{ const alts=q.alt.map((t,i)=>({t,c:i===q.c})); embaralhar(alts); return {q:q.q, alt:alts.map(a=>a.t), c:alts.findIndex(a=>a.c), e:q.e}; }); }
+let jogo = preparar(); let atual=0, acertos=0; const letras=["A","B","C"]; const $=id=>document.getElementById(id);
+function render(){ const it=jogo[atual]; $("contador").textContent=`Questão ${atual+1} de ${jogo.length}`; $("placar").textContent=`Acertos: ${acertos}`; $("barra").style.width=`${(atual/jogo.length)*100}%`; $("pergunta").textContent=it.q; const b=$("alternativas"); b.innerHTML=""; it.alt.forEach((t,i)=>{ const x=document.createElement("button"); x.className="alt"; x.innerHTML=`<span class="letra">${letras[i]}</span><span>${t}</span>`; x.onclick=()=>responder(i); b.appendChild(x); }); const f=$("feedback"); f.className="feedback"; f.innerHTML=""; $("proxima").className="proxima"; $("proxima").textContent=atual===jogo.length-1?"Ver resultado 🏁":"Próxima ➜"; }
+function responder(e){ const it=jogo[atual]; document.querySelectorAll(".alt").forEach((b,i)=>{ b.disabled=true; if(i===it.c)b.classList.add("certo"); if(i===e&&e!==it.c)b.classList.add("errado"); }); const f=$("feedback"); if(e===it.c){acertos++; f.className="feedback ok mostrar"; f.innerHTML=`<b>✅ Acertou!</b>${it.e}`;} else {f.className="feedback no mostrar"; f.innerHTML=`<b>❌ Quase!</b> A resposta certa é <b style="display:inline">${letras[it.c]}</b>. ${it.e}`;} $("placar").textContent=`Acertos: ${acertos}`; $("proxima").classList.add("mostrar"); }
+$("proxima").onclick=()=>{ atual++; if(atual<jogo.length)render(); else final(); };
+function final(){ const t=jogo.length; const nota=Math.round((acertos/t)*100)/10; const p=acertos/t; let e,m; if(p>=0.9){e="🏆";m="Fera! Mandou muito bem. Pronto para a prova!";} else if(p>=0.7){e="😃";m="Muito bom! Só falta revisar alguns pontinhos.";} else if(p>=0.45){e="🙂";m="Bom começo! Dá uma relida no resumo e refaça.";} else {e="💪";m="Sem problema! Leia o resumo com calma e tente de novo.";} $("barra").style.width="100%"; $("contador").textContent="Fim do quiz"; $("palco").innerHTML=`<div class="final"><div class="emoji">${e}</div><h2>Quiz concluído!</h2><div class="placar">Você acertou <b>${acertos}</b> de <b>${t}</b></div><div class="nota">Nota ${nota}</div><div class="recado">${m}</div><button class="refazer" onclick="reiniciar()">🔀 Embaralhar e refazer</button></div>`; }
+function reiniciar(){ atual=0; acertos=0; jogo=preparar(); $("palco").innerHTML=`<div class="pergunta" id="pergunta"></div><div class="alternativas" id="alternativas"></div><div class="feedback" id="feedback"></div><button class="proxima" id="proxima">Próxima ➜</button>`; $("proxima").onclick=()=>{ atual++; if(atual<jogo.length)render(); else final(); }; render(); }
+render();
+</script>
+</body>
+</html>

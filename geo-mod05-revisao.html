@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revisão do Pedro: Europa — Agropecuária</title>
+<style>
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:"Segoe UI",system-ui,Arial,sans-serif; background:linear-gradient(160deg,#eef6e6,#dcecc9); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px; color:#1E2B38;}
+  .box{width:100%; max-width:520px; text-align:center;}
+  h1{font-size:1.3rem; color:#4d7c0f; margin-bottom:4px;}
+  .sub{color:#64748b; font-size:.9rem; margin-bottom:18px;}
+  .contador{font-weight:700; color:#64748b; margin-bottom:12px;}
+  .cartao{background:#fff; border-radius:22px; box-shadow:0 12px 34px rgba(77,124,15,.16); padding:36px 28px; min-height:250px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:20px;}
+  .rotulo{font-size:.75rem; letter-spacing:1.5px; text-transform:uppercase; font-weight:800;}
+  .rotulo.p{color:#E25E42;} .rotulo.r{color:#2e7d4f;}
+  .pergunta{font-size:1.4rem; font-weight:800; line-height:1.4;}
+  .resposta{font-size:1.2rem; line-height:1.5; color:#1a2e05; display:none;}
+  .resposta.mostrar{display:block; animation:sobe .2s ease;}
+  @keyframes sobe{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+  .bts{display:flex; gap:10px; margin-top:18px; justify-content:center; flex-wrap:wrap;}
+  button{font-family:inherit; font-size:1rem; font-weight:800; border:none; cursor:pointer; padding:14px 22px; border-radius:14px; transition:filter .15s;}
+  button:hover{filter:brightness(1.08);}
+  .ver{background:#4d7c0f; color:#fff;} .prox{background:#E25E42; color:#fff;} .voltar{background:#e2e8f0; color:#1E2B38;}
+</style>
+</head>
+<body>
+<a href="index.html" class="btn-voltar-hub" style="position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:9999;display:inline-flex;align-items:center;gap:7px;background:#E25E42;color:#fff;text-decoration:none;font-weight:800;font-size:1rem;padding:11px 18px;border-radius:30px;box-shadow:0 4px 14px rgba(0,0,0,.3);font-family:'Segoe UI',system-ui,Arial,sans-serif;">← Voltar</a>
+<div class="box">
+  <h1>🌾 Europa: Agropecuária em cartões</h1>
+  <div class="sub">Leia a pergunta, pense na resposta e depois confira. Pontos principais!</div>
+  <div class="contador" id="contador"></div>
+  <div class="cartao">
+    <div><div class="rotulo p">Pergunta</div><div class="pergunta" id="pergunta"></div></div>
+    <div class="resposta" id="resposta"></div>
+  </div>
+  <div class="bts">
+    <button class="voltar" id="voltar">← Voltar</button>
+    <button class="ver" id="ver">👁️ Ver resposta</button>
+    <button class="prox" id="prox">Próximo →</button>
+  </div>
+</div>
+<script>
+const cartoes = [
+  ["O que é o setor primário?","O setor da agricultura e da pecuária (produção que vem da terra)."],
+  ["Como é a agricultura europeia?","Moderna e intensiva, em propriedades pequenas e médias, geralmente junto com a pecuária."],
+  ["Quais são os dois tipos de cultura anual?","De inverno (trigo, centeio, aveia) e de primavera/verão (milho, soja, batata, beterraba)."],
+  ["Que produtos se destacam no sul (Mediterrâneo) da Europa?","Uvas (para vinho) e azeitonas (para azeite)."],
+  ["Quais países mais produzem vinho na Europa?","França, Itália e Espanha."],
+  ["Quais países lideram o azeite?","Espanha, Itália e Grécia."],
+  ["A Europa é a maior produtora mundial de quê (≈ 50%)?","De beterraba, usada para produzir açúcar."],
+  ["Como é o tamanho das fazendas europeias?","Pequenas: em média 10 vezes menores que as dos EUA. Maiores no norte, menores no sul/leste."],
+  ["O que é a PAC?","A Política Agrícola Comum: as regras da UE para a agricultura, com subsídios."],
+  ["O que é um subsídio agrícola, e por que é polêmico?","Ajuda em dinheiro do governo ao produtor. É polêmico porque vai contra o livre-comércio."],
+  ["Quais animais a Europa mais cria?","Suínos (≈134 mi), bovinos (≈75 mi) e ovinos/caprinos (≈70 mi)."],
+  ["Qual o papel do Brasil no comércio agrícola com a Europa?","O Brasil é um grande fornecedor da UE (soja, farelo, óleo e frutas)."],
+];
+let i = 0;
+const $ = id => document.getElementById(id);
+function mostrar(){
+  $("contador").textContent = `Cartão ${i+1} de ${cartoes.length}`;
+  $("pergunta").textContent = cartoes[i][0];
+  $("resposta").textContent = cartoes[i][1];
+  $("resposta").className = "resposta";
+  $("ver").style.display = "inline-block";
+  $("voltar").disabled = (i === 0); $("voltar").style.opacity = (i === 0) ? .4 : 1;
+  $("prox").textContent = (i === cartoes.length-1) ? "🔁 Recomeçar" : "Próximo →";
+}
+$("ver").onclick = ()=>{ $("resposta").className = "resposta mostrar"; $("ver").style.display = "none"; };
+$("prox").onclick = ()=>{ i = (i+1) % cartoes.length; mostrar(); };
+$("voltar").onclick = ()=>{ if(i > 0){ i--; mostrar(); } };
+mostrar();
+</script>
+</body>
+</html>

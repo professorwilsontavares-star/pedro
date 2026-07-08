@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz do Pedro: Europa — Economia</title>
+<style>
+  :root{--navy:#1E2B38; --verde:#166534; --verde-cl:#dcfce7; --laranja:#FFE4CC; --coral:#E25E42; --ok:#2e7d4f; --ok-cl:#d7f0df; --no:#c0392b; --no-cl:#fbe0dc; --cinza:#64748b;}
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif; background:linear-gradient(160deg,#e3f3e8,#d0ecd8); color:var(--navy); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px; line-height:1.55;}
+  .app{width:100%; max-width:640px; background:#fff; border-radius:24px; box-shadow:0 12px 40px rgba(22,101,52,.16); overflow:hidden;}
+  header{background:linear-gradient(135deg,#166534,#0c3d1f); color:#fff; padding:22px 26px 18px;}
+  header .selo{font-size:.72rem; letter-spacing:1.5px; text-transform:uppercase; opacity:.8; font-weight:700;}
+  header h1{font-size:1.35rem; margin-top:4px;}
+  .barra-topo{display:flex; justify-content:space-between; align-items:center; margin-top:14px; font-size:.9rem; font-weight:700;}
+  .progresso{height:9px; background:rgba(255,255,255,.25); border-radius:20px; margin-top:10px; overflow:hidden;}
+  .progresso span{display:block; height:100%; width:0; background:var(--coral); border-radius:20px; transition:width .35s ease;}
+  main{padding:26px 26px 30px;}
+  .pergunta{font-size:1.25rem; font-weight:800; color:var(--navy); margin-bottom:20px; min-height:60px;}
+  .alternativas{display:flex; flex-direction:column; gap:12px;}
+  .alt{text-align:left; font-size:1.05rem; padding:15px 18px; border:2px solid #cfe9d6; background:#f5fbf7; border-radius:14px; cursor:pointer; transition:all .15s ease; display:flex; align-items:center; gap:12px; font-family:inherit; color:var(--navy);}
+  .alt:hover:not(:disabled){border-color:var(--verde); background:var(--verde-cl); transform:translateY(-1px);}
+  .alt:disabled{cursor:default;}
+  .alt .letra{flex:0 0 30px; height:30px; border-radius:50%; background:var(--verde); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:.95rem;}
+  .alt.certo{border-color:var(--ok); background:var(--ok-cl);} .alt.certo .letra{background:var(--ok);}
+  .alt.errado{border-color:var(--no); background:var(--no-cl);} .alt.errado .letra{background:var(--no);}
+  .feedback{margin-top:20px; padding:15px 18px; border-radius:14px; display:none; font-size:1rem;}
+  .feedback.mostrar{display:block; animation:sobe .25s ease;}
+  .feedback.ok{background:var(--ok-cl); border-left:6px solid var(--ok);}
+  .feedback.no{background:var(--no-cl); border-left:6px solid var(--no);}
+  .feedback b{display:block; margin-bottom:3px;}
+  @keyframes sobe{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
+  .proxima{margin-top:20px; width:100%; padding:15px; font-size:1.1rem; font-weight:800; background:var(--coral); color:#fff; border:none; border-radius:14px; cursor:pointer; font-family:inherit; display:none;}
+  .proxima.mostrar{display:block;} .proxima:hover{filter:brightness(1.08);}
+  .final{text-align:center; padding:14px 6px;}
+  .final .emoji{font-size:3.4rem;} .final h2{font-size:1.6rem; margin:10px 0;}
+  .final .placar{font-size:1.15rem; color:var(--cinza); margin-bottom:6px;}
+  .final .nota{font-size:3rem; font-weight:900; color:var(--verde); margin:6px 0;}
+  .final .recado{background:var(--laranja); border-radius:14px; padding:14px 18px; margin:18px 0; color:var(--navy);}
+  .refazer{padding:14px 28px; font-size:1.05rem; font-weight:800; background:var(--verde); color:#fff; border:none; border-radius:14px; cursor:pointer; font-family:inherit;}
+</style>
+</head>
+<body>
+<a href="index.html" class="btn-voltar-hub" style="position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:9999;display:inline-flex;align-items:center;gap:7px;background:#E25E42;color:#fff;text-decoration:none;font-weight:800;font-size:1rem;padding:11px 18px;border-radius:30px;box-shadow:0 4px 14px rgba(0,0,0,.3);font-family:'Segoe UI',system-ui,Arial,sans-serif;">← Voltar</a>
+<div class="app">
+  <header>
+    <div class="selo">Geografia · 9º ano · Quiz</div>
+    <h1>Europa: aspectos econômicos 💶</h1>
+    <div class="barra-topo"><span id="contador">Questão 1</span><span id="placar">Acertos: 0</span></div>
+    <div class="progresso"><span id="barra"></span></div>
+  </header>
+  <main id="palco">
+    <div class="pergunta" id="pergunta"></div>
+    <div class="alternativas" id="alternativas"></div>
+    <div class="feedback" id="feedback"></div>
+    <button class="proxima" id="proxima">Próxima ➜</button>
+  </main>
+</div>
+<script>
+const questoes = [
+  { q:"Por muitos séculos, a Europa foi...", alt:["o centro da economia mundial","um continente pobre","desabitada"], c:0, e:"A Europa centralizou a economia global por séculos." },
+  { q:"O que enfraqueceu a economia europeia no século XX?", alt:["As duas Guerras Mundiais e a perda de colônias","O excesso de riqueza","O clima frio"], c:0, e:"As guerras, a perda de colônias e a concorrência de EUA/China reduziram sua força." },
+  { q:"O que é a União Europeia?", alt:["Um bloco econômico de países","Uma empresa","Um time de futebol"], c:0, e:"É um bloco econômico com 27 países." },
+  { q:"Quantos países formam a União Europeia?", alt:["27","5","100"], c:0, e:"São 27 países." },
+  { q:"Qual é a moeda comum de vários países da UE?", alt:["O euro (€)","O dólar","O real"], c:0, e:"O euro. Mas nem todos os países da UE o usam." },
+  { q:"Todos os países da UE usam o euro?", alt:["Não, apenas parte deles","Sim, todos","Nenhum usa"], c:0, e:"Nem todos: só parte dos países adotou o euro." },
+  { q:"O que é um bloco econômico?", alt:["A união de países para facilitar o comércio","Uma cidade grande","Um tipo de imposto"], c:0, e:"É a união de países para comerciar mais fácil, como a UE." },
+  { q:"O que significa PIB?", alt:["A soma de tudo o que um país produz em um ano","O número de habitantes","O tamanho do território"], c:0, e:"PIB = soma da produção do país em um ano." },
+  { q:"Qual é a MAIOR economia da Europa?", alt:["Alemanha","Portugal","Grécia"], c:0, e:"A Alemanha é a maior economia europeia desde 1980." },
+  { q:"Depois da Alemanha, quais economias se destacam?", alt:["Reino Unido, França, Itália e Espanha","Grécia e Malta","Andorra e Mônaco"], c:0, e:"Reino Unido, França, Itália e Espanha vêm em seguida." },
+  { q:"Quais são os três setores da economia?", alt:["Primário, secundário e terciário","Norte, sul e centro","Ouro, prata e bronze"], c:0, e:"Primário (agro), secundário (indústria) e terciário (serviços)." },
+  { q:"O setor primário é o de...", alt:["agricultura e pecuária","fábricas","bancos"], c:0, e:"Primário = agropecuária (produção da terra)." },
+  { q:"O setor secundário é o de...", alt:["indústria (fábricas)","serviços","turismo"], c:0, e:"Secundário = indústria, que transforma matéria-prima em produtos." },
+  { q:"O setor terciário é o de...", alt:["serviços (comércio, bancos, turismo)","agricultura","mineração"], c:0, e:"Terciário = serviços. É onde a Europa emprega mais gente." },
+  { q:"Qual setor emprega mais gente na Europa?", alt:["O terciário (serviços)","O primário","O secundário"], c:0, e:"O terciário: ≈ 76% das pessoas e ≈ 70% do PIB." },
+  { q:"Em qual indústria a Europa se destaca?", alt:["Automóveis (Alemanha e França)","Mineração de ouro","Pesca artesanal"], c:0, e:"A Europa é uma das maiores produtoras de automóveis do mundo." },
+  { q:"A participação da UE no comércio mundial é de cerca de...", alt:["15%","1%","80%"], c:0, e:"Cerca de 15% — supera os EUA, mas fica atrás da China." },
+  { q:"No comércio mundial, a UE fica atrás de quem?", alt:["Da China","Do Brasil","De Portugal"], c:0, e:"A UE supera os EUA, mas fica atrás da China." },
+  { q:"Por que o 'champagne' só pode se chamar assim?", alt:["Se for produzido na região de Champagne, na França","Se for doce","Se for barato"], c:0, e:"É a certificação de origem: só a região de Champagne pode usar o nome." },
+  { q:"No Brasil, a sigla IG significa...", alt:["Indicação Geográfica","Imposto Geral","Índice de Gás"], c:0, e:"IG = Indicação Geográfica (pode ser IP ou DO)." },
+  { q:"A certificação de origem serve para...", alt:["garantir que o produto veio mesmo de um lugar específico","deixar o produto mais barato","aumentar impostos"], c:0, e:"Garante a origem e a qualidade ligada àquele lugar." },
+  { q:"Que sistema econômico os países europeus adotam, em geral?", alt:["Livre mercado","Escambo","Nenhum"], c:0, e:"Assim como os EUA, adotam o livre mercado." },
+];
+function embaralhar(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function preparar(){ return embaralhar(questoes.slice()).map(q=>{ const alts=q.alt.map((t,i)=>({t,c:i===q.c})); embaralhar(alts); return {q:q.q, alt:alts.map(a=>a.t), c:alts.findIndex(a=>a.c), e:q.e}; }); }
+let jogo = preparar(); let atual=0, acertos=0; const letras=["A","B","C"]; const $=id=>document.getElementById(id);
+function render(){ const it=jogo[atual]; $("contador").textContent=`Questão ${atual+1} de ${jogo.length}`; $("placar").textContent=`Acertos: ${acertos}`; $("barra").style.width=`${(atual/jogo.length)*100}%`; $("pergunta").textContent=it.q; const b=$("alternativas"); b.innerHTML=""; it.alt.forEach((t,i)=>{ const x=document.createElement("button"); x.className="alt"; x.innerHTML=`<span class="letra">${letras[i]}</span><span>${t}</span>`; x.onclick=()=>responder(i); b.appendChild(x); }); const f=$("feedback"); f.className="feedback"; f.innerHTML=""; $("proxima").className="proxima"; $("proxima").textContent=atual===jogo.length-1?"Ver resultado 🏁":"Próxima ➜"; }
+function responder(e){ const it=jogo[atual]; document.querySelectorAll(".alt").forEach((b,i)=>{ b.disabled=true; if(i===it.c)b.classList.add("certo"); if(i===e&&e!==it.c)b.classList.add("errado"); }); const f=$("feedback"); if(e===it.c){acertos++; f.className="feedback ok mostrar"; f.innerHTML=`<b>✅ Acertou!</b>${it.e}`;} else {f.className="feedback no mostrar"; f.innerHTML=`<b>❌ Quase!</b> A resposta certa é <b style="display:inline">${letras[it.c]}</b>. ${it.e}`;} $("placar").textContent=`Acertos: ${acertos}`; $("proxima").classList.add("mostrar"); }
+$("proxima").onclick=()=>{ atual++; if(atual<jogo.length)render(); else final(); };
+function final(){ const t=jogo.length; const nota=Math.round((acertos/t)*100)/10; const p=acertos/t; let e,m; if(p>=0.9){e="🏆";m="Fera! Mandou muito bem. Pronto para a prova!";} else if(p>=0.7){e="😃";m="Muito bom! Só falta revisar alguns pontinhos.";} else if(p>=0.45){e="🙂";m="Bom começo! Dá uma relida no resumo e refaça.";} else {e="💪";m="Sem problema! Leia o resumo com calma e tente de novo.";} $("barra").style.width="100%"; $("contador").textContent="Fim do quiz"; $("palco").innerHTML=`<div class="final"><div class="emoji">${e}</div><h2>Quiz concluído!</h2><div class="placar">Você acertou <b>${acertos}</b> de <b>${t}</b></div><div class="nota">Nota ${nota}</div><div class="recado">${m}</div><button class="refazer" onclick="reiniciar()">🔀 Embaralhar e refazer</button></div>`; }
+function reiniciar(){ atual=0; acertos=0; jogo=preparar(); $("palco").innerHTML=`<div class="pergunta" id="pergunta"></div><div class="alternativas" id="alternativas"></div><div class="feedback" id="feedback"></div><button class="proxima" id="proxima">Próxima ➜</button>`; $("proxima").onclick=()=>{ atual++; if(atual<jogo.length)render(); else final(); }; render(); }
+render();
+</script>
+</body>
+</html>
