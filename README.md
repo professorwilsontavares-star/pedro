@@ -12,18 +12,22 @@ Material escolar do Pedro (14 anos, Ensino Fundamental Anos Finais / 9º ano), p
 3. Em ~1-2 min o GitHub Pages republica no link acima.
 
 ## Conteúdo atual
+
+**No ar hoje (só Biologia):**
+
 | Arquivo | O que é |
 |---|---|
-| `index.html` | **Hub** — página inicial que lista todas as atividades |
-| `hist-mod06-*.html` | História Mód. 6 — Fascismo e Nazismo (revisão/quiz 32q/resumo) |
-| `hist-mod07-revisao.html` | Revisão em cartões (pontos principais) |
-| `hist-mod07-quiz.html` | Quiz interativo (48 questões, embaralha sozinho) |
-| `hist-mod07-resumo.html` | Resumo da matéria (linguagem simples + figuras) + gabarito |
-| `port-felicidade-clandestina-revisao.html` | Revisão em cartões do conto |
-| `port-felicidade-clandestina-quiz.html` | Quiz interativo (20 questões, embaralha) |
-| `port-felicidade-clandestina-resumo.html` | Resumo do conto (enredo, personagens, temas) + figuras |
+| `index.html` | **Hub** — página inicial que lista as atividades |
+| `bio-mod07-revisao.html` | Revisão em cartões (47 cartões) |
+| `bio-mod07-quiz.html` | Quiz interativo (65 questões, embaralha sozinho) |
+| `bio-mod07-resumo.html` | Resumo + figuras SVG + **respostas de todos os exercícios** do módulo |
 
-> História Módulo 7 = 2ª Guerra Mundial. Português = conto "Felicidade Clandestina" (Clarice Lispector). Geografia fica para o futuro (prefixo `geo-`). Para obras literárias, o nome do arquivo usa o título da obra em vez de `modNN`.
+**Ocultos no hub** (ficam dentro do comentário `OCULTO_ARQUIVO` no `index.html`; para reexibir, apague a linha do marcador de abertura e a `FIM_OCULTO_ARQUIVO`):
+`geo-mod04-*`, `geo-mod05-*` (Europa: economia e setor primário), `quim-distribuicao-*` e `quim-vanadio-instagram` (Química), `port-felicidade-clandestina-*` e `port-argumentacao-*` (Português), `hist-mod06-*` e `hist-mod07-*` (História).
+
+> Fonte do módulo de Biologia: **Caderno 4 de Ciências** (Marmo, Velloso e Usberco), Setor A, Módulo 7, páginas 364 a 381. Prints em `C:\Projetos\Pedro\fontes\Biologia\`.
+>
+> Prefixos por matéria: `bio-` (Biologia), `fis-` (Física), `quim-` (Química), `hist-` (História), `geo-` (Geografia), `port-` (Português). Para obras literárias, o nome do arquivo usa o título da obra em vez de `modNN`.
 
 ## PADRÕES obrigatórios de toda página nova
 (seguir SEMPRE — foi assim que o Wilsi pediu)

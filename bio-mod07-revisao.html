@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revisão do Pedro: Hereditariedade</title>
+<style>
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:"Segoe UI",system-ui,Arial,sans-serif; background:linear-gradient(160deg,#e6f7f5,#c9e9e4); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px; color:#1E2B38;}
+  .box{width:100%; max-width:520px; text-align:center;}
+  h1{font-size:1.3rem; color:#0f766e; margin-bottom:4px;}
+  .sub{color:#64748b; font-size:.9rem; margin-bottom:18px;}
+  .contador{font-weight:700; color:#64748b; margin-bottom:12px;}
+  .cartao{background:#fff; border-radius:22px; box-shadow:0 12px 34px rgba(15,118,110,.16); padding:36px 28px; min-height:250px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:20px;}
+  .rotulo{font-size:.75rem; letter-spacing:1.5px; text-transform:uppercase; font-weight:800;}
+  .rotulo.p{color:#E25E42;} .rotulo.r{color:#0f766e;}
+  .pergunta{font-size:1.4rem; font-weight:800; line-height:1.4;}
+  .resposta{font-size:1.2rem; line-height:1.5; color:#134e4a; display:none;}
+  .resposta.mostrar{display:block; animation:sobe .2s ease;}
+  @keyframes sobe{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+  .bts{display:flex; gap:10px; margin-top:18px; justify-content:center; flex-wrap:wrap;}
+  button{font-family:inherit; font-size:1rem; font-weight:800; border:none; cursor:pointer; padding:14px 22px; border-radius:14px; transition:filter .15s;}
+  button:hover{filter:brightness(1.08);}
+  .ver{background:#0f766e; color:#fff;} .prox{background:#E25E42; color:#fff;} .voltar{background:#e2e8f0; color:#1E2B38;}
+</style>
+</head>
+<body>
+<a href="index.html" class="btn-voltar-hub" style="position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:9999;display:inline-flex;align-items:center;gap:7px;background:#E25E42;color:#fff;text-decoration:none;font-weight:800;font-size:1rem;padding:11px 18px;border-radius:30px;box-shadow:0 4px 14px rgba(0,0,0,.3);font-family:'Segoe UI',system-ui,Arial,sans-serif;">← Voltar</a>
+<div class="box">
+  <h1>🧬 Hereditariedade em cartões</h1>
+  <div class="sub">Leia a pergunta, pense na resposta e depois confira. Pontos principais!</div>
+  <div class="contador" id="contador"></div>
+  <div class="cartao">
+    <div><div class="rotulo p">Pergunta</div><div class="pergunta" id="pergunta"></div></div>
+    <div class="resposta" id="resposta"></div>
+  </div>
+  <div class="bts">
+    <button class="voltar" id="voltar">← Voltar</button>
+    <button class="ver" id="ver">👁️ Ver resposta</button>
+    <button class="prox" id="prox">Próximo →</button>
+  </div>
+</div>
+<script>
+const cartoes = [
+  ["O que é hereditariedade?","A transmissão de características dos pais para os filhos."],
+  ["Qual área da Biologia estuda a hereditariedade?","A Genética, originada do trabalho de Gregor Mendel."],
+  ["Com qual planta Mendel trabalhou?","Com a ervilha (Pisum sativum), a partir de 1857."],
+  ["Por que a ervilha era ideal para o estudo?","Tem 7 características fáceis de ver, faz autofecundação, tem ciclo curto e dá muitos descendentes."],
+  ["O que é uma linhagem pura?","A que só dá origem a plantas iguais a si mesma por autofecundação (é homozigota)."],
+  ["Como Mendel cruzava plantas que se autofecundam?","Cortava os estames da planta receptora e levava o pólen da outra com um pincel."],
+  ["O que são as gerações P, F1 e F2?","P = parental (os pais puros); F1 = primeira geração filha; F2 = a geração que veio da autofecundação da F1."],
+  ["O que apareceu na F1 do cruzamento amarela × verde?","Todas as sementes saíram amarelas: o verde ficou escondido."],
+  ["Qual proporção apareceu na F2?","3 para 1: três dominantes para cada recessivo."],
+  ["Quantas sementes Mendel contou na F2 da cor?","6022 amarelas e 2001 verdes, num total de 8023 (dá 3,01, ou seja, 3:1)."],
+  ["Qual é o nome da primeira lei de Mendel?","Lei da segregação dos fatores."],
+  ["Quais são os 3 pressupostos da 1ª lei?","1) as características vêm de um par de fatores, em iguais quantidades dos pais; 2) os fatores se separam ao acaso nos gametas; 3) às vezes só um deles se manifesta."],
+  ["Por que o trabalho de Mendel demorou a ser aceito?","Porque ele usou Matemática para explicar Biologia, o que era novidade. Só foi redescoberto em 1900, por três pesquisadores."],
+  ["Por que Mendel precisou de milhares de sementes?","Porque as proporções só aparecem com muitos eventos, como no caso da moeda: em poucas jogadas o resultado foge do esperado."],
+  ["O que é um gene?","Um trecho do material genético; a partir dele a célula produz substâncias (proteínas)."],
+  ["O que são alelos?","As variantes de um mesmo gene, por exemplo A e a."],
+  ["Qual é a diferença entre alelo dominante e recessivo?","O dominante se manifesta mesmo sozinho (letra maiúscula); o recessivo fica escondido e só aparece em dose dupla (letra minúscula)."],
+  ["O que é ser homozigoto?","Ter os dois alelos iguais para aquela característica: AA ou aa."],
+  ["O que é ser heterozigoto?","Ter os dois alelos diferentes: Aa."],
+  ["Qual é a diferença entre genótipo e fenótipo?","Genótipo é o par de alelos que a pessoa tem; fenótipo é o que aparece, ou seja, o genótipo somado à influência do ambiente."],
+  ["Dê um exemplo de ambiente mudando o fenótipo.","Uma pessoa com alelos para pele clara fica com a pele mais escura se tomar muito sol."],
+  ["Quando a característica recessiva aparece?","Só em homozigose, isto é, quando o indivíduo é aa."],
+  ["Para que serve o quadro de Punnett?","Para mostrar todos os encontros possíveis entre os gametas e prever os genótipos."],
+  ["Qual o resultado de Aa × Aa?","AA, Aa, Aa e aa. Fenótipo 3:1 e genótipo 1 AA : 2 Aa : 1 aa."],
+  ["Qual o resultado de Aa × aa?","Metade Aa e metade aa, ou seja, 50% do fenótipo dominante e 50% do recessivo (1:1)."],
+  ["O que é um heredograma?","Um esquema que representa uma família e o parentesco, mostrando como uma característica passa entre as gerações."],
+  ["No heredograma, o que é quadrado e o que é círculo?","Quadrado = sexo masculino; círculo = sexo feminino; losango = sexo não identificado."],
+  ["No heredograma, o que significa a figura pintada de preto?","Indivíduo afetado, ou seja, que apresenta a característica estudada."],
+  ["O que representam as linhas horizontais e verticais?","As horizontais são o cruzamento (o casal); as verticais, a descendência (os filhos)."],
+  ["Quais são as três partes fundamentais da célula?","Membrana plasmática, citoplasma e núcleo."],
+  ["Qual a diferença entre célula procariótica e eucariótica?","A procariótica (bactéria) não tem núcleo, e o material genético fica solto no citoplasma; a eucariótica tem núcleo organizado."],
+  ["Qual a função do núcleo?","Envolver o material genético (DNA) e coordenar o funcionamento da célula."],
+  ["Quem nomeou o núcleo da célula, e quando?","Robert Brown, em 1831."],
+  ["Quem descobriu a nucleína, e quando?","Friedrich Miescher, em 1869, analisando glóbulos brancos. Hoje a nucleína é conhecida como DNA."],
+  ["Quem desvendou a estrutura do DNA em 1953?","Rosalind Franklin, Watson e Crick (Hershey e Chase tinham feito experimentos em 1952)."],
+  ["O que são cromossomos?","Fios muito longos de DNA que se enrolam na hora da divisão celular e viram bastões visíveis ao microscópio."],
+  ["Qual é a relação entre gene e cromossomo?","Os genes são trechos dos cromossomos."],
+  ["Quantos cromossomos tem uma célula humana?","46, ou seja, 23 pares, com cerca de 30 mil genes."],
+  ["Quantos cromossomos tem um gameta humano?","23, e não 23 pares: apenas um exemplar de cada."],
+  ["O número de cromossomos indica a complexidade do ser vivo?","Não. O chimpanzé tem 48 e nós temos 46; a cebola tem 16 e a mosca doméstica, 12."],
+  ["Qual a diferença entre mitose e meiose?","A mitose gera 2 células-filhas idênticas (46 ➜ 46), para crescimento e cicatrização; a meiose reduz o material à metade (46 ➜ 23) e forma os gametas."],
+  ["O que é fecundação?","O encontro do óvulo com o espermatozoide, que forma a célula-ovo (zigoto) com 23 pares de cromossomos."],
+  ["Qual é o par sexual da mulher e o do homem?","Mulher XX; homem XY."],
+  ["Qual cromossomo sexual todo óvulo carrega?","Sempre o X, porque vem de células XX."],
+  ["E os espermatozoides?","Metade carrega X e metade carrega Y, porque vêm de células XY."],
+  ["Qual é a chance de nascer menino ou menina?","50% para cada, e cada gestação é independente das anteriores."],
+  ["O que é cariótipo?","O conjunto de cromossomos de um indivíduo, representado num cariograma."],
+];
+let i = 0;
+const $ = id => document.getElementById(id);
+function mostrar(){
+  $("contador").textContent = `Cartão ${i+1} de ${cartoes.length}`;
+  $("pergunta").textContent = cartoes[i][0];
+  $("resposta").textContent = cartoes[i][1];
+  $("resposta").className = "resposta";
+  $("ver").style.display = "inline-block";
+  $("voltar").disabled = (i === 0); $("voltar").style.opacity = (i === 0) ? .4 : 1;
+  $("prox").textContent = (i === cartoes.length-1) ? "🔁 Recomeçar" : "Próximo →";
+}
+$("ver").onclick = ()=>{ $("resposta").className = "resposta mostrar"; $("ver").style.display = "none"; };
+$("prox").onclick = ()=>{ i = (i+1) % cartoes.length; mostrar(); };
+$("voltar").onclick = ()=>{ if(i > 0){ i--; mostrar(); } };
+mostrar();
+</script>
+</body>
+</html>

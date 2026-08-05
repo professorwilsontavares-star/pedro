@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz do Pedro: Hereditariedade</title>
+<style>
+  :root{--navy:#1E2B38; --teal:#0f766e; --teal-cl:#d5f2ee; --laranja:#FFE4CC; --coral:#E25E42; --ok:#2e7d4f; --ok-cl:#d7f0df; --no:#c0392b; --no-cl:#fbe0dc; --cinza:#64748b;}
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif; background:linear-gradient(160deg,#e6f7f5,#c9e9e4); color:var(--navy); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px; line-height:1.55;}
+  .app{width:100%; max-width:640px; background:#fff; border-radius:24px; box-shadow:0 12px 40px rgba(15,118,110,.16); overflow:hidden;}
+  header{background:linear-gradient(135deg,#0f766e,#134e4a); color:#fff; padding:22px 26px 18px;}
+  header .selo{font-size:.72rem; letter-spacing:1.5px; text-transform:uppercase; opacity:.8; font-weight:700;}
+  header h1{font-size:1.35rem; margin-top:4px;}
+  .barra-topo{display:flex; justify-content:space-between; align-items:center; margin-top:14px; font-size:.9rem; font-weight:700;}
+  .progresso{height:9px; background:rgba(255,255,255,.25); border-radius:20px; margin-top:10px; overflow:hidden;}
+  .progresso span{display:block; height:100%; width:0; background:var(--coral); border-radius:20px; transition:width .35s ease;}
+  main{padding:26px 26px 30px;}
+  .pergunta{font-size:1.25rem; font-weight:800; color:var(--navy); margin-bottom:20px; min-height:60px;}
+  .alternativas{display:flex; flex-direction:column; gap:12px;}
+  .alt{text-align:left; font-size:1.05rem; padding:15px 18px; border:2px solid #cfe8e4; background:#f4fbfa; border-radius:14px; cursor:pointer; transition:all .15s ease; display:flex; align-items:center; gap:12px; font-family:inherit; color:var(--navy);}
+  .alt:hover:not(:disabled){border-color:var(--teal); background:var(--teal-cl); transform:translateY(-1px);}
+  .alt:disabled{cursor:default;}
+  .alt .letra{flex:0 0 30px; height:30px; border-radius:50%; background:var(--teal); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:.95rem;}
+  .alt.certo{border-color:var(--ok); background:var(--ok-cl);} .alt.certo .letra{background:var(--ok);}
+  .alt.errado{border-color:var(--no); background:var(--no-cl);} .alt.errado .letra{background:var(--no);}
+  .feedback{margin-top:20px; padding:15px 18px; border-radius:14px; display:none; font-size:1rem;}
+  .feedback.mostrar{display:block; animation:sobe .25s ease;}
+  .feedback.ok{background:var(--ok-cl); border-left:6px solid var(--ok);}
+  .feedback.no{background:var(--no-cl); border-left:6px solid var(--no);}
+  .feedback b{display:block; margin-bottom:3px;}
+  @keyframes sobe{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
+  .proxima{margin-top:20px; width:100%; padding:15px; font-size:1.1rem; font-weight:800; background:var(--coral); color:#fff; border:none; border-radius:14px; cursor:pointer; font-family:inherit; display:none;}
+  .proxima.mostrar{display:block;} .proxima:hover{filter:brightness(1.08);}
+  .final{text-align:center; padding:14px 6px;}
+  .final .emoji{font-size:3.4rem;} .final h2{font-size:1.6rem; margin:10px 0;}
+  .final .placar{font-size:1.15rem; color:var(--cinza); margin-bottom:6px;}
+  .final .nota{font-size:3rem; font-weight:900; color:var(--teal); margin:6px 0;}
+  .final .recado{background:var(--laranja); border-radius:14px; padding:14px 18px; margin:18px 0; color:var(--navy);}
+  .refazer{padding:14px 28px; font-size:1.05rem; font-weight:800; background:var(--teal); color:#fff; border:none; border-radius:14px; cursor:pointer; font-family:inherit;}
+</style>
+</head>
+<body>
+<a href="index.html" class="btn-voltar-hub" style="position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:9999;display:inline-flex;align-items:center;gap:7px;background:#E25E42;color:#fff;text-decoration:none;font-weight:800;font-size:1rem;padding:11px 18px;border-radius:30px;box-shadow:0 4px 14px rgba(0,0,0,.3);font-family:'Segoe UI',system-ui,Arial,sans-serif;">← Voltar</a>
+<div class="app">
+  <header>
+    <div class="selo">Ciências · 9º ano · Setor A · Quiz</div>
+    <h1>Hereditariedade 🧬</h1>
+    <div class="barra-topo"><span id="contador">Questão 1</span><span id="placar">Acertos: 0</span></div>
+    <div class="progresso"><span id="barra"></span></div>
+  </header>
+  <main id="palco">
+    <div class="pergunta" id="pergunta"></div>
+    <div class="alternativas" id="alternativas"></div>
+    <div class="feedback" id="feedback"></div>
+    <button class="proxima" id="proxima">Próxima ➜</button>
+  </main>
+</div>
+<script>
+const questoes = [
+  { q:"Hereditariedade é...", alt:["a transmissão de características dos pais para os filhos","a mudança do corpo com a idade","a adaptação ao clima"], c:0, e:"Hereditariedade é passar características de geração em geração." },
+  { q:"Quando alguém diz que a criança puxou os olhos do avô, está falando de...", alt:["hereditariedade","alimentação","clima"], c:0, e:"A semelhança entre parentes é justamente a hereditariedade." },
+  { q:"Qual área da Biologia estuda a hereditariedade?", alt:["A Genética","A Ecologia","A Botânica"], c:0, e:"A Genética nasceu do trabalho de Gregor Mendel." },
+  { q:"Gregor Mendel era...", alt:["um monge que virou padre e abade","um médico do exército","um rei da Áustria"], c:0, e:"Mendel entrou no Mosteiro de Santo Tomás, virou padre em 1847 e abade em 1868." },
+  { q:"Com qual planta Mendel fez suas experiências?", alt:["A ervilha","O milho","A roseira"], c:0, e:"Ele usou a ervilha, Pisum sativum, a partir de 1857." },
+  { q:"Em que ano Mendel publicou seu trabalho?", alt:["1866","1900","1953"], c:0, e:"Publicou em 1866 o trabalho Experiências sobre híbridos vegetais." },
+  { q:"O que aconteceu com o trabalho de Mendel na época?", alt:["Ficou esquecido por cerca de 40 anos","Foi premiado no mundo todo","Foi proibido"], c:0, e:"Ele morreu em 1884 sem saber da importância do que descobriu." },
+  { q:"Em que ano o trabalho de Mendel foi redescoberto?", alt:["Em 1900, por três pesquisadores","Em 1866, por ele mesmo","Em 1831, por Robert Brown"], c:0, e:"Três pesquisadores independentes redescobriram e divulgaram o trabalho em 1900." },
+  { q:"Quantas características bem definidas a ervilha tem?", alt:["Sete","Duas","Vinte"], c:0, e:"São 7 caracteres fáceis de identificar, como cor e forma da semente." },
+  { q:"Por que a ervilha foi uma escolha genial?", alt:["Tem características fáceis de ver, ciclo curto e se autofecunda","É a planta mais bonita","Só existe na Europa"], c:0, e:"Características claras, ciclo de vida curto e autofecundação: material perfeito." },
+  { q:"O que é autofecundação (autopolinização) na ervilha?", alt:["O pólen cai na parte feminina da mesma flor","O vento leva o pólen para outra planta","A planta se divide ao meio"], c:0, e:"As partes reprodutivas ficam fechadas nas sépalas e pétalas, então a flor se autofertiliza." },
+  { q:"O que é uma linhagem pura?", alt:["A que só dá plantas iguais a si mesma","A que nunca dá flores","A que muda a cada geração"], c:0, e:"Planta pura de semente amarela só gera descendentes de semente amarela." },
+  { q:"Como Mendel conseguia cruzar plantas que se autofecundam?", alt:["Cortava os estames e levava o pólen com um pincel","Plantava as duas juntas e esperava","Usava uma máquina elétrica"], c:0, e:"Ele cortava a parte masculina da receptora e transferia o pólen com um pincel." },
+  { q:"A geração P é...", alt:["a parental, ou seja, as plantas puras iniciais","a última geração do estudo","a geração dos netos"], c:0, e:"P de parental: as plantas puras que iniciam o cruzamento." },
+  { q:"No cruzamento de sementes amarelas puras com verdes puras, a F1 saiu...", alt:["toda amarela","toda verde","metade de cada"], c:0, e:"Todas amarelas: o verde ficou escondido na F1." },
+  { q:"E a geração F2 apareceu na proporção de...", alt:["3 amarelas para 1 verde","1 para 1","tudo amarelo"], c:0, e:"A famosa proporção 3:1, que se repetiu nas sete características." },
+  { q:"Mendel contou na F2: 6022 amarelas e 2001 verdes. Isso dá...", alt:["cerca de 3 para 1","cerca de 6 para 1","exatamente 2 para 1"], c:0, e:"6022 dividido por 2001 dá 3,01, ou seja, 3:1." },
+  { q:"Qual é o nome da primeira lei de Mendel?", alt:["Lei da segregação dos fatores","Lei da gravidade","Lei da seleção natural"], c:0, e:"Segregação = separação: os fatores se separam na formação dos gametas." },
+  { q:"Segundo a 1ª lei, os fatores vêm dos pais...", alt:["em par e em iguais quantidades dos dois","só do pai","só da mãe"], c:0, e:"Metade vem do pai e metade da mãe, formando um par." },
+  { q:"Na formação dos gametas, os fatores...", alt:["se separam ao acaso","se juntam para sempre","desaparecem"], c:0, e:"Cada gameta leva só um fator de cada par, escolhido ao acaso." },
+  { q:"Mendel foi pioneiro porque...", alt:["usou Matemática para explicar resultados biológicos","inventou o microscópio","descobriu o DNA"], c:0, e:"Foi o primeiro a usar proporções matemáticas na Biologia, o que dificultou o reconhecimento na época." },
+  { q:"Por que Mendel precisou de mais de 8 mil sementes?", alt:["Quanto mais tentativas, mais o resultado chega perto do esperado","Porque as sementes eram pequenas","Porque a maioria morria"], c:0, e:"Como na moeda: em poucas jogadas o resultado foge; em muitas, o padrão aparece." },
+  { q:"Por que não percebemos essas proporções dentro das famílias?", alt:["Porque as pessoas não têm milhares de filhos","Porque não valem para humanos","Porque os genes humanos são diferentes"], c:0, e:"Faltam eventos: o número de filhos é pequeno demais para o padrão aparecer." },
+  { q:"O que é um gene?", alt:["Um trecho do material genético","Uma organela da célula","Um tipo de célula"], c:0, e:"A partir do gene, a célula produz proteínas que participam da estrutura e do funcionamento celular." },
+  { q:"O que são alelos?", alt:["As variantes de um mesmo gene, como A e a","Dois genes de espécies diferentes","O mesmo que cromossomos"], c:0, e:"Alelos são as versões de um gene para a mesma característica." },
+  { q:"O alelo dominante é escrito com...", alt:["letra maiúscula (A)","letra minúscula (a)","número"], c:0, e:"Maiúscula para dominante, minúscula para recessivo." },
+  { q:"A característica recessiva aparece quando o indivíduo é...", alt:["aa (homozigoto recessivo)","Aa","AA"], c:0, e:"O recessivo só se manifesta em dose dupla, ou seja, em homozigose." },
+  { q:"Um indivíduo Aa mostra qual característica?", alt:["A dominante","A recessiva","Uma mistura das duas"], c:0, e:"O alelo dominante esconde a manifestação do recessivo." },
+  { q:"Homozigoto é o indivíduo que tem...", alt:["dois alelos iguais (AA ou aa)","dois alelos diferentes (Aa)","um alelo só"], c:0, e:"Homo = igual. É o que Mendel chamava de planta pura." },
+  { q:"Heterozigoto é o indivíduo que tem...", alt:["dois alelos diferentes (Aa)","dois alelos iguais","nenhum alelo"], c:0, e:"Hetero = diferente: um dominante e um recessivo." },
+  { q:"Genótipo é...", alt:["o par de alelos que o indivíduo carrega","a cor da pele da pessoa","o nome científico da espécie"], c:0, e:"Genótipo é a informação: AA, Aa ou aa." },
+  { q:"Fenótipo é...", alt:["o que se manifesta, genótipo somado ao ambiente","o mesmo que genótipo","só o que está no DNA"], c:0, e:"Fenótipo é o resultado visível, e o ambiente pode influenciar." },
+  { q:"Uma pessoa com alelos para pele clara que toma muito sol fica mais escura. Isso mostra que...", alt:["o ambiente influencia o fenótipo","o genótipo mudou","ela virou heterozigota"], c:0, e:"O genótipo continua o mesmo; o que muda é a manifestação dele." },
+  { q:"Para que serve o quadro de Punnett?", alt:["Para mostrar todos os encontros possíveis entre gametas","Para pesar as sementes","Para medir a altura da planta"], c:0, e:"É o esquema que prevê os genótipos dos descendentes." },
+  { q:"O cruzamento Aa × Aa dá qual proporção de fenótipos?", alt:["3 dominantes para 1 recessivo","1 para 1","tudo dominante"], c:0, e:"Sai AA, Aa, Aa e aa: três com a característica dominante e um com a recessiva." },
+  { q:"E qual é a proporção de genótipos em Aa × Aa?", alt:["1 AA : 2 Aa : 1 aa","3 AA : 1 aa","2 AA : 2 aa"], c:0, e:"Genótipos: um AA, dois Aa e um aa." },
+  { q:"O cruzamento Aa × aa dá...", alt:["50% Aa e 50% aa","só aa","3 para 1"], c:0, e:"A planta aa só dá gametas a, então metade dos filhos é Aa e metade é aa (1:1)." },
+  { q:"O que é um heredograma?", alt:["Um esquema da família mostrando como a característica passa entre gerações","Um gráfico de barras","Uma tabela de vitaminas"], c:0, e:"Também chamado de genealogia, carta genealógica ou pedigree." },
+  { q:"No heredograma, o quadrado representa...", alt:["sexo masculino","sexo feminino","indivíduo falecido"], c:0, e:"Quadrado = masculino; círculo = feminino; losango = sexo não identificado." },
+  { q:"No heredograma, a figura pintada de preto indica...", alt:["indivíduo afetado","indivíduo mais velho","indivíduo adotado"], c:0, e:"Figura preta ou hachurada = quem apresenta a característica estudada." },
+  { q:"No heredograma, as linhas horizontais representam...", alt:["o cruzamento (o casal)","a descendência","a idade"], c:0, e:"Horizontal = casal; vertical = filhos. Números romanos marcam as gerações." },
+  { q:"Quais são as três partes fundamentais da maioria das células?", alt:["Membrana plasmática, citoplasma e núcleo","Raiz, caule e folha","Água, sal e açúcar"], c:0, e:"A membrana protege, o citoplasma preenche e o núcleo guarda o DNA." },
+  { q:"Células que NÃO têm núcleo são chamadas de...", alt:["procarióticas","eucarióticas","cancerígenas"], c:0, e:"Bactérias e cianobactérias são procarióticas: o material genético fica solto no citoplasma." },
+  { q:"Qual é a função do núcleo?", alt:["Envolver o DNA e coordenar o funcionamento da célula","Produzir energia","Digerir alimentos"], c:0, e:"O núcleo é o centro de controle da célula." },
+  { q:"Quem identificou e nomeou o núcleo da célula, em 1831?", alt:["Robert Brown","Gregor Mendel","Charles Darwin"], c:0, e:"Brown percebeu que o núcleo aparecia na maioria das células ao microscópio." },
+  { q:"Quem descobriu a nucleína, em 1869?", alt:["Friedrich Miescher","Rosalind Franklin","Leeuwenhoek"], c:0, e:"Miescher analisou glóbulos brancos e achou essa substância ácida, hoje conhecida como DNA." },
+  { q:"Quem desvendou a estrutura do DNA, em 1953?", alt:["Rosalind Franklin, Watson e Crick","Hipócrates e Aristóteles","Mendel e Doppler"], c:0, e:"Em 1952 Hershey e Chase fizeram experimentos importantes; em 1953 veio a estrutura." },
+  { q:"O que são cromossomos?", alt:["Fios de DNA enrolados, visíveis na divisão celular","Organelas que produzem energia","Células do sangue"], c:0, e:"Fora da divisão o DNA fica esticado; na divisão ele se enrola e vira bastão." },
+  { q:"Qual é a relação entre gene e cromossomo?", alt:["O gene é um trecho do cromossomo","São a mesma coisa","O cromossomo fica dentro do gene"], c:0, e:"Os fatores de Mendel, os genes, são pedaços dos cromossomos." },
+  { q:"Quantos cromossomos tem uma célula humana comum?", alt:["46, ou seja, 23 pares","23","48"], c:0, e:"46 cromossomos e cerca de 30 mil genes." },
+  { q:"E quantos cromossomos tem um gameta humano?", alt:["23, um exemplar de cada","23 pares","46 pares"], c:0, e:"Óvulo e espermatozoide têm 23 cromossomos, e não 23 pares." },
+  { q:"O chimpanzé tem 48 cromossomos e nós temos 46. O que isso mostra?", alt:["Que o número de cromossomos não indica complexidade","Que o chimpanzé é mais evoluído","Que houve um erro de contagem"], c:0, e:"A quantidade de cromossomos não tem relação com a complexidade do organismo." },
+  { q:"O que a mitose produz?", alt:["Duas células-filhas idênticas, com 46 cromossomos","Gametas com 23 cromossomos","Quatro células diferentes"], c:0, e:"Mitose serve para crescimento, reposição de células e cicatrização." },
+  { q:"O que a meiose produz?", alt:["Gametas com metade dos cromossomos (23)","Células idênticas com 46","Células sem núcleo"], c:0, e:"A meiose reduz o material genético à metade, separando os pares." },
+  { q:"Nas plantas, onde acontece a mitose?", alt:["Na ponta das raízes e dos galhos","Só nas flores","Nas sementes secas"], c:0, e:"É nas pontas que a planta cresce." },
+  { q:"O que é fecundação?", alt:["O encontro do óvulo com o espermatozoide","A divisão de uma célula em duas","A formação da flor"], c:0, e:"Na fecundação, 23 + 23 formam de novo 23 pares, ou seja, 46." },
+  { q:"A célula formada na fecundação se chama...", alt:["célula-ovo ou zigoto","gameta","embrião pronto"], c:0, e:"Do zigoto começa uma longa sequência de mitoses que forma o corpo todo." },
+  { q:"Qual é o par de cromossomos sexuais da mulher?", alt:["XX","XY","YY"], c:0, e:"Mulher XX; homem XY." },
+  { q:"Qual cromossomo sexual todo óvulo carrega?", alt:["Sempre X","Sempre Y","Metade X, metade Y"], c:0, e:"Como vêm de células XX, todos os óvulos têm X." },
+  { q:"E os espermatozoides?", alt:["Metade com X e metade com Y","Todos com X","Todos com Y"], c:0, e:"Vêm de células XY, então metade leva X e metade leva Y." },
+  { q:"Qual é a chance de nascer um menino?", alt:["50%","25%","75%"], c:0, e:"Duas casas XX e duas XY no quadro de Punnett: 50% para cada sexo." },
+  { q:"Um casal já tem três filhas. Qual a chance de a quarta gestação ser um menino?", alt:["50%, porque cada gestação é independente","0%, porque já tiveram meninas","100%, agora tem que ser menino"], c:0, e:"Nascimentos anteriores não mudam a chance: continua 50%." },
+  { q:"O conjunto de cromossomos de um indivíduo é chamado de...", alt:["cariótipo","genoma alimentar","fenótipo"], c:0, e:"O cariótipo é representado num desenho chamado cariograma." },
+  { q:"Qual das ideias antigas sobre hereditariedade era de Hipócrates?", alt:["A pangênese, em que cada órgão produzia uma gêmula","Que os filhos vinham só da mãe","Que o DNA tinha forma de escada"], c:0, e:"A pangênese foi aceita por séculos, e até Darwin a considerou." },
+  { q:"Quem viu o espermatozoide pela primeira vez, em 1667?", alt:["Leeuwenhoek","Mendel","Robert Brown"], c:0, e:"Ele usou um microscópio composto e associou o espermatozoide à formação dos seres vivos." },
+];
+function embaralhar(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function preparar(){ return embaralhar(questoes.slice()).map(q=>{ const alts=q.alt.map((t,i)=>({t,c:i===q.c})); embaralhar(alts); return {q:q.q, alt:alts.map(a=>a.t), c:alts.findIndex(a=>a.c), e:q.e}; }); }
+let jogo = preparar(); let atual=0, acertos=0; const letras=["A","B","C"]; const $=id=>document.getElementById(id);
+function render(){ const it=jogo[atual]; $("contador").textContent=`Questão ${atual+1} de ${jogo.length}`; $("placar").textContent=`Acertos: ${acertos}`; $("barra").style.width=`${(atual/jogo.length)*100}%`; $("pergunta").textContent=it.q; const b=$("alternativas"); b.innerHTML=""; it.alt.forEach((t,i)=>{ const x=document.createElement("button"); x.className="alt"; x.innerHTML=`<span class="letra">${letras[i]}</span><span>${t}</span>`; x.onclick=()=>responder(i); b.appendChild(x); }); const f=$("feedback"); f.className="feedback"; f.innerHTML=""; $("proxima").className="proxima"; $("proxima").textContent=atual===jogo.length-1?"Ver resultado 🏁":"Próxima ➜"; }
+function responder(e){ const it=jogo[atual]; document.querySelectorAll(".alt").forEach((b,i)=>{ b.disabled=true; if(i===it.c)b.classList.add("certo"); if(i===e&&e!==it.c)b.classList.add("errado"); }); const f=$("feedback"); if(e===it.c){acertos++; f.className="feedback ok mostrar"; f.innerHTML=`<b>✅ Acertou!</b>${it.e}`;} else {f.className="feedback no mostrar"; f.innerHTML=`<b>❌ Quase!</b> A resposta certa é <b style="display:inline">${letras[it.c]}</b>. ${it.e}`;} $("placar").textContent=`Acertos: ${acertos}`; $("proxima").classList.add("mostrar"); }
+$("proxima").onclick=()=>{ atual++; if(atual<jogo.length)render(); else final(); };
+function final(){ const t=jogo.length; const nota=Math.round((acertos/t)*100)/10; const p=acertos/t; let e,m; if(p>=0.9){e="🏆";m="Fera! Mandou muito bem. Pronto para a prova!";} else if(p>=0.7){e="😃";m="Muito bom! Só falta revisar alguns pontinhos.";} else if(p>=0.45){e="🙂";m="Bom começo! Dá uma relida no resumo e refaça.";} else {e="💪";m="Sem problema! Leia o resumo com calma e tente de novo.";} $("barra").style.width="100%"; $("contador").textContent="Fim do quiz"; $("palco").innerHTML=`<div class="final"><div class="emoji">${e}</div><h2>Quiz concluído!</h2><div class="placar">Você acertou <b>${acertos}</b> de <b>${t}</b></div><div class="nota">Nota ${nota}</div><div class="recado">${m}</div><button class="refazer" onclick="reiniciar()">🔀 Embaralhar e refazer</button></div>`; }
+function reiniciar(){ atual=0; acertos=0; jogo=preparar(); $("palco").innerHTML=`<div class="pergunta" id="pergunta"></div><div class="alternativas" id="alternativas"></div><div class="feedback" id="feedback"></div><button class="proxima" id="proxima">Próxima ➜</button>`; $("proxima").onclick=()=>{ atual++; if(atual<jogo.length)render(); else final(); }; render(); }
+render();
+</script>
+</body>
+</html>
