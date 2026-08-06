@@ -21,6 +21,7 @@ Material escolar do Pedro (14 anos, Ensino Fundamental Anos Finais / 9º ano), p
 | `bio-mod07-revisao.html` | Revisão em cartões (47 cartões) |
 | `bio-mod07-quiz.html` | Quiz interativo (65 questões, embaralha sozinho) |
 | `bio-mod07-resumo.html` | Resumo + figuras SVG + **respostas de todos os exercícios** do módulo |
+| `port-estrangeirismos-trabalho.html` | **Trabalho de Português** sobre estrangeirismos (entrega 20/08). Não é material de estudo: é o texto redigido para o Pedro copiar à mão, com capa, 10 tópicos com 5 exemplos cada e conclusão. Tem CSS de impressão. |
 
 **Ocultos no hub** (ficam dentro do comentário `OCULTO_ARQUIVO` no `index.html`; para reexibir, apague a linha do marcador de abertura e a `FIM_OCULTO_ARQUIVO`):
 `geo-mod04-*`, `geo-mod05-*` (Europa: economia e setor primário), `quim-distribuicao-*` e `quim-vanadio-instagram` (Química), `port-felicidade-clandestina-*` e `port-argumentacao-*` (Português), `hist-mod06-*` e `hist-mod07-*` (História).

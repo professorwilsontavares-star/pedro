@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trabalho do Pedro: Estrangeirismos</title>
+<style>
+  :root{--navy:#1E2B38; --roxo:#6c3fa3; --roxo-claro:#f0e9f8; --roxo-escuro:#3d2465;
+    --coral:#E25E42; --cinza:#475569; --tinta:#1f2733;}
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{background:#f5f7fa; color:var(--tinta); line-height:1.7; font-size:18px; font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;}
+  .wrap{max-width:800px; margin:0 auto; padding:0 18px 80px;}
+  header.capa{background:linear-gradient(135deg,#6c3fa3,#3d2465); color:#fff; padding:46px 26px 34px; text-align:center; border-radius:0 0 22px 22px;}
+  header.capa .modulo{display:inline-block; background:rgba(255,255,255,.18); font-weight:700; font-size:.78rem; letter-spacing:1.5px; text-transform:uppercase; padding:6px 16px; border-radius:30px; margin-bottom:14px;}
+  header.capa h1{font-size:2rem; line-height:1.2;} header.capa p{opacity:.92; margin-top:6px;}
+  header.capa .prazo{display:inline-block; margin-top:14px; background:#E25E42; font-weight:800; padding:8px 18px; border-radius:12px; font-size:.95rem;}
+
+  .aviso{background:#fff8e1; border-left:6px solid #f4b400; border-radius:12px; padding:14px 18px; margin:22px 0; font-size:.98rem;}
+  .aviso b{color:#8a6d00;}
+  .btimprimir{display:inline-flex; align-items:center; gap:8px; background:var(--roxo); color:#fff; border:none; font-family:inherit; font-size:1rem; font-weight:800; padding:12px 22px; border-radius:12px; cursor:pointer; margin:4px 0 10px;}
+  .btimprimir:hover{filter:brightness(1.1);}
+
+  h2.sec{color:var(--roxo); font-size:1.45rem; margin:44px 0 10px; padding-bottom:8px; border-bottom:3px solid var(--roxo-claro);}
+  h2.sec .num{color:var(--coral); margin-right:8px;}
+  h3.item{font-size:1.2rem; color:var(--roxo-escuro); margin:30px 0 6px;}
+  p{margin:12px 0; text-align:justify;} strong{color:var(--roxo-escuro);} em{font-style:italic;}
+
+  ul.motivos{margin:12px 0 12px 22px;}
+  ul.motivos li{margin:7px 0;}
+
+  .exemplos{background:#fff; border:1px solid #e2e8f0; border-left:5px solid var(--coral); border-radius:10px; padding:12px 18px; margin:12px 0 0;}
+  .exemplos .rot{font-weight:800; color:var(--coral); font-size:.82rem; letter-spacing:1px; text-transform:uppercase; display:block; margin-bottom:6px;}
+  .exemplos ol{margin:0 0 0 22px;} .exemplos li{margin:5px 0;}
+  .exemplos li b{color:var(--roxo-escuro);}
+
+  .folha-capa{background:#fff; border:2px solid var(--roxo); border-radius:14px; padding:34px 24px; margin:18px 0; text-align:center; line-height:2.1;}
+  .folha-capa .escola{font-size:1.05rem; color:var(--cinza); letter-spacing:1px;}
+  .folha-capa .titulo{font-weight:900; color:var(--roxo-escuro); font-size:1.5rem; letter-spacing:1px;}
+  .folha-capa .subtitulo{color:var(--cinza);}
+  .folha-capa .vazio{display:block; height:30px;}
+
+  footer{text-align:center; color:#94a3b8; font-size:.85rem; margin-top:48px;}
+  .topo{position:fixed; right:16px; bottom:16px; background:var(--roxo); color:#fff; text-decoration:none; width:46px; height:46px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.3rem; box-shadow:0 4px 12px rgba(0,0,0,.2);}
+  @media(max-width:560px){ body{font-size:17px;} header.capa h1{font-size:1.5rem;} }
+
+  @media print{
+    body{background:#fff; font-size:12pt; line-height:1.5;}
+    header.capa{background:none !important; color:#000; padding:0 0 10px; border-radius:0; text-align:left; border-bottom:2px solid #000;}
+    header.capa .modulo, header.capa .prazo, .aviso, .btimprimir, .topo, .btn-voltar-hub{display:none !important;}
+    header.capa h1{font-size:20pt;} header.capa p{color:#333;}
+    .wrap{max-width:100%; padding:0;}
+    h2.sec{color:#000; border-bottom:1px solid #000; page-break-after:avoid; margin-top:22pt;}
+    h3.item{color:#000; page-break-after:avoid;}
+    .exemplos{border:1px solid #999; border-left:3px solid #000; page-break-inside:avoid;}
+    .exemplos .rot{color:#000;} .exemplos li b, strong{color:#000;}
+    .folha-capa{border:1px solid #000; page-break-after:always;}
+    p{text-align:justify;}
+  }
+</style>
+</head>
+<body id="topo">
+<a href="index.html" class="btn-voltar-hub" style="position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:9999;display:inline-flex;align-items:center;gap:7px;background:#E25E42;color:#fff;text-decoration:none;font-weight:800;font-size:1rem;padding:11px 18px;border-radius:30px;box-shadow:0 4px 14px rgba(0,0,0,.3);font-family:'Segoe UI',system-ui,Arial,sans-serif;">← Voltar</a>
+
+<header class="capa">
+  <span class="modulo">Português · 9º ano · Trabalho</span>
+  <h1>Estrangeirismos 🌍</h1>
+  <p>O que são, sua origem e os processos de incorporação</p>
+  <div class="prazo">📅 Entrega: 20 de agosto</div>
+</header>
+
+<div class="wrap">
+
+<div class="aviso">
+  <b>✍️ O trabalho tem que ser manuscrito.</b> Aqui está o texto pronto, na ordem certa. Copie à mão em folha pautada, começando pela capa. São <b>10 tópicos com 5 exemplos cada</b>, ou seja, 50 exemplos no total, como a professora pediu.
+</div>
+<button class="btimprimir" onclick="window.print()">🖨️ Imprimir para copiar</button>
+
+<!-- CAPA -->
+<h2 class="sec">A capa</h2>
+<p>Numa folha separada, sem pauta escrita, centralizado:</p>
+<div class="folha-capa">
+  <div class="escola">NOME DA ESCOLA</div>
+  <span class="vazio"></span>
+  <span class="vazio"></span>
+  <div class="titulo">ESTRANGEIRISMOS</div>
+  <div class="subtitulo">O que são, sua origem e os processos de incorporação</div>
+  <span class="vazio"></span>
+  <span class="vazio"></span>
+  <div class="subtitulo">Pedro Henrique Gonçalves Tavares</div>
+  <div class="subtitulo">Turma: ________ · Nº de chamada: ________</div>
+  <span class="vazio"></span>
+  <div class="subtitulo">Trabalho de Língua Portuguesa</div>
+  <div class="subtitulo">Agosto de 2026</div>
+</div>
+
+<!-- 1 -->
+<h2 class="sec"><span class="num">1.</span>O que é estrangeirismo</h2>
+<p>Estrangeirismo é o emprego, em uma língua, de palavras, expressões ou construções vindas de outro idioma. Quando alguém diz que vai fazer o <em>download</em> de um arquivo, quando pede um <em>milk-shake</em> na lanchonete ou quando marca uma reunião de <em>feedback</em>, está usando estrangeirismos.</p>
+<p>Trata-se de um dos processos de ampliação do vocabulário de uma língua. Nenhum idioma cria sozinho todas as palavras de que precisa: ele também toma emprestado de outros. Por isso o fenômeno recebe igualmente o nome de <strong>empréstimo linguístico</strong>.</p>
+<p>É comum distinguir os dois termos. Fala-se em <strong>estrangeirismo</strong> quando a palavra ainda é sentida como estrangeira, mantendo a aparência e o som de fora, como em <em>delivery</em> e <em>marketing</em>. Fala-se em <strong>empréstimo</strong> quando ela já foi absorvida pela língua e ninguém mais estranha, como em futebol, abajur e açúcar. A diferença, portanto, é o tempo e o uso: todo empréstimo um dia foi um estrangeirismo, e quanto mais o povo repete uma palavra, mais ela se adapta e menos parece estrangeira.</p>
+<p>Na escrita formal, a palavra estrangeira que ainda não foi adaptada deve aparecer em itálico ou entre aspas. Já a palavra aportuguesada é escrita normalmente, sem nenhuma marca.</p>
+
+<!-- 2 -->
+<h2 class="sec"><span class="num">2.</span>A origem dos estrangeirismos</h2>
+<p>Nenhuma língua vive isolada. Sempre que dois povos se encontram, suas palavras também se encontram. Os estrangeirismos nascem, portanto, do <strong>contato entre povos</strong>, e esse contato tem causas variadas:</p>
+<ul class="motivos">
+  <li><strong>Comércio:</strong> quem vende um produto novo traz junto o nome dele.</li>
+  <li><strong>Guerras, invasões e dominação:</strong> o povo que domina deixa marcas na língua do povo dominado.</li>
+  <li><strong>Colonização e imigração:</strong> grupos que migram levam sua língua para o novo país.</li>
+  <li><strong>Ciência e tecnologia:</strong> quem inventa dá o nome, e o mundo inteiro repete.</li>
+  <li><strong>Cultura, esporte e mídia:</strong> música, cinema e internet espalham palavras com enorme rapidez.</li>
+  <li><strong>Ausência de termo equivalente:</strong> muitas vezes simplesmente não existe uma palavra portuguesa para aquela realidade.</li>
+</ul>
+<p>A própria história do português pode ser contada pelas palavras que ele importou. A língua nasceu do latim vulgar levado pelos romanos à Península Ibérica. Entre os séculos V e VIII, os povos germânicos deixaram termos como guerra, branco e guardar. De 711 a 1492, quase oitocentos anos de presença árabe encheram o idioma de arabismos. Nas Grandes Navegações, os portugueses trouxeram palavras da Ásia, da África e da América, entre elas as de origem tupi, como abacaxi e pipoca, e as de línguas africanas, como samba e cafuné.</p>
+<p>Nos séculos XVIII e XIX, a França era o centro cultural do mundo ocidental, e o francês invadiu a moda, a culinária e a diplomacia. No fim do século XIX e no início do XX, a imigração trouxe ao Brasil italianos, alemães e japoneses, que deixaram sua marca no vocabulário. Do século XX até hoje, com os Estados Unidos como potência econômica e tecnológica, o inglês se tornou a maior fonte de estrangeirismos, sobretudo depois da internet.</p>
+<p>Vale registrar que a troca é de mão dupla. O português também exportou palavras: o inglês tem <em>banana</em>, <em>cobra</em> e <em>marmalade</em> vindas do nosso idioma, e o japonês tem <em>pan</em> (pão) e <em>tempura</em>, levadas pelos navegadores portugueses no século XVI.</p>
+
+<!-- 3 -->
+<h2 class="sec"><span class="num">3.</span>Os processos de incorporação</h2>
+<p>Os quatro primeiros tópicos indicam <strong>como</strong> a palavra estrangeira entra na língua, ou seja, o caminho que ela percorre até se tornar parte do português.</p>
+
+<h3 class="item">1. Xenismo</h3>
+<p>Xenismo é o estrangeirismo que entra na língua sem nenhuma modificação, mantendo a grafia e a pronúncia do idioma de origem. O nome vem do grego <em>xénos</em>, que significa "estrangeiro". Esse processo costuma ocorrer quando a palavra nomeia algo típico da cultura estrangeira, sem correspondente em português, ou quando o termo é tão recente que ainda não houve tempo de adaptá-lo. Justamente por continuar sendo sentido como palavra de fora, o xenismo deve ser escrito em itálico ou entre aspas.</p>
+<div class="exemplos">
+  <span class="rot">5 exemplos</span>
+  <ol>
+    <li><b><em>show</em></b> (inglês): poderia ser "espetáculo", mas o uso consagrou a forma original.</li>
+    <li><b><em>design</em></b> (inglês): escreve-se e pronuncia-se exatamente como no idioma de origem.</li>
+    <li><b><em>shopping</em></b> (inglês): no Brasil passou a designar o próprio centro comercial.</li>
+    <li><b><em>pizza</em></b> (italiano): conserva o "zz", que não é típico da escrita portuguesa.</li>
+    <li><b><em>sushi</em></b> (japonês): nome de um prato próprio da cultura japonesa, sem tradução.</li>
+  </ol>
+</div>
+
+<h3 class="item">2. Adaptação</h3>
+<p>Adaptação, também chamada de aportuguesamento, é o processo em que a palavra estrangeira é ajustada à escrita e à pronúncia do português. Ela perde as letras e os sons que não existem na nossa língua e passa a ser grafada conforme se fala. É o processo mais comum e o que melhor demonstra a força do idioma: em vez de rejeitar a palavra de fora, o português a transforma em palavra sua. Depois de adaptada, ela funciona como qualquer outra, recebendo plural, diminutivo e derivados, como em futebol, futebolista e futeboleiro.</p>
+<div class="exemplos">
+  <span class="rot">5 exemplos</span>
+  <ol>
+    <li><b>futebol</b>, de <em>football</em> (inglês): a escrita passou a acompanhar o som.</li>
+    <li><b>abajur</b>, de <em>abat-jour</em> (francês): perdeu o hífen, e "our" virou "ur".</li>
+    <li><b>xampu</b>, de <em>shampoo</em> (inglês): o "sh" virou "x" e o "oo" virou "u".</li>
+    <li><b>estresse</b>, de <em>stress</em> (inglês): ganhou o "e" inicial, porque o português não inicia palavras com "st".</li>
+    <li><b>sanduíche</b>, de <em>sandwich</em> (inglês): ganhou acento e a terminação "che".</li>
+  </ol>
+</div>
+
+<h3 class="item">3. Decalque</h3>
+<p>Decalque é a tradução literal de uma expressão estrangeira, feita palavra por palavra, mantendo a estrutura da língua de origem. Nesse processo, a palavra estrangeira não entra: o que entra é a ideia e o modo de combinar os termos. Por isso o decalque é o mais difícil de perceber, já que tudo aparece escrito em português. Ninguém desconfia que "arranha-céu" seja um estrangeirismo, mas ele veio do inglês <em>skyscraper</em>, que significa literalmente "raspador de céu".</p>
+<div class="exemplos">
+  <span class="rot">5 exemplos</span>
+  <ol>
+    <li><b>arranha-céu</b>, de <em>skyscraper</em> (inglês).</li>
+    <li><b>cachorro-quente</b>, de <em>hot dog</em> (inglês).</li>
+    <li><b>disco rígido</b>, de <em>hard disk</em> (inglês).</li>
+    <li><b>fim de semana</b>, de <em>weekend</em> (inglês).</li>
+    <li><b>rede social</b>, de <em>social network</em> (inglês).</li>
+  </ol>
+</div>
+
+<h3 class="item">4. Sigla</h3>
+<p>Nesse processo, a língua incorpora siglas formadas em outro idioma, sem traduzi-las. O estrangeirismo chega, por assim dizer, compactado. Muitas dessas siglas são tão repetidas que acabam se transformando em palavras comuns: passam a ser escritas em letra minúscula, recebem plural e o falante nem se lembra de que ali existiam várias palavras. É o que aconteceu com <em>laser</em>, cujo significado original quase ninguém conhece.</p>
+<div class="exemplos">
+  <span class="rot">5 exemplos</span>
+  <ol>
+    <li><b>laser</b>, de <em>Light Amplification by Stimulated Emission of Radiation</em> (inglês).</li>
+    <li><b>radar</b>, de <em>Radio Detection and Ranging</em> (inglês).</li>
+    <li><b>aids</b>, de <em>Acquired Immunodeficiency Syndrome</em> (inglês).</li>
+    <li><b>CD</b>, de <em>Compact Disc</em> (inglês).</li>
+    <li><b>DJ</b>, de <em>Disc Jockey</em> (inglês).</li>
+  </ol>
+</div>
+
+<!-- 4 -->
+<h2 class="sec"><span class="num">4.</span>Os estrangeirismos por língua de origem</h2>
+<p>Os seis tópicos seguintes classificam o estrangeirismo por outro critério: não mais o caminho de entrada, e sim <strong>de onde</strong> a palavra veio.</p>
+
+<h3 class="item">5. Galicismos</h3>
+<p>Galicismos, também chamados de francesismos, são os estrangeirismos de origem francesa. O nome vem de Gália, antigo território que corresponde à atual França. Entraram no português sobretudo nos séculos XVIII e XIX, período em que a França era o centro cultural, artístico e intelectual do mundo ocidental. Falar francês era sinal de instrução, e a corte portuguesa e a elite brasileira imitavam o que vinha de Paris. Por essa razão, os galicismos se concentram na moda, na culinária, na decoração, nas artes e na diplomacia.</p>
+<div class="exemplos">
+  <span class="rot">5 exemplos</span>
+  <ol>
+    <li><b>abajur</b>, de <em>abat-jour</em>, que significa literalmente "abaixa-luz".</li>
+    <li><b>garçom</b>, de <em>garçon</em>, que em francês quer dizer "rapaz, menino".</li>
+    <li><b>maiô</b>, de <em>maillot</em>, do vocabulário da moda.</li>
+    <li><b>ateliê</b>, de <em>atelier</em>, o estúdio em que trabalha o artista.</li>
+    <li><b>sutiã</b>, de <em>soutien</em>, que significa "apoio, sustentação".</li>
+  </ol>
+</div>
+
+<h3 class="item">6. Italianismos</h3>
+<p>Italianismos são os estrangeirismos vindos do italiano. Têm duas fontes principais. A primeira é a arte: entre os séculos XVI e XIX, a Itália dominou a música, a ópera e a pintura, e o vocabulário dessas áreas é italiano no mundo inteiro. A segunda, mais forte no Brasil, é a imigração italiana do fim do século XIX, concentrada em São Paulo e na região Sul, que trouxe a culinária e expressões do dia a dia.</p>
+<div class="exemplos">
+  <span class="rot">5 exemplos</span>
+  <ol>
+    <li><b>pizza</b>: entrou sem adaptação, conservando a grafia italiana.</li>
+    <li><b>tchau</b>, de <em>ciao</em>: foi adaptado à escrita do português.</li>
+    <li><b>macarrão</b>, de <em>maccheroni</em>: totalmente aportuguesado.</li>
+    <li><b>lasanha</b>, de <em>lasagna</em>: o "gn" italiano virou "nh".</li>
+    <li><b>maestro</b>: do vocabulário musical, designa quem rege a orquestra.</li>
+  </ol>
+</div>
+
+<h3 class="item">7. Castelhanismos</h3>
+<p>Castelhanismos, também chamados de espanholismos ou hispanismos, são os estrangeirismos de origem espanhola. O nome vem de Castela, reino onde nasceu a língua castelhana. O português e o espanhol se desenvolveram lado a lado na Península Ibérica e sempre trocaram palavras, troca que se intensificou durante a União Ibérica, de 1580 a 1640, quando os dois reinos tiveram o mesmo rei, e que continua pela vizinhança do Brasil com os países hispano-americanos. Como as duas línguas são muito parecidas, esses empréstimos estão entre os mais difíceis de identificar.</p>
+<div class="exemplos">
+  <span class="rot">5 exemplos</span>
+  <ol>
+    <li><b>guerrilha</b>, de <em>guerrilla</em>, que significa "guerra pequena".</li>
+    <li><b>castanhola</b>, de <em>castañuela</em>, instrumento típico da dança espanhola.</li>
+    <li><b>bolero</b>: gênero musical e de dança.</li>
+    <li><b>baunilha</b>, de <em>vainilla</em>: o "v" virou "b" e o "ll" virou "lh".</li>
+    <li><b>churros</b>: entrou sem nenhuma adaptação.</li>
+  </ol>
+</div>
+
+<h3 class="item">8. Arabismos</h3>
+<p>Arabismos são as palavras de origem árabe. Formam um dos maiores grupos do português, com cerca de mil termos, e resultam da presença moura na Península Ibérica, de 711 a 1492, quase oitocentos anos de convivência. Como os árabes eram muito avançados em matemática, astronomia, medicina, agricultura e arquitetura, o português herdou deles o vocabulário dessas áreas. Uma marca característica é o início em "al", "a" ou "az", porque <em>al</em> é o artigo definido do árabe e veio grudado na palavra: "álgebra" é, na origem, "a al-jabr".</p>
+<div class="exemplos">
+  <span class="rot">5 exemplos</span>
+  <ol>
+    <li><b>álgebra</b>, de <em>al-jabr</em>, que significa "reunião de partes quebradas".</li>
+    <li><b>almofada</b>, de <em>al-mujadda</em>, do vocabulário da casa.</li>
+    <li><b>açúcar</b>, de <em>as-sukkar</em>, da agricultura e da alimentação.</li>
+    <li><b>azeite</b>, de <em>az-zayt</em>, que significa "suco de oliva".</li>
+    <li><b>alfaiate</b>, de <em>al-khayyat</em>, quem costura roupa sob medida.</li>
+  </ol>
+</div>
+
+<h3 class="item">9. Germanismos</h3>
+<p>Germanismos são os estrangeirismos de origem alemã e, em sentido mais amplo, das antigas línguas germânicas. Também apresentam duas camadas. A mais antiga vem dos povos germânicos, visigodos e suevos, que ocuparam a Península Ibérica entre os séculos V e VIII e deixaram palavras hoje inteiramente naturais, como guerra, branco e guardar. A mais recente decorre da imigração alemã no sul do Brasil, iniciada em 1824, e do prestígio da ciência e da técnica alemãs nos séculos XIX e XX.</p>
+<div class="exemplos">
+  <span class="rot">5 exemplos</span>
+  <ol>
+    <li><b>chope</b>, de <em>Schoppen</em>, que era uma antiga medida de volume.</li>
+    <li><b>níquel</b>, de <em>Nickel</em>, da química e da metalurgia.</li>
+    <li><b>valsa</b>, de <em>Walzer</em>, da música e da dança.</li>
+    <li><b>blitz</b>, que em alemão significa "relâmpago".</li>
+    <li><b>quartzo</b>, de <em>Quarz</em>, da mineralogia.</li>
+  </ol>
+</div>
+
+<h3 class="item">10. Japonismos</h3>
+<p>Japonismos, também chamados de niponismos, são as palavras vindas do japonês. A entrada mais significativa ocorreu com a imigração japonesa no Brasil, iniciada em 1908 com a chegada do navio Kasato Maru, responsável por trazer a culinária ao nosso dia a dia. O Brasil abriga hoje a maior colônia japonesa fora do Japão. A partir dos anos 1980 e 1990, uma segunda onda chegou pela cultura pop, com os mangás, os animes e os jogos eletrônicos. As artes marciais constituem um terceiro grupo.</p>
+<div class="exemplos">
+  <span class="rot">5 exemplos</span>
+  <ol>
+    <li><b>sushi</b>: entrou sem adaptação, conservando a grafia original.</li>
+    <li><b>quimono</b>, de <em>kimono</em>: foi adaptado, e o "k" virou "qu".</li>
+    <li><b>judô</b>, de <em>jūdō</em>, que significa "caminho suave".</li>
+    <li><b>tsunami</b>: significa "onda de porto".</li>
+    <li><b>mangá</b>, de <em>manga</em>, a história em quadrinhos japonesa.</li>
+  </ol>
+</div>
+
+<!-- 5 -->
+<h2 class="sec"><span class="num">5.</span>Conclusão</h2>
+<p>O estudo dos estrangeirismos mostra que uma língua não é um sistema fechado, e sim um organismo vivo, que se transforma no contato com outros povos. O português que falamos hoje é resultado de séculos de empréstimos: veio do latim, recebeu palavras germânicas, foi profundamente marcado pelo árabe, incorporou termos indígenas e africanos, admirou o francês, conviveu com o italiano, o espanhol, o alemão e o japonês, e hoje dialoga com o inglês.</p>
+<p>Existe quem critique o uso de estrangeirismos, argumentando que o excesso descaracteriza o idioma e pode excluir quem não conhece a outra língua. Em 1999, o deputado Aldo Rebelo chegou a apresentar um projeto de lei para restringir esse uso no Brasil, o que gerou grande polêmica e não se transformou em lei nacional. De outro lado, há quem defenda o fenômeno lembrando que o empréstimo sempre existiu, em todas as línguas, e que o uso é quem decide o que permanece e o que desaparece.</p>
+<p>Observa-se, aliás, que a crítica costuma se dirigir apenas aos empréstimos recentes: ninguém reclama de açúcar, futebol ou abajur, que também são estrangeirismos. Conclui-se, portanto, que o estrangeirismo não é um erro nem uma ameaça, mas a prova de que a língua está viva e em contato com o mundo. O bom senso está em empregar a palavra estrangeira quando ela acrescenta algo e preferir a portuguesa quando já existe uma que dá conta do recado.</p>
+
+<footer>Trabalho de Língua Portuguesa · Pedro Henrique Gonçalves Tavares · 9º ano</footer>
+</div>
+<a href="#topo" class="topo" title="Voltar ao topo">↑</a>
+</body>
+</html>
