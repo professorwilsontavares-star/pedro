@@ -28,8 +28,8 @@ Material escolar do Pedro (14 anos, Ensino Fundamental Anos Finais / 9º ano), p
 | `bio-mod10-revisao.html` | Revisão em cartões (46 cartões) |
 | `bio-mod10-quiz.html` | Quiz interativo (47 questões, embaralha sozinho) |
 | `port-regencia-resumo.html` | Resumo de **Regência verbal e nominal** com esquemas em SVG, tópicos, treino rápido e a **lista do caderno** (os 23 nomes que o professor passou, um a um, com dois exemplos cada) |
-| `port-regencia-revisao.html` | Revisão em cartões (50 cartões: a matéria e os 23 nomes da lista do caderno) |
-| `port-regencia-quiz.html` | Quiz interativo (68 questões, embaralha sozinho) |
+| `port-regencia-revisao.html` | Revisão em cartões (48 cartões: a matéria e os 23 nomes da lista do caderno) |
+| `port-regencia-quiz.html` | Quiz interativo (65 questões, embaralha sozinho) |
 
 **Ocultos no hub** (ficam dentro do comentário `OCULTO_ARQUIVO` no `index.html`; para reexibir, apague a linha do marcador de abertura e a `FIM_OCULTO_ARQUIVO`):
 `port-estrangeirismos-trabalho` (trabalho de 20/08, já entregue: saiu do hub em 20/09, o arquivo continua aqui), `geo-mod04-*`, `geo-mod05-*` (Europa: economia e setor primário), `quim-distribuicao-*` e `quim-vanadio-instagram` (Química), `port-felicidade-clandestina-*` e `port-argumentacao-*` (Português), `hist-mod06-*` e `hist-mod07-*` (História).
