@@ -13,7 +13,7 @@ Material escolar do Pedro Henrique (irmão do Wilsi, 14 anos, Ensino Fundamental
 
 ## Conteúdo atual
 
-**No ar hoje (só o trabalho de Português e a Biologia):**
+**No ar hoje (Regência de Português e a Biologia):**
 
 | Arquivo | O que é |
 |---|---|
@@ -21,10 +21,12 @@ Material escolar do Pedro Henrique (irmão do Wilsi, 14 anos, Ensino Fundamental
 | `bio-mod07-revisao.html` | Revisão em cartões (47 cartões) |
 | `bio-mod07-quiz.html` | Quiz interativo (65 questões, embaralha sozinho) |
 | `bio-mod07-resumo.html` | Resumo + figuras SVG + **respostas de todos os exercícios** do módulo |
-| `port-estrangeirismos-trabalho.html` | **Trabalho de Português** sobre estrangeirismos (entrega 20/08). Não é material de estudo: é o texto redigido para o Pedro copiar à mão, com capa, 10 tópicos com 5 exemplos cada e conclusão. Tem CSS de impressão. |
+| `port-regencia-resumo.html` | Resumo de **Regência verbal e nominal** com esquemas em SVG, tópicos e treino rápido |
+| `port-regencia-revisao.html` | Revisão em cartões (36 cartões) |
+| `port-regencia-quiz.html` | Quiz interativo (57 questões, embaralha sozinho) |
 
 **Ocultos no hub** (ficam dentro do comentário `OCULTO_ARQUIVO` no `index.html`; para reexibir, apague a linha do marcador de abertura e a `FIM_OCULTO_ARQUIVO`):
-`geo-mod04-*`, `geo-mod05-*` (Europa: economia e setor primário), `quim-distribuicao-*` e `quim-vanadio-instagram` (Química), `port-felicidade-clandestina-*` e `port-argumentacao-*` (Português), `hist-mod06-*` e `hist-mod07-*` (História).
+`port-estrangeirismos-trabalho` (trabalho de 20/08, já entregue: saiu do hub em 20/09, o arquivo continua aqui), `geo-mod04-*`, `geo-mod05-*` (Europa: economia e setor primário), `quim-distribuicao-*` e `quim-vanadio-instagram` (Química), `port-felicidade-clandestina-*` e `port-argumentacao-*` (Português), `hist-mod06-*` e `hist-mod07-*` (História).
 
 > Fonte do módulo de Biologia: **Caderno 4 de Ciências** (Marmo, Velloso e Usberco), Setor A, Módulo 7, páginas 364 a 381. Prints em `C:\Projetos\Pedro\fontes\Biologia\`.
 >
