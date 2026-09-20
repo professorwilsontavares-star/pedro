@@ -1,6 +1,6 @@
 # Estudos do Pedro — site
 
-Material escolar do Pedro (14 anos, Ensino Fundamental Anos Finais / 9º ano), publicado como um site simples via **GitHub Pages**.
+Material escolar do Pedro Henrique (irmão do Wilsi, 14 anos, Ensino Fundamental Anos Finais / 9º ano), publicado como um site simples via **GitHub Pages**.
 
 - **Link (mandar pro Pedro):** https://professorwilsontavares-star.github.io/pedro/
 - **Repositório:** `professorwilsontavares-star/pedro` (público — exigência do GitHub Pages no plano gratuito)
@@ -13,7 +13,7 @@ Material escolar do Pedro (14 anos, Ensino Fundamental Anos Finais / 9º ano), p
 
 ## Conteúdo atual
 
-**No ar hoje (só Biologia):**
+**No ar hoje (só o trabalho de Português e a Biologia):**
 
 | Arquivo | O que é |
 |---|---|
@@ -42,7 +42,26 @@ Material escolar do Pedro (14 anos, Ensino Fundamental Anos Finais / 9º ano), p
 4. **Autocontido:** CSS e JS inline no próprio `.html` (funciona offline).
 5. **Estilo:** simples, linguagem de adolescente, interativo. NÃO é apostila de concurso — foco em lembrar os pontos principais.
 
+6. **Cor da matéria:** cada disciplina tem a sua, usada no header, nos títulos de seção e nos botões.
+
+| Matéria | Cor | Claro |
+|---|---|---|
+| Biologia | `#0f766e` (teal) | `#d5f2ee` |
+| Geografia | `#4d7c0f` (verde-oliva) | `#eef6e6` |
+| Português | `#6c3fa3` (roxo) | `#f0e9f8` |
+
 ### Padrões por tipo de página
 - **Quiz:** 3 alternativas; **embaralhar automaticamente** a ordem das perguntas E das alternativas a cada rodada (Fisher-Yates); resposta de cada questão **reforça o conceito** (ex.: "O ataque à base americana de Pearl Harbor…"); incluir **pares de questões parecidas** (mesmo conceito perguntado de 2-3 jeitos) para massificar; botão final "🔀 Embaralhar e refazer".
 - **Resumo:** linguagem BEM simples, **tópicos** (listas) no lugar de textão, e **figuras** feitas em SVG na própria página (bandeiras, linha do tempo, ícones) — nada de imagem externa. Evitar símbolos impróprios (ex.: nada de suástica; usar bandeira atual do país).
 - **Revisão:** cartões curtos (pergunta → clicar → resposta curta), só os pontos principais.
+- **Trabalho a entregar:** ⚠ **não é material de estudo.** É o **texto redigido**, na ordem em que vai ser copiado à mão, com capa, desenvolvimento e conclusão. Sem quiz, sem cartões, sem caixas de curiosidade, sem seção "como montar". Levar CSS de impressão (`@media print`) e botão Imprimir, porque o aluno copia com a folha do lado.
+
+## Como TESTAR antes de publicar
+⚠ Abrir por `file://` no preview **não funciona**: vira snapshot estático e o JavaScript não roda, então quiz e cartões não podem ser testados.
+
+Use a entrada **`pedro-site`** do `C:\Projetos\github\.claude\launch.json`, que sobe um `python -m http.server` na porta **8795** servindo esta pasta. Depois do push, o Pages leva **1 a 2 minutos** para propagar: confirme com cache-buster antes de dizer que está no ar.
+
+## Como OCULTAR uma matéria do hub
+As matérias que não devem aparecer ficam dentro de **um único comentário HTML** no `index.html`, entre os marcadores `OCULTO_ARQUIVO` e `FIM_OCULTO_ARQUIVO`. Para reexibir tudo, apague essas duas linhas.
+
+⚠ Não pode existir `-->` dentro desse bloco, senão o comentário fecha antes da hora e metade do conteúdo escondido reaparece.

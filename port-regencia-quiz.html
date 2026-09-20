@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz do Pedro: Regência verbal e nominal</title>
+<style>
+  :root{--navy:#1E2B38; --roxo:#6c3fa3; --roxo-claro:#f0e9f8; --laranja:#FFE4CC; --coral:#E25E42; --verde:#2e7d4f; --verde-claro:#d7f0df; --vermelho:#c0392b; --vermelho-claro:#fbe0dc; --cinza:#64748b;}
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif; background:linear-gradient(160deg,#f3eefb,#e7dcf5); color:var(--navy); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px; line-height:1.55;}
+  .app{width:100%; max-width:640px; background:#fff; border-radius:24px; box-shadow:0 12px 40px rgba(60,36,101,.16); overflow:hidden;}
+  header{background:linear-gradient(135deg,#6c3fa3,#3d2465); color:#fff; padding:22px 26px 18px;}
+  header .selo{font-size:.72rem; letter-spacing:1.5px; text-transform:uppercase; opacity:.8; font-weight:700;}
+  header h1{font-size:1.35rem; margin-top:4px;}
+  .barra-topo{display:flex; justify-content:space-between; align-items:center; margin-top:14px; font-size:.9rem; font-weight:700;}
+  .progresso{height:9px; background:rgba(255,255,255,.25); border-radius:20px; margin-top:10px; overflow:hidden;}
+  .progresso span{display:block; height:100%; width:0; background:var(--coral); border-radius:20px; transition:width .35s ease;}
+  main{padding:26px 26px 30px;}
+  .pergunta{font-size:1.25rem; font-weight:800; color:var(--navy); margin-bottom:20px; min-height:60px;}
+  .alternativas{display:flex; flex-direction:column; gap:12px;}
+  .alt{text-align:left; font-size:1.05rem; padding:15px 18px; border:2px solid #e0d7ee; background:#faf8fd; border-radius:14px; cursor:pointer; transition:all .15s ease; display:flex; align-items:center; gap:12px; font-family:inherit; color:var(--navy);}
+  .alt:hover:not(:disabled){border-color:var(--roxo); background:var(--roxo-claro); transform:translateY(-1px);}
+  .alt:disabled{cursor:default;}
+  .alt .letra{flex:0 0 30px; height:30px; border-radius:50%; background:var(--roxo); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:.95rem;}
+  .alt.certo{border-color:var(--verde); background:var(--verde-claro);} .alt.certo .letra{background:var(--verde);}
+  .alt.errado{border-color:var(--vermelho); background:var(--vermelho-claro);} .alt.errado .letra{background:var(--vermelho);}
+  .feedback{margin-top:20px; padding:15px 18px; border-radius:14px; display:none; font-size:1rem;}
+  .feedback.mostrar{display:block; animation:sobe .25s ease;}
+  .feedback.ok{background:var(--verde-claro); border-left:6px solid var(--verde);}
+  .feedback.no{background:var(--vermelho-claro); border-left:6px solid var(--vermelho);}
+  .feedback b{display:block; margin-bottom:3px;}
+  @keyframes sobe{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
+  .proxima{margin-top:20px; width:100%; padding:15px; font-size:1.1rem; font-weight:800; background:var(--coral); color:#fff; border:none; border-radius:14px; cursor:pointer; font-family:inherit; display:none; transition:filter .15s;}
+  .proxima.mostrar{display:block;} .proxima:hover{filter:brightness(1.08);}
+  .final{text-align:center; padding:14px 6px;}
+  .final .emoji{font-size:3.4rem;} .final h2{font-size:1.6rem; margin:10px 0;}
+  .final .placar{font-size:1.15rem; color:var(--cinza); margin-bottom:6px;}
+  .final .nota{font-size:3rem; font-weight:900; color:var(--roxo); margin:6px 0;}
+  .final .recado{background:var(--laranja); border-radius:14px; padding:14px 18px; margin:18px 0; color:var(--navy);}
+  .refazer{padding:14px 28px; font-size:1.05rem; font-weight:800; background:var(--roxo); color:#fff; border:none; border-radius:14px; cursor:pointer; font-family:inherit;}
+  .refazer:hover{filter:brightness(1.15);}
+</style>
+</head>
+<body>
+<a href="index.html" class="btn-voltar-hub" style="position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:9999;display:inline-flex;align-items:center;gap:7px;background:#E25E42;color:#fff;text-decoration:none;font-weight:800;font-size:1rem;padding:11px 18px;border-radius:30px;box-shadow:0 4px 14px rgba(0,0,0,.3);font-family:'Segoe UI',system-ui,Arial,sans-serif;">← Voltar</a>
+<div class="app">
+  <header>
+    <div class="selo">Português · 9º ano · Gramática · Quiz</div>
+    <h1>Regência verbal e nominal 🔗</h1>
+    <div class="barra-topo">
+      <span id="contador">Questão 1</span>
+      <span id="placar">Acertos: 0</span>
+    </div>
+    <div class="progresso"><span id="barra"></span></div>
+  </header>
+  <main id="palco">
+    <div class="pergunta" id="pergunta"></div>
+    <div class="alternativas" id="alternativas"></div>
+    <div class="feedback" id="feedback"></div>
+    <button class="proxima" id="proxima">Próxima ➜</button>
+  </main>
+</div>
+<script>
+const questoes = [
+  // o que e regencia
+  { q:"O que a regência estuda?", alt:["A ligação entre uma palavra e o termo que a completa","O som das palavras","A ordem das letras na sílaba"], c:0,
+    e:"Regência é a relação entre a palavra que manda (regente) e a palavra que completa o sentido dela (regida)." },
+  { q:"Na regência, quem costuma ligar as duas palavras?", alt:["A preposição (a, de, em, com, por...)","O acento","A vírgula"], c:0,
+    e:"A preposição é o elo: gosto DE música, obedeço AO sinal." },
+  { q:"Regência VERBAL trata da relação entre...", alt:["o verbo e o complemento dele","dois adjetivos","sujeito e predicado"], c:0,
+    e:"Na regência verbal quem manda é o verbo: ele pede, ou não, preposição." },
+  { q:"Regência NOMINAL trata da relação entre...", alt:["um nome (substantivo, adjetivo ou advérbio) e o complemento dele","o verbo e o sujeito","duas orações"], c:0,
+    e:"Na regência nominal quem manda é um nome: respeito A, capaz DE, perto DE." },
+  // transitividade
+  { q:"Verbo que não precisa de complemento chama-se:", alt:["intransitivo","transitivo direto","transitivo indireto"], c:0,
+    e:"Intransitivo já tem sentido completo: O bebê dormiu." },
+  { q:"Verbo transitivo DIRETO pede complemento...", alt:["sem preposição","sempre com de","sempre com a"], c:0,
+    e:"Ele se liga direto ao complemento: comprei um livro." },
+  { q:"Verbo transitivo INDIRETO pede complemento...", alt:["com preposição","sem preposição","sem sujeito"], c:0,
+    e:"Exige preposição: gosto DE pizza, preciso DE ajuda." },
+  { q:"Em 'Dei um presente ao meu irmão', o verbo dar é:", alt:["transitivo direto e indireto","intransitivo","só transitivo direto"], c:0,
+    e:"Tem os dois complementos: um presente (direto) e ao meu irmão (indireto)." },
+  { q:"Para achar o complemento direto, a pergunta é:", alt:["o quê? / quem?","de quê? / a quem?","como?"], c:0,
+    e:"Comprei o quê? Um livro. Sem preposição na pergunta, complemento direto." },
+  { q:"Para achar o complemento indireto, a pergunta é:", alt:["de quê? a quem? em quê? com quem?","o quê?","quando?"], c:0,
+    e:"A pergunta já vem com preposição: preciso DE quê?" },
+  { q:"Em 'Ela precisa de ajuda', o verbo precisar é:", alt:["transitivo indireto","transitivo direto","intransitivo"], c:0,
+    e:"Precisar pede a preposição de: transitivo indireto." },
+  { q:"Em 'O menino quebrou o vidro', o verbo quebrar é:", alt:["transitivo direto","transitivo indireto","intransitivo"], c:0,
+    e:"Quebrou o quê? O vidro. Sem preposição: transitivo direto." },
+  // assistir
+  { q:"Assistir no sentido de VER (um jogo, um filme) pede:", alt:["a preposição a: assistir AO jogo","nenhuma preposição","a preposição de"], c:0,
+    e:"Assistir igual a ver é transitivo indireto: assisti AO filme." },
+  { q:"Assistir no sentido de AJUDAR, dar assistência, pede:", alt:["complemento sem preposição: assistir o doente","a preposição a","a preposição em"], c:0,
+    e:"Assistir igual a ajudar é transitivo direto: o médico assistiu o doente." },
+  { q:"Qual frase está certa na norma culta?", alt:["Assisti ao jogo do Brasil.","Assisti o jogo do Brasil.","Assisti no jogo do Brasil."], c:0,
+    e:"No sentido de ver, assistir pede a: assisti AO jogo." },
+  { q:"'A enfermeira assistiu o paciente a noite toda.' Aqui assistir significa:", alt:["ajudar, dar assistência","ver","morar"], c:0,
+    e:"Sem preposição, assistir é ajudar. Com a preposição a, é ver." },
+  // aspirar
+  { q:"Aspirar no sentido de DESEJAR pede:", alt:["a preposição a: aspirar AO cargo","nenhuma preposição","a preposição de"], c:0,
+    e:"Aspirar igual a desejar: aspiro AO primeiro lugar." },
+  { q:"Aspirar no sentido de SUGAR, puxar o ar, pede:", alt:["complemento sem preposição: aspirar o pó","a preposição a","a preposição por"], c:0,
+    e:"Aspirar igual a sugar é transitivo direto: aspirei o pó do quarto." },
+  // visar
+  { q:"Visar no sentido de TER COMO OBJETIVO pede:", alt:["a preposição a: visar AO lucro","nenhuma preposição","a preposição em"], c:0,
+    e:"O projeto visa AO bem comum." },
+  { q:"Visar no sentido de ASSINAR, dar visto, pede:", alt:["complemento sem preposição: visar o documento","a preposição a","a preposição de"], c:0,
+    e:"O gerente visou o cheque." },
+  // proceder
+  { q:"Em 'A reclamação procede', o verbo proceder significa:", alt:["ter fundamento, fazer sentido","dar início","vir de um lugar"], c:0,
+    e:"Procede igual a tem fundamento." },
+  { q:"Proceder no sentido de DAR INÍCIO pede:", alt:["a preposição a: proceder À leitura","nenhuma preposição","a preposição com"], c:0,
+    e:"Procedeu À leitura do texto, ou seja, deu início à leitura." },
+  // obedecer
+  { q:"O verbo obedecer pede:", alt:["a preposição a: obedecer AO sinal","nenhuma preposição","a preposição em"], c:0,
+    e:"Obedecer e desobedecer são transitivos indiretos: obedeço AOS pais." },
+  { q:"Qual frase está certa?", alt:["Obedeça às regras do jogo.","Obedeça as regras do jogo.","Obedeça com as regras do jogo."], c:0,
+    e:"Obedecer pede a; diante de palavra feminina vira crase: obedeça ÀS regras." },
+  // pagar e perdoar
+  { q:"Pagar e perdoar, quando o complemento é COISA, são:", alt:["transitivos diretos: paguei a conta","transitivos indiretos","intransitivos"], c:0,
+    e:"Coisa vai sem preposição: paguei a conta, perdoei a dívida." },
+  { q:"Pagar e perdoar, quando o complemento é PESSOA, pedem:", alt:["a preposição a: paguei AO garçom","nenhuma preposição","a preposição de"], c:0,
+    e:"Pessoa vai com a: paguei AO entregador, perdoei AO amigo." },
+  { q:"Qual frase está certa?", alt:["Paguei ao mecânico o conserto.","Paguei o mecânico o conserto.","Paguei no mecânico o conserto."], c:0,
+    e:"Pessoa com a (ao mecânico) e coisa sem preposição (o conserto)." },
+  // informar, responder, chamar
+  { q:"O verbo informar aceita:", alt:["informar algo a alguém e informar alguém de algo","só uma forma, com em","nunca preposição"], c:0,
+    e:"As duas estão certas: informei o preço ao cliente / informei o cliente do preço." },
+  { q:"O verbo responder pede:", alt:["a preposição a: responder AO e-mail","nenhuma preposição","sempre a preposição com"], c:0,
+    e:"Respondi AO professor, respondi À pergunta." },
+  { q:"Em 'Chamei-o de herói', o verbo chamar está no sentido de:", alt:["dar um nome, apelidar","convocar alguém","telefonar"], c:0,
+    e:"No sentido de apelidar, chamar aceita de: chamei-o DE herói." },
+  // preferir
+  { q:"Qual é a forma da norma culta?", alt:["Prefiro estudar a trabalhar.","Prefiro estudar do que trabalhar.","Prefiro mais estudar do que trabalhar."], c:0,
+    e:"Preferir pede a preposição a, e sem o mais: prefiro isto A aquilo." },
+  { q:"Por que 'prefiro sair do que ficar' é considerado errado na norma culta?", alt:["porque preferir pede a preposição a, não do que","porque falta vírgula","porque sair é intransitivo"], c:0,
+    e:"O certo é: prefiro sair A ficar." },
+  // namorar e simpatizar
+  { q:"Na norma culta, o verbo namorar é:", alt:["transitivo direto: namorar alguém","transitivo indireto: namorar com alguém","sempre intransitivo"], c:0,
+    e:"Na escrita formal: Ela namora o Pedro, sem o com." },
+  { q:"O verbo simpatizar pede:", alt:["a preposição com: simpatizar COM alguém","nenhuma preposição","a preposição a"], c:0,
+    e:"Simpatizei COM o professor novo. E não é pronominal: não se diz me simpatizei." },
+  // lembrar e esquecer
+  { q:"Sem pronome, lembrar e esquecer são:", alt:["transitivos diretos: esqueci o caderno","transitivos indiretos","intransitivos"], c:0,
+    e:"Esqueci o caderno. Lembrei o combinado." },
+  { q:"Com pronome (lembrar-se, esquecer-se), os verbos pedem:", alt:["a preposição de: esqueci-me DO caderno","nenhuma preposição","a preposição a"], c:0,
+    e:"Com o pronome entra o de: lembrei-me DO combinado." },
+  { q:"Qual frase está certa?", alt:["Esqueci-me da senha.","Esqueci-me a senha.","Esqueci na senha."], c:0,
+    e:"Com pronome entra de: esqueci-me DA senha. Sem pronome: esqueci a senha." },
+  // ir e chegar
+  { q:"Na norma culta, o certo é:", alt:["Cheguei ao colégio.","Cheguei no colégio.","Cheguei em colégio."], c:0,
+    e:"Chegar e ir pedem a para lugar: cheguei AO colégio." },
+  { q:"Qual frase segue a norma culta?", alt:["Fui ao shopping com meus amigos.","Fui no shopping com meus amigos.","Fui até no shopping."], c:0,
+    e:"Ir pede a: fui AO shopping." },
+  // implicar e custar
+  { q:"Implicar no sentido de ACARRETAR, ter como consequência, é:", alt:["transitivo direto: o atraso implica multa","transitivo indireto com em","intransitivo"], c:0,
+    e:"Na norma culta vai sem o em: o atraso implica multa." },
+  { q:"Em 'Custou-me acreditar naquilo', o verbo custar significa:", alt:["ser difícil para alguém","ter preço","demorar a chegar"], c:0,
+    e:"Custar igual a ser difícil: custou-me, ou seja, foi difícil para mim." },
+  // pronome relativo
+  { q:"Complete na norma culta: 'Este é o filme ___ assisti ontem.'", alt:["a que","que","de que"], c:0,
+    e:"Assistir, no sentido de ver, pede a, e a preposição vem antes do relativo: o filme A QUE assisti." },
+  { q:"Complete: 'Este é o assunto ___ preciso.'", alt:["de que","que","a que"], c:0,
+    e:"Precisar pede de: o assunto DE QUE preciso." },
+  // crase e regencia
+  { q:"A crase depende da regência porque...", alt:["só há crase quando a palavra que manda pede a e a seguinte aceita o artigo a","a crase é escolha de quem escreve","toda palavra feminina tem crase"], c:0,
+    e:"Assisti À peça: assistir pede a, e peça aceita o artigo a. Junta e vira crase." },
+  { q:"Em 'Obedeço às normas', a crase aparece porque:", alt:["obedecer pede a e normas aceita o artigo as","toda palavra no plural tem crase","é costume"], c:0,
+    e:"Preposição a mais artigo as formam às." },
+  // regencia nominal
+  { q:"Complete: 'Ele tem muito respeito ___ professores.'", alt:["aos","dos","nos"], c:0,
+    e:"Respeito pede a ou por: respeito AOS professores." },
+  { q:"Complete: 'Sou capaz ___ resolver isso sozinho.'", alt:["de","em","a"], c:0,
+    e:"Capaz pede de: capaz DE resolver." },
+  { q:"Complete: 'Estou ansioso ___ as férias.'", alt:["por","de","em"], c:0,
+    e:"Ansioso pede por: ansioso POR alguma coisa." },
+  { q:"Complete: 'O prédio tem acesso ___ rua principal.'", alt:["à","na","da"], c:0,
+    e:"Acesso pede a: acesso À rua, com crase porque rua aceita o artigo." },
+  { q:"Complete: 'Este texto é compatível ___ o que estudamos.'", alt:["com","de","a"], c:0,
+    e:"Compatível pede com." },
+  { q:"Complete: 'Fiquei satisfeito ___ o resultado.'", alt:["com","entre","sob"], c:0,
+    e:"Satisfeito aceita com, de, em ou por. Aqui: satisfeito COM o resultado." },
+  { q:"Complete: 'Ele foi favorável ___ proposta.'", alt:["à","na","pela"], c:0,
+    e:"Favorável pede a: favorável À proposta." },
+  { q:"Complete: 'Tenho horror ___ filmes de terror.'", alt:["a","de","com"], c:0,
+    e:"Horror pede a: horror A filmes de terror." },
+  { q:"Complete: 'Ela mora perto ___ escola.'", alt:["da","na","a"], c:0,
+    e:"Perto pede de: perto DA escola. Advérbio também tem regência." },
+  { q:"Complete: 'Tenho certeza ___ que ele vem.'", alt:["de","em","a"], c:0,
+    e:"Certeza pede de: certeza DE que ele vem." },
+  // fechamento
+  { q:"Qual é o jeito mais seguro de descobrir a regência de um verbo?", alt:["fazer a pergunta ao verbo e ver se aparece preposição","chutar pelo som","olhar o tamanho da palavra"], c:0,
+    e:"Pergunte: gosto de quê? Apareceu o de, então é transitivo indireto." },
+  { q:"'Prefiro matemática a português' está:", alt:["certo, porque preferir pede a","errado, faltou do que","errado, faltou mais"], c:0,
+    e:"Preferir X A Y é a forma da norma culta." },
+];
+function embaralhar(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function preparar(){
+  return embaralhar(questoes.slice()).map(q=>{
+    const alts = q.alt.map((texto,i)=>({ texto, certa:i===q.c }));
+    embaralhar(alts);
+    return { q:q.q, alt:alts.map(a=>a.texto), c:alts.findIndex(a=>a.certa), e:q.e };
+  });
+}
+let jogo = preparar();
+let atual = 0, acertos = 0;
+const letras = ["A","B","C"];
+const $ = id => document.getElementById(id);
+function render(){
+  const item = jogo[atual];
+  $("contador").textContent = `Questão ${atual+1} de ${jogo.length}`;
+  $("placar").textContent = `Acertos: ${acertos}`;
+  $("barra").style.width = `${(atual/jogo.length)*100}%`;
+  $("pergunta").textContent = item.q;
+  const box = $("alternativas"); box.innerHTML = "";
+  item.alt.forEach((texto,i)=>{
+    const b = document.createElement("button");
+    b.className = "alt";
+    b.innerHTML = `<span class="letra">${letras[i]}</span><span>${texto}</span>`;
+    b.onclick = ()=>responder(i,b);
+    box.appendChild(b);
+  });
+  const fb = $("feedback"); fb.className = "feedback"; fb.innerHTML = "";
+  $("proxima").className = "proxima";
+  $("proxima").textContent = atual === jogo.length-1 ? "Ver resultado 🏁" : "Próxima ➜";
+}
+function responder(escolha){
+  const item = jogo[atual];
+  document.querySelectorAll(".alt").forEach((b,i)=>{
+    b.disabled = true;
+    if(i === item.c) b.classList.add("certo");
+    if(i === escolha && escolha !== item.c) b.classList.add("errado");
+  });
+  const fb = $("feedback");
+  if(escolha === item.c){ acertos++; fb.className = "feedback ok mostrar"; fb.innerHTML = `<b>✅ Acertou!</b>${item.e}`; }
+  else { fb.className = "feedback no mostrar"; fb.innerHTML = `<b>❌ Quase!</b> A resposta certa é <b style="display:inline">${letras[item.c]}</b>. ${item.e}`; }
+  $("placar").textContent = `Acertos: ${acertos}`;
+  $("proxima").classList.add("mostrar");
+}
+$("proxima").onclick = ()=>{ atual++; if(atual < jogo.length) render(); else final(); };
+function final(){
+  const total = jogo.length;
+  const nota = Math.round((acertos/total)*10*10)/10;
+  const pct = acertos/total;
+  let emoji, msg;
+  if(pct >= 0.9){ emoji="🏆"; msg="Fera! Você pegou a regência muito bem. Pronto para a prova!"; }
+  else if(pct >= 0.7){ emoji="😃"; msg="Muito bom! Só falta revisar alguns pontinhos."; }
+  else if(pct >= 0.45){ emoji="🙂"; msg="Bom começo! Dá uma relida no resumo e refaça o quiz."; }
+  else { emoji="💪"; msg="Sem problema! Leia o resumo com calma e tente de novo. Você consegue!"; }
+  $("barra").style.width = "100%"; $("contador").textContent = "Fim do quiz";
+  $("palco").innerHTML = `
+    <div class="final">
+      <div class="emoji">${emoji}</div>
+      <h2>Quiz concluído!</h2>
+      <div class="placar">Você acertou <b>${acertos}</b> de <b>${total}</b> questões</div>
+      <div class="nota">Nota ${nota}</div>
+      <div class="recado">${msg}</div>
+      <button class="refazer" onclick="reiniciar()">🔀 Embaralhar e refazer</button>
+    </div>`;
+}
+function reiniciar(){
+  atual = 0; acertos = 0; jogo = preparar();
+  $("palco").innerHTML = `
+    <div class="pergunta" id="pergunta"></div>
+    <div class="alternativas" id="alternativas"></div>
+    <div class="feedback" id="feedback"></div>
+    <button class="proxima" id="proxima">Próxima ➜</button>`;
+  $("proxima").onclick = ()=>{ atual++; if(atual<jogo.length) render(); else final(); };
+  render();
+}
+render();
+</script>
+</body>
+</html>
