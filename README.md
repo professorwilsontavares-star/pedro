@@ -13,7 +13,7 @@ Material escolar do Pedro (14 anos, Ensino Fundamental Anos Finais / 9º ano), p
 
 ## Conteúdo atual
 
-**No ar hoje (Regência de Português e a Biologia):**
+**No ar hoje (Regência de Português e Biologia, Módulos 7, 9 e 10):**
 
 | Arquivo | O que é |
 |---|---|
@@ -21,6 +21,12 @@ Material escolar do Pedro (14 anos, Ensino Fundamental Anos Finais / 9º ano), p
 | `bio-mod07-revisao.html` | Revisão em cartões (47 cartões) |
 | `bio-mod07-quiz.html` | Quiz interativo (65 questões, embaralha sozinho) |
 | `bio-mod07-resumo.html` | Resumo + figuras SVG + **respostas de todos os exercícios** do módulo |
+| `bio-mod09-resumo.html` | Resumo de **Doenças genéticas** (Módulo 9) com figuras SVG e **respostas de todos os exercícios** |
+| `bio-mod09-revisao.html` | Revisão em cartões (56 cartões) |
+| `bio-mod09-quiz.html` | Quiz interativo (63 questões, embaralha sozinho) |
+| `bio-mod10-resumo.html` | Resumo de **Evolução é transformação** (Módulo 10) com figuras SVG e **respostas de todos os exercícios** |
+| `bio-mod10-revisao.html` | Revisão em cartões (46 cartões) |
+| `bio-mod10-quiz.html` | Quiz interativo (47 questões, embaralha sozinho) |
 | `port-regencia-resumo.html` | Resumo de **Regência verbal e nominal** com esquemas em SVG, tópicos, treino rápido e a **lista do caderno** (os 23 nomes que o professor passou, um a um, com dois exemplos cada) |
 | `port-regencia-revisao.html` | Revisão em cartões (50 cartões: a matéria e os 23 nomes da lista do caderno) |
 | `port-regencia-quiz.html` | Quiz interativo (68 questões, embaralha sozinho) |
@@ -31,6 +37,8 @@ Material escolar do Pedro (14 anos, Ensino Fundamental Anos Finais / 9º ano), p
 > Fonte do módulo de Biologia: **Caderno 4 de Ciências** (Marmo, Velloso e Usberco), Setor A, Módulo 7, páginas 364 a 381. Prints em `C:\Projetos\Pedro\fontes\Biologia\`.
 >
 > Prefixos por matéria: `bio-` (Biologia), `fis-` (Física), `quim-` (Química), `hist-` (História), `geo-` (Geografia), `port-` (Português). Para obras literárias, o nome do arquivo usa o título da obra em vez de `modNN`.
+
+> **Revisão em cartões:** desde 20/09/2026 a resposta aparece **junto com a pergunta**, sem clicar. O botão "Ver resposta" fica oculto e a regra `.resposta.mostrar` não tem animação (animação em aba de fundo deixava a resposta invisível). Vale para as páginas novas também.
 
 ## PADRÕES obrigatórios de toda página nova
 (seguir SEMPRE — foi assim que a coordenação pediu)

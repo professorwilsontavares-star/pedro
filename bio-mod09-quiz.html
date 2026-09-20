@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz do Pedro: Doenças genéticas</title>
+<style>
+  :root{--navy:#1E2B38; --teal:#0f766e; --teal-cl:#d5f2ee; --laranja:#FFE4CC; --coral:#E25E42; --ok:#2e7d4f; --ok-cl:#d7f0df; --no:#c0392b; --no-cl:#fbe0dc; --cinza:#64748b;}
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif; background:linear-gradient(160deg,#e6f7f5,#c9e9e4); color:var(--navy); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px; line-height:1.55;}
+  .app{width:100%; max-width:640px; background:#fff; border-radius:24px; box-shadow:0 12px 40px rgba(15,118,110,.16); overflow:hidden;}
+  header{background:linear-gradient(135deg,#0f766e,#134e4a); color:#fff; padding:22px 26px 18px;}
+  header .selo{font-size:.72rem; letter-spacing:1.5px; text-transform:uppercase; opacity:.8; font-weight:700;}
+  header h1{font-size:1.35rem; margin-top:4px;}
+  .barra-topo{display:flex; justify-content:space-between; align-items:center; margin-top:14px; font-size:.9rem; font-weight:700;}
+  .progresso{height:9px; background:rgba(255,255,255,.25); border-radius:20px; margin-top:10px; overflow:hidden;}
+  .progresso span{display:block; height:100%; width:0; background:var(--coral); border-radius:20px; transition:width .35s ease;}
+  main{padding:26px 26px 30px;}
+  .pergunta{font-size:1.25rem; font-weight:800; color:var(--navy); margin-bottom:20px; min-height:60px;}
+  .alternativas{display:flex; flex-direction:column; gap:12px;}
+  .alt{text-align:left; font-size:1.05rem; padding:15px 18px; border:2px solid #cfe8e4; background:#f4fbfa; border-radius:14px; cursor:pointer; transition:all .15s ease; display:flex; align-items:center; gap:12px; font-family:inherit; color:var(--navy);}
+  .alt:hover:not(:disabled){border-color:var(--teal); background:var(--teal-cl); transform:translateY(-1px);}
+  .alt:disabled{cursor:default;}
+  .alt .letra{flex:0 0 30px; height:30px; border-radius:50%; background:var(--teal); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:.95rem;}
+  .alt.certo{border-color:var(--ok); background:var(--ok-cl);} .alt.certo .letra{background:var(--ok);}
+  .alt.errado{border-color:var(--no); background:var(--no-cl);} .alt.errado .letra{background:var(--no);}
+  .feedback{margin-top:20px; padding:15px 18px; border-radius:14px; display:none; font-size:1rem;}
+  .feedback.mostrar{display:block; animation:sobe .25s ease;}
+  .feedback.ok{background:var(--ok-cl); border-left:6px solid var(--ok);}
+  .feedback.no{background:var(--no-cl); border-left:6px solid var(--no);}
+  .feedback b{display:block; margin-bottom:3px;}
+  @keyframes sobe{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
+  .proxima{margin-top:20px; width:100%; padding:15px; font-size:1.1rem; font-weight:800; background:var(--coral); color:#fff; border:none; border-radius:14px; cursor:pointer; font-family:inherit; display:none;}
+  .proxima.mostrar{display:block;} .proxima:hover{filter:brightness(1.08);}
+  .final{text-align:center; padding:14px 6px;}
+  .final .emoji{font-size:3.4rem;} .final h2{font-size:1.6rem; margin:10px 0;}
+  .final .placar{font-size:1.15rem; color:var(--cinza); margin-bottom:6px;}
+  .final .nota{font-size:3rem; font-weight:900; color:var(--teal); margin:6px 0;}
+  .final .recado{background:var(--laranja); border-radius:14px; padding:14px 18px; margin:18px 0; color:var(--navy);}
+  .refazer{padding:14px 28px; font-size:1.05rem; font-weight:800; background:var(--teal); color:#fff; border:none; border-radius:14px; cursor:pointer; font-family:inherit;}
+</style>
+</head>
+<body>
+<a href="index.html" class="btn-voltar-hub" style="position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:9999;display:inline-flex;align-items:center;gap:7px;background:#E25E42;color:#fff;text-decoration:none;font-weight:800;font-size:1rem;padding:11px 18px;border-radius:30px;box-shadow:0 4px 14px rgba(0,0,0,.3);font-family:'Segoe UI',system-ui,Arial,sans-serif;">← Voltar</a>
+<div class="app">
+  <header>
+    <div class="selo">Ciências · 9º ano · Setor A · Quiz</div>
+    <h1>Doenças genéticas 🧬</h1>
+    <div class="barra-topo"><span id="contador">Questão 1</span><span id="placar">Acertos: 0</span></div>
+    <div class="progresso"><span id="barra"></span></div>
+  </header>
+  <main id="palco">
+    <div class="pergunta" id="pergunta"></div>
+    <div class="alternativas" id="alternativas"></div>
+    <div class="feedback" id="feedback"></div>
+    <button class="proxima" id="proxima">Próxima ➜</button>
+  </main>
+</div>
+<script>
+const questoes = [
+  // o que e doenca genetica
+  { q:"Uma doença genética é aquela que aparece por causa de...", alt:["uma alteração no material genético","uma infecção por bactéria","falta de exercício físico"], c:0,
+    e:"A alteração pode ser na sequência do DNA ou no número e na forma dos cromossomos." },
+  { q:"Toda doença genética é hereditária?", alt:["Não, parte delas surge por mutação no próprio indivíduo","Sim, sempre vem dos pais","Sim, porque está no DNA"], c:0,
+    e:"Só é hereditária quando a alteração está no gameta e passa para o filho. Mutação em célula do corpo fica só naquela pessoa." },
+  { q:"Para uma alteração genética ser passada aos filhos, ela precisa estar...", alt:["nos gametas (óvulo ou espermatozoide)","em qualquer célula do corpo","no sangue"], c:0,
+    e:"É a regra que separa doença genética de doença hereditária." },
+  { q:"O que é um agente mutagênico?", alt:["Algo capaz de alterar o material genético, como certas radiações","Um remédio que cura mutações","Uma proteína do sangue"], c:0,
+    e:"Certos produtos químicos e alguns tipos de radiação são agentes mutagênicos." },
+  { q:"As doenças genéticas conhecidas são cerca de 8 mil e atingem, juntas, aproximadamente...", alt:["5% da população","50% da população","0,001% da população"], c:0,
+    e:"Cada uma é rara, mas somadas viram um problema de saúde pública." },
+  // tipos
+  { q:"Quais são os três tipos de doença genética?", alt:["Monogênicas, poligênicas e cromossômicas","Virais, bacterianas e fúngicas","Leves, médias e graves"], c:0,
+    e:"Monogênicas (um gene), poligênicas ou multifatoriais (vários genes mais ambiente) e cromossômicas (número ou forma dos cromossomos)." },
+  { q:"Doença monogênica é aquela em que...", alt:["apenas um gene está alterado","todos os cromossomos estão alterados","não há alteração genética"], c:0,
+    e:"Por isso também são chamadas de mendelianas: seguem as leis de Mendel." },
+  { q:"Qual destas é uma doença monogênica RECESSIVA?", alt:["Albinismo","Acondroplasia","Síndrome de Marfan"], c:0,
+    e:"Albinismo, hemofilia, daltonismo, fibrose cística e fenilcetonúria são recessivas. Acondroplasia e Marfan são dominantes." },
+  { q:"Qual destas é uma doença monogênica DOMINANTE?", alt:["Síndrome de Treacher Collins","Fibrose cística","Fenilcetonúria"], c:0,
+    e:"Acondroplasia, síndrome de Marfan e síndrome de Treacher Collins são dominantes." },
+  { q:"Na fibrose cística, o organismo produz...", alt:["muco mais espesso que o usual","sangue em excesso","insulina demais"], c:0,
+    e:"O muco espesso atrapalha pulmões, pâncreas e digestão e facilita infecções como a pneumonia." },
+  { q:"A fenilcetonúria é causada pelo acúmulo de...", alt:["fenilalanina","ferro","açúcar"], c:0,
+    e:"A fenilalanina é um aminoácido, e o acúmulo pode causar danos no cérebro. É rastreada no teste do pezinho." },
+  { q:"A hemofilia é a doença em que...", alt:["o sangue não coagula direito","falta pigmento na pele","o muco fica espesso"], c:0,
+    e:"Faltam fatores de coagulação, o que provoca hemorragias." },
+  // heranca
+  { q:"Numa doença recessiva, quem tem o genótipo Aa...", alt:["é portador e não manifesta a doença","tem a doença em forma leve","não carrega o alelo alterado"], c:0,
+    e:"A recessiva só se manifesta em dose dupla, no aa." },
+  { q:"Dois portadores (Aa × Aa) têm que chance de gerar um filho afetado?", alt:["25%","50%","100%"], c:0,
+    e:"Saem 25% AA, 50% Aa e 25% aa. Só o aa manifesta a doença." },
+  { q:"No cruzamento Aa × Aa, quantos por cento dos filhos são portadores sem a doença?", alt:["50%","25%","75%"], c:0,
+    e:"São os Aa: metade dos filhos, em média." },
+  { q:"Um pai AA com uma mãe aa terá filhos...", alt:["todos Aa, portadores e sem a doença","metade com a doença","todos com a doença"], c:0,
+    e:"Cada filho recebe um A do pai e um a da mãe." },
+  { q:"Dois pais albinos (aa) podem ter um filho sem albinismo?", alt:["Não, todos os filhos serão aa","Sim, 25% sem","Sim, metade sem"], c:0,
+    e:"Eles só têm o alelo a para transmitir." },
+  { q:"Numa doença dominante, a chance de um pai Aa passar a doença a cada filho é de...", alt:["50%","25%","100%"], c:0,
+    e:"Metade dos gametas dele leva o A, e basta um A para manifestar." },
+  { q:"Por que uma doença recessiva parece pular gerações?", alt:["Porque os portadores não manifestam e mesmo assim transmitem","Porque o gene desaparece e volta","Porque ela é contagiosa"], c:0,
+    e:"A doença só reaparece quando dois portadores têm filhos." },
+  // multifatoriais
+  { q:"Doenças poligênicas ou multifatoriais são as que...", alt:["envolvem vários genes e sofrem muita influência do ambiente","dependem de um gene só","não têm relação com genética"], c:0,
+    e:"Maioria dos cânceres, Alzheimer, hipertensão e doenças cardíacas entram nesse grupo." },
+  { q:"Que porcentagem dos casos de câncer se deve a mutações herdadas?", alt:["De 5% a 10%","Cerca de 90%","Nenhum"], c:0,
+    e:"A maior parte dos casos está ligada a fatores ambientais e ao modo de vida." },
+  { q:"Ter uma mutação ligada a câncer significa que a pessoa certamente vai desenvolvê-lo?", alt:["Não, é predisposição, não certeza","Sim, sempre","Sim, mas só depois dos 60 anos"], c:0,
+    e:"Em doença multifatorial a presença da mutação aumenta o risco, sem garantir a manifestação." },
+  { q:"Mutações no gene BRCA1 aumentam muito a chance de câncer de...", alt:["mama e ovário","pulmão e pele","estômago e fígado"], c:0,
+    e:"Por isso algumas mulheres com essa mutação optam por procedimentos de prevenção." },
+  { q:"Além da genética, o que mais pesa no aparecimento do câncer?", alt:["Tabagismo, sedentarismo, sol em excesso, certos vírus e radiação","Apenas a idade","Apenas a alimentação"], c:0,
+    e:"Por isso o câncer é classificado como doença multifatorial." },
+  // cromossomicas
+  { q:"Quantos cromossomos tem uma célula do corpo humano?", alt:["46, em 23 pares","23, sem pares","47, em 23 pares"], c:0,
+    e:"Os gametas é que têm 23, um de cada par." },
+  { q:"Quantos cromossomos tem um gameta humano?", alt:["23","46","92"], c:0,
+    e:"Quando dois gametas se unem, formam a célula-ovo com 46." },
+  { q:"Trissomia é quando a célula apresenta...", alt:["três cromossomos de um tipo, em vez de dois","um só cromossomo de um tipo","cromossomos a menos em todos os pares"], c:0,
+    e:"Trissomias do 21, do 18 e do 13 são os exemplos citados no módulo." },
+  { q:"A síndrome de Turner corresponde a qual alteração?", alt:["Monossomia do cromossomo X","Trissomia do 21","Trissomia do 18"], c:0,
+    e:"Na monossomia do X a pessoa tem apenas um cromossomo X, em vez do par de cromossomos sexuais." },
+  { q:"Pessoas com trissomia do 21 têm, nas células do corpo,", alt:["47 cromossomos","46 cromossomos","45 cromossomos"], c:0,
+    e:"É um cromossomo 21 a mais: 46 + 1 = 47." },
+  { q:"A trissomia do 21 deve ser chamada de...", alt:["condição com a qual se nasce","doença contagiosa","doença adquirida na infância"], c:0,
+    e:"Não é doença. Pede alguns cuidados, e cada pessoa tem capacidades e personalidade próprias." },
+  { q:"A trissomia do 18 é conhecida como síndrome de...", alt:["Edwards","Down","Patau"], c:0,
+    e:"Trissomia do 21 é Down, do 18 é Edwards e do 13 é Patau." },
+  { q:"O que é hipotonia?", alt:["Diminuição do tônus muscular","Aumento da pressão do sangue","Falta de oxigênio no sangue"], c:0,
+    e:"Deixa os músculos menos rígidos e aparece com frequência na trissomia do 21." },
+  // genetica x hereditaria x congenita
+  { q:"Qual frase está correta?", alt:["Toda doença hereditária é genética, mas nem toda genética é hereditária","Toda doença genética é hereditária","Genética e hereditária são a mesma coisa"], c:0,
+    e:"Hereditária é a que veio dos pais pelos gametas. A genética pode ter começado no próprio indivíduo." },
+  { q:"Doença congênita é aquela que...", alt:["já está presente no nascimento","só aparece na velhice","é causada só por genes"], c:0,
+    e:"Pode ser hereditária ou vir do ambiente, como infecção na gestação ou uso de álcool." },
+  { q:"Rubéola contraída pela mãe na gestação pode causar no bebê uma doença...", alt:["congênita, mas não hereditária","hereditária","cromossômica"], c:0,
+    e:"Está presente no nascimento, mas não veio dos genes dos pais." },
+  { q:"Qual destas NÃO é uma causa ambiental de doença congênita?", alt:["Herdar dois alelos recessivos dos pais","Consumo de álcool na gestação","Contato com chumbo ou mercúrio"], c:0,
+    e:"Herdar alelos é causa genética e hereditária, não ambiental." },
+  // heredograma
+  { q:"No heredograma, o círculo representa...", alt:["uma mulher","um homem","uma criança"], c:0,
+    e:"Quadrado é homem, círculo é mulher, e o símbolo pintado indica quem é afetado." },
+  { q:"No heredograma, o símbolo pintado indica...", alt:["pessoa afetada pela doença","pessoa mais velha","pessoa que já morreu"], c:0,
+    e:"É a primeira coisa a procurar quando se começa a resolver." },
+  { q:"Numa doença recessiva, qual é sempre o genótipo de um afetado no heredograma?", alt:["aa","Aa","AA"], c:0,
+    e:"A recessiva só se manifesta em dose dupla." },
+  { q:"Um casal sem a doença tem um filho afetado por doença recessiva. Os pais são...", alt:["os dois Aa","os dois aa","um AA e outro aa"], c:0,
+    e:"Cada um passou um alelo a, e como não manifestam, são portadores." },
+  { q:"Uma pessoa sem a doença, filha de um pai aa, tem qual genótipo?", alt:["Aa","AA","aa"], c:0,
+    e:"Ela recebeu obrigatoriamente um a do pai, mas não manifesta, então tem o A da mãe." },
+  { q:"No heredograma, o losango com interrogação representa...", alt:["a criança que ainda pode nascer, de sexo indefinido","uma pessoa desaparecida","um casal sem filhos"], c:0,
+    e:"Aparece nas questões que perguntam sobre o risco de um futuro filho." },
+  // falciforme
+  { q:"A hemoglobina fica dentro de qual célula?", alt:["Da hemácia, o glóbulo vermelho","Do glóbulo branco","Da plaqueta"], c:0,
+    e:"É a proteína que carrega o oxigênio pelo corpo." },
+  { q:"Quem tem genótipo AS na doença falciforme...", alt:["tem o traço falciforme, sem a doença, e pode transmitir","tem anemia falciforme grave","não carrega o gene alterado"], c:0,
+    e:"O traço falciforme é assintomático, mas importa no planejamento familiar." },
+  { q:"Quem tem anemia falciforme tem o genótipo...", alt:["SS","AS","AA"], c:0,
+    e:"São dois genes HbS, um do pai e outro da mãe." },
+  { q:"Qual é a diferença entre doença falciforme e anemia falciforme?", alt:["Doença falciforme é o grupo todo; anemia falciforme é a forma com dois genes HbS","São exatamente a mesma coisa","Anemia falciforme é mais leve"], c:0,
+    e:"Toda anemia falciforme é doença falciforme, mas nem toda doença falciforme é anemia falciforme." },
+  { q:"Na anemia falciforme, as hemácias ficam...", alt:["rígidas e com forma de foice","maiores e mais flexíveis","sem núcleo"], c:0,
+    e:"Passam com dificuldade pelos vasos e levam menos oxigênio aos tecidos." },
+  { q:"Pai AS com mãe AS: qual a chance de um filho com anemia falciforme?", alt:["25%","50%","0%"], c:0,
+    e:"Saem 25% AA, 50% AS e 25% SS." },
+  { q:"Uma pessoa SS com um parceiro AA terá filhos...", alt:["todos AS, com traço falciforme","metade SS","todos AA"], c:0,
+    e:"Cada filho recebe um S e um A, o que dá o traço falciforme em todos." },
+  { q:"Quantas crianças nascem por ano no Brasil com doença falciforme?", alt:["Cerca de 3500","Cerca de 35","Cerca de 3 milhões"], c:0,
+    e:"E cerca de 200 mil nascem com o traço falciforme." },
+  // aconselhamento e pezinho
+  { q:"O aconselhamento genético serve para...", alt:["informar a família sobre o risco real antes de decidir","tratar a doença genética","substituir o pré-natal"], c:0,
+    e:"É feito por profissionais especializados e está disponível no SUS e em universidades." },
+  { q:"Quando o aconselhamento genético costuma ser indicado?", alt:["Quando há casos na família ou casamentos entre parentes","Só depois do nascimento da criança","Só para pessoas acima de 60 anos"], c:0,
+    e:"Abortos espontâneos sem explicação também são um sinal para investigar." },
+  { q:"Em qualquer gestação, o risco de doença cromossômica é de cerca de...", alt:["0,5%","15%","50%"], c:0,
+    e:"Para monogênicas e poligênicas o risco mínimo é de cerca de 1% para cada." },
+  { q:"O teste do pezinho é feito...", alt:["com gotas de sangue do pé do recém-nascido, nos primeiros dias de vida","com sangue da mãe, na gravidez","aos seis anos de idade"], c:0,
+    e:"É obrigatório por lei e permite começar o tratamento cedo." },
+  { q:"Qual foi a primeira doença detectada pelo teste do pezinho?", alt:["Fenilcetonúria","Fibrose cística","Toxoplasmose congênita"], c:0,
+    e:"Depois entraram fibrose cística, hipotireoidismo congênito, síndromes falciformes, hiperplasia adrenal congênita, deficiência de biotinidase e toxoplasmose congênita." },
+  { q:"O que a Lei 14.154, de 2021, mudou no teste do pezinho?", alt:["O número de doenças rastreadas pode chegar a 50, por etapas","Tornou o teste opcional","Passou a cobrar pelo exame"], c:0,
+    e:"A ampliação é feita em etapas, por grupos de doenças." },
+  { q:"O Dia Nacional do Teste do Pezinho é comemorado em...", alt:["6 de junho","27 de outubro","21 de março"], c:0,
+    e:"O 27 de outubro é o Dia Nacional de Luta pelos Direitos das Pessoas com Doenças Falciformes." },
+  { q:"O pré-natal serve para...", alt:["acompanhar a saúde da mãe e da criança durante a gestação","substituir o teste do pezinho","diagnosticar doenças só depois do parto"], c:0,
+    e:"Inclui exames de sangue e ultrassonografias que podem detectar alterações cedo." },
+  // terapia genica
+  { q:"A terapia gênica consiste em...", alt:["inserir nas células uma cópia funcional do gene defeituoso","operar o paciente para retirar o gene","dar vitaminas para corrigir o DNA"], c:0,
+    e:"Com o gene funcionando, a célula volta a produzir a proteína que faltava." },
+  { q:"A primeira pesquisa com terapia gênica, em 1989, tratou pacientes com...", alt:["imunodeficiência combinada grave","anemia falciforme","trissomia do 21"], c:0,
+    e:"Eram crianças que precisavam viver isoladas em bolhas de plástico." },
+  { q:"Como o gene funcional é levado até a célula na terapia gênica?", alt:["Por vírus modificados, que não causam doença","Por injeção de proteínas","Por transfusão de sangue"], c:0,
+    e:"O vírus serve de transportador e insere o gene no DNA das células do paciente." },
+  // graus de parentesco
+  { q:"São parentes de primeiro grau:", alt:["pais, filhos e irmãos","avós e netos","tios e primos"], c:0,
+    e:"Avós, netos, tios e sobrinhos são de segundo grau." },
+  { q:"Início precoce de uma doença significa que ela aparece...", alt:["de 10 a 20 anos antes do esperado","depois dos 80 anos","logo ao nascer"], c:0,
+    e:"É um dos critérios usados para classificar o risco familiar." },
+]
+function embaralhar(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function preparar(){ return embaralhar(questoes.slice()).map(q=>{ const alts=q.alt.map((t,i)=>({t,c:i===q.c})); embaralhar(alts); return {q:q.q, alt:alts.map(a=>a.t), c:alts.findIndex(a=>a.c), e:q.e}; }); }
+let jogo = preparar(); let atual=0, acertos=0; const letras=["A","B","C"]; const $=id=>document.getElementById(id);
+function render(){ const it=jogo[atual]; $("contador").textContent=`Questão ${atual+1} de ${jogo.length}`; $("placar").textContent=`Acertos: ${acertos}`; $("barra").style.width=`${(atual/jogo.length)*100}%`; $("pergunta").textContent=it.q; const b=$("alternativas"); b.innerHTML=""; it.alt.forEach((t,i)=>{ const x=document.createElement("button"); x.className="alt"; x.innerHTML=`<span class="letra">${letras[i]}</span><span>${t}</span>`; x.onclick=()=>responder(i); b.appendChild(x); }); const f=$("feedback"); f.className="feedback"; f.innerHTML=""; $("proxima").className="proxima"; $("proxima").textContent=atual===jogo.length-1?"Ver resultado 🏁":"Próxima ➜"; }
+function responder(e){ const it=jogo[atual]; document.querySelectorAll(".alt").forEach((b,i)=>{ b.disabled=true; if(i===it.c)b.classList.add("certo"); if(i===e&&e!==it.c)b.classList.add("errado"); }); const f=$("feedback"); if(e===it.c){acertos++; f.className="feedback ok mostrar"; f.innerHTML=`<b>✅ Acertou!</b>${it.e}`;} else {f.className="feedback no mostrar"; f.innerHTML=`<b>❌ Quase!</b> A resposta certa é <b style="display:inline">${letras[it.c]}</b>. ${it.e}`;} $("placar").textContent=`Acertos: ${acertos}`; $("proxima").classList.add("mostrar"); }
+$("proxima").onclick=()=>{ atual++; if(atual<jogo.length)render(); else final(); };
+function final(){ const t=jogo.length; const nota=Math.round((acertos/t)*100)/10; const p=acertos/t; let e,m; if(p>=0.9){e="🏆";m="Fera! Mandou muito bem. Pronto para a prova!";} else if(p>=0.7){e="😃";m="Muito bom! Só falta revisar alguns pontinhos.";} else if(p>=0.45){e="🙂";m="Bom começo! Dá uma relida no resumo e refaça.";} else {e="💪";m="Sem problema! Leia o resumo com calma e tente de novo.";} $("barra").style.width="100%"; $("contador").textContent="Fim do quiz"; $("palco").innerHTML=`<div class="final"><div class="emoji">${e}</div><h2>Quiz concluído!</h2><div class="placar">Você acertou <b>${acertos}</b> de <b>${t}</b></div><div class="nota">Nota ${nota}</div><div class="recado">${m}</div><button class="refazer" onclick="reiniciar()">🔀 Embaralhar e refazer</button></div>`; }
+function reiniciar(){ atual=0; acertos=0; jogo=preparar(); $("palco").innerHTML=`<div class="pergunta" id="pergunta"></div><div class="alternativas" id="alternativas"></div><div class="feedback" id="feedback"></div><button class="proxima" id="proxima">Próxima ➜</button>`; $("proxima").onclick=()=>{ atual++; if(atual<jogo.length)render(); else final(); }; render(); }
+render();
+</script>
+</body>
+</html>

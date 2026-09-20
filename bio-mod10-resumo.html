@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resumo do Pedro: Evolução é transformação</title>
+<style>
+  :root{--teal:#0f766e; --teal-claro:#d5f2ee; --navy:#1E2B38; --azul:#1d4e89; --azul-claro:#e8f0fb;
+    --vermelho:#c0392b; --vermelho-claro:#fdecea; --amarelo:#f4b400; --amarelo-claro:#fff8e1;
+    --coral:#E25E42; --cinza:#475569; --tinta:#1f2733;}
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{background:#f5f7fa; color:var(--tinta); line-height:1.65; font-size:18px; font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;}
+  .wrap{max-width:820px; margin:0 auto; padding:0 18px 80px;}
+  header.capa{background:linear-gradient(135deg,#0f766e,#134e4a); color:#fff; padding:46px 26px 34px; text-align:center; border-radius:0 0 22px 22px;}
+  header.capa .modulo{display:inline-block; background:rgba(255,255,255,.18); font-weight:700; font-size:.78rem; letter-spacing:1.5px; text-transform:uppercase; padding:6px 16px; border-radius:30px; margin-bottom:14px;}
+  header.capa h1{font-size:2rem; line-height:1.2;} header.capa p{opacity:.92; margin-top:6px;}
+  h2.sec{color:var(--teal); font-size:1.5rem; margin:40px 0 6px; padding-bottom:8px; border-bottom:3px solid var(--amarelo); display:flex; align-items:center; gap:12px;}
+  h2.sec .ic{flex:0 0 46px; width:46px; height:46px; border-radius:50%; background:var(--teal-claro); display:flex; align-items:center; justify-content:center; font-size:1.5rem;}
+  h3.sub{color:var(--navy); font-size:1.15rem; margin:22px 0 4px;}
+  p{margin:12px 0;} strong{color:#134e4a;} .lead{font-size:1.05rem; color:var(--cinza);}
+  ul.top{list-style:none; margin:12px 0; padding:0;}
+  ul.top li{position:relative; padding:8px 0 8px 34px; border-bottom:1px dashed #e2e8f0;}
+  ul.top li:last-child{border-bottom:none;}
+  ul.top li::before{content:"▸"; position:absolute; left:8px; top:8px; color:var(--coral); font-weight:900; font-size:1.1rem;}
+  .card{border-radius:14px; padding:14px 18px; margin:16px 0; border-left:6px solid #ccc; background:#fff;}
+  .card .tit{font-weight:800; display:block; margin-bottom:4px;}
+  .chave{background:var(--teal-claro); border-color:var(--teal);} .chave .tit{color:var(--teal);}
+  .lembre{background:var(--azul-claro); border-color:var(--azul);} .lembre .tit{color:var(--azul);}
+  .atencao{background:var(--vermelho-claro); border-color:var(--vermelho);} .atencao .tit{color:var(--vermelho);}
+  .fig{background:#fff; border-radius:14px; box-shadow:0 3px 12px rgba(0,0,0,.06); padding:16px; margin:16px 0; text-align:center;}
+  .fig h4{color:var(--teal); text-align:center; margin-bottom:10px; font-size:1rem;}
+  .fig svg{max-width:100%; height:auto;}
+  .fig svg.quadro{max-width:360px;}
+  .fig .legenda{font-size:.85rem; color:var(--cinza); margin-top:8px;}
+  table.q{width:100%; border-collapse:collapse; margin:14px 0; font-size:.95rem; background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 3px 12px rgba(0,0,0,.06);}
+  table.q th{background:var(--teal); color:#fff; padding:10px 12px; text-align:left; font-size:.9rem;}
+  table.q td{padding:10px 12px; border-top:1px solid #e2e8f0;}
+  table.q tr:nth-child(even) td{background:#f8fafc;}
+  table.q .dom{color:#134e4a; font-weight:800;} table.q .rec{color:var(--cinza);}
+  .glossario{background:#fff; border:1px dashed #c3cedd; border-radius:12px; padding:6px 18px; margin:16px 0;}
+  .glossario dt{font-weight:800; color:var(--teal); margin-top:10px;} .glossario dd{margin:2px 0 8px;}
+  .gab{background:#fff; border-radius:14px; box-shadow:0 3px 12px rgba(0,0,0,.06); padding:6px 18px 14px; margin:16px 0;}
+  .gab .item{padding:12px 0; border-bottom:1px dashed #e2e8f0;} .gab .item:last-child{border-bottom:none;}
+  .gab .num{display:inline-block; background:var(--coral); color:#fff; font-weight:800; border-radius:8px; padding:1px 9px; margin-right:8px; font-size:.9rem;}
+  .gab .resp{display:block; margin-top:4px; color:#134e4a;}
+  footer{text-align:center; color:#94a3b8; font-size:.85rem; margin-top:48px;}
+  .topo{position:fixed; right:16px; bottom:16px; background:var(--teal); color:#fff; text-decoration:none; width:46px; height:46px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.3rem; box-shadow:0 4px 12px rgba(0,0,0,.2);}
+  @media(max-width:560px){ body{font-size:17px;} header.capa h1{font-size:1.5rem;} }
+</style>
+</head>
+<body id="topo">
+<a href="index.html" class="btn-voltar-hub" style="position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:9999;display:inline-flex;align-items:center;gap:7px;background:#E25E42;color:#fff;text-decoration:none;font-weight:800;font-size:1rem;padding:11px 18px;border-radius:30px;box-shadow:0 4px 14px rgba(0,0,0,.3);font-family:'Segoe UI',system-ui,Arial,sans-serif;">← Voltar</a>
+
+<header class="capa">
+  <span class="modulo">Ciências · 9º ano · Setor A · Módulo 10</span>
+  <h1>Evolução é transformação 🐢</h1>
+  <p>De Lamarck a Darwin, e a evolução acontecendo hoje</p>
+</header>
+
+<div class="wrap">
+<p class="lead">Existem pelo menos <strong>2 milhões</strong> de espécies conhecidas, e os cientistas estimam que o número real chegue a <strong>8,7 milhões</strong>. Somando os seres já extintos, como os dinossauros, esse total passa de bilhões. A pergunta do módulo é: <strong>de onde vem tanta variedade</strong>? 👇</p>
+
+<!-- 1 -->
+<h2 class="sec"><span class="ic">🌍</span>Três jeitos de explicar as espécies</h2>
+<ul class="top">
+  <li><strong>Criacionismo:</strong> crença de que todos os seres vivos foram criados por um ser divino. É uma visão de mundo, não uma teoria científica.</li>
+  <li><strong>Fixismo:</strong> a ideia de que as espécies permanecem como foram criadas, sem mudar. É a <strong>imutabilidade</strong>.</li>
+  <li><strong>Transformismo</strong> (ou evolucionismo, ou teoria evolutiva): as espécies <strong>se modificam</strong> ao longo de milhões de anos e dão origem a novas espécies. É o que a ciência sustenta, com base em fósseis, DNA e hereditariedade.</li>
+</ul>
+<div class="card lembre"><span class="tit">💡 Ciência e religião não são adversárias aqui</span> A ciência não discute a existência ou não de um criador, porque o sobrenatural está <strong>fora do escopo</strong> dela. Existem cientistas evolucionistas religiosos e pessoas religiosas que aceitam a evolução. Um exemplo é o geneticista brasileiro <strong>Newton Freire-Maia</strong>, que escreveu sobre conciliar as duas coisas.</div>
+<div class="card atencao"><span class="tit">⚠️ Design inteligente e negacionismo científico</span> O <em>design</em> inteligente tenta dar roupagem científica ao criacionismo, propondo um "projetista" por trás das estruturas complexas. Como essa ideia <strong>não pode ser testada</strong>, não é hipótese científica. Negar uma teoria bem estabelecida sem apresentar base é <strong>negacionismo científico</strong>, o mesmo tipo de raciocínio do terraplanismo, do negacionismo climático e do movimento antivacina.</div>
+
+<!-- 2 -->
+<h2 class="sec"><span class="ic">🦒</span>Lamarck e as quatro leis</h2>
+<p>O naturalista francês <strong>Jean-Baptiste Lamarck</strong> (1744-1829) foi um dos primeiros a montar uma teoria evolucionista. Para ele, a natureza tinha leis próprias que governavam a transformação das espécies:</p>
+<ul class="top">
+  <li><strong>Complexidade:</strong> as primeiras espécies eram simples e há uma tendência de aumento da complexidade.</li>
+  <li><strong>Necessidade:</strong> os órgãos surgem por necessidades impostas pelo ambiente.</li>
+  <li><strong>Uso e desuso:</strong> o órgão usado com frequência se desenvolve; o que não é usado <strong>atrofia</strong>.</li>
+  <li><strong>Herança do adquirido:</strong> aquilo que o indivíduo desenvolveu em vida seria transmitido aos descendentes.</li>
+</ul>
+<p>Os exemplos que ele usava são fáceis de lembrar: as serpentes teriam perdido as pernas por desuso; a garça-real teria alongado pescoço e pernas de tanto pescar na beira da água; os patos e as aves aquáticas teriam ganhado membranas entre os dedos de tanto esticá-los para nadar; e o veado-campeiro teria pernas longas e finas pela necessidade de fugir de predadores.</p>
+<div class="card atencao"><span class="tit">⚠️ Por que a herança do adquirido caiu</span> Já na época houve críticas: cicatrizes, lesões e amputações não passam para os filhos. Lamarck respondia que só as mudanças ligadas a necessidades do ambiente seriam transmitidas. Hoje, com o que se sabe sobre <strong>DNA</strong>, está claro que a característica adquirida em vida <strong>não entra na constituição genética</strong> e, portanto, não é herdada.</div>
+
+<!-- 3 -->
+<h2 class="sec"><span class="ic">⛵</span>Darwin: a viagem e a seleção natural</h2>
+<p><strong>Charles Darwin</strong> (1809-1882) passou cinco anos a bordo do navio <strong>Beagle</strong>, entre 1831 e 1836, recolhendo animais, plantas, fósseis, rochas e minerais. Três observações mudaram o rumo do trabalho dele:</p>
+<ul class="top">
+  <li>Os <strong>fósseis</strong> de animais gigantes extintos, como o megatério (uma preguiça-gigante de até 6 metros), eram parecidos demais com espécies vivas menores. Ele concluiu que as espécies iam se transformando aos poucos.</li>
+  <li>Nas ilhas <strong>Galápagos</strong>, cada ilha tinha <strong>tentilhões</strong> com bicos diferentes, adaptados a tipos de alimento diferentes, e todos pareciam descendentes de aves vindas do continente.</li>
+  <li>A leitura de <strong>Thomas Malthus</strong>, que dizia que a população humana cresce mais rápido que a oferta de alimentos, gerando conflito por recursos. Darwin levou essa ideia para a natureza inteira.</li>
+</ul>
+<p>Daí nasceu a <strong>seleção natural</strong>: os indivíduos de uma população são naturalmente diferentes entre si; o ambiente favorece aqueles cujas características se encaixam melhor; esses sobrevivem mais, deixam mais descendentes e transmitem suas características.</p>
+<div class="fig">
+  <h4>A ordem dos fatos na seleção natural</h4>
+  <svg viewBox="0 0 700 220" role="img" aria-label="Variação, seleção e descendentes">
+    <rect x="10" y="40" width="190" height="130" rx="14" fill="#e0f2f1" stroke="#0f766e" stroke-width="2"/>
+    <rect x="255" y="40" width="190" height="130" rx="14" fill="#fff8e1" stroke="#f4b400" stroke-width="2"/>
+    <rect x="500" y="40" width="190" height="130" rx="14" fill="#e8f0fe" stroke="#1d4e89" stroke-width="2"/>
+    <text x="105" y="70" text-anchor="middle" font-size="16" font-weight="bold" fill="#0f766e">1. Variação</text>
+    <text x="350" y="70" text-anchor="middle" font-size="16" font-weight="bold" fill="#a87b00">2. Seleção</text>
+    <text x="595" y="70" text-anchor="middle" font-size="16" font-weight="bold" fill="#1d4e89">3. Descendentes</text>
+    <circle cx="55" cy="110" r="13" fill="#0f766e"/><circle cx="90" cy="110" r="9" fill="#5eead4"/>
+    <circle cx="125" cy="110" r="16" fill="#0f766e"/><circle cx="160" cy="110" r="11" fill="#5eead4"/>
+    <text x="105" y="150" text-anchor="middle" font-size="13" fill="#475569">os indivíduos já nascem</text>
+    <text x="105" y="166" text-anchor="middle" font-size="13" fill="#475569">diferentes entre si</text>
+    <circle cx="300" cy="110" r="13" fill="#0f766e"/><circle cx="400" cy="110" r="16" fill="#0f766e"/>
+    <line x1="330" y1="95" x2="360" y2="125" stroke="#c0392b" stroke-width="3"/>
+    <line x1="360" y1="95" x2="330" y2="125" stroke="#c0392b" stroke-width="3"/>
+    <text x="350" y="150" text-anchor="middle" font-size="13" fill="#475569">o ambiente favorece</text>
+    <text x="350" y="166" text-anchor="middle" font-size="13" fill="#475569">quem se encaixa melhor</text>
+    <circle cx="545" cy="105" r="13" fill="#0f766e"/><circle cx="580" cy="105" r="13" fill="#0f766e"/>
+    <circle cx="615" cy="105" r="13" fill="#0f766e"/><circle cx="650" cy="105" r="13" fill="#0f766e"/>
+    <text x="595" y="150" text-anchor="middle" font-size="13" fill="#475569">os favorecidos deixam</text>
+    <text x="595" y="166" text-anchor="middle" font-size="13" fill="#475569">mais filhos parecidos</text>
+    <path d="M205 105 L250 105" stroke="#94a3b8" stroke-width="3" marker-end="url(#seta10)"/>
+    <path d="M450 105 L495 105" stroke="#94a3b8" stroke-width="3" marker-end="url(#seta10)"/>
+    <defs><marker id="seta10" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><polygon points="0 0, 10 4, 0 8" fill="#94a3b8"/></marker></defs>
+    <text x="350" y="205" text-anchor="middle" font-size="13.5" font-style="italic" fill="#1f2733">A variação vem primeiro. O ambiente não cria a característica: ele escolhe entre as que já existem.</text>
+  </svg>
+</div>
+<div class="card lembre"><span class="tit">💡 Wallace entra na história</span> <strong>Alfred Russel Wallace</strong> (1823-1913) chegou a conclusões muito parecidas de forma independente. Os trabalhos dos dois foram lidos juntos, numa mesma sessão científica, em <strong>1º de julho de 1858</strong>. No ano seguinte, em <strong>1859</strong>, Darwin publicou <em>A origem das espécies</em> e acabou recebendo o crédito maior, por ter formulado a teoria antes.</div>
+
+<!-- 4 -->
+<h2 class="sec"><span class="ic">⚖️</span>Lamarck × Darwin: a diferença que cai na prova</h2>
+<p>Os dois concordam que o <strong>ambiente é importante</strong> e que as espécies mudam. A briga é sobre <strong>como</strong> o ambiente participa.</p>
+<div class="fig">
+  <h4>O pescoço da girafa nas duas versões</h4>
+  <svg viewBox="0 0 700 250" role="img" aria-label="Explicação de Lamarck e de Darwin para o pescoço da girafa">
+    <rect x="10" y="20" width="330" height="215" rx="14" fill="#fff8e1" stroke="#f4b400" stroke-width="2"/>
+    <rect x="360" y="20" width="330" height="215" rx="14" fill="#e0f2f1" stroke="#0f766e" stroke-width="2"/>
+    <text x="175" y="50" text-anchor="middle" font-size="17" font-weight="bold" fill="#a87b00">LAMARCK</text>
+    <text x="525" y="50" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f766e">DARWIN</text>
+    <text x="175" y="82" text-anchor="middle" font-size="14" fill="#1f2733">Todas tinham pescoço igual.</text>
+    <text x="175" y="106" text-anchor="middle" font-size="14" fill="#1f2733">Precisaram alcançar folhas altas</text>
+    <text x="175" y="130" text-anchor="middle" font-size="14" fill="#1f2733">e se esforçaram para esticar.</text>
+    <text x="175" y="154" text-anchor="middle" font-size="14" fill="#1f2733">O pescoço cresceu em vida</text>
+    <text x="175" y="178" text-anchor="middle" font-size="14" fill="#1f2733">e passou para os filhotes.</text>
+    <text x="175" y="212" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#c0392b">A necessidade criou a característica</text>
+    <text x="525" y="82" text-anchor="middle" font-size="14" fill="#1f2733">Já existiam girafas de pescoço</text>
+    <text x="525" y="106" text-anchor="middle" font-size="14" fill="#1f2733">curto e de pescoço longo.</text>
+    <text x="525" y="130" text-anchor="middle" font-size="14" fill="#1f2733">As de pescoço longo comiam mais</text>
+    <text x="525" y="154" text-anchor="middle" font-size="14" fill="#1f2733">e enxergavam melhor os predadores,</text>
+    <text x="525" y="178" text-anchor="middle" font-size="14" fill="#1f2733">então deixaram mais descendentes.</text>
+    <text x="525" y="212" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#0f766e">O ambiente selecionou o que já existia</text>
+  </svg>
+  <div class="legenda">Hoje há outra hipótese em estudo: o pescoço longo teria sido selecionado também porque ajudava os machos na disputa por fêmeas, e alcançar folhas altas seria um benefício secundário.</div>
+</div>
+<div class="card chave"><span class="tit">🔑 O teste de três segundos</span> Leia a frase e pergunte: a característica <strong>apareceu porque o bicho precisou</strong>? Então é <strong>Lamarck</strong>. A característica <strong>já existia e o ambiente escolheu</strong> quem sobrevive? Então é <strong>Darwin</strong>. Palavras como "desenvolveu para", "precisou", "se esforçou" e "por necessidade" denunciam o raciocínio lamarckista.</div>
+
+<!-- 5 -->
+<h2 class="sec"><span class="ic">🧬</span>A teoria sintética</h2>
+<p>Darwin publicou muito antes de o DNA ser conhecido. Ele percebia que havia variação entre os indivíduos, mas não sabia explicar de onde ela vinha. Quando a <strong>Genética</strong> respondeu isso, as duas ideias se juntaram na <strong>teoria sintética da evolução</strong>, também chamada de <strong>síntese moderna</strong>: a variação nasce de <strong>mutações</strong> e da recombinação, e a <strong>seleção natural</strong> age sobre ela.</p>
+
+<!-- 6 -->
+<h2 class="sec"><span class="ic">🦠</span>A evolução acontecendo agora</h2>
+<p>Perceber a evolução é difícil porque a escala de tempo costuma ser enorme. O que decide é o <strong>tempo de geração</strong>, o intervalo entre uma geração e a seguinte.</p>
+<ul class="top">
+  <li>Na espécie humana, o tempo de geração é de <strong>15 a 20 anos</strong>. Numa baleia-azul, são cerca de 10 anos até a maturidade e quase um ano de gestação.</li>
+  <li>Em bactérias e vírus, o tempo de geração pode ser de <strong>minutos</strong>, e o número de descendentes é gigantesco. Por isso dá para observar a evolução em ação.</li>
+</ul>
+<p>Foi o que aconteceu com o <strong>Sars-CoV-2</strong>. Detectado em humanos em dezembro de 2019, em Wuhan, o vírus já vinha se adaptando a um novo hospedeiro. Depois disso surgiram muitas <strong>variantes</strong>, que são resultado de mutações ocorridas na reprodução do vírus.</p>
+<ul class="top">
+  <li><strong>Mutação neutra:</strong> não muda a capacidade de infectar nem de se reproduzir. Serve como marcador, para rastrear o caminho das variantes.</li>
+  <li><strong>Mutação selecionada:</strong> torna o vírus mais eficiente para infectar ou se reproduzir, então a linhagem que a carrega se espalha mais. É seleção natural pura.</li>
+</ul>
+<div class="card lembre"><span class="tit">💡 O experimento das bactérias</span> Desde <strong>1988</strong>, um laboratório nos Estados Unidos acompanha doze populações de <em>Escherichia coli</em> que vieram de uma única linhagem ancestral. Já passaram de <strong>50 mil gerações</strong>. As bactérias ficaram mais eficientes no ambiente do experimento e uma das populações desenvolveu algo novo: a capacidade de usar <strong>citrato</strong> como nutriente, o que a linhagem original não fazia.</div>
+
+<!-- 7 -->
+<h2 class="sec"><span class="ic">🚫</span>Darwinismo social: o erro de aplicar isso a gente</h2>
+<p>No século XIX, expressões de Darwin como "luta pela existência" e "sobrevivência do mais apto" foram usadas de forma indevida para classificar relações humanas. Surgiu daí o <strong>darwinismo social</strong>, que hierarquizava grupos e serviu de justificativa para a dominação política e econômica sobre outros povos, nas Américas e na África.</p>
+<div class="card atencao"><span class="tit">⚠️ Por que está errado, inclusive biologicamente</span> Não existem seres humanos "mais evoluídos" que outros: <strong>todos os grupos estão adaptados</strong> aos ambientes em que vivem e passam por seleção natural o tempo todo. A ideia de que uma civilização seria o ponto máximo da evolução, defendida por pensadores como Herbert Spencer, não tem <strong>nenhuma base científica</strong>.</div>
+
+<!-- 8 -->
+<h2 class="sec"><span class="ic">📔</span>Palavras importantes</h2>
+<dl class="glossario">
+  <dt>Fixismo</dt><dd>ideia de que as espécies não mudam, permanecendo como surgiram.</dd>
+  <dt>Transformismo</dt><dd>ideia de que as espécies se modificam ao longo do tempo. Também chamado de evolucionismo.</dd>
+  <dt>Seleção natural</dt><dd>processo em que o ambiente favorece os indivíduos com as características mais vantajosas, que deixam mais descendentes.</dd>
+  <dt>Atrofia</dt><dd>diminuição ou enfraquecimento de um tecido, órgão ou membro.</dd>
+  <dt>Especiação</dt><dd>processo pelo qual populações de uma espécie se separam e acabam formando novas espécies.</dd>
+  <dt>Ancestral comum</dt><dd>espécie, hoje extinta, que deu origem a duas ou mais espécies aparentadas.</dd>
+  <dt>Tempo de geração</dt><dd>intervalo entre duas gerações sucessivas de uma espécie.</dd>
+  <dt>Variante</dt><dd>versão de um vírus que carrega mutações em relação à linhagem original.</dd>
+  <dt>Filogenia</dt><dd>representação do parentesco evolutivo, em forma de árvore, entre linhagens.</dd>
+  <dt>Escopo</dt><dd>aquilo que se quer atingir; o alcance de uma área do conhecimento.</dd>
+</dl>
+
+<h2 class="sec"><span class="ic">✅</span>Respostas dos exercícios</h2>
+<p class="lead">Abertura da página 355, Atividades 1 a 4, Teste e Em casa. Responda primeiro no caderno e depois confira.</p>
+
+<h3 style="color:#0f766e; margin:26px 0 6px; font-size:1.15rem;">Abertura do módulo</h3>
+<div class="gab">
+  <div class="item"><span class="num">2</span>O que aparece na imagem é um recorte da diversidade atual de seres vivos na Terra. Como se explica toda essa diversidade?
+    <span class="resp">Pela evolução. As espécies atuais descendem de espécies anteriores e foram se modificando ao longo de milhões de anos. Populações que ficam isoladas acumulam diferenças, e o ambiente seleciona as características vantajosas em cada lugar. O resultado é essa variedade, toda ela aparentada por ancestrais comuns.</span>
+  </div>
+  <div class="item"><span class="num">3</span>De que forma novas espécies surgem na Terra?
+    <span class="resp">Por especiação. Uma população se separa de outra, por uma barreira geográfica ou por mudança de hábitos, e as duas deixam de trocar genes. Com o tempo, mutações e seleção natural acumulam diferenças nos dois grupos, até que eles não consigam mais gerar descendentes férteis entre si: viraram espécies diferentes.</span>
+  </div>
+</div>
+
+<h3 style="color:#0f766e; margin:26px 0 6px; font-size:1.15rem;">Atividade 1</h3>
+<div class="gab">
+  <div class="item"><span class="num">1</span>Qual é a diferença entre o criacionismo e o transformismo quanto à formação das espécies?
+    <span class="resp">No criacionismo, as espécies foram criadas por um ser divino e permanecem como foram criadas, sem se modificar, o que é o fixismo. No transformismo, as espécies se modificam ao longo do tempo e dão origem a novas espécies, o que é sustentado por evidências dos fósseis, do DNA e da hereditariedade.</span>
+  </div>
+  <div class="item"><span class="num">2</span>Por que o negacionismo climático é um tipo de negacionismo científico? Qual é a principal tese dos negacionistas climáticos?
+    <span class="resp">Porque nega uma explicação científica bem estabelecida, com enorme quantidade de evidências, sem apresentar base científica para essa negação. É o mesmo mecanismo do terraplanismo e do movimento antivacina. A tese principal dos negacionistas climáticos é que o aquecimento global não é causado pela ação humana, sendo apenas uma variação natural do clima, ou até que ele não estaria acontecendo. Os dados de temperatura, de gelo e de concentração de gases do efeito estufa mostram o contrário.</span>
+  </div>
+</div>
+
+<h3 style="color:#0f766e; margin:26px 0 6px; font-size:1.15rem;">Atividade 2</h3>
+<div class="gab">
+  <div class="item"><span class="num">1</span>Como Lamarck explicaria os olhos pequenos das toupeiras, que vivem em túneis debaixo da terra?
+    <span class="resp">Pelo desuso. Vivendo no escuro, as toupeiras quase não usariam os olhos; a falta de uso levaria à atrofia, e os olhos iriam diminuindo ao longo da vida. Essa característica adquirida seria transmitida aos descendentes, e assim, geração após geração, os olhos teriam ficado cada vez menores.</span>
+  </div>
+</div>
+
+<h3 style="color:#0f766e; margin:26px 0 6px; font-size:1.15rem;">Atividade 3</h3>
+<div class="gab">
+  <div class="item"><span class="num">1</span>"Algumas plantas desenvolveram estratégias, como casca grossa e raízes, para sua adaptação ao meio terrestre." Essa afirmação pode ser considerada lamarckista? Justifique.
+    <span class="resp">Sim. A frase dá a entender que as plantas desenvolveram as estruturas com a finalidade de se adaptar, ou seja, que a necessidade criou a característica. Esse é o raciocínio de Lamarck. Na explicação darwinista, já existiam plantas com cascas mais grossas e raízes mais eficientes; no ambiente terrestre essas plantas sobreviveram e se reproduziram mais, e a característica se tornou comum na população.</span>
+  </div>
+  <div class="item"><span class="num">2</span>Explique, pela seleção natural de Darwin, o fato de as toupeiras terem olhos pequenos e visão fraca.
+    <span class="resp">Na população ancestral havia variação: toupeiras com olhos maiores e com olhos menores. Debaixo da terra, enxergar bem não traz vantagem, e olhos grandes ainda ficam mais sujeitos a lesões e consomem energia. Assim, os indivíduos com olhos reduzidos não eram prejudicados e transmitiram essa característica aos descendentes. Ao longo das gerações, os olhos pequenos se tornaram a regra na espécie.</span>
+  </div>
+  <div class="item"><span class="num">3</span>As baleias têm corpo hidrodinâmico, quase sem pelos, com membros anteriores transformados em nadadeiras e cauda achatada. Essa afirmação pode ser considerada darwinista? Justifique.
+    <span class="resp">Sim, desde que se entenda essas características como resultado da seleção natural. Entre os mamíferos ancestrais que passaram a viver na água havia variação de forma do corpo e dos membros. Os indivíduos com corpo mais hidrodinâmico e membros mais parecidos com nadadeiras nadavam melhor, conseguiam mais alimento e escapavam mais de predadores, deixando mais descendentes. A afirmação só deixaria de ser darwinista se dissesse que as baleias desenvolveram essas formas porque precisavam delas.</span>
+  </div>
+</div>
+
+<h3 style="color:#0f766e; margin:26px 0 6px; font-size:1.15rem;">Atividade 4</h3>
+<div class="gab">
+  <div class="item"><span class="num">1</span>Por que, em vírus, é mais fácil perceber mudanças evolutivas do que em animais?
+    <span class="resp">Porque o tempo de geração dos vírus é de minutos, e cada infecção produz um número enorme de novas cópias. Com tantas gerações e tantos descendentes em pouco tempo, as mutações se acumulam e a seleção age rápido, de modo que dá para acompanhar a evolução em meses. Num animal, em que cada geração leva anos, o mesmo processo levaria milhares de anos para ficar visível.</span>
+  </div>
+  <div class="item"><span class="num">2a</span>O trecho "em termos de intencionalidade" remete a qual teoria evolucionista, à de Darwin ou à de Lamarck? Justifique.
+    <span class="resp">À de Lamarck, que é justamente a ideia de que o organismo se transforma por necessidade, como se houvesse uma intenção. O texto cita a expressão para negar essa leitura: o vírus não está evoluindo para se tornar mais infeccioso. A mutação surge ao acaso, e as variantes que por acaso se saem melhor se espalham mais, o que é a explicação de Darwin.</span>
+  </div>
+  <div class="item"><span class="num">2b</span>O texto se refere à mutação N501Y como neutra ou selecionada? Justifique com trechos do texto.
+    <span class="resp">Como <b>selecionada</b>. O texto diz que essa mutação torna o vírus mais eficiente para entrar na célula humana, o que aumenta a transmissão e a infecção de outras pessoas. Fala também em consequência da reprodução diferencial da linhagem que carrega a nova mutação, que é exatamente a definição de seleção natural. Mutação neutra seria aquela que não altera a capacidade de infectar ou de se reproduzir, servindo apenas para rastrear o caminho das variantes.</span>
+  </div>
+</div>
+
+<h3 style="color:#0f766e; margin:26px 0 6px; font-size:1.15rem;">Teste</h3>
+<div class="gab">
+  <div class="item"><span class="num">1</span>Afirmações sobre criacionismo, fixismo e transformismo.
+    <span class="resp"><b>Alternativa d: apenas as afirmações II e III.</b> A afirmação I está errada porque mistura as duas coisas: no criacionismo as espécies foram criadas por um ser divino e permanecem como foram criadas, sem se modificar ao longo do tempo. A II está certa: fixismo é a crença na imutabilidade. A III está certa: o transformismo prevê que as espécies se transformam ao longo do tempo.</span>
+  </div>
+  <div class="item"><span class="num">2</span>Qual alternativa apresenta corretamente uma das leis de Lamarck?
+    <span class="resp"><b>Alternativa b:</b> as necessidades que se apresentam no ambiente provocam nos organismos o desenvolvimento de determinadas estruturas, como os órgãos. As outras erram: em <b>a</b>, a lei é de aumento da complexidade, não de perda; em <b>c</b>, a ordem está trocada, porque os órgãos se desenvolvem pelo uso e se atrofiam pelo desuso; em <b>d</b> e em <b>e</b>, Lamarck defendia justamente que as características adquiridas <em>são</em> transmitidas aos descendentes.</span>
+  </div>
+  <div class="item"><span class="num">3</span>Associação entre as colunas.
+    <span class="resp"><b>Alternativa b: 1-D, 2-F, 3-E, 4-A, 5-B, 6-C.</b> Seleção natural corresponde à sobrevivência dos mais aptos; Lamarck, à lei do uso e desuso; criacionismo, à criação divina de espécies imutáveis; Darwin, à viagem no Beagle; evolução, à transformação das espécies ao longo do tempo; e Malthus, ao crescimento da população humana mais rápido que a oferta de alimentos.</span>
+  </div>
+  <div class="item"><span class="num">4</span>O estudo da evolução das variantes do Sars-CoV-2 permite:
+    <span class="resp"><b>Alternativa c:</b> prever como uma variante pode se dispersar. Acompanhar as mutações e a filogenia mostra quais linhagens estão se espalhando e ajuda a orientar vacinas e medidas de saúde. As outras erram: vírus não tem estrutura celular; dizer que permite "pouca coisa" contraria o próprio texto; o estudo não cria variantes; e nada ali refuta a evolução por seleção natural, pelo contrário, é um exemplo dela.</span>
+  </div>
+</div>
+
+<h3 style="color:#0f766e; margin:26px 0 6px; font-size:1.15rem;">Em casa</h3>
+<div class="gab">
+  <div class="item"><span class="num">1</span>Por que o fixismo não pode ser considerado pela ciência uma ideia válida?
+    <span class="resp">Porque existe uma quantidade enorme de evidências contra ele: fósseis que mostram formas intermediárias e espécies extintas parecidas com as atuais, semelhanças no DNA entre espécies aparentadas, órgãos com a mesma estrutura em animais diferentes e casos de evolução observados em tempo real, como em vírus e bactérias. Uma ideia científica precisa ser testável e resistir aos testes, e o fixismo não resiste.</span>
+  </div>
+  <div class="item"><span class="num">2</span>Como Lamarck explicaria a ausência de dentes nos tamanduás-bandeira?
+    <span class="resp">Pelo uso e desuso. Como o tamanduá se alimenta de cupins, formigas, ovos e larvas capturados com a língua longa e pegajosa, ele não precisaria mastigar. Os dentes, sem uso, iriam atrofiando ao longo da vida, e essa característica adquirida seria passada aos descendentes até desaparecerem. Pelo mesmo raciocínio, a língua comprida teria se desenvolvido pelo uso constante.</span>
+  </div>
+  <div class="item"><span class="num">3</span>Urso-polar: qual afirmação seria atribuída a Darwin e qual a Lamarck?
+    <span class="resp">A afirmação I, "o urso-polar é branco porque vive em ambientes com gelo", é <b>lamarckista</b>: o ambiente teria provocado a característica. A afirmação II, "o urso-polar vive em ambientes com gelo por ser branco", é <b>darwinista</b>: a variação de cor já existia, e os ursos mais claros se camuflavam melhor na neve, caçavam mais e deixaram mais descendentes, o que fixou a característica na população.</span>
+  </div>
+  <div class="item"><span class="num">4</span>Que exemplos do texto sobre a <em>E. coli</em> mostram a ocorrência de evolução?
+    <span class="resp">Três pontos do experimento mostram evolução. Primeiro, as populações acumularam mudanças genéticas ao longo de mais de 50 mil gerações, todas a partir de uma única linhagem ancestral. Segundo, as bactérias se tornaram mais eficientes para crescer nas condições do laboratório, o que é adaptação por seleção natural. Terceiro, uma das populações passou a usar citrato como nutriente, capacidade que não existia na linhagem original: uma novidade surgida por mutação e mantida por ser vantajosa. Além disso, as doze populações foram ficando diferentes entre si, que é o começo do processo de separação em linhagens distintas.</span>
+  </div>
+</div>
+
+<div class="card lembre" style="margin-top:30px;">
+  <span class="tit">🎯 Se lembrar só disto, já vale a prova</span>
+  <ol style="margin:8px 0 0 18px;">
+    <li><strong>Fixismo</strong> e <strong>criacionismo</strong> dizem que as espécies não mudam; o <strong>transformismo</strong> diz que mudam ao longo do tempo.</li>
+    <li><strong>Lamarck</strong>: o ambiente cria a necessidade, o uso desenvolve, o desuso atrofia e o adquirido passa aos filhos. O DNA refutou a última parte.</li>
+    <li><strong>Darwin</strong>: a variação já existe na população e o ambiente <strong>seleciona</strong> quem sobrevive e deixa mais descendentes.</li>
+    <li>A pergunta que resolve a questão: a característica <strong>surgiu por necessidade</strong> (Lamarck) ou <strong>já existia e foi selecionada</strong> (Darwin)?</li>
+    <li>Vírus e bactérias mostram a evolução em ação porque têm <strong>tempo de geração curtíssimo</strong>.</li>
+  </ol>
+</div>
+
+<footer>Resumo de estudo do Pedro · Ciências, 9º ano, Setor A, Módulo 10</footer>
+</div>
+<a href="#topo" class="topo" title="Voltar ao topo">↑</a>
+</body>
+</html>

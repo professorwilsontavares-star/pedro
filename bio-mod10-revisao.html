@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revisão do Pedro: Evolução é transformação</title>
+<style>
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:"Segoe UI",system-ui,Arial,sans-serif; background:linear-gradient(160deg,#e6f7f5,#c9e9e4); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px; color:#1E2B38;}
+  .box{width:100%; max-width:520px; text-align:center;}
+  h1{font-size:1.3rem; color:#0f766e; margin-bottom:4px;}
+  .sub{color:#64748b; font-size:.9rem; margin-bottom:18px;}
+  .contador{font-weight:700; color:#64748b; margin-bottom:12px;}
+  .cartao{background:#fff; border-radius:22px; box-shadow:0 12px 34px rgba(15,118,110,.16); padding:36px 28px; min-height:250px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:20px;}
+  .rotulo{font-size:.75rem; letter-spacing:1.5px; text-transform:uppercase; font-weight:800;}
+  .rotulo.p{color:#E25E42;} .rotulo.r{color:#0f766e;}
+  .pergunta{font-size:1.4rem; font-weight:800; line-height:1.4;}
+  .resposta{font-size:1.2rem; line-height:1.5; color:#134e4a; display:none;}
+  .resposta.mostrar{display:block;}
+  @keyframes sobe{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+  .bts{display:flex; gap:10px; margin-top:18px; justify-content:center; flex-wrap:wrap;}
+  button{font-family:inherit; font-size:1rem; font-weight:800; border:none; cursor:pointer; padding:14px 22px; border-radius:14px; transition:filter .15s;}
+  button:hover{filter:brightness(1.08);}
+  .ver{background:#0f766e; color:#fff;} .prox{background:#E25E42; color:#fff;} .voltar{background:#e2e8f0; color:#1E2B38;}
+</style>
+</head>
+<body>
+<a href="index.html" class="btn-voltar-hub" style="position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:9999;display:inline-flex;align-items:center;gap:7px;background:#E25E42;color:#fff;text-decoration:none;font-weight:800;font-size:1rem;padding:11px 18px;border-radius:30px;box-shadow:0 4px 14px rgba(0,0,0,.3);font-family:'Segoe UI',system-ui,Arial,sans-serif;">← Voltar</a>
+<div class="box">
+  <h1>🐢 Evolução em cartões</h1>
+  <div class="sub">Pergunta e resposta na mesma tela: leia, tente lembrar de cabeça e confira na hora.</div>
+  <div class="contador" id="contador"></div>
+  <div class="cartao">
+    <div><div class="rotulo p">Pergunta</div><div class="pergunta" id="pergunta"></div></div>
+    <div class="resposta" id="resposta"></div>
+  </div>
+  <div class="bts">
+    <button class="voltar" id="voltar">← Voltar</button>
+    <button class="ver" id="ver">👁️ Ver resposta</button>
+    <button class="prox" id="prox">Próximo →</button>
+  </div>
+</div>
+<script>
+const cartoes = [
+  ["Quantas espécies são conhecidas hoje?", "Pelo menos 2 milhões. Os cientistas estimam que o número real chegue a 8,7 milhões."],
+  ["O que é criacionismo?", "A crença de que todos os seres vivos foram criados por um ser divino. É uma visão de mundo, não uma teoria científica."],
+  ["O que é fixismo?", "A ideia de que as espécies permanecem como foram criadas, sem se modificar. É a imutabilidade."],
+  ["O que é transformismo?", "A ideia de que as espécies se modificam ao longo do tempo e dão origem a novas espécies. Também é chamado de evolucionismo ou teoria evolutiva."],
+  ["Ciência e religião são incompatíveis na questão da evolução?", "Não necessariamente. A ciência não discute a existência de um criador, porque o sobrenatural está fora do escopo dela. Há cientistas evolucionistas religiosos."],
+  ["Quem foi Newton Freire-Maia?", "Um geneticista brasileiro que escreveu sobre a conciliação entre religião e ciência."],
+  ["O que é o design inteligente?", "Uma tentativa de dar roupagem científica ao criacionismo, propondo um projetista por trás das estruturas complexas. Como não pode ser testado, não é hipótese científica."],
+  ["O que é negacionismo científico?", "Negar e combater uma teoria científica bem estabelecida sem apresentar base científica. Exemplos: terraplanismo, negacionismo climático e movimento antivacina."],
+  ["Quem foi Lamarck?", "Jean-Baptiste Lamarck (1744-1829), naturalista francês, um dos primeiros a elaborar uma teoria evolucionista."],
+  ["Quais são as quatro leis de Lamarck?", "Tendência ao aumento da complexidade; órgãos que surgem por necessidade do ambiente; desenvolvimento ou atrofia pelo uso e desuso; e herança do que foi adquirido."],
+  ["O que diz a lei do uso e desuso?", "O órgão usado com frequência se desenvolve; o que não é usado atrofia, isto é, diminui e enfraquece."],
+  ["O que é a herança do adquirido?", "A ideia de Lamarck de que as características desenvolvidas por um indivíduo ao longo da vida seriam transmitidas aos descendentes."],
+  ["Como Lamarck explicava a ausência de pernas nas serpentes?", "As primeiras serpentes teriam pernas que, pela falta de uso, atrofiaram e desapareceram, passando assim aos descendentes."],
+  ["Como Lamarck explicava as membranas entre os dedos dos patos?", "De tanto esticar os dedos para nadar, as aves aquáticas teriam adquirido as membranas, que passariam aos filhotes."],
+  ["Por que a herança do adquirido foi refutada?", "Porque hoje se sabe que a característica adquirida em vida não entra na constituição genética do indivíduo, e por isso não é transmitida pelos gametas."],
+  ["Qual crítica já se fazia a Lamarck na própria época dele?", "Que lesões, cicatrizes e amputações não passam para os filhos. Ele respondia que só as mudanças ligadas a necessidades do ambiente seriam transmitidas."],
+  ["Quem foi Charles Darwin?", "Naturalista inglês (1809-1882) que formulou a teoria da evolução pela seleção natural, publicada em A origem das espécies, de 1859."],
+  ["O que foi a viagem do Beagle?", "A viagem de cinco anos de Darwin ao redor do mundo, de 1831 a 1836, em que ele coletou animais, plantas, fósseis, rochas e minerais."],
+  ["O que os fósseis mostraram a Darwin?", "Que animais gigantes extintos, como o megatério, eram muito parecidos com espécies vivas menores, o que sugeria transformação gradual ao longo do tempo."],
+  ["O que Darwin observou nas Galápagos?", "Tentilhões com bicos diferentes em cada ilha, adaptados a alimentos diferentes, todos aparentemente descendentes de aves vindas do continente."],
+  ["Qual foi a contribuição de Malthus para a ideia de Darwin?", "Malthus dizia que a população humana cresce mais rápido que a oferta de alimentos, gerando conflito por recursos. Darwin levou essa disputa para toda a natureza."],
+  ["O que é seleção natural?", "O processo em que o ambiente favorece os indivíduos cujas características se encaixam melhor, e esses sobrevivem mais e deixam mais descendentes."],
+  ["Na seleção natural, a variação vem antes ou depois do ambiente agir?", "Antes. Os indivíduos já nascem diferentes; o ambiente apenas seleciona entre as variações que já existem."],
+  ["Quem foi Alfred Russel Wallace?", "Naturalista inglês (1823-1913) que chegou de forma independente a conclusões parecidas com as de Darwin sobre a seleção natural."],
+  ["Quando os trabalhos de Darwin e Wallace foram apresentados juntos?", "Em 1º de julho de 1858, numa mesma sessão científica em Londres. A origem das espécies saiu em 1859."],
+  ["Em que Lamarck e Darwin concordam?", "Nos dois, o ambiente é importante e as espécies se transformam. A diferença está em como o ambiente participa."],
+  ["Qual é a diferença central entre Lamarck e Darwin?", "Para Lamarck, o ambiente estimula o organismo a criar a característica. Para Darwin, o ambiente seleciona entre características que já existiam."],
+  ["Como Lamarck explicava o pescoço da girafa?", "As girafas se esforçariam para alcançar folhas altas, o pescoço se alongaria em vida e essa característica passaria aos descendentes."],
+  ["Como Darwin explicava o pescoço da girafa?", "Já havia girafas com pescoços de tamanhos variados. As de pescoço longo comiam melhor e enxergavam mais longe, deixando mais descendentes."],
+  ["Que palavras denunciam um raciocínio lamarckista numa frase?", "Expressões como precisou, desenvolveu para, se esforçou e por necessidade, que colocam a necessidade como causa da característica."],
+  ["O que é a teoria sintética da evolução?", "A junção da teoria de Darwin com a Genética: a variação vem de mutações e da recombinação, e a seleção natural age sobre ela. Também é chamada de síntese moderna."],
+  ["Por que Darwin não explicou a origem da variação?", "Porque publicou muito antes de o DNA e os mecanismos da hereditariedade serem conhecidos."],
+  ["O que é tempo de geração?", "O intervalo entre duas gerações sucessivas. Na espécie humana é de 15 a 20 anos; em bactérias e vírus pode ser de minutos."],
+  ["Por que é fácil observar evolução em vírus e bactérias?", "Porque o tempo de geração é curtíssimo e o número de descendentes é enorme, então mutações se acumulam e a seleção age rápido."],
+  ["O que são variantes de um vírus?", "Versões que carregam mutações em relação à linhagem original, surgidas durante a reprodução do vírus."],
+  ["Qual a diferença entre mutação neutra e selecionada?", "A neutra não muda a capacidade de infectar ou se reproduzir e serve para rastrear linhagens. A selecionada dá vantagem ao vírus e por isso se espalha."],
+  ["Quando e onde o Sars-CoV-2 foi detectado em humanos?", "Em dezembro de 2019, em Wuhan, na China, quando já estava em processo de adaptação ao novo hospedeiro."],
+  ["O que é uma filogenia?", "A representação em forma de árvore do parentesco evolutivo entre linhagens, como a das variantes do Sars-CoV-2."],
+  ["O que mostra o experimento com Escherichia coli iniciado em 1988?", "Doze populações vindas de um único ancestral passaram de 50 mil gerações, ficaram mais eficientes e uma delas passou a usar citrato, capacidade que não existia antes."],
+  ["O que é especiação?", "O processo em que populações se separam, acumulam diferenças e acabam formando espécies distintas."],
+  ["O que é ancestral comum?", "A espécie, hoje extinta, que deu origem a duas ou mais espécies aparentadas."],
+  ["O que foi o darwinismo social?", "O uso indevido de expressões de Darwin para hierarquizar grupos humanos, servindo de justificativa para dominação política e econômica no século XIX."],
+  ["Por que o darwinismo social é errado também do ponto de vista biológico?", "Porque não existem seres humanos mais evoluídos que outros: todos os grupos estão adaptados aos ambientes em que vivem e continuam sob seleção natural."],
+  ["O que é atrofia?", "Diminuição ou enfraquecimento, até o desaparecimento, de um tecido, órgão ou membro."],
+  ["Como Lamarck explicaria os olhos pequenos da toupeira?", "Pelo desuso: vivendo no escuro, ela quase não usaria os olhos, que atrofiariam e seriam transmitidos cada vez menores aos descendentes."],
+  ["Como Darwin explicaria os olhos pequenos da toupeira?", "Já existiam toupeiras com olhos de vários tamanhos. No subsolo, olhos grandes não trazem vantagem, então quem tinha olhos pequenos não era prejudicado e transmitiu a característica."],
+]
+let i = 0;
+const $ = id => document.getElementById(id);
+function mostrar(){
+  $("contador").textContent = `Cartão ${i+1} de ${cartoes.length}`;
+  $("pergunta").textContent = cartoes[i][0];
+  $("resposta").textContent = cartoes[i][1];
+  $("resposta").className = "resposta mostrar";   // resposta sempre visivel
+  $("ver").style.display = "none";
+  $("voltar").disabled = (i === 0); $("voltar").style.opacity = (i === 0) ? .4 : 1;
+  $("prox").textContent = (i === cartoes.length-1) ? "🔁 Recomeçar" : "Próximo →";
+}
+$("ver").onclick = ()=>{ $("resposta").className = "resposta mostrar"; $("ver").style.display = "none"; };
+$("prox").onclick = ()=>{ i = (i+1) % cartoes.length; mostrar(); };
+$("voltar").onclick = ()=>{ if(i > 0){ i--; mostrar(); } };
+mostrar();
+</script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revisão do Pedro: Doenças genéticas</title>
+<style>
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:"Segoe UI",system-ui,Arial,sans-serif; background:linear-gradient(160deg,#e6f7f5,#c9e9e4); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px; color:#1E2B38;}
+  .box{width:100%; max-width:520px; text-align:center;}
+  h1{font-size:1.3rem; color:#0f766e; margin-bottom:4px;}
+  .sub{color:#64748b; font-size:.9rem; margin-bottom:18px;}
+  .contador{font-weight:700; color:#64748b; margin-bottom:12px;}
+  .cartao{background:#fff; border-radius:22px; box-shadow:0 12px 34px rgba(15,118,110,.16); padding:36px 28px; min-height:250px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:20px;}
+  .rotulo{font-size:.75rem; letter-spacing:1.5px; text-transform:uppercase; font-weight:800;}
+  .rotulo.p{color:#E25E42;} .rotulo.r{color:#0f766e;}
+  .pergunta{font-size:1.4rem; font-weight:800; line-height:1.4;}
+  .resposta{font-size:1.2rem; line-height:1.5; color:#134e4a; display:none;}
+  .resposta.mostrar{display:block;}
+  @keyframes sobe{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+  .bts{display:flex; gap:10px; margin-top:18px; justify-content:center; flex-wrap:wrap;}
+  button{font-family:inherit; font-size:1rem; font-weight:800; border:none; cursor:pointer; padding:14px 22px; border-radius:14px; transition:filter .15s;}
+  button:hover{filter:brightness(1.08);}
+  .ver{background:#0f766e; color:#fff;} .prox{background:#E25E42; color:#fff;} .voltar{background:#e2e8f0; color:#1E2B38;}
+</style>
+</head>
+<body>
+<a href="index.html" class="btn-voltar-hub" style="position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:9999;display:inline-flex;align-items:center;gap:7px;background:#E25E42;color:#fff;text-decoration:none;font-weight:800;font-size:1rem;padding:11px 18px;border-radius:30px;box-shadow:0 4px 14px rgba(0,0,0,.3);font-family:'Segoe UI',system-ui,Arial,sans-serif;">← Voltar</a>
+<div class="box">
+  <h1>🧬 Doenças genéticas em cartões</h1>
+  <div class="sub">Pergunta e resposta na mesma tela: leia, tente lembrar de cabeça e confira na hora.</div>
+  <div class="contador" id="contador"></div>
+  <div class="cartao">
+    <div><div class="rotulo p">Pergunta</div><div class="pergunta" id="pergunta"></div></div>
+    <div class="resposta" id="resposta"></div>
+  </div>
+  <div class="bts">
+    <button class="voltar" id="voltar">← Voltar</button>
+    <button class="ver" id="ver">👁️ Ver resposta</button>
+    <button class="prox" id="prox">Próximo →</button>
+  </div>
+</div>
+<script>
+const cartoes = [
+  ["O que é uma doença genética?", "É a que aparece por causa de uma alteração no material genético, seja na sequência do DNA, seja no número ou na forma dos cromossomos."],
+  ["Toda doença genética é herdada dos pais?", "Não. Parte delas começa no próprio indivíduo, por uma mutação. Só passa adiante se a alteração estiver no gameta."],
+  ["O que é mutação?", "Uma alteração no material genético. Pode surgir sozinha, num erro de cópia do DNA, ou ser provocada por agentes mutagênicos."],
+  ["O que são agentes mutagênicos?", "Coisas capazes de alterar o DNA, como certos produtos químicos e alguns tipos de radiação."],
+  ["Quantas doenças genéticas são conhecidas e quanto atingem?", "Cerca de 8 mil. Cada uma é rara, mas juntas afetam perto de 5% da população."],
+  ["Quais são os três tipos de doença genética?", "Monogênicas (ou mendelianas), poligênicas (ou multifatoriais) e cromossômicas."],
+  ["O que é uma doença monogênica?", "Aquela em que apenas um gene está alterado. Na maioria dos casos é hereditária e segue as leis de Mendel."],
+  ["Cite doenças monogênicas recessivas.", "Albinismo, hemofilia, daltonismo, fibrose cística e fenilcetonúria."],
+  ["Cite doenças monogênicas dominantes.", "Acondroplasia (nanismo desproporcional), síndrome de Marfan e síndrome de Treacher Collins."],
+  ["O que é o albinismo?", "Doença monogênica recessiva em que a produção de pigmento na pele, nos olhos e nos cabelos é reduzida ou ausente."],
+  ["O que acontece na fibrose cística?", "O corpo produz muco mais espesso que o normal, o que atrapalha os pulmões, o pâncreas e a digestão e facilita infecções."],
+  ["O que é a fenilcetonúria?", "Doença recessiva em que o aminoácido fenilalanina se acumula no corpo, podendo causar danos no cérebro. É a primeira doença detectada pelo teste do pezinho."],
+  ["Numa doença recessiva, quem é AA, Aa e aa?", "AA não tem e não transmite. Aa é portador: não tem a doença, mas transmite o alelo. aa tem a doença."],
+  ["Dois portadores (Aa × Aa) têm que chance de filho afetado?", "25%. Nascem 25% AA, 50% Aa (portadores) e 25% aa (afetados)."],
+  ["Pai AA com mãe aa: como ficam os filhos?", "Todos Aa. Nenhum terá a doença recessiva, mas todos serão portadores."],
+  ["Pais aa e aa podem ter filho sem a doença recessiva?", "Não. Os dois só têm o alelo a para passar, então todos os filhos serão aa."],
+  ["Numa doença dominante, quanto basta para manifestar?", "Um único alelo alterado. Quem é Aa já tem a doença, e a chance de passar para cada filho é de 50%."],
+  ["Por que uma doença recessiva parece pular gerações?", "Porque os portadores (Aa) não manifestam nada e mesmo assim transmitem o alelo. A doença só reaparece quando dois portadores têm filhos."],
+  ["O que são doenças poligênicas ou multifatoriais?", "As que envolvem vários genes e sofrem muita influência do ambiente, como a maioria dos cânceres, o Alzheimer, a hipertensão e as doenças cardíacas."],
+  ["Ter a mutação garante que a doença multifatorial vai aparecer?", "Não. A predisposição aumenta o risco, mas o modo de vida e o ambiente pesam muito."],
+  ["Que porcentagem dos cânceres vem de mutações herdadas?", "De 5% a 10%. A maior parte dos casos está ligada a fatores ambientais e ao modo de vida."],
+  ["O que é o gene BRCA1?", "Um gene em que certas mutações aumentam muito a chance de câncer de mama e de ovário ao longo da vida."],
+  ["Quantos cromossomos tem uma célula do corpo humano? E um gameta?", "A célula do corpo tem 46, em 23 pares. O gameta tem 23, um de cada par."],
+  ["O que é trissomia?", "Ter três cromossomos de um mesmo tipo em vez de dois. Exemplos: trissomia do 21, do 18 e do 13."],
+  ["O que é monossomia?", "Ter um único cromossomo de um tipo em vez do par. Exemplo: monossomia do X, a síndrome de Turner."],
+  ["Quantos cromossomos tem quem tem trissomia do 21?", "47 nas células do corpo, porque existe um cromossomo 21 a mais."],
+  ["Trissomia do 21 é doença?", "Não. É uma condição com a qual se nasce, que pede alguns cuidados. Cada pessoa com trissomia do 21 tem personalidade e capacidades próprias."],
+  ["Quais são as características costumeiras da trissomia do 21?", "Olhos amendoados e hipotonia muscular, com desenvolvimento em ritmo próprio. Pode haver maior chance de problemas cardíacos e respiratórios."],
+  ["Qual a diferença entre doença genética e hereditária?", "Genética é a que está no material genético. Hereditária é a que, além disso, veio dos pais pelos gametas. Toda hereditária é genética, mas nem toda genética é hereditária."],
+  ["O que é uma doença congênita?", "A que já está presente no nascimento. Pode ser hereditária ou vir do ambiente, como infecção na gestação, álcool, certos remédios, metais pesados ou radiação."],
+  ["Dê exemplos de infecções na gravidez que causam doença congênita.", "Toxoplasmose, sífilis, clamídia, rubéola, catapora, citomegalovírus, zika e HIV."],
+  ["No heredograma, o que é quadrado e o que é círculo?", "Quadrado é homem e círculo é mulher. Quando estão pintados, significa que a pessoa é afetada pela doença."],
+  ["O que representa o losango com interrogação no heredograma?", "A criança que o casal ainda pode ter, com sexo ainda indefinido."],
+  ["Numa doença recessiva, qual é o genótipo de todo afetado no heredograma?", "aa, sempre. É por aí que se começa a resolver a questão."],
+  ["Pais sem a doença que têm um filho afetado por doença recessiva: qual o genótipo deles?", "Os dois são obrigatoriamente Aa, portadores."],
+  ["Filho não afetado de um pai aa é o quê?", "Aa. Ele recebeu obrigatoriamente um alelo a do pai, mas não manifesta a doença."],
+  ["O que é a hemoglobina?", "A proteína que transporta o oxigênio pelo corpo. Fica dentro das hemácias, os glóbulos vermelhos."],
+  ["Qual a diferença entre AS e SS na doença falciforme?", "AS é o traço falciforme: a pessoa não tem a doença, mas transmite o gene. SS é a anemia falciforme, com sintomas."],
+  ["Qual a diferença entre doença falciforme e anemia falciforme?", "Doença falciforme é o grupo todo de condições ligadas à hemoglobina S. Anemia falciforme é a forma com dois genes HbS."],
+  ["O que acontece com as hemácias na anemia falciforme?", "Ficam rígidas e com forma de foice, passam com dificuldade pelos vasos e levam menos oxigênio aos tecidos."],
+  ["Pai AS com mãe AS: quais as chances dos filhos?", "25% AA (sem doença), 50% AS (traço falciforme) e 25% SS (anemia falciforme)."],
+  ["Uma pessoa SS com um parceiro AA terá filhos como?", "Todos AS, ou seja, todos com traço falciforme e nenhum com a doença."],
+  ["Quantos nascimentos com doença falciforme há por ano no Brasil?", "Cerca de 3500 com doença falciforme e 200 mil com traço falciforme."],
+  ["O que é o aconselhamento genético?", "A orientação de profissionais especializados a casais e famílias sobre o risco real de uma condição genética, para que decidam com informação."],
+  ["Quando o aconselhamento genético costuma ser indicado?", "Quando há casos na família, casamentos entre parentes ou abortos espontâneos sem explicação."],
+  ["Qual o risco mínimo de doença genética em qualquer gestação?", "Cerca de 0,5% para cromossômicas, 1% para monogênicas e 1% para poligênicas."],
+  ["O que é o teste do pezinho?", "Exame obrigatório feito com gotas de sangue do pé do recém-nascido, nos primeiros dias de vida, que rastreia doenças que precisam de tratamento precoce."],
+  ["Quais doenças o teste do pezinho detecta?", "Começou pela fenilcetonúria e hoje inclui fibrose cística, hipotireoidismo congênito, síndromes falciformes, hiperplasia adrenal congênita, deficiência de biotinidase e toxoplasmose congênita."],
+  ["O que mudou com a Lei 14.154, de 2021?", "O número de doenças rastreadas pelo teste do pezinho no SUS pode chegar a 50, com ampliação feita por etapas."],
+  ["Quando é o Dia Nacional do Teste do Pezinho?", "6 de junho."],
+  ["O que é a terapia gênica?", "Colocar nas células do paciente uma cópia funcional do gene defeituoso, para que o corpo volte a produzir a proteína que faltava."],
+  ["Qual foi a primeira pesquisa com terapia gênica?", "Começou em 1989, com pacientes de imunodeficiência combinada grave, que precisavam viver isolados em bolhas de plástico."],
+  ["Como o gene funcional chega à célula na terapia gênica?", "Levado por vírus modificados, que entram na célula e inserem o gene sem causar doença."],
+  ["Quem são os parentes de primeiro grau?", "Pai, mãe, filhos, irmãos e irmãs."],
+  ["Quem são os parentes de segundo grau?", "Avós, netos, tios e sobrinhos, entre outros."],
+  ["O que significa início precoce de uma doença?", "Quando ela aparece de 10 a 20 anos antes do esperado para a população em geral."],
+]
+let i = 0;
+const $ = id => document.getElementById(id);
+function mostrar(){
+  $("contador").textContent = `Cartão ${i+1} de ${cartoes.length}`;
+  $("pergunta").textContent = cartoes[i][0];
+  $("resposta").textContent = cartoes[i][1];
+  $("resposta").className = "resposta mostrar";   // resposta sempre visivel
+  $("ver").style.display = "none";
+  $("voltar").disabled = (i === 0); $("voltar").style.opacity = (i === 0) ? .4 : 1;
+  $("prox").textContent = (i === cartoes.length-1) ? "🔁 Recomeçar" : "Próximo →";
+}
+$("ver").onclick = ()=>{ $("resposta").className = "resposta mostrar"; $("ver").style.display = "none"; };
+$("prox").onclick = ()=>{ i = (i+1) % cartoes.length; mostrar(); };
+$("voltar").onclick = ()=>{ if(i > 0){ i--; mostrar(); } };
+mostrar();
+</script>
+</body>
+</html>

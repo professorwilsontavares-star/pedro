@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz do Pedro: Evolução é transformação</title>
+<style>
+  :root{--navy:#1E2B38; --teal:#0f766e; --teal-cl:#d5f2ee; --laranja:#FFE4CC; --coral:#E25E42; --ok:#2e7d4f; --ok-cl:#d7f0df; --no:#c0392b; --no-cl:#fbe0dc; --cinza:#64748b;}
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif; background:linear-gradient(160deg,#e6f7f5,#c9e9e4); color:var(--navy); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px; line-height:1.55;}
+  .app{width:100%; max-width:640px; background:#fff; border-radius:24px; box-shadow:0 12px 40px rgba(15,118,110,.16); overflow:hidden;}
+  header{background:linear-gradient(135deg,#0f766e,#134e4a); color:#fff; padding:22px 26px 18px;}
+  header .selo{font-size:.72rem; letter-spacing:1.5px; text-transform:uppercase; opacity:.8; font-weight:700;}
+  header h1{font-size:1.35rem; margin-top:4px;}
+  .barra-topo{display:flex; justify-content:space-between; align-items:center; margin-top:14px; font-size:.9rem; font-weight:700;}
+  .progresso{height:9px; background:rgba(255,255,255,.25); border-radius:20px; margin-top:10px; overflow:hidden;}
+  .progresso span{display:block; height:100%; width:0; background:var(--coral); border-radius:20px; transition:width .35s ease;}
+  main{padding:26px 26px 30px;}
+  .pergunta{font-size:1.25rem; font-weight:800; color:var(--navy); margin-bottom:20px; min-height:60px;}
+  .alternativas{display:flex; flex-direction:column; gap:12px;}
+  .alt{text-align:left; font-size:1.05rem; padding:15px 18px; border:2px solid #cfe8e4; background:#f4fbfa; border-radius:14px; cursor:pointer; transition:all .15s ease; display:flex; align-items:center; gap:12px; font-family:inherit; color:var(--navy);}
+  .alt:hover:not(:disabled){border-color:var(--teal); background:var(--teal-cl); transform:translateY(-1px);}
+  .alt:disabled{cursor:default;}
+  .alt .letra{flex:0 0 30px; height:30px; border-radius:50%; background:var(--teal); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:.95rem;}
+  .alt.certo{border-color:var(--ok); background:var(--ok-cl);} .alt.certo .letra{background:var(--ok);}
+  .alt.errado{border-color:var(--no); background:var(--no-cl);} .alt.errado .letra{background:var(--no);}
+  .feedback{margin-top:20px; padding:15px 18px; border-radius:14px; display:none; font-size:1rem;}
+  .feedback.mostrar{display:block; animation:sobe .25s ease;}
+  .feedback.ok{background:var(--ok-cl); border-left:6px solid var(--ok);}
+  .feedback.no{background:var(--no-cl); border-left:6px solid var(--no);}
+  .feedback b{display:block; margin-bottom:3px;}
+  @keyframes sobe{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
+  .proxima{margin-top:20px; width:100%; padding:15px; font-size:1.1rem; font-weight:800; background:var(--coral); color:#fff; border:none; border-radius:14px; cursor:pointer; font-family:inherit; display:none;}
+  .proxima.mostrar{display:block;} .proxima:hover{filter:brightness(1.08);}
+  .final{text-align:center; padding:14px 6px;}
+  .final .emoji{font-size:3.4rem;} .final h2{font-size:1.6rem; margin:10px 0;}
+  .final .placar{font-size:1.15rem; color:var(--cinza); margin-bottom:6px;}
+  .final .nota{font-size:3rem; font-weight:900; color:var(--teal); margin:6px 0;}
+  .final .recado{background:var(--laranja); border-radius:14px; padding:14px 18px; margin:18px 0; color:var(--navy);}
+  .refazer{padding:14px 28px; font-size:1.05rem; font-weight:800; background:var(--teal); color:#fff; border:none; border-radius:14px; cursor:pointer; font-family:inherit;}
+</style>
+</head>
+<body>
+<a href="index.html" class="btn-voltar-hub" style="position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:9999;display:inline-flex;align-items:center;gap:7px;background:#E25E42;color:#fff;text-decoration:none;font-weight:800;font-size:1rem;padding:11px 18px;border-radius:30px;box-shadow:0 4px 14px rgba(0,0,0,.3);font-family:'Segoe UI',system-ui,Arial,sans-serif;">← Voltar</a>
+<div class="app">
+  <header>
+    <div class="selo">Ciências · 9º ano · Setor A · Quiz</div>
+    <h1>Evolução é transformação 🐢</h1>
+    <div class="barra-topo"><span id="contador">Questão 1</span><span id="placar">Acertos: 0</span></div>
+    <div class="progresso"><span id="barra"></span></div>
+  </header>
+  <main id="palco">
+    <div class="pergunta" id="pergunta"></div>
+    <div class="alternativas" id="alternativas"></div>
+    <div class="feedback" id="feedback"></div>
+    <button class="proxima" id="proxima">Próxima ➜</button>
+  </main>
+</div>
+<script>
+const questoes = [
+  // diversidade e correntes
+  { q:"Quantas espécies são conhecidas atualmente?", alt:["Pelo menos 2 milhões","Cerca de 20 mil","Cerca de 500 milhões"], c:0,
+    e:"E os cientistas estimam que o número real chegue perto de 8,7 milhões." },
+  { q:"O fixismo é a ideia de que as espécies...", alt:["não se modificam com o passar do tempo","mudam a cada geração","surgem por mutação"], c:0,
+    e:"Fixismo é imutabilidade: as espécies permaneceriam como surgiram." },
+  { q:"O transformismo defende que as espécies...", alt:["se modificam ao longo do tempo, originando novas espécies","foram criadas prontas e imutáveis","não têm parentesco entre si"], c:0,
+    e:"Também é chamado de evolucionismo ou teoria evolutiva." },
+  { q:"O criacionismo é...", alt:["uma crença de que os seres vivos foram criados por um ser divino","uma teoria científica testável","um método de datação de fósseis"], c:0,
+    e:"Como envolve o sobrenatural, está fora do escopo da ciência." },
+  { q:"Por que o design inteligente não é considerado hipótese científica?", alt:["Porque não pode ser submetido a teste científico","Porque foi refutado em laboratório","Porque é muito recente"], c:0,
+    e:"Não há como testar a existência de um projetista, e a ideia ainda busca negar uma teoria bem estabelecida." },
+  { q:"Negar uma teoria científica bem estabelecida sem base para isso é chamado de...", alt:["negacionismo científico","ceticismo metodológico","revisão por pares"], c:0,
+    e:"Terraplanismo, negacionismo climático e movimento antivacina são exemplos." },
+  { q:"Um cientista evolucionista pode ser religioso?", alt:["Sim, e isso é comum","Não, é impossível","Só se abandonar a teoria evolutiva"], c:0,
+    e:"A ciência não questiona a existência de um criador; ela explica os fenômenos sem recorrer ao sobrenatural." },
+  // lamarck
+  { q:"Lamarck viveu entre...", alt:["1744 e 1829","1809 e 1882","1900 e 1970"], c:0,
+    e:"Ele é anterior a Darwin, que viveu de 1809 a 1882." },
+  { q:"Qual destas NÃO é uma lei de Lamarck?", alt:["Sobrevivência dos mais aptos","Uso e desuso","Herança do adquirido"], c:0,
+    e:"Sobrevivência dos mais aptos é de Darwin. As leis de Lamarck são complexidade, necessidade, uso e desuso e herança do adquirido." },
+  { q:"Pela lei do uso e desuso, o órgão pouco usado...", alt:["atrofia","cresce","se divide"], c:0,
+    e:"E o órgão muito usado se desenvolveria. Atrofiar é diminuir e enfraquecer." },
+  { q:"A herança do adquirido afirma que...", alt:["o que o indivíduo desenvolve em vida passa aos descendentes","só o que está no DNA passa aos filhos","nada é transmitido"], c:0,
+    e:"É a parte da teoria de Lamarck refutada pelo conhecimento atual sobre o DNA." },
+  { q:"Por que a herança do adquirido foi refutada?", alt:["Porque a característica adquirida em vida não entra na constituição genética","Porque Lamarck não fez experimentos","Porque as espécies não mudam"], c:0,
+    e:"Já se criticava na época que cicatrizes e amputações não são transmitidas." },
+  { q:"Segundo Lamarck, o que faria surgir um órgão novo?", alt:["A necessidade imposta pelo ambiente","Uma mutação ao acaso","A seleção natural"], c:0,
+    e:"Necessidade criando a característica é a marca do raciocínio lamarckista." },
+  { q:"Como Lamarck explicava a falta de pernas nas serpentes?", alt:["As pernas atrofiaram por desuso e isso passou aos descendentes","Nunca existiram pernas nesse grupo","Predadores eliminaram as que tinham pernas"], c:0,
+    e:"Pelo mesmo raciocínio ele explicava os tentáculos do caracol e as patas do rinoceronte." },
+  // darwin
+  { q:"Quanto tempo durou a viagem de Darwin no Beagle?", alt:["Cinco anos, de 1831 a 1836","Seis meses","Vinte anos"], c:0,
+    e:"Nela ele coletou animais, plantas, fósseis, rochas e minerais." },
+  { q:"O que Darwin observou nos tentilhões das Galápagos?", alt:["Bicos diferentes em cada ilha, adaptados a alimentos diferentes","Que todos eram idênticos","Que não tinham parentesco com aves do continente"], c:0,
+    e:"Ele concluiu que descendiam de aves vindas do continente e se diferenciaram nas ilhas." },
+  { q:"Que ideia Darwin aproveitou de Malthus?", alt:["A disputa por recursos quando a população cresce mais que o alimento","A lei do uso e desuso","A criação divina das espécies"], c:0,
+    e:"Darwin levou essa competição por recursos para toda a natureza." },
+  { q:"O que os fósseis do megatério sugeriram a Darwin?", alt:["Que espécies extintas eram aparentadas com as atuais e houve transformação","Que as espécies nunca mudaram","Que os fósseis eram falsos"], c:0,
+    e:"O megatério era uma preguiça-gigante de até 6 metros, parecida com a preguiça atual, bem menor." },
+  { q:"Na seleção natural, o que acontece primeiro?", alt:["A variação entre os indivíduos já existe","O ambiente cria a característica","O indivíduo se esforça e muda"], c:0,
+    e:"O ambiente apenas seleciona entre variações que já existiam na população." },
+  { q:"Em que ano Darwin publicou A origem das espécies?", alt:["1859","1831","1900"], c:0,
+    e:"A teoria foi esboçada em 1839 e publicada só vinte anos depois." },
+  { q:"Quem chegou de forma independente a conclusões parecidas com as de Darwin?", alt:["Alfred Russel Wallace","Thomas Malthus","Gregor Mendel"], c:0,
+    e:"Os trabalhos dos dois foram lidos juntos em 1º de julho de 1858." },
+  { q:"Por que Darwin ficou com o crédito maior que Wallace?", alt:["Por ter formulado a teoria antes","Porque Wallace desistiu da ciência","Porque Wallace estava errado"], c:0,
+    e:"Wallace teve sua contribuição reconhecida na sessão em que os dois trabalhos foram apresentados." },
+  // lamarck x darwin
+  { q:"Qual é a diferença central entre Lamarck e Darwin?", alt:["Para Lamarck o ambiente estimula a mudança; para Darwin ele seleciona o que já existe","Só Darwin achava que as espécies mudam","Só Lamarck considerava o ambiente"], c:0,
+    e:"Os dois davam importância ao ambiente, mas com papéis diferentes." },
+  { q:"\"As girafas esticaram o pescoço para alcançar folhas altas e passaram isso aos filhotes.\" Isso é...", alt:["lamarckista","darwinista","a teoria sintética"], c:0,
+    e:"A necessidade aparece como causa da característica, que é o raciocínio de Lamarck." },
+  { q:"\"Já existiam girafas de pescoço longo, que comiam melhor e deixaram mais filhos.\" Isso é...", alt:["darwinista","lamarckista","fixista"], c:0,
+    e:"A variação vem primeiro e o ambiente seleciona: é seleção natural." },
+  { q:"Que expressão numa frase costuma indicar raciocínio lamarckista?", alt:["\"desenvolveu para se adaptar\"","\"foi selecionado\"","\"variação ao acaso\""], c:0,
+    e:"Precisou, se esforçou, desenvolveu para: todas colocam a necessidade como causa." },
+  { q:"\"O urso-polar é branco porque vive em ambientes com gelo.\" Essa frase é de qual linha?", alt:["Lamarck","Darwin","Wallace"], c:0,
+    e:"O ambiente aparece provocando a característica, o que é lamarckista." },
+  { q:"\"O urso-polar vive em ambientes com gelo por ser branco.\" Essa frase é de qual linha?", alt:["Darwin","Lamarck","Fixismo"], c:0,
+    e:"A cor já existia e favoreceu a sobrevivência naquele ambiente: seleção natural." },
+  { q:"Pela seleção natural, por que as toupeiras têm olhos pequenos?", alt:["Havia variação e, no subsolo, olhos pequenos não prejudicavam quem os tinha","Porque elas pararam de usar os olhos e eles atrofiaram","Porque quiseram viver no escuro"], c:0,
+    e:"A explicação pelo desuso é a de Lamarck; a de Darwin parte da variação preexistente." },
+  // teoria sintetica e evolucao em acao
+  { q:"O que é a teoria sintética da evolução?", alt:["A junção da teoria de Darwin com a Genética","Uma versão moderna do fixismo","A teoria de Lamarck corrigida"], c:0,
+    e:"A variação vem de mutações e recombinação, e a seleção natural age sobre ela." },
+  { q:"Por que Darwin não explicou de onde vinha a variação?", alt:["Porque publicou antes de o DNA e a hereditariedade serem conhecidos","Porque não achava isso importante","Porque acreditava no uso e desuso"], c:0,
+    e:"A Genética só se desenvolveu depois, e as duas ideias foram unidas na síntese moderna." },
+  { q:"O que é tempo de geração?", alt:["O intervalo entre duas gerações sucessivas","O tempo de vida de um indivíduo","O tempo que uma espécie leva para se extinguir"], c:0,
+    e:"Na espécie humana é de 15 a 20 anos; em vírus e bactérias pode ser de minutos." },
+  { q:"Por que dá para observar a evolução acontecendo em vírus?", alt:["Porque o tempo de geração é curtíssimo e há muitos descendentes","Porque os vírus não sofrem mutação","Porque vírus não se reproduzem"], c:0,
+    e:"Muitas gerações em pouco tempo fazem as mutações se acumularem e a seleção agir rápido." },
+  { q:"As variantes de um vírus surgem por causa de...", alt:["mutações ocorridas na reprodução","vacinação em massa","mudança de temperatura do ar"], c:0,
+    e:"As mutações aparecem ao acaso; algumas se espalham por darem vantagem ao vírus." },
+  { q:"Uma mutação NEUTRA num vírus é aquela que...", alt:["não muda a capacidade de infectar nem de se reproduzir","torna o vírus mais transmissível","mata o vírus"], c:0,
+    e:"Ela serve como marcador, ajudando a rastrear o caminho das variantes." },
+  { q:"A mutação N501Y, que facilita a entrada do vírus na célula humana, é considerada...", alt:["selecionada","neutra","impossível"], c:0,
+    e:"Ela dá vantagem, então a linhagem que a carrega se reproduz e se espalha mais." },
+  { q:"Dizer que \"o vírus evoluiu para se tornar mais infeccioso\" está...", alt:["errado, porque sugere intenção, o que é raciocínio lamarckista","certo, é assim que a evolução funciona","certo, segundo Darwin"], c:0,
+    e:"A mutação aparece ao acaso; depois a seleção natural favorece a que dá vantagem." },
+  { q:"Quando o Sars-CoV-2 foi detectado em humanos?", alt:["Em dezembro de 2019, em Wuhan","Em 2015, na Europa","Em 2022, no Brasil"], c:0,
+    e:"Ele já vinha passando por adaptação a um novo hospedeiro, a espécie humana." },
+  { q:"O experimento com Escherichia coli, iniciado em 1988, mostrou que...", alt:["as populações mudaram e uma passou a usar citrato como nutriente","as bactérias não mudam","a evolução não pode ser observada"], c:0,
+    e:"São doze populações vindas de um único ancestral, já com mais de 50 mil gerações." },
+  { q:"O que é uma filogenia?", alt:["A árvore que mostra o parentesco evolutivo entre linhagens","Uma lista de espécies extintas","Um tipo de mutação"], c:0,
+    e:"A filogenia do Sars-CoV-2 mostra como as variantes se relacionam ao longo do tempo." },
+  // especiacao e darwinismo social
+  { q:"O que é especiação?", alt:["O processo em que populações separadas acumulam diferenças e formam novas espécies","A extinção de uma espécie","A mistura de duas espécies"], c:0,
+    e:"É assim que a diversidade de espécies aumenta ao longo do tempo." },
+  { q:"O que é um ancestral comum?", alt:["A espécie extinta que deu origem a duas ou mais espécies aparentadas","O indivíduo mais velho de uma população","O primeiro ser vivo da Terra"], c:0,
+    e:"Duas espécies aparentadas evolutivamente devem ter tido um ancestral comum." },
+  { q:"O darwinismo social foi...", alt:["o uso indevido de ideias de Darwin para hierarquizar grupos humanos","uma parte da teoria de Darwin","um experimento de genética"], c:0,
+    e:"Serviu de justificativa para a dominação política e econômica no século XIX e início do XX." },
+  { q:"Por que o darwinismo social é errado também biologicamente?", alt:["Porque não existem humanos mais evoluídos: todos os grupos estão adaptados","Porque a seleção natural não existe","Porque os humanos não evoluem"], c:0,
+    e:"Todos os grupos humanos vivem sob seleção natural e estão adaptados aos seus ambientes." },
+  { q:"Por que o fixismo não é aceito pela ciência?", alt:["Porque há muitas evidências contrárias, como fósseis e DNA","Porque é uma ideia muito antiga","Porque ninguém o estudou"], c:0,
+    e:"Fósseis, semelhanças de DNA e evolução observada em vírus e bactérias contrariam a imutabilidade." },
+  { q:"Como Lamarck explicaria a ausência de dentes no tamanduá?", alt:["Os dentes atrofiaram por desuso e isso passou aos descendentes","Os tamanduás com dentes foram extintos por predadores","Uma mutação ao acaso eliminou os dentes"], c:0,
+    e:"Ele come formigas e cupins com a língua longa e pegajosa, sem precisar mastigar." },
+  { q:"O que é atrofia?", alt:["Diminuição ou enfraquecimento de um tecido, órgão ou membro","Crescimento exagerado de um órgão","Troca de um órgão por outro"], c:0,
+    e:"É a palavra-chave da lei do uso e desuso." },
+]
+function embaralhar(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function preparar(){ return embaralhar(questoes.slice()).map(q=>{ const alts=q.alt.map((t,i)=>({t,c:i===q.c})); embaralhar(alts); return {q:q.q, alt:alts.map(a=>a.t), c:alts.findIndex(a=>a.c), e:q.e}; }); }
+let jogo = preparar(); let atual=0, acertos=0; const letras=["A","B","C"]; const $=id=>document.getElementById(id);
+function render(){ const it=jogo[atual]; $("contador").textContent=`Questão ${atual+1} de ${jogo.length}`; $("placar").textContent=`Acertos: ${acertos}`; $("barra").style.width=`${(atual/jogo.length)*100}%`; $("pergunta").textContent=it.q; const b=$("alternativas"); b.innerHTML=""; it.alt.forEach((t,i)=>{ const x=document.createElement("button"); x.className="alt"; x.innerHTML=`<span class="letra">${letras[i]}</span><span>${t}</span>`; x.onclick=()=>responder(i); b.appendChild(x); }); const f=$("feedback"); f.className="feedback"; f.innerHTML=""; $("proxima").className="proxima"; $("proxima").textContent=atual===jogo.length-1?"Ver resultado 🏁":"Próxima ➜"; }
+function responder(e){ const it=jogo[atual]; document.querySelectorAll(".alt").forEach((b,i)=>{ b.disabled=true; if(i===it.c)b.classList.add("certo"); if(i===e&&e!==it.c)b.classList.add("errado"); }); const f=$("feedback"); if(e===it.c){acertos++; f.className="feedback ok mostrar"; f.innerHTML=`<b>✅ Acertou!</b>${it.e}`;} else {f.className="feedback no mostrar"; f.innerHTML=`<b>❌ Quase!</b> A resposta certa é <b style="display:inline">${letras[it.c]}</b>. ${it.e}`;} $("placar").textContent=`Acertos: ${acertos}`; $("proxima").classList.add("mostrar"); }
+$("proxima").onclick=()=>{ atual++; if(atual<jogo.length)render(); else final(); };
+function final(){ const t=jogo.length; const nota=Math.round((acertos/t)*100)/10; const p=acertos/t; let e,m; if(p>=0.9){e="🏆";m="Fera! Mandou muito bem. Pronto para a prova!";} else if(p>=0.7){e="😃";m="Muito bom! Só falta revisar alguns pontinhos.";} else if(p>=0.45){e="🙂";m="Bom começo! Dá uma relida no resumo e refaça.";} else {e="💪";m="Sem problema! Leia o resumo com calma e tente de novo.";} $("barra").style.width="100%"; $("contador").textContent="Fim do quiz"; $("palco").innerHTML=`<div class="final"><div class="emoji">${e}</div><h2>Quiz concluído!</h2><div class="placar">Você acertou <b>${acertos}</b> de <b>${t}</b></div><div class="nota">Nota ${nota}</div><div class="recado">${m}</div><button class="refazer" onclick="reiniciar()">🔀 Embaralhar e refazer</button></div>`; }
+function reiniciar(){ atual=0; acertos=0; jogo=preparar(); $("palco").innerHTML=`<div class="pergunta" id="pergunta"></div><div class="alternativas" id="alternativas"></div><div class="feedback" id="feedback"></div><button class="proxima" id="proxima">Próxima ➜</button>`; $("proxima").onclick=()=>{ atual++; if(atual<jogo.length)render(); else final(); }; render(); }
+render();
+</script>
+</body>
+</html>

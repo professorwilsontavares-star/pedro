@@ -25,7 +25,7 @@
   .rotulo.p{color:#E25E42;} .rotulo.r{color:#2e7d4f;}
   .pergunta{font-size:1.4rem; font-weight:800; line-height:1.4;}
   .resposta{font-size:1.2rem; line-height:1.5; color:#3d2465; display:none;}
-  .resposta.mostrar{display:block; animation:sobe .2s ease;}
+  .resposta.mostrar{display:block;}
   @keyframes sobe{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
   .bts{display:flex; gap:10px; margin-top:18px; justify-content:center; flex-wrap:wrap;}
   button{font-family:inherit; font-size:1rem; font-weight:800; border:none; cursor:pointer; padding:14px 22px; border-radius:14px; transition:filter .15s;}
@@ -37,7 +37,7 @@
 <a href="index.html" class="btn-voltar-hub" style="position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:9999;display:inline-flex;align-items:center;gap:7px;background:#E25E42;color:#fff;text-decoration:none;font-weight:800;font-size:1rem;padding:11px 18px;border-radius:30px;box-shadow:0 4px 14px rgba(0,0,0,.3);font-family:'Segoe UI',system-ui,Arial,sans-serif;">← Voltar</a>
 <div class="box">
   <h1>📖 Felicidade Clandestina em cartões</h1>
-  <div class="sub">Leia a pergunta, pense na resposta e depois confira. Pontos principais!</div>
+  <div class="sub">Pergunta e resposta na mesma tela: leia, tente lembrar de cabeça e confira na hora.</div>
   <div class="contador" id="contador"></div>
   <div class="cartao">
     <div>
@@ -76,8 +76,8 @@ function mostrar(){
   $("contador").textContent = `Cartão ${i+1} de ${cartoes.length}`;
   $("pergunta").textContent = cartoes[i][0];
   $("resposta").textContent = cartoes[i][1];
-  $("resposta").className = "resposta";
-  $("ver").style.display = "inline-block";
+  $("resposta").className = "resposta mostrar";   // resposta sempre visivel
+  $("ver").style.display = "none";
   $("voltar").disabled = (i === 0); $("voltar").style.opacity = (i === 0) ? .4 : 1;
   $("prox").textContent = (i === cartoes.length-1) ? "🔁 Recomeçar" : "Próximo →";
 }
