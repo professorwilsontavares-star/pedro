@@ -39,6 +39,15 @@
   .tipo{background:#fff; border-radius:14px; box-shadow:0 2px 8px rgba(0,0,0,.06); padding:14px; border-top:5px solid var(--roxo);}
   .tipo .emoji{font-size:1.7rem;} .tipo b{display:block; margin:4px 0; color:#3d2465;}
   .tipo span{font-size:.9rem; color:var(--cinza);}
+  ol.caderno{list-style:none; counter-reset:cd; padding:0; margin:18px 0;}
+  ol.caderno li{position:relative; background:#fff; border-radius:14px; box-shadow:0 2px 8px rgba(0,0,0,.06); border-left:6px solid var(--roxo); padding:13px 16px 13px 58px; margin:12px 0;}
+  ol.caderno li::before{counter-increment:cd; content:counter(cd); position:absolute; left:13px; top:13px; width:31px; height:31px; border-radius:50%; background:var(--roxo); color:#fff; font-weight:800; display:flex; align-items:center; justify-content:center; font-size:.95rem;}
+  ol.caderno .nome{color:#3d2465; font-size:1.1rem;}
+  ol.caderno .exp{margin:4px 0 9px; color:var(--cinza); font-size:.97rem;}
+  ol.caderno .ex{margin:3px 0; font-size:.97rem;}
+  ol.caderno .ex .rot{display:inline-block; min-width:78px; font-weight:800; color:var(--coral); font-size:.78rem; text-transform:uppercase; letter-spacing:.6px;}
+  ol.caderno .dica{margin:9px 0 0; background:var(--amarelo-claro); border-radius:10px; padding:7px 11px; font-size:.93rem;}
+  @media(max-width:560px){ ol.caderno li{padding-left:16px;} ol.caderno li::before{position:static; display:inline-flex; margin-bottom:6px;} ol.caderno .ex .rot{display:block; min-width:0;} }
   .glossario{background:#fff; border:1px dashed #c3cedd; border-radius:12px; padding:6px 18px; margin:16px 0;}
   .glossario dt{font-weight:800; color:var(--roxo); margin-top:10px;} .glossario dd{margin:2px 0 8px;}
   footer{text-align:center; color:#94a3b8; font-size:.85rem; margin-top:48px;}
@@ -159,6 +168,180 @@
 </ul>
 <div class="card lembre"><span class="tit">💡 Palavras da mesma família costumam manter a preposição</span>
   <em>obedecer <b>a</b></em> → <em>obediência <b>a</b></em>. <em>confiar <b>em</b></em> → <em>confiança <b>em</b></em>. Isso ajuda a lembrar na hora da prova.
+</div>
+
+<!-- 5b -->
+<!-- lista do caderno -->
+<h2 class="sec"><span class="ic">📓</span>A lista do caderno: os 23 nomes</h2>
+<p>Estes são os nomes que o professor passou no caderno, um por um, na mesma ordem. Em cada quadro estão a preposição certa, o exemplo que ele deu e um exemplo novo, para você ver o modelo antes de escrever o seu.</p>
+<div class="card chave"><span class="tit">🖊️ Como escrever o seu exemplo (é isso que o caderno pede)</span>
+  Leia o nome e faça a pergunta: <em>apto <b>a</b> quê?</em>, <em>natural <b>de</b> onde?</em>. Depois pense em alguma coisa do seu dia (escola, treino, jogo, viagem) e escreva uma frase curta com a preposição que apareceu na pergunta. Frase curta com a preposição certa vale mais do que frase comprida.
+</div>
+<ol class="caderno">
+  <li>
+    <b class="nome">apto a</b>
+    <p class="exp">Quem está apto está pronto, preparado para alguma coisa.</p>
+    <p class="ex"><span class="rot">Caderno</span> <em>Vocês, agora, estão aptos a dirigir.</em></p>
+    <p class="ex"><span class="rot">Outro</span> <em>Depois de treinar a semana inteira, o time ficou apto a jogar a final.</em></p>
+    <p class="dica">💡 Nada de <em>apto para</em> na prova: o certo é <b>apto a</b>.</p>
+  </li>
+  <li>
+    <b class="nome">disposto a</b>
+    <p class="exp">Quem está disposto tem vontade de fazer aquilo.</p>
+    <p class="ex"><span class="rot">Caderno</span> <em>Eles não estão dispostos a esquecer o que aconteceu.</em></p>
+    <p class="ex"><span class="rot">Outro</span> <em>Estou disposto a acordar mais cedo para estudar.</em></p>
+    <p class="dica">💡 Vem da mesma família de <em>dispor-se a</em>.</p>
+  </li>
+  <li>
+    <b class="nome">fácil de / difícil de</b>
+    <p class="exp">Os dois pedem a mesma preposição: <b>de</b>.</p>
+    <p class="ex"><span class="rot">Caderno</span> <em>Aquela conta era fácil de resolver.</em></p>
+    <p class="ex"><span class="rot">Outro</span> <em>O texto era difícil de entender na primeira leitura.</em></p>
+    <p class="dica">💡 Nunca <em>fácil para resolver</em>: o certo é <b>fácil de resolver</b>.</p>
+  </li>
+  <li>
+    <b class="nome">firme em</b>
+    <p class="exp">Quem está firme em alguma coisa não muda de ideia.</p>
+    <p class="ex"><span class="rot">Caderno</span> <em>Eu me manteria firme em meus propósitos.</em></p>
+    <p class="ex"><span class="rot">Outro</span> <em>Ela ficou firme na decisão de mudar de escola.</em></p>
+    <p class="dica">💡 Em + a = <b>na</b>: firme <b>na</b> decisão.</p>
+  </li>
+  <li>
+    <b class="nome">grato a (alguém) por (alguma coisa)</b>
+    <p class="exp">A pessoa a quem você agradece vem com <b>a</b>; o motivo vem com <b>por</b>.</p>
+    <p class="ex"><span class="rot">Caderno</span> <em>Ela ficou muito grata a eles por tudo.</em></p>
+    <p class="ex"><span class="rot">Outro</span> <em>Sou grato ao meu avô pelas histórias que ele conta.</em></p>
+    <p class="dica">💡 Duas preposições na mesma frase: grato <b>a</b> alguém <b>por</b> algo.</p>
+  </li>
+  <li>
+    <b class="nome">luta contra</b>
+    <p class="exp">A luta é <b>contra</b> aquilo que se enfrenta. Quando é a favor de alguma coisa, vira <b>luta por</b>.</p>
+    <p class="ex"><span class="rot">Caderno</span> <em>Ele conhecia toda a luta contra aquela injustiça.</em></p>
+    <p class="ex"><span class="rot">Outro</span> <em>A cidade venceu a luta contra a enchente.</em></p>
+    <p class="dica">💡 Luta <b>contra</b> a doença, luta <b>por</b> um lugar melhor.</p>
+  </li>
+  <li>
+    <b class="nome">natural de</b>
+    <p class="exp">Natural de é o lugar onde a pessoa nasceu.</p>
+    <p class="ex"><span class="rot">Caderno</span> <em>Lima Barreto era natural do Rio de Janeiro.</em></p>
+    <p class="ex"><span class="rot">Outro</span> <em>Minha avó é natural de Montes Claros.</em></p>
+    <p class="dica">💡 Nunca <em>natural em</em>: o certo é <b>natural de</b>.</p>
+  </li>
+  <li>
+    <b class="nome">obediente a</b>
+    <p class="exp">Quem obedece a alguém é obediente a alguém: a preposição é a mesma do verbo.</p>
+    <p class="ex"><span class="rot">Caderno</span> <em>Era um garoto bonzinho, sempre obediente aos pais.</em></p>
+    <p class="ex"><span class="rot">Outro</span> <em>O cachorro é obediente ao dono.</em></p>
+    <p class="dica">💡 Obedecer <b>a</b> leva a obediente <b>a</b> e a obediência <b>a</b>.</p>
+  </li>
+  <li>
+    <b class="nome">perto de / longe de</b>
+    <p class="exp">Os dois pedem <b>de</b>, nunca a.</p>
+    <p class="ex"><span class="rot">Caderno</span> <em>Estamos ainda mais longe da próxima parada.</em></p>
+    <p class="ex"><span class="rot">Outro</span> <em>A padaria fica perto da minha casa.</em></p>
+    <p class="dica">💡 Nada de <em>perto a</em> nem <em>longe a</em>.</p>
+  </li>
+  <li>
+    <b class="nome">satisfeito com</b>
+    <p class="exp">Quem está satisfeito está satisfeito <b>com</b> alguma coisa.</p>
+    <p class="ex"><span class="rot">Caderno</span> <em>Não ficamos muito satisfeitos com o resultado.</em></p>
+    <p class="ex"><span class="rot">Outro</span> <em>O professor ficou satisfeito com a turma.</em></p>
+    <p class="dica">💡 Em textos antigos aparece satisfeito <b>de</b> e satisfeito <b>em</b>, mas hoje o normal é <b>com</b>.</p>
+  </li>
+  <li>
+    <b class="nome">amor a / por / para com</b>
+    <p class="exp">As três formas existem. <b>Para com</b> é a mais formal e aparece em textos mais antigos.</p>
+    <p class="ex"><span class="rot">Caderno</span> <em>O amor para com a pátria aparece em vários poemas.</em></p>
+    <p class="ex"><span class="rot">Outro</span> <em>Meu amor pelos livros começou cedo.</em></p>
+    <p class="dica">💡 Amor <b>à</b> camisa, amor <b>pela</b> música, amor <b>para com</b> o próximo.</p>
+  </li>
+  <li>
+    <b class="nome">ansioso de / por</b>
+    <p class="exp">No dia a dia usamos <b>por</b>. A forma com <b>de</b> aparece mais na literatura.</p>
+    <p class="ex"><span class="rot">Caderno</span> <em>Estava ansiosa por vê-lo.</em></p>
+    <p class="ex"><span class="rot">Outro</span> <em>Estou ansioso pelo resultado da prova.</em></p>
+    <p class="dica">💡 O substantivo ansiedade também pede <b>de</b> ou <b>por</b>.</p>
+  </li>
+  <li>
+    <b class="nome">acessível a</b>
+    <p class="exp">Acessível a quem pode chegar, entrar ou entender.</p>
+    <p class="ex"><span class="rot">Caderno</span> <em>Aquilo era acessível a todos.</em></p>
+    <p class="ex"><span class="rot">Outro</span> <em>O museu é acessível a quem usa cadeira de rodas.</em></p>
+    <p class="dica">💡 Na escrita formal, acessível <b>a</b>, e não <em>acessível para</em>.</p>
+  </li>
+  <li>
+    <b class="nome">confiança em</b>
+    <p class="exp">Quem confia <b>em</b> alguém tem confiança <b>em</b> alguém.</p>
+    <p class="ex"><span class="rot">Caderno</span> <em>Ele tem confiança em você.</em></p>
+    <p class="ex"><span class="rot">Outro</span> <em>Tenho confiança no meu time.</em></p>
+    <p class="dica">💡 O verbo e o nome andam juntos: confiar <b>em</b> leva a confiança <b>em</b>.</p>
+  </li>
+  <li>
+    <b class="nome">agradável a</b>
+    <p class="exp">Agradável a quem sente: aos ouvidos, aos olhos, a todos.</p>
+    <p class="ex"><span class="rot">Caderno</span> <em>O cheiro era agradável a todos.</em></p>
+    <p class="ex"><span class="rot">Outro</span> <em>A música era agradável aos ouvidos.</em></p>
+    <p class="dica">💡 A + os = <b>aos</b>: agradável <b>aos</b> convidados.</p>
+  </li>
+  <li>
+    <b class="nome">alheio a (e o alheamento de)</b>
+    <p class="exp">Quem está alheio não presta atenção no que acontece em volta. O substantivo da mesma família é alheamento.</p>
+    <p class="ex"><span class="rot">Caderno</span> <em>Ele vivia alheio a tudo o que diziam.</em></p>
+    <p class="ex"><span class="rot">Outro</span> <em>O alheamento de tudo o deixou sozinho na sala.</em></p>
+    <p class="dica">💡 O adjetivo pede <b>a</b>: alheio <b>ao</b> barulho.</p>
+  </li>
+  <li>
+    <b class="nome">acostumado a / com</b>
+    <p class="exp">As duas formas valem. Com <b>a</b> costuma vir uma ação; com <b>com</b>, uma coisa ou uma pessoa.</p>
+    <p class="ex"><span class="rot">Caderno</span> <em>Estou acostumada a correr todos os dias.</em></p>
+    <p class="ex"><span class="rot">Outro</span> <em>Já estou acostumado com o horário novo da escola.</em></p>
+    <p class="dica">💡 O verbo segue a mesma linha: acostumei-me <b>a</b> estudar cedo.</p>
+  </li>
+  <li>
+    <b class="nome">acesso a / por</b>
+    <p class="exp">O lugar aonde se chega vem com <b>a</b>; o caminho por onde se passa vem com <b>por</b>.</p>
+    <p class="ex"><span class="rot">Caderno</span> <em>Ele tem acesso ao laboratório da escola.</em></p>
+    <p class="ex"><span class="rot">Outro</span> <em>O acesso à quadra é pelo portão de trás.</em></p>
+    <p class="dica">💡 A + a = <b>à</b> com crase: acesso <b>à</b> quadra.</p>
+  </li>
+  <li>
+    <b class="nome">benefício a</b>
+    <p class="exp">O benefício vai <b>a</b> quem ganha com ele. Também se usa benefício <b>de</b> e <b>para</b>.</p>
+    <p class="ex"><span class="rot">Caderno</span> <em>A musculação traz um grande benefício ao corpo.</em></p>
+    <p class="ex"><span class="rot">Outro</span> <em>A reciclagem traz benefício à cidade inteira.</em></p>
+    <p class="dica">💡 Em benefício <b>de</b> alguém também está certo: o jogo foi em benefício dos atingidos.</p>
+  </li>
+  <li>
+    <b class="nome">capacidade de / para</b>
+    <p class="exp">Com <b>de</b> vem a habilidade; com <b>para</b> vem a finalidade ou quanto cabe.</p>
+    <p class="ex"><span class="rot">Caderno</span> <em>Ela tem uma capacidade especial de concentração.</em></p>
+    <p class="ex"><span class="rot">Outro</span> <em>O ginásio tem capacidade para mil pessoas.</em></p>
+    <p class="dica">💡 Capacidade <b>de</b> concentrar, capacidade <b>para</b> o trabalho.</p>
+  </li>
+  <li>
+    <b class="nome">simpatia a / por</b>
+    <p class="exp">A simpatia vai <b>a</b> alguma causa ou <b>por</b> alguma pessoa.</p>
+    <p class="ex"><span class="rot">Caderno</span> <em>Ela tem simpatia às causas populares.</em></p>
+    <p class="ex"><span class="rot">Outro</span> <em>Tenho muita simpatia por Ana.</em></p>
+    <p class="dica">💡 Cuidado com o verbo: simpatizar pede <b>com</b> e não leva pronome. Nada de <em>me simpatizei</em>.</p>
+  </li>
+  <li>
+    <b class="nome">habituado a</b>
+    <p class="exp">É primo de acostumado, mas só aceita <b>a</b>.</p>
+    <p class="ex"><span class="rot">Caderno</span> <em>Estou habituada a acordar tarde nas férias.</em></p>
+    <p class="ex"><span class="rot">Outro</span> <em>Já estou habituado ao caminho da escola.</em></p>
+    <p class="dica">💡 Habituar-se <b>a</b> alguma coisa: habituei-me <b>ao</b> silêncio.</p>
+  </li>
+  <li>
+    <b class="nome">passivo a / de / diante de</b>
+    <p class="exp">Com <b>a</b> quer dizer resignado, que aceita sem reagir. Com <b>diante de</b>, que fica sem atitude, parado. Com <b>de</b> aparece no sentido de quem sofre a ação.</p>
+    <p class="ex"><span class="rot">Caderno</span> <em>Ele permaneceu passivo a todas as ofensas.</em></p>
+    <p class="ex"><span class="rot">Outro</span> <em>Ela ficou passiva diante da confusão no corredor.</em></p>
+    <p class="dica">💡 Não confunda com <b>passível de</b>, que quer dizer sujeito a: passível de multa.</p>
+  </li>
+</ol>
+<div class="card lembre"><span class="tit">✅ O fio da meada</span>
+  Repare que quase tudo se repete: <b>a</b> aparece em apto, disposto, obediente, acessível, agradável, benefício, habituado; <b>de</b> em fácil, difícil, perto, longe, natural, capacidade; <b>em</b> em firme e confiança; <b>com</b> em satisfeito e acostumado; <b>por</b> em ansioso, simpatia e grato (o motivo). Decorar os grupos é mais fácil do que decorar um por um.
 </div>
 
 <!-- 6 -->

@@ -28,7 +28,7 @@
   .feedback.mostrar{display:block; animation:sobe .25s ease;}
   .feedback.ok{background:var(--verde-claro); border-left:6px solid var(--verde);}
   .feedback.no{background:var(--vermelho-claro); border-left:6px solid var(--vermelho);}
-  .feedback b{display:block; margin-bottom:3px;}
+  .feedback>b:first-child{display:block; margin-bottom:3px;}
   @keyframes sobe{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
   .proxima{margin-top:20px; width:100%; padding:15px; font-size:1.1rem; font-weight:800; background:var(--coral); color:#fff; border:none; border-radius:14px; cursor:pointer; font-family:inherit; display:none; transition:filter .15s;}
   .proxima.mostrar{display:block;} .proxima:hover{filter:brightness(1.08);}
@@ -122,7 +122,7 @@ const questoes = [
     e:"Coisa vai sem preposição: paguei a conta, perdoei a dívida." },
   { q:"Pagar e perdoar, quando o complemento é PESSOA, pedem:", alt:["a preposição a: paguei AO garçom","nenhuma preposição","a preposição de"], c:0,
     e:"Pessoa vai com a: paguei AO entregador, perdoei AO amigo." },
-  { q:"Qual frase está certa?", alt:["Paguei ao mecânico o conserto.","Paguei o mecânico o conserto.","Paguei no mecânico o conserto."], c:0,
+  { q:"Qual frase está escrita corretamente?", alt:["Paguei ao mecânico o conserto.","Paguei o mecânico o conserto.","Paguei no mecânico o conserto."], c:0,
     e:"Pessoa com a (ao mecânico) e coisa sem preposição (o conserto)." },
   // informar, responder, chamar
   { q:"O verbo informar aceita:", alt:["informar algo a alguém e informar alguém de algo","só uma forma, com em","nunca preposição"], c:0,
@@ -146,7 +146,7 @@ const questoes = [
     e:"Esqueci o caderno. Lembrei o combinado." },
   { q:"Com pronome (lembrar-se, esquecer-se), os verbos pedem:", alt:["a preposição de: esqueci-me DO caderno","nenhuma preposição","a preposição a"], c:0,
     e:"Com o pronome entra o de: lembrei-me DO combinado." },
-  { q:"Qual frase está certa?", alt:["Esqueci-me da senha.","Esqueci-me a senha.","Esqueci na senha."], c:0,
+  { q:"Qual das frases está correta?", alt:["Esqueci-me da senha.","Esqueci-me a senha.","Esqueci na senha."], c:0,
     e:"Com pronome entra de: esqueci-me DA senha. Sem pronome: esqueci a senha." },
   // ir e chegar
   { q:"Na norma culta, o certo é:", alt:["Cheguei ao colégio.","Cheguei no colégio.","Cheguei em colégio."], c:0,
@@ -194,6 +194,53 @@ const questoes = [
     e:"Pergunte: gosto de quê? Apareceu o de, então é transitivo indireto." },
   { q:"'Prefiro matemática a português' está:", alt:["certo, porque preferir pede a","errado, faltou do que","errado, faltou mais"], c:0,
     e:"Preferir X A Y é a forma da norma culta." },
+  // lista do caderno
+  { q:"Complete: “Depois do curso, ele ficou apto ___ dirigir.”", alt:["a","de","com"], c:0,
+    e:"Apto pede a preposição <b>a</b>: apto a dirigir, apto a competir." },
+  { q:"Complete: “Ela estava disposta ___ recomeçar tudo.”", alt:["a","em","por"], c:0,
+    e:"Disposto pede <b>a</b>: disposta a recomeçar, disposto a tentar de novo." },
+  { q:"Complete: “Essa matéria é difícil ___ decorar.”", alt:["de","a","para"], c:0,
+    e:"Fácil e difícil pedem <b>de</b>: fácil de fazer, difícil de decorar." },
+  { q:"Complete: “Ele continuou firme ___ sua opinião.”", alt:["em","a","de"], c:0,
+    e:"Firme pede <b>em</b>: firme em sua opinião, firme no propósito." },
+  { q:"Complete: “Sou grato ___ você ___ tudo o que fez.”", alt:["a … por","de … com","com … de"], c:0,
+    e:"Grato pede <b>a</b> para a pessoa e <b>por</b> para o motivo: grato a você por tudo." },
+  { q:"Complete: “A luta ___ o preconceito é de todo mundo.”", alt:["contra","de","em"], c:0,
+    e:"Luta pede <b>contra</b> quando se enfrenta alguma coisa. Se for a favor, é luta <b>por</b>." },
+  { q:"Complete: “Ele é natural ___ Salvador.”", alt:["de","em","a"], c:0,
+    e:"Natural pede <b>de</b> para indicar o lugar de nascimento: natural de Salvador." },
+  { q:"Complete: “O time foi obediente ___ orientações do técnico.”", alt:["às","das","com as"], c:0,
+    e:"Obediente pede <b>a</b>, e a + as = <b>às</b>: obediente às orientações." },
+  { q:"Complete: “A quadra fica perto ___ portão.”", alt:["do","ao","no"], c:0,
+    e:"Perto pede <b>de</b>: perto do portão. O mesmo vale para longe de." },
+  { q:"Complete: “Fiquei satisfeito ___ minha nota.”", alt:["com a","a","de"], c:0,
+    e:"Satisfeito pede <b>com</b>: satisfeito com a nota, satisfeito com o resultado." },
+  { q:"Qual frase está na forma mais formal, a que aparece em textos antigos?", alt:["Amor para com a pátria","Amor na pátria","Amor sobre a pátria"], c:0,
+    e:"<b>Amor para com</b> é a forma mais formal. No dia a dia usamos amor <b>a</b> ou amor <b>por</b>." },
+  { q:"Complete: “Estou ansioso ___ as férias.”", alt:["por","em","a"], c:0,
+    e:"Ansioso pede <b>por</b>: ansioso pelas férias, ansioso pelo resultado." },
+  { q:"Complete: “A linguagem do livro é acessível ___ crianças.”", alt:["às","das","pelas"], c:0,
+    e:"Acessível pede <b>a</b>, e a + as = <b>às</b>: acessível às crianças." },
+  { q:"Complete: “Tenho confiança ___ que você vai conseguir.”", alt:["em","de","a"], c:0,
+    e:"Confiança pede <b>em</b>, assim como o verbo confiar em." },
+  { q:"Complete: “O clima estava agradável ___ todos.”", alt:["a","com","por"], c:0,
+    e:"Agradável pede <b>a</b>: agradável a todos, agradável aos olhos." },
+  { q:"Complete: “Ele ficou alheio ___ discussão.”", alt:["à","de","com"], c:0,
+    e:"Alheio pede <b>a</b>, e a + a = <b>à</b> com crase: alheio à discussão." },
+  { q:"Complete: “Ele está acostumado ___ acordar cedo.”", alt:["a","de","em"], c:0,
+    e:"Acostumado aceita <b>a</b> e <b>com</b>. Antes de verbo entra <b>a</b>: acostumado a acordar." },
+  { q:"Complete: “Os alunos têm acesso ___ biblioteca nos intervalos.”", alt:["à","na","da"], c:0,
+    e:"Acesso pede <b>a</b>, e a + a = <b>à</b> com crase: acesso à biblioteca." },
+  { q:"Complete: “Dormir bem traz benefício ___ memória.”", alt:["à","na","com a"], c:0,
+    e:"Benefício pede <b>a</b>, e a + a = <b>à</b> com crase: benefício à memória." },
+  { q:"Complete: “O ônibus tem capacidade ___ quarenta passageiros.”", alt:["para","de","com"], c:0,
+    e:"Quando se fala de quanto cabe, a preposição é <b>para</b>: capacidade para quarenta passageiros." },
+  { q:"Complete: “Sinto simpatia ___ o novo colega.”", alt:["por","a","de"], c:0,
+    e:"Simpatia pede <b>por</b> diante de pessoa. Já o verbo é simpatizar <b>com</b>." },
+  { q:"Complete: “Ele já está habituado ___ rotina nova.”", alt:["à","com a","na"], c:0,
+    e:"Habituado pede <b>a</b>, e a + a = <b>à</b> com crase: habituado à rotina nova." },
+  { q:"Na frase “Ele ficou passivo diante da briga”, passivo quer dizer que ele...", alt:["não tomou nenhuma atitude","brigou com os dois","chamou a diretora"], c:0,
+    e:"<b>Passivo diante de</b> é ficar parado, sem reagir à situação." },
 ];
 function embaralhar(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
 function preparar(){
