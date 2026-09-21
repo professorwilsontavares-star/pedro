@@ -35,7 +35,7 @@ Material escolar do Pedro (14 anos, Ensino Fundamental Anos Finais / 9º ano), p
 | `port-regencia-quiz.html` | Quiz interativo (65 questões, embaralha sozinho) |
 
 **Ocultos no hub** (ficam dentro do comentário `OCULTO_ARQUIVO` no `index.html`; para reexibir, apague a linha do marcador de abertura e a `FIM_OCULTO_ARQUIVO`):
-`port-estrangeirismos-trabalho` (trabalho de 20/08, já entregue: saiu do hub em 20/09, o arquivo continua aqui), `geo-mod04-*`, `geo-mod05-*` (Europa: economia e setor primário), `quim-distribuicao-*` e `quim-vanadio-instagram` (Química), `port-felicidade-clandestina-*` e `port-argumentacao-*` (Português), `hist-mod06-*` e `hist-mod07-*` (História).
+`port-regencia-*` (prova de Português de 21/09, já feita: oculto em 21/09), `bio-mod10-*` (Evolução: fora do tema genética, oculto em 21/09), `port-estrangeirismos-trabalho` (trabalho de 20/08, já entregue: saiu do hub em 20/09, o arquivo continua aqui), `geo-mod04-*`, `geo-mod05-*` (Europa: economia e setor primário), `quim-distribuicao-*` e `quim-vanadio-instagram` (Química), `port-felicidade-clandestina-*` e `port-argumentacao-*` (Português), `hist-mod06-*` e `hist-mod07-*` (História).
 
 > Fonte do módulo de Biologia: **Caderno 4 de Ciências** (Marmo, Velloso e Usberco), Setor A, Módulo 7, páginas 364 a 381. Prints em `C:\Projetos\Pedro\fontes\Biologia\`.
 >
