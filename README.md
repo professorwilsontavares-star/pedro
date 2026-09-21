@@ -13,11 +13,17 @@ Material escolar do Pedro (14 anos, Ensino Fundamental Anos Finais / 9º ano), p
 
 ## Conteúdo atual
 
-**No ar hoje (Regência de Português e Biologia, Módulos 7, 9 e 10):**
+**No ar hoje (Química Módulos 7 e 8, Regência de Português e Biologia Módulos 7, 9 e 10):**
 
 | Arquivo | O que é |
 |---|---|
 | `index.html` | **Hub** — página inicial que lista as atividades |
+| `quim-mod07-resumo.html` | Resumo de **Ligações químicas** (Módulo 7) com 3 figuras SVG e tabelas |
+| `quim-mod07-revisao.html` | Revisão em cartões (56 cartões) |
+| `quim-mod07-quiz.html` | Quiz interativo (68 questões, embaralha sozinho) |
+| `quim-mod08-resumo.html` | Resumo de **Funções inorgânicas** (Módulo 8) com 2 figuras SVG (teste da lâmpada e escala de pH) e tabelas |
+| `quim-mod08-revisao.html` | Revisão em cartões (69 cartões) |
+| `quim-mod08-quiz.html` | Quiz interativo (79 questões, embaralha sozinho) |
 | `bio-mod07-revisao.html` | Revisão em cartões (47 cartões) |
 | `bio-mod07-quiz.html` | Quiz interativo (65 questões, embaralha sozinho) |
 | `bio-mod07-resumo.html` | Resumo + figuras SVG + **respostas de todos os exercícios** do módulo |
@@ -59,6 +65,7 @@ Material escolar do Pedro (14 anos, Ensino Fundamental Anos Finais / 9º ano), p
 | Biologia | `#0f766e` (teal) | `#d5f2ee` |
 | Geografia | `#4d7c0f` (verde-oliva) | `#eef6e6` |
 | Português | `#6c3fa3` (roxo) | `#f0e9f8` |
+| Química | `#4338ca` (índigo) | `#e8e7fb` |
 
 ### Padrões por tipo de página
 - **Quiz:** 3 alternativas; **embaralhar automaticamente** a ordem das perguntas E das alternativas a cada rodada (Fisher-Yates); resposta de cada questão **reforça o conceito** (ex.: "O ataque à base americana de Pearl Harbor…"); incluir **pares de questões parecidas** (mesmo conceito perguntado de 2-3 jeitos) para massificar; botão final "🔀 Embaralhar e refazer".

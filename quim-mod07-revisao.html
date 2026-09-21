@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revisão do Pedro: Ligações químicas</title>
+<style>
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:"Segoe UI",system-ui,Arial,sans-serif; background:linear-gradient(160deg,#eeedfb,#d9d6f5); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px; color:#1E2B38;}
+  .box{width:100%; max-width:520px; text-align:center;}
+  h1{font-size:1.3rem; color:#4338ca; margin-bottom:4px;}
+  .sub{color:#64748b; font-size:.9rem; margin-bottom:18px;}
+  .contador{font-weight:700; color:#64748b; margin-bottom:12px;}
+  .cartao{background:#fff; border-radius:22px; box-shadow:0 12px 34px rgba(67,56,202,.16); padding:36px 28px; min-height:250px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:20px;}
+  .rotulo{font-size:.75rem; letter-spacing:1.5px; text-transform:uppercase; font-weight:800;}
+  .rotulo.p{color:#E25E42;} .rotulo.r{color:#4338ca;}
+  .pergunta{font-size:1.4rem; font-weight:800; line-height:1.4;}
+  .resposta{font-size:1.2rem; line-height:1.5; color:#312e81; display:none; white-space:pre-line;}
+  .resposta.mostrar{display:block;}
+  .bts{display:flex; gap:10px; margin-top:18px; justify-content:center; flex-wrap:wrap;}
+  button{font-family:inherit; font-size:1rem; font-weight:800; border:none; cursor:pointer; padding:14px 22px; border-radius:14px; transition:filter .15s;}
+  button:hover{filter:brightness(1.08);}
+  .ver{background:#4338ca; color:#fff;} .prox{background:#E25E42; color:#fff;} .voltar{background:#e2e8f0; color:#1E2B38;}
+</style>
+</head>
+<body>
+<a href="index.html" class="btn-voltar-hub" style="position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:9999;display:inline-flex;align-items:center;gap:7px;background:#E25E42;color:#fff;text-decoration:none;font-weight:800;font-size:1rem;padding:11px 18px;border-radius:30px;box-shadow:0 4px 14px rgba(0,0,0,.3);font-family:'Segoe UI',system-ui,Arial,sans-serif;">← Voltar</a>
+<div class="box">
+  <h1>🔗 Ligações químicas em cartões</h1>
+  <div class="sub">Pergunta e resposta na mesma tela: leia, tente lembrar de cabeça e confira na hora.</div>
+  <div class="contador" id="contador"></div>
+  <div class="cartao">
+    <div><div class="rotulo p">Pergunta</div><div class="pergunta" id="pergunta"></div></div>
+    <div class="resposta" id="resposta"></div>
+  </div>
+  <div class="bts">
+    <button class="voltar" id="voltar">← Voltar</button>
+    <button class="ver" id="ver">👁️ Ver resposta</button>
+    <button class="prox" id="prox">Próximo →</button>
+  </div>
+</div>
+<script>
+const cartoes = [
+  ["O que é ligação química?", "A união entre átomos. Quem faz a ligação são os elétrons da última camada."],
+  ["Por que os gases nobres quase não se ligam?", "Porque já são estáveis: têm 8 elétrons na última camada (o hélio tem 2)."],
+  ["O que diz a regra do octeto?", "Os átomos se ligam para ficar com 8 elétrons na última camada, iguais a um gás nobre."],
+  ["O que é camada de valência?", "A última camada de elétrons do átomo. É só ela que participa da ligação."],
+  ["Com quantos elétrons o hidrogênio fica estável?", "Com 2, igual ao hélio."],
+  ["Quais são os três caminhos para chegar a 8 elétrons?", "PERDER, GANHAR ou COMPARTILHAR elétrons."],
+  ["Quem tem 1, 2 ou 3 elétrons na última camada prefere...", "PERDER elétrons. São os metais."],
+  ["Quem tem 5, 6 ou 7 elétrons na última camada prefere...", "GANHAR elétrons. São os ametais."],
+  ["O que é um íon?", "Um átomo com carga elétrica, porque perdeu ou ganhou elétrons."],
+  ["O que é cátion?", "O íon POSITIVO. Perdeu elétrons. Ex.: Na⁺."],
+  ["O que é ânion?", "O íon NEGATIVO. Ganhou elétrons. Ex.: Cl⁻."],
+  ["Que carga fica o cálcio (família 2)?", "Ca²⁺. Tem 2 elétrons na última camada e perde os 2."],
+  ["Que carga fica o alumínio (família 13)?", "Al³⁺. Tem 3 elétrons na última camada e perde os 3."],
+  ["Que carga fica o oxigênio (família 16)?", "O²⁻. Tem 6 elétrons na última camada e ganha 2."],
+  ["Que carga fica o cloro (família 17)?", "Cl⁻. Tem 7 elétrons na última camada e ganha 1."],
+  ["Ligação iônica acontece entre quem?", "Entre um METAL e um AMETAL."],
+  ["O que acontece com os elétrons na ligação iônica?", "O metal TRANSFERE (entrega) elétrons para o ametal."],
+  ["O que segura os íons juntos na ligação iônica?", "A atração elétrica entre cargas opostas: o cátion (+) e o ânion (−)."],
+  ["Como nasce o sal de cozinha?", "O sódio entrega 1 elétron ao cloro. Viram Na⁺ e Cl⁻, que se atraem: NaCl."],
+  ["Como se monta a fórmula de um composto iônico?", "Pelo cruzamento: a carga de um íon vira o índice do outro, sem o sinal. Depois simplifica, se der."],
+  ["Qual é a fórmula entre Al³⁺ e O²⁻?", "Al₂O₃ (óxido de alumínio)."],
+  ["Qual é a fórmula entre Ca²⁺ e Cl⁻?", "CaCl₂ (cloreto de cálcio)."],
+  ["Qual é a fórmula entre Mg²⁺ e O²⁻?", "MgO. O cruzamento dá Mg₂O₂, que se simplifica."],
+  ["Como conferir se a fórmula iônica está certa?", "A soma das cargas tem de dar ZERO."],
+  ["Quem vem primeiro na fórmula iônica?", "O cátion, ou seja, o metal. Ex.: NaCl, e não ClNa."],
+  ["O que é retículo cristalino?", "O bloco organizado de cátions e ânions alternados que forma o composto iônico sólido."],
+  ["Qual é o estado físico dos compostos iônicos na temperatura ambiente?", "Sólido."],
+  ["Como é o ponto de fusão dos compostos iônicos?", "ALTO. O sal de cozinha só derrete a 801 °C."],
+  ["O sal sólido conduz corrente elétrica?", "NÃO. Os íons estão presos no retículo."],
+  ["O sal dissolvido na água conduz corrente elétrica?", "SIM. Os íons ficam soltos e podem andar."],
+  ["Ligação covalente acontece entre quem?", "Entre AMETAL e AMETAL, ou AMETAL e HIDROGÊNIO."],
+  ["O que acontece com os elétrons na ligação covalente?", "São COMPARTILHADOS. Cada par dividido é uma ligação."],
+  ["Por que na ligação covalente ninguém entrega elétron?", "Porque os dois átomos querem GANHAR. A saída é dividir."],
+  ["Como também se chama a ligação covalente?", "Ligação molecular. O conjunto de átomos ligados forma uma molécula."],
+  ["Na ligação covalente formam-se íons?", "NÃO. Ninguém fica com carga."],
+  ["Quantos pares divide uma ligação simples, dupla e tripla?", "Simples (–): 1 par.\nDupla (=): 2 pares.\nTripla (≡): 3 pares."],
+  ["Qual é a ligação na molécula de O₂?", "Uma ligação DUPLA: O=O."],
+  ["Qual é a ligação na molécula de N₂?", "Uma ligação TRIPLA: N≡N."],
+  ["Quantas ligações faz cada um: H, O, N e C?", "H: 1.\nO: 2.\nN: 3.\nC: 4."],
+  ["Qual é a fórmula estrutural da água?", "H–O–H. Duas ligações simples."],
+  ["Qual é a fórmula estrutural do gás carbônico?", "O=C=O. Duas ligações duplas."],
+  ["Qual a diferença entre fórmula eletrônica, estrutural e molecular?", "Eletrônica: mostra os elétrons em pontinhos.\nEstrutural: mostra as ligações em tracinhos.\nMolecular: só conta os átomos (H₂O)."],
+  ["Como são os pontos de fusão das substâncias moleculares?", "BAIXOS, bem menores que os dos compostos iônicos."],
+  ["Substâncias moleculares conduzem corrente elétrica?", "Em geral NÃO, porque não têm íons livres. Exceção: ácidos dissolvidos em água."],
+  ["O que é a ligação metálica?", "Cátions de metal mergulhados num MAR DE ELÉTRONS livres, que funciona como cola."],
+  ["Por que os metais conduzem eletricidade e calor?", "Por causa dos elétrons livres do mar de elétrons."],
+  ["O que é ser maleável?", "Poder virar lâmina. Ex.: papel-alumínio."],
+  ["O que é ser dúctil?", "Poder virar fio. Ex.: fio de cobre."],
+  ["Qual metal é líquido na temperatura ambiente?", "O mercúrio."],
+  ["O que é uma liga metálica?", "A mistura de um metal com outros elementos para melhorar uma propriedade."],
+  ["Do que é feito o bronze?", "Cobre + estanho."],
+  ["Do que é feito o latão?", "Cobre + zinco."],
+  ["Do que é feito o aço?", "Ferro + carbono."],
+  ["Quanto de ouro tem o ouro 18 quilates?", "75%. São 18 partes de ouro em 24."],
+  ["NaCl, H₂O e Fe: qual ligação em cada um?", "NaCl: iônica (metal + ametal).\nH₂O: covalente (ametal + hidrogênio).\nFe: metálica."],
+  ["O hidrogênio é metal?", "NÃO. Fica na coluna 1, mas com ametais faz ligação covalente (H₂O, HCl)."],
+]
+let i = 0;
+const $ = id => document.getElementById(id);
+function mostrar(){
+  $("contador").textContent = `Cartão ${i+1} de ${cartoes.length}`;
+  $("pergunta").textContent = cartoes[i][0];
+  $("resposta").textContent = cartoes[i][1];
+  $("resposta").className = "resposta mostrar";   // resposta sempre visivel
+  $("ver").style.display = "none";
+  $("voltar").disabled = (i === 0); $("voltar").style.opacity = (i === 0) ? .4 : 1;
+  $("prox").textContent = (i === cartoes.length-1) ? "🔁 Recomeçar" : "Próximo →";
+}
+$("ver").onclick = ()=>{ $("resposta").className = "resposta mostrar"; $("ver").style.display = "none"; };
+$("prox").onclick = ()=>{ i = (i+1) % cartoes.length; mostrar(); };
+$("voltar").onclick = ()=>{ if(i > 0){ i--; mostrar(); } };
+mostrar();
+</script>
+</body>
+</html>
