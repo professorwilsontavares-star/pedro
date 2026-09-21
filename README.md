@@ -13,17 +13,14 @@ Material escolar do Pedro (14 anos, Ensino Fundamental Anos Finais / 9º ano), p
 
 ## Conteúdo atual
 
-**No ar hoje (Química Módulos 7 e 8, Regência de Português e Biologia Módulos 7, 9 e 10):**
+**No ar hoje (Química da prova do 3º bimestre, Regência de Português e Biologia Módulos 7, 9 e 10):**
 
 | Arquivo | O que é |
 |---|---|
 | `index.html` | **Hub** — página inicial que lista as atividades |
-| `quim-mod07-resumo.html` | Resumo de **Ligações químicas** (Módulo 7) com 3 figuras SVG e tabelas |
-| `quim-mod07-revisao.html` | Revisão em cartões (56 cartões) |
-| `quim-mod07-quiz.html` | Quiz interativo (68 questões, embaralha sozinho) |
-| `quim-mod08-resumo.html` | Resumo de **Funções inorgânicas** (Módulo 8) com 2 figuras SVG (teste da lâmpada e escala de pH) e tabelas |
-| `quim-mod08-revisao.html` | Revisão em cartões (69 cartões) |
-| `quim-mod08-quiz.html` | Quiz interativo (79 questões, embaralha sozinho) |
+| `quim-prova3bim-resumo.html` | **Química, prova do 3º bimestre**: o básico de ligações, ácido/base/sal, pH e óxidos, com as **respostas dos exercícios do Módulo 9 (óxidos)** |
+| `quim-prova3bim-revisao.html` | Revisão em cartões (20 cartões) |
+| `quim-prova3bim-quiz.html` | Quiz interativo (25 questões, embaralha sozinho) |
 | `bio-mod07-revisao.html` | Revisão em cartões (47 cartões) |
 | `bio-mod07-quiz.html` | Quiz interativo (65 questões, embaralha sozinho) |
 | `bio-mod07-resumo.html` | Resumo + figuras SVG + **respostas de todos os exercícios** do módulo |
@@ -57,6 +54,7 @@ Material escolar do Pedro (14 anos, Ensino Fundamental Anos Finais / 9º ano), p
 3. **Registrar no hub:** todo material novo entra como um card no `index.html`, com a **contagem certa** (ex.: "48 perguntas", não deixar número velho). O **nome da disciplina** (a `.tag`, ex.: "PORTUGUÊS · ...") fica sempre em **destaque grande** no topo de cada bloco.
 4. **Autocontido:** CSS e JS inline no próprio `.html` (funciona offline).
 5. **Estilo:** simples, linguagem de adolescente, interativo. NÃO é apostila de concurso — foco em lembrar os pontos principais.
+   ⚠ **Para prova, o básico do básico** (pedido de 21/09): só o que é certo o professor cobrar, para o Pedro não zerar. Referência: 20 cartões e 25 questões por prova, resumo curto em tabelas. Nada de 60 a 80 questões.
 
 6. **Cor da matéria:** cada disciplina tem a sua, usada no header, nos títulos de seção e nos botões.
 
