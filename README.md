@@ -19,8 +19,8 @@ Material escolar do Pedro (14 anos, Ensino Fundamental Anos Finais / 9º ano), p
 |---|---|
 | `index.html` | **Hub** — página inicial que lista as atividades |
 | `quim-prova3bim-resumo.html` | **Química, prova do 3º bimestre**: o básico dos Módulos 7 e 8, conferido com o caderno, com as **respostas de todos os exercícios** |
-| `quim-prova3bim-revisao.html` | Revisão em cartões (24 cartões) |
-| `quim-prova3bim-quiz.html` | Quiz interativo (28 questões, embaralha sozinho) |
+| `quim-prova3bim-revisao.html` | Revisão em cartões (39 cartões, os 15 primeiros bem fáceis) |
+| `quim-prova3bim-quiz.html` | Quiz interativo (43 questões, 15 bem fáceis, embaralha sozinho) |
 | `bio-mod07-revisao.html` | Revisão em cartões (47 cartões) |
 | `bio-mod07-quiz.html` | Quiz interativo (65 questões, embaralha sozinho) |
 | `bio-mod07-resumo.html` | Resumo + figuras SVG + **respostas de todos os exercícios** do módulo |
