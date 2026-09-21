@@ -18,7 +18,7 @@ Material escolar do Pedro (14 anos, Ensino Fundamental Anos Finais / 9º ano), p
 | Arquivo | O que é |
 |---|---|
 | `index.html` | **Hub** — página inicial que lista as atividades |
-| `quim-prova3bim-resumo.html` | **Química, prova do 3º bimestre**: o básico de ligações, ácido/base/sal, pH e óxidos, com as **respostas dos exercícios do Módulo 9 (óxidos)** |
+| `quim-prova3bim-resumo.html` | **Química, prova do 3º bimestre**: o básico dos Módulos 7 e 8 (ligações; ácido, base e sal; pH e neutralização) |
 | `quim-prova3bim-revisao.html` | Revisão em cartões (20 cartões) |
 | `quim-prova3bim-quiz.html` | Quiz interativo (25 questões, embaralha sozinho) |
 | `bio-mod07-revisao.html` | Revisão em cartões (47 cartões) |
