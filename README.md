@@ -13,11 +13,14 @@ Material escolar do Pedro (14 anos, Ensino Fundamental Anos Finais / 9º ano), p
 
 ## Conteúdo atual
 
-**No ar hoje (Química da prova do 3º bimestre, Regência de Português e Biologia Módulos 7, 9 e 10):**
+**No ar hoje (Geografia da prova do 3º bimestre; Química e Biologia ocultas):**
 
 | Arquivo | O que é |
 |---|---|
 | `index.html` | **Hub** — página inicial que lista as atividades |
+| `geo-prova3bim-resumo.html` | **Geografia, prova do 3º bimestre**: Rússia (p. 290 a 296) e China (módulo inteiro), com o mais fácil no começo e as respostas do caderno |
+| `geo-prova3bim-revisao.html` | Revisão em cartões (26 cartões) |
+| `geo-prova3bim-quiz.html` | Quiz interativo (31 questões, 10 bem fáceis) |
 | `quim-prova3bim-resumo.html` | **Química, prova do 3º bimestre**: o básico dos Módulos 7 e 8, conferido com o caderno, com as **respostas de todos os exercícios** |
 | `quim-prova3bim-revisao.html` | Revisão em cartões (39 cartões, os 15 primeiros bem fáceis) |
 | `quim-prova3bim-quiz.html` | Quiz interativo (43 questões, 15 bem fáceis, embaralha sozinho) |
@@ -34,7 +37,7 @@ Material escolar do Pedro (14 anos, Ensino Fundamental Anos Finais / 9º ano), p
 | `port-regencia-revisao.html` | Revisão em cartões (48 cartões: a matéria e os 23 nomes da lista do caderno) |
 | `port-regencia-quiz.html` | Quiz interativo (65 questões, embaralha sozinho) |
 
-**Ocultos no hub** (ficam dentro do comentário `OCULTO_ARQUIVO` no `index.html`; para reexibir, apague a linha do marcador de abertura e a `FIM_OCULTO_ARQUIVO`):
+**Ocultos no hub** (desde 24/09 também `quim-prova3bim-*`, prova já feita, e `bio-mod07-*` e `bio-mod09-*`, que voltam na semana de 28/09; ficam dentro do comentário `OCULTO_ARQUIVO` no `index.html`; para reexibir, apague a linha do marcador de abertura e a `FIM_OCULTO_ARQUIVO`):
 `port-regencia-*` (prova de Português de 21/09, já feita: oculto em 21/09), `bio-mod10-*` (Evolução: fora do tema genética, oculto em 21/09), `port-estrangeirismos-trabalho` (trabalho de 20/08, já entregue: saiu do hub em 20/09, o arquivo continua aqui), `geo-mod04-*`, `geo-mod05-*` (Europa: economia e setor primário), `quim-distribuicao-*` e `quim-vanadio-instagram` (Química), `port-felicidade-clandestina-*` e `port-argumentacao-*` (Português), `hist-mod06-*` e `hist-mod07-*` (História).
 
 > Fonte do módulo de Biologia: **Caderno 4 de Ciências** (Marmo, Velloso e Usberco), Setor A, Módulo 7, páginas 364 a 381. Prints em `C:\Projetos\Pedro\fontes\Biologia\`.

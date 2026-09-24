@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz do Pedro: Geografia, prova do 3º bimestre</title>
+<style>
+  :root{--navy:#1E2B38; --q:#4d7c0f; --q-cl:#eef6e6; --laranja:#FFE4CC; --coral:#E25E42; --ok:#2e7d4f; --ok-cl:#d7f0df; --no:#c0392b; --no-cl:#fbe0dc; --cinza:#64748b;}
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif; background:linear-gradient(160deg,#f1f7ea,#dcebc9); color:var(--navy); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px; line-height:1.55;}
+  .app{width:100%; max-width:640px; background:#fff; border-radius:24px; box-shadow:0 12px 40px rgba(77,124,15,.16); overflow:hidden;}
+  header{background:linear-gradient(135deg,#4d7c0f,#365314); color:#fff; padding:22px 26px 18px;}
+  header .selo{font-size:.72rem; letter-spacing:1.5px; text-transform:uppercase; opacity:.8; font-weight:700;}
+  header h1{font-size:1.35rem; margin-top:4px;}
+  .barra-topo{display:flex; justify-content:space-between; align-items:center; margin-top:14px; font-size:.9rem; font-weight:700;}
+  .progresso{height:9px; background:rgba(255,255,255,.25); border-radius:20px; margin-top:10px; overflow:hidden;}
+  .progresso span{display:block; height:100%; width:0; background:var(--coral); border-radius:20px; transition:width .35s ease;}
+  main{padding:26px 26px 30px;}
+  .pergunta{font-size:1.25rem; font-weight:800; color:var(--navy); margin-bottom:20px; min-height:60px;}
+  .alternativas{display:flex; flex-direction:column; gap:12px;}
+  .alt{text-align:left; font-size:1.05rem; padding:15px 18px; border:2px solid #dcebc9; background:#f6faf0; border-radius:14px; cursor:pointer; transition:all .15s ease; display:flex; align-items:center; gap:12px; font-family:inherit; color:var(--navy);}
+  .alt:hover:not(:disabled){border-color:var(--q); background:var(--q-cl); transform:translateY(-1px);}
+  .alt:disabled{cursor:default;}
+  .alt .letra{flex:0 0 30px; height:30px; border-radius:50%; background:var(--q); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:.95rem;}
+  .alt.certo{border-color:var(--ok); background:var(--ok-cl);} .alt.certo .letra{background:var(--ok);}
+  .alt.errado{border-color:var(--no); background:var(--no-cl);} .alt.errado .letra{background:var(--no);}
+  .feedback{margin-top:20px; padding:15px 18px; border-radius:14px; display:none; font-size:1rem;}
+  .feedback.mostrar{display:block;}
+  .feedback.ok{background:var(--ok-cl);}
+  .feedback.no{background:var(--no-cl);}
+  .feedback b:first-child{display:block; margin-bottom:3px;}
+  .proxima{margin-top:20px; width:100%; padding:15px; font-size:1.1rem; font-weight:800; background:var(--coral); color:#fff; border:none; border-radius:14px; cursor:pointer; font-family:inherit; display:none;}
+  .proxima.mostrar{display:block;} .proxima:hover{filter:brightness(1.08);}
+  .final{text-align:center; padding:14px 6px;}
+  .final .emoji{font-size:3.4rem;} .final h2{font-size:1.6rem; margin:10px 0;}
+  .final .placar{font-size:1.15rem; color:var(--cinza); margin-bottom:6px;}
+  .final .nota{font-size:3rem; font-weight:900; color:var(--q); margin:6px 0;}
+  .final .recado{background:var(--laranja); border-radius:14px; padding:14px 18px; margin:18px 0; color:var(--navy);}
+  .refazer{padding:14px 28px; font-size:1.05rem; font-weight:800; background:var(--q); color:#fff; border:none; border-radius:14px; cursor:pointer; font-family:inherit;}
+</style>
+</head>
+<body>
+<a href="index.html" class="btn-voltar-hub" style="position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:9999;display:inline-flex;align-items:center;gap:7px;background:#E25E42;color:#fff;text-decoration:none;font-weight:800;font-size:1rem;padding:11px 18px;border-radius:30px;box-shadow:0 4px 14px rgba(0,0,0,.3);font-family:'Segoe UI',system-ui,Arial,sans-serif;">← Voltar</a>
+<div class="app">
+  <header>
+    <div class="selo">Geografia · Prova do 3º bimestre · Quiz</div>
+    <h1>Geografia: o básico 🌏</h1>
+    <div class="barra-topo"><span id="contador">Questão 1</span><span id="placar">Acertos: 0</span></div>
+    <div class="progresso"><span id="barra"></span></div>
+  </header>
+  <main id="palco">
+    <div class="pergunta" id="pergunta"></div>
+    <div class="alternativas" id="alternativas"></div>
+    <div class="feedback" id="feedback"></div>
+    <button class="proxima" id="proxima">Próxima ➜</button>
+  </main>
+</div>
+<script>
+const questoes = [
+  // faceis
+  { q:"A URSS acabou em...", alt:["1991","1917","2014"], c:0,
+    e:"Ela tinha nascido em 1917." },
+  { q:"A Guerra Fria foi a disputa entre...", alt:["EUA e URSS","China e Japão","Brasil e Argentina"], c:0,
+    e:"Principalmente nas áreas militar e aeroespacial." },
+  { q:"Qual país NÃO faz parte do Brics?", alt:["Estados Unidos","Brasil","China"], c:0,
+    e:"Brics = Brasil, Rússia, Índia, China e África do Sul." },
+  { q:"Qual país é membro permanente do Conselho de Segurança da ONU?", alt:["Rússia","Brasil","Alemanha"], c:0,
+    e:"Os 5 permanentes são EUA, Rússia, China, França e Reino Unido." },
+  { q:"Em 2014, a Rússia anexou...", alt:["a Crimeia","a Sibéria","a Polônia"], c:0,
+    e:"Uma península no sul da Ucrânia." },
+  { q:"Em 2022, a Rússia invadiu...", alt:["a Ucrânia","a China","a Finlândia"], c:0,
+    e:"É a Guerra da Ucrânia." },
+  { q:"A capital da China é...", alt:["Pequim","Xangai","Hong Kong"], c:0,
+    e:"Xangai é a maior cidade." },
+  { q:"A montanha mais alta do mundo é o...", alt:["Everest","K2","Kilimanjaro"], c:0,
+    e:"Tem 8.848 m e fica no Himalaia." },
+  { q:"A maior hidrelétrica do mundo é...", alt:["Três Gargantas","Itaipu","Belo Monte"], c:0,
+    e:"Fica no rio Azul, na China." },
+  { q:"A principal parceira comercial do Brasil é...", alt:["a China","a Rússia","o Japão"], c:0,
+    e:"Desde 2010." },
+  // russia
+  { q:"Qual país tem o maior arsenal nuclear do mundo?", alt:["Rússia","China","França"], c:0,
+    e:"5.580 ogivas, herdadas da URSS. Os EUA vêm logo atrás." },
+  { q:"Na venda de armas, a Rússia é...", alt:["a 3ª maior exportadora","a 1ª maior exportadora","uma grande importadora"], c:0,
+    e:"Atrás dos EUA e da França." },
+  { q:"\"Fuga de cérebros\" é...", alt:["cientistas indo embora para outros países","gente saindo do campo para a cidade","turistas deixando o país"], c:0,
+    e:"Aconteceu na Rússia depois do fim da URSS." },
+  { q:"A estação MIR foi...", alt:["a primeira estação espacial tripulada","um míssil nuclear","uma usina hidrelétrica"], c:0,
+    e:"Lançada e mantida pela Rússia." },
+  { q:"Que países da ex-URSS NÃO entraram na CEI?", alt:["Estônia, Letônia e Lituânia","Rússia, Ucrânia e Belarus","Geórgia e Armênia"], c:0,
+    e:"São os países Bálticos." },
+  { q:"Por que existem movimentos separatistas na Rússia?", alt:["Porque há mais de 150 etnias","Porque o país é pequeno","Porque todos falam a mesma língua"], c:0,
+    e:"E 21 repúblicas autônomas." },
+  { q:"A Rússia alegou invadir a Ucrânia para impedir que ela entrasse na...", alt:["Otan","ONU","CEI"], c:0,
+    e:"A Otan é uma aliança militar liderada pelos EUA." },
+  { q:"Na Síria, a Rússia apoiou...", alt:["o presidente Assad","os rebeldes","os EUA"], c:0,
+    e:"Com ataques aéreos e bases militares, a partir de 2015." },
+  // china
+  { q:"Como é o relevo da China?", alt:["Alto no oeste e baixo no leste","Baixo no oeste e alto no leste","Todo plano"], c:0,
+    e:"Oeste: Himalaia e Tibete. Leste: planícies." },
+  { q:"Onde vive a maior parte dos chineses?", alt:["No leste","No oeste","No Tibete"], c:0,
+    e:"70% vivem no leste, que é mais baixo e úmido." },
+  { q:"O Planalto do Tibete é chamado de...", alt:["Telhado do Mundo","Fábrica do Mundo","Grande Planície"], c:0,
+    e:"Tem mais de 4.000 m de altitude." },
+  { q:"Em 2023, o país mais populoso do mundo passou a ser...", alt:["a Índia","a China","os EUA"], c:0,
+    e:"A China tem cerca de 1,4 bilhão e a população diminui desde 2022." },
+  { q:"A política do filho único levou a China a ter...", alt:["mais homens que mulheres e população envelhecida","muitas crianças","mais mulheres que homens"], c:0,
+    e:"Valeu de 1979 a 2015." },
+  { q:"Em 1949, Mao Tsé-Tung criou...", alt:["a República Popular da China","a URSS","Taiwan"], c:0,
+    e:"Os nacionalistas derrotados fugiram para Taiwan." },
+  { q:"O Grande Salto Adiante, de Mao, foi...", alt:["um fracasso, com 30 milhões de mortos de fome","um sucesso na agricultura","uma guerra contra a Rússia"], c:0,
+    e:"Tentou acabar com a propriedade privada." },
+  { q:"O sistema da China é chamado de...", alt:["socialismo de mercado","capitalismo liberal","monarquia"], c:0,
+    e:"Economia capitalista com partido único, o Partido Comunista." },
+  { q:"As ZEEs (Zonas Econômicas Especiais) são...", alt:["cidades do litoral que atraem empresas estrangeiras","reservas florestais","áreas militares"], c:0,
+    e:"Com imposto baixo e mão de obra barata. Exemplo: Shenzhen." },
+  { q:"A China é chamada de \"fábrica do mundo\" porque...", alt:["faz quase 30% da produção industrial do planeta","tem as maiores florestas","não tem indústria"], c:0,
+    e:"É também a maior produtora de aço." },
+  { q:"O que o Brasil mais vende para a China?", alt:["Soja, minério de ferro e petróleo","Carros e celulares","Arroz e chá"], c:0,
+    e:"Mais de 75% da soja exportada pelo Brasil vai para a China." },
+  { q:"A Nova Rota da Seda é...", alt:["um plano chinês de rotas de comércio por terra e por mar","uma estrada antiga só para vender seda","um tratado militar"], c:0,
+    e:"Com portos e ferrovias em mais de 60 países." },
+  { q:"A China é o país que mais emite CO₂ principalmente por causa do...", alt:["carvão","vento","sol"], c:0,
+    e:"Ao mesmo tempo, é quem mais investe em energia solar e eólica." },
+]
+function embaralhar(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function preparar(){ return embaralhar(questoes.slice()).map(q=>{ const alts=q.alt.map((t,i)=>({t,c:i===q.c})); embaralhar(alts); return {q:q.q, alt:alts.map(a=>a.t), c:alts.findIndex(a=>a.c), e:q.e}; }); }
+let jogo = preparar(); let atual=0, acertos=0; const letras=["A","B","C"]; const $=id=>document.getElementById(id);
+function render(){ const it=jogo[atual]; $("contador").textContent=`Questão ${atual+1} de ${jogo.length}`; $("placar").textContent=`Acertos: ${acertos}`; $("barra").style.width=`${(atual/jogo.length)*100}%`; $("pergunta").textContent=it.q; const b=$("alternativas"); b.innerHTML=""; it.alt.forEach((t,i)=>{ const x=document.createElement("button"); x.className="alt"; x.innerHTML=`<span class="letra">${letras[i]}</span><span>${t}</span>`; x.onclick=()=>responder(i); b.appendChild(x); }); const f=$("feedback"); f.className="feedback"; f.innerHTML=""; $("proxima").className="proxima"; $("proxima").textContent=atual===jogo.length-1?"Ver resultado 🏁":"Próxima ➜"; }
+function responder(e){ const it=jogo[atual]; document.querySelectorAll(".alt").forEach((b,i)=>{ b.disabled=true; if(i===it.c)b.classList.add("certo"); if(i===e&&e!==it.c)b.classList.add("errado"); }); const f=$("feedback"); if(e===it.c){acertos++; f.className="feedback ok mostrar"; f.innerHTML=`<b>✅ Acertou!</b>${it.e}`;} else {f.className="feedback no mostrar"; f.innerHTML=`<b>❌ Quase!</b> A resposta certa é <b>${letras[it.c]}</b>. ${it.e}`;} $("placar").textContent=`Acertos: ${acertos}`; $("proxima").classList.add("mostrar"); }
+$("proxima").onclick=()=>{ atual++; if(atual<jogo.length)render(); else final(); };
+function final(){ const t=jogo.length; const nota=Math.round((acertos/t)*100)/10; const p=acertos/t; let e,m; if(p>=0.9){e="🏆";m="Fera! Mandou muito bem. Pronto para a prova!";} else if(p>=0.7){e="😃";m="Muito bom! Só falta revisar alguns pontinhos.";} else if(p>=0.45){e="🙂";m="Bom começo! Dá uma relida no resumo e refaça.";} else {e="💪";m="Sem problema! Leia o resumo com calma e tente de novo.";} $("barra").style.width="100%"; $("contador").textContent="Fim do quiz"; $("palco").innerHTML=`<div class="final"><div class="emoji">${e}</div><h2>Quiz concluído!</h2><div class="placar">Você acertou <b>${acertos}</b> de <b>${t}</b></div><div class="nota">Nota ${nota}</div><div class="recado">${m}</div><button class="refazer" onclick="reiniciar()">🔀 Embaralhar e refazer</button></div>`; }
+function reiniciar(){ atual=0; acertos=0; jogo=preparar(); $("palco").innerHTML=`<div class="pergunta" id="pergunta"></div><div class="alternativas" id="alternativas"></div><div class="feedback" id="feedback"></div><button class="proxima" id="proxima">Próxima ➜</button>`; $("proxima").onclick=()=>{ atual++; if(atual<jogo.length)render(); else final(); }; render(); }
+render();
+</script>
+</body>
+</html>
