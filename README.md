@@ -13,11 +13,14 @@ Material escolar do Pedro (14 anos, Ensino Fundamental Anos Finais / 9º ano), p
 
 ## Conteúdo atual
 
-**No ar hoje (Geografia da prova do 3º bimestre; Química e Biologia ocultas):**
+**No ar hoje (Física e Geografia do 3º bimestre; Química e Biologia ocultas):**
 
 | Arquivo | O que é |
 |---|---|
 | `index.html` | **Hub** — página inicial que lista as atividades |
+| `fis-prova3bim-resumo.html` | **Física, avaliação do 3º bimestre** (30/09): o básico da avaliação do 9º ano (ondas eletromagnéticas, unidades, miopia, ímã e bússola, Ørsted, F = m · a, P = m · g) com as **8 questões da avaliação resolvidas**. Fonte: fotos da avaliação de 23/09 |
+| `fis-prova3bim-revisao.html` | Revisão em cartões (23 cartões) |
+| `fis-prova3bim-quiz.html` | Quiz interativo (30 questões, embaralha sozinho) |
 | `geo-prova3bim-resumo.html` | **Geografia, prova do 3º bimestre**: Rússia (p. 290 a 296) e China (módulo inteiro), com o mais fácil no começo e as respostas do caderno |
 | `geo-prova3bim-revisao.html` | Revisão em cartões (26 cartões) |
 | `geo-prova3bim-quiz.html` | Quiz interativo (31 questões, 10 bem fáceis) |
@@ -67,6 +70,7 @@ Material escolar do Pedro (14 anos, Ensino Fundamental Anos Finais / 9º ano), p
 | Geografia | `#4d7c0f` (verde-oliva) | `#eef6e6` |
 | Português | `#6c3fa3` (roxo) | `#f0e9f8` |
 | Química | `#4338ca` (índigo) | `#e8e7fb` |
+| Física | `#b45309` (âmbar) | `#fdf0e1` |
 
 ### Padrões por tipo de página
 - **Quiz:** 3 alternativas; **embaralhar automaticamente** a ordem das perguntas E das alternativas a cada rodada (Fisher-Yates); resposta de cada questão **reforça o conceito** (ex.: "O ataque à base americana de Pearl Harbor…"); incluir **pares de questões parecidas** (mesmo conceito perguntado de 2-3 jeitos) para massificar; botão final "🔀 Embaralhar e refazer".
