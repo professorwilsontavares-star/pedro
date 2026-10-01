@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revisão do Pedro: História, prova do 3º bimestre</title>
+<style>
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:"Segoe UI",system-ui,Arial,sans-serif; background:linear-gradient(160deg,#fdf0f3,#f6d6df); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px; color:#1E2B38;}
+  .box{width:100%; max-width:520px; text-align:center;}
+  h1{font-size:1.3rem; color:#9f1239; margin-bottom:4px;}
+  .sub{color:#64748b; font-size:.9rem; margin-bottom:18px;}
+  .contador{font-weight:700; color:#64748b; margin-bottom:12px;}
+  .cartao{background:#fff; border-radius:22px; box-shadow:0 12px 34px rgba(159,18,57,.16); padding:36px 28px; min-height:250px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:20px;}
+  .rotulo{font-size:.75rem; letter-spacing:1.5px; text-transform:uppercase; font-weight:800;}
+  .rotulo.p{color:#E25E42;} .rotulo.r{color:#9f1239;}
+  .pergunta{font-size:1.4rem; font-weight:800; line-height:1.4;}
+  .resposta{font-size:1.2rem; line-height:1.5; color:#6b0f2a; display:none; white-space:pre-line;}
+  .resposta.mostrar{display:block;}
+  .bts{display:flex; gap:10px; margin-top:18px; justify-content:center; flex-wrap:wrap;}
+  button{font-family:inherit; font-size:1rem; font-weight:800; border:none; cursor:pointer; padding:14px 22px; border-radius:14px; transition:filter .15s;}
+  button:hover{filter:brightness(1.08);}
+  .ver{background:#9f1239; color:#fff;} .prox{background:#E25E42; color:#fff;} .voltar{background:#e2e8f0; color:#1E2B38;}
+</style>
+</head>
+<body>
+<a href="index.html" class="btn-voltar-hub" style="position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:9999;display:inline-flex;align-items:center;gap:7px;background:#E25E42;color:#fff;text-decoration:none;font-weight:800;font-size:1rem;padding:11px 18px;border-radius:30px;box-shadow:0 4px 14px rgba(0,0,0,.3);font-family:'Segoe UI',system-ui,Arial,sans-serif;">← Voltar</a>
+<div class="box">
+  <h1>📜 História: o básico em cartões</h1>
+  <div class="sub">Pergunta e resposta na mesma tela: leia, tente lembrar de cabeça e confira na hora.</div>
+  <div class="contador" id="contador"></div>
+  <div class="cartao">
+    <div><div class="rotulo p">Pergunta</div><div class="pergunta" id="pergunta"></div></div>
+    <div class="resposta" id="resposta"></div>
+  </div>
+  <div class="bts">
+    <button class="voltar" id="voltar">← Voltar</button>
+    <button class="ver" id="ver">👁️ Ver resposta</button>
+    <button class="prox" id="prox">Próximo →</button>
+  </div>
+</div>
+<script>
+const cartoes = [
+  ["Em que ano foi o golpe militar no Brasil?", "1964 (31 de março)."],
+  ["Quando acabou a ditadura militar?", "Em 1985. Durou 21 anos."],
+  ["O que foi o AI-5?", "O ato mais duro da ditadura (13/12/1968).\nFechou o Congresso, aumentou a censura e acabou com o habeas corpus."],
+  ["Quem liderou a Revolução Cubana?", "Fidel Castro e Che Guevara, em 1959."],
+  ["Qual era o lema dos hippies?", "\"Paz e amor\"."],
+  ["O que foi Woodstock?", "Festival de música de 1969, símbolo da contracultura."],
+  ["Quem lutava na Guerra do Vietnã?", "Vietnã do Norte (comunista) × Vietnã do Sul (capitalista), com os EUA ajudando o Sul."],
+  ["\"Cálice\" lembra que palavra?", "\"Cale-se\". A música critica a censura."],
+  ["Quem foi Batista?", "O ditador de Cuba apoiado pelos EUA, derrubado em 1959."],
+  ["O que os EUA fizeram contra Cuba?", "Um EMBARGO: proibiram o comércio com a ilha."],
+  ["O que aconteceu em 1962 com Cuba?", "A URSS tentou instalar mísseis em Cuba e o mundo quase teve uma guerra atômica."],
+  ["Cuba: o que melhorou e o que piorou?", "Melhorou: saúde e educação.\nPiorou: sem liberdade política, partido único."],
+  ["O que é contracultura?", "Jovens dos anos 1960 que queriam mudar o mundo mudando os valores, sem armas nem partidos."],
+  ["Quem foi Jango?", "João Goulart, presidente derrubado pelo golpe de 1964."],
+  ["O que eram as Reformas de Base?", "Mudanças propostas por Jango. A principal era a reforma agrária."],
+  ["Comício da Central e Marcha da Família: o que foram?", "Comício da Central (13/03/1964): Jango anuncia as reformas.\nMarcha da Família (19/03/1964): protesto contra Jango."],
+  ["Quem apoiou o golpe de 1964?", "Empresários, fazendeiros, banqueiros, a grande mídia e parte da classe média, com medo do comunismo."],
+  ["O que eram os Atos Institucionais?", "Decretos dos militares que tiraram direitos e deram mais poder ao presidente."],
+  ["Quais eram os dois partidos do AI-2?", "ARENA (do governo) e MDB (oposição permitida)."],
+  ["O que eram o SNI e o DOI-Codi?", "SNI: espionagem contra opositores.\nDOI-Codi: prendia, torturava e matava presos políticos."],
+  ["O que foi o milagre econômico?", "Grande crescimento no governo Médici, com dinheiro emprestado. Deixou dívida externa e concentração de renda."],
+  ["Como foi a abertura de Geisel?", "\"Lenta, gradual e segura\"."],
+  ["O que foi a Lei da Anistia (1979)?", "Perdoou presos e exilados políticos, mas também os torturadores."],
+  ["Quem foi Vladimir Herzog?", "Jornalista morto sob tortura no DOI-Codi, em 1975."],
+  ["O que foi a Comissão Nacional da Verdade?", "Investigou os crimes da ditadura (2012 a 2014), mas não pôde punir ninguém."],
+  ["Como os artistas driblavam a censura?", "Com METÁFORAS e duplo sentido nas letras."],
+  ["O que foi a Tropicália?", "Movimento de Caetano e Gil que misturava guitarra elétrica e berimbau."],
+  ["Por que Mosca na sopa, de Raul Seixas, é famosa?", "É uma metáfora contra o regime que a censura liberou sem perceber."],
+  ["Qual música virou hino da anistia?", "O bêbado e a equilibrista, na voz de Elis Regina."],
+  ["Qual música homenageia Zuzu Angel?", "Angélica, de Chico Buarque."],
+]
+let i = 0;
+const $ = id => document.getElementById(id);
+function mostrar(){
+  $("contador").textContent = `Cartão ${i+1} de ${cartoes.length}`;
+  $("pergunta").textContent = cartoes[i][0];
+  $("resposta").textContent = cartoes[i][1];
+  $("resposta").className = "resposta mostrar";   // resposta sempre visivel
+  $("ver").style.display = "none";
+  $("voltar").disabled = (i === 0); $("voltar").style.opacity = (i === 0) ? .4 : 1;
+  $("prox").textContent = (i === cartoes.length-1) ? "🔁 Recomeçar" : "Próximo →";
+}
+$("ver").onclick = ()=>{ $("resposta").className = "resposta mostrar"; $("ver").style.display = "none"; };
+$("prox").onclick = ()=>{ i = (i+1) % cartoes.length; mostrar(); };
+$("voltar").onclick = ()=>{ if(i > 0){ i--; mostrar(); } };
+mostrar();
+</script>
+</body>
+</html>

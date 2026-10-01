@@ -13,7 +13,7 @@ Material escolar do Pedro (14 anos, Ensino Fundamental Anos Finais / 9º ano), p
 
 ## Conteúdo atual
 
-**No ar hoje (Física e Geografia do 3º bimestre; Química e Biologia ocultas):**
+**No ar hoje (História da prova do 3º bimestre e Biologia Módulos 9 e 7):**
 
 | Arquivo | O que é |
 |---|---|
@@ -21,6 +21,9 @@ Material escolar do Pedro (14 anos, Ensino Fundamental Anos Finais / 9º ano), p
 | `fis-prova3bim-resumo.html` | **Física, avaliação do 3º bimestre** (30/09): o básico da avaliação do 9º ano (ondas eletromagnéticas, unidades, miopia, ímã e bússola, Ørsted, F = m · a, P = m · g) com as **8 questões da avaliação resolvidas**. Fonte: fotos da avaliação de 23/09 |
 | `fis-prova3bim-revisao.html` | Revisão em cartões (23 cartões) |
 | `fis-prova3bim-quiz.html` | Quiz interativo (30 questões, embaralha sozinho) |
+| `hist-prova3bim-resumo.html` | **História, prova do 3º bimestre**: Mód. 12 (p. 182 a 186 e Vietnã na 189), Mód. 13 (sem p. 227 a 230) e músicas do Mód. 14, com respostas curtas do caderno |
+| `hist-prova3bim-revisao.html` | Revisão em cartões (30 cartões) |
+| `hist-prova3bim-quiz.html` | Quiz interativo (32 questões, 8 bem fáceis) |
 | `geo-prova3bim-resumo.html` | **Geografia, prova do 3º bimestre**: Rússia (p. 290 a 296) e China (módulo inteiro), com o mais fácil no começo e as respostas do caderno |
 | `geo-prova3bim-revisao.html` | Revisão em cartões (26 cartões) |
 | `geo-prova3bim-quiz.html` | Quiz interativo (31 questões, 10 bem fáceis) |
@@ -70,6 +73,7 @@ Material escolar do Pedro (14 anos, Ensino Fundamental Anos Finais / 9º ano), p
 | Geografia | `#4d7c0f` (verde-oliva) | `#eef6e6` |
 | Português | `#6c3fa3` (roxo) | `#f0e9f8` |
 | Química | `#4338ca` (índigo) | `#e8e7fb` |
+| História | `#9f1239` (vinho) | `#fde8ee` |
 | Física | `#b45309` (âmbar) | `#fdf0e1` |
 
 ### Padrões por tipo de página
@@ -86,4 +90,4 @@ Use a entrada **`pedro-site`** do `C:\Projetos\github\.claude\launch.json`, que 
 ## Como OCULTAR uma matéria do hub
 As matérias que não devem aparecer ficam dentro de **um único comentário HTML** no `index.html`, entre os marcadores `OCULTO_ARQUIVO` e `FIM_OCULTO_ARQUIVO`. Para reexibir tudo, apague essas duas linhas.
 
-⚠ Não pode existir `-->` dentro desse bloco, senão o comentário fecha antes da hora e metade do conteúdo escondido reaparece.
+⚠ Não pode existir `-->` dentro desse bloco (nem um comentário menor, como o de um card oculto: ao mover um bloco para lá, tirar antes os comentários de dentro dele), senão o comentário fecha antes da hora e metade do conteúdo escondido reaparece.

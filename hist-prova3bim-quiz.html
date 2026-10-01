@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz do Pedro: História, prova do 3º bimestre</title>
+<style>
+  :root{--navy:#1E2B38; --q:#9f1239; --q-cl:#fde8ee; --laranja:#FFE4CC; --coral:#E25E42; --ok:#2e7d4f; --ok-cl:#d7f0df; --no:#c0392b; --no-cl:#fbe0dc; --cinza:#64748b;}
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif; background:linear-gradient(160deg,#fdf0f3,#f6d6df); color:var(--navy); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px; line-height:1.55;}
+  .app{width:100%; max-width:640px; background:#fff; border-radius:24px; box-shadow:0 12px 40px rgba(159,18,57,.16); overflow:hidden;}
+  header{background:linear-gradient(135deg,#9f1239,#6b0f2a); color:#fff; padding:22px 26px 18px;}
+  header .selo{font-size:.72rem; letter-spacing:1.5px; text-transform:uppercase; opacity:.8; font-weight:700;}
+  header h1{font-size:1.35rem; margin-top:4px;}
+  .barra-topo{display:flex; justify-content:space-between; align-items:center; margin-top:14px; font-size:.9rem; font-weight:700;}
+  .progresso{height:9px; background:rgba(255,255,255,.25); border-radius:20px; margin-top:10px; overflow:hidden;}
+  .progresso span{display:block; height:100%; width:0; background:var(--coral); border-radius:20px; transition:width .35s ease;}
+  main{padding:26px 26px 30px;}
+  .pergunta{font-size:1.25rem; font-weight:800; color:var(--navy); margin-bottom:20px; min-height:60px;}
+  .alternativas{display:flex; flex-direction:column; gap:12px;}
+  .alt{text-align:left; font-size:1.05rem; padding:15px 18px; border:2px solid #f6d6df; background:#fef6f8; border-radius:14px; cursor:pointer; transition:all .15s ease; display:flex; align-items:center; gap:12px; font-family:inherit; color:var(--navy);}
+  .alt:hover:not(:disabled){border-color:var(--q); background:var(--q-cl); transform:translateY(-1px);}
+  .alt:disabled{cursor:default;}
+  .alt .letra{flex:0 0 30px; height:30px; border-radius:50%; background:var(--q); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:.95rem;}
+  .alt.certo{border-color:var(--ok); background:var(--ok-cl);} .alt.certo .letra{background:var(--ok);}
+  .alt.errado{border-color:var(--no); background:var(--no-cl);} .alt.errado .letra{background:var(--no);}
+  .feedback{margin-top:20px; padding:15px 18px; border-radius:14px; display:none; font-size:1rem;}
+  .feedback.mostrar{display:block;}
+  .feedback.ok{background:var(--ok-cl);}
+  .feedback.no{background:var(--no-cl);}
+  .feedback b:first-child{display:block; margin-bottom:3px;}
+  .proxima{margin-top:20px; width:100%; padding:15px; font-size:1.1rem; font-weight:800; background:var(--coral); color:#fff; border:none; border-radius:14px; cursor:pointer; font-family:inherit; display:none;}
+  .proxima.mostrar{display:block;} .proxima:hover{filter:brightness(1.08);}
+  .final{text-align:center; padding:14px 6px;}
+  .final .emoji{font-size:3.4rem;} .final h2{font-size:1.6rem; margin:10px 0;}
+  .final .placar{font-size:1.15rem; color:var(--cinza); margin-bottom:6px;}
+  .final .nota{font-size:3rem; font-weight:900; color:var(--q); margin:6px 0;}
+  .final .recado{background:var(--laranja); border-radius:14px; padding:14px 18px; margin:18px 0; color:var(--navy);}
+  .refazer{padding:14px 28px; font-size:1.05rem; font-weight:800; background:var(--q); color:#fff; border:none; border-radius:14px; cursor:pointer; font-family:inherit;}
+</style>
+</head>
+<body>
+<a href="index.html" class="btn-voltar-hub" style="position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:9999;display:inline-flex;align-items:center;gap:7px;background:#E25E42;color:#fff;text-decoration:none;font-weight:800;font-size:1rem;padding:11px 18px;border-radius:30px;box-shadow:0 4px 14px rgba(0,0,0,.3);font-family:'Segoe UI',system-ui,Arial,sans-serif;">← Voltar</a>
+<div class="app">
+  <header>
+    <div class="selo">História · Prova do 3º bimestre · Quiz</div>
+    <h1>História: o básico 📜</h1>
+    <div class="barra-topo"><span id="contador">Questão 1</span><span id="placar">Acertos: 0</span></div>
+    <div class="progresso"><span id="barra"></span></div>
+  </header>
+  <main id="palco">
+    <div class="pergunta" id="pergunta"></div>
+    <div class="alternativas" id="alternativas"></div>
+    <div class="feedback" id="feedback"></div>
+    <button class="proxima" id="proxima">Próxima ➜</button>
+  </main>
+</div>
+<script>
+const questoes = [
+  // faceis
+  { q:"O golpe militar no Brasil foi em...", alt:["1964","1985","1959"], c:0,
+    e:"31 de março de 1964." },
+  { q:"A ditadura militar acabou em...", alt:["1985","1964","1968"], c:0,
+    e:"Durou 21 anos." },
+  { q:"O ato mais duro da ditadura foi o...", alt:["AI-5","AI-1","AI-2"], c:0,
+    e:"De 13/12/1968: fechou o Congresso e aumentou a censura." },
+  { q:"A Revolução Cubana foi liderada por...", alt:["Fidel Castro e Che Guevara","Kennedy e Nixon","Jango e Geisel"], c:0,
+    e:"Em 1959, derrubando o ditador Batista." },
+  { q:"O lema dos hippies era...", alt:["\"Paz e amor\"","\"Ordem e progresso\"","\"Brasil, ame-o ou deixe-o\""], c:0,
+    e:"\"Brasil, ame-o ou deixe-o\" era propaganda da ditadura." },
+  { q:"Woodstock foi...", alt:["um festival de música de 1969","uma batalha do Vietnã","um ato institucional"], c:0,
+    e:"Símbolo da contracultura." },
+  { q:"\"Cálice\", de Chico Buarque e Gil, lembra a palavra...", alt:["\"cale-se\"","\"calma\"","\"cálculo\""], c:0,
+    e:"É uma crítica à censura." },
+  { q:"Para driblar a censura, os artistas usavam...", alt:["metáforas e duplo sentido","só músicas em inglês","propaganda do governo"], c:0,
+    e:"Músicas que pareciam falar de outra coisa escondiam críticas." },
+  // modulo 12
+  { q:"Batista, derrubado em Cuba em 1959, era...", alt:["um ditador apoiado pelos EUA","um líder comunista","o presidente do Brasil"], c:0,
+    e:"Foi derrubado pelos guerrilheiros de Fidel e Che." },
+  { q:"Depois da revolução, Cuba se aproximou da...", alt:["URSS","Inglaterra","Argentina"], c:0,
+    e:"E os EUA responderam com um embargo." },
+  { q:"O embargo dos EUA contra Cuba foi...", alt:["a proibição de comércio com a ilha","uma invasão militar","um acordo de paz"], c:0,
+    e:"Os países capitalistas não podiam comerciar com Cuba." },
+  { q:"Em 1962, a URSS tentou instalar em Cuba...", alt:["mísseis","fábricas de carros","uma universidade"], c:0,
+    e:"O mundo quase teve uma guerra atômica." },
+  { q:"Na Guerra do Vietnã, os EUA apoiaram...", alt:["o Vietnã do Sul, capitalista","o Vietnã do Norte, comunista","a França"], c:0,
+    e:"Com medo de o Sul também virar comunista." },
+  { q:"A contracultura queria mudar o mundo...", alt:["mudando os valores, sem armas nem partidos","com guerra","com eleições"], c:0,
+    e:"O movimento hippie começou nos EUA." },
+  // modulo 13
+  { q:"Jango era...", alt:["o presidente derrubado em 1964","um general do golpe","um cantor da Tropicália"], c:0,
+    e:"João Goulart, das Reformas de Base." },
+  { q:"A principal das Reformas de Base de Jango era a...", alt:["reforma agrária","reforma da Copa","reforma do Exército"], c:0,
+    e:"Por isso os fazendeiros apoiaram o golpe." },
+  { q:"A Marcha da Família com Deus pela Liberdade (1964) foi...", alt:["um protesto contra Jango","um festival de música","um ato do AI-5"], c:0,
+    e:"Contra as reformas e o \"comunismo\"." },
+  { q:"Com o AI-2, o Brasil passou a ter...", alt:["só dois partidos: ARENA e MDB","dezenas de partidos","nenhum partido"], c:0,
+    e:"ARENA era do governo; MDB, a oposição permitida." },
+  { q:"O SNI servia para...", alt:["espionar os opositores","organizar eleições","construir estradas"], c:0,
+    e:"Serviço Nacional de Informações." },
+  { q:"No DOI-Codi, os presos políticos eram...", alt:["torturados","libertados","anistiados"], c:0,
+    e:"Foi onde morreu o jornalista Vladimir Herzog, em 1975." },
+  { q:"O \"milagre econômico\" aconteceu no governo...", alt:["Médici","Jango","Figueiredo"], c:0,
+    e:"Cresceu muito, mas aumentaram a dívida externa e a desigualdade." },
+  { q:"Qual obra é da época da ditadura?", alt:["Usina de Itaipu","Cristo Redentor","Brasília"], c:0,
+    e:"Também a Transamazônica e a Ponte Rio-Niterói." },
+  { q:"A abertura de Geisel foi chamada de...", alt:["\"lenta, gradual e segura\"","\"rápida e total\"","\"ame-o ou deixe-o\""], c:0,
+    e:"Ele segurava a \"linha dura\" dos militares." },
+  { q:"A Lei da Anistia (1979) perdoou...", alt:["presos e exilados políticos, e também os torturadores","só os torturadores","ninguém"], c:0,
+    e:"Por isso a Comissão da Verdade não pôde punir." },
+  { q:"A Comissão Nacional da Verdade...", alt:["investigou os crimes da ditadura","deu o golpe de 1964","criou o AI-5"], c:0,
+    e:"Funcionou de 2012 a 2014." },
+  // modulo 14
+  { q:"A Tropicália misturava...", alt:["guitarra elétrica e berimbau","só música clássica","só samba antigo"], c:0,
+    e:"Caetano Veloso e Gilberto Gil." },
+  { q:"A Jovem Guarda, de Roberto Carlos, era...", alt:["rock sobre o dia a dia, sem política","música de protesto","um partido"], c:0,
+    e:"A esquerda a achava alienada." },
+  { q:"\"Mosca na sopa\", de Raul Seixas, foi...", alt:["liberada pela censura sem perceberem a crítica","proibida no mesmo dia","feita pelo governo"], c:0,
+    e:"A mosca é quem incomoda o poder." },
+  { q:"A música que virou hino da anistia foi...", alt:["O bêbado e a equilibrista","Domingo no parque","Tiro ao Álvaro"], c:0,
+    e:"Na voz de Elis Regina." },
+  { q:"\"Pra não dizer que não falei das flores\", de Geraldo Vandré, é...", alt:["símbolo da música de protesto","uma música da Jovem Guarda","um hino militar"], c:0,
+    e:"Critica os militares de forma direta." },
+  { q:"Chico Buarque usou o nome falso \"Julinho da Adelaide\" para...", alt:["fugir da censura","entrar no Exército","cantar em inglês"], c:0,
+    e:"Ele também se exilou na Itália." },
+  { q:"\"Tiro ao Álvaro\", de Adoniran, foi censurada por causa...", alt:["do jeito de falar do povo","de uma crítica ao governo","de falar de guerra"], c:0,
+    e:"A censura também era contra o \"mau gosto\"." },
+]
+function embaralhar(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function preparar(){ return embaralhar(questoes.slice()).map(q=>{ const alts=q.alt.map((t,i)=>({t,c:i===q.c})); embaralhar(alts); return {q:q.q, alt:alts.map(a=>a.t), c:alts.findIndex(a=>a.c), e:q.e}; }); }
+let jogo = preparar(); let atual=0, acertos=0; const letras=["A","B","C"]; const $=id=>document.getElementById(id);
+function render(){ const it=jogo[atual]; $("contador").textContent=`Questão ${atual+1} de ${jogo.length}`; $("placar").textContent=`Acertos: ${acertos}`; $("barra").style.width=`${(atual/jogo.length)*100}%`; $("pergunta").textContent=it.q; const b=$("alternativas"); b.innerHTML=""; it.alt.forEach((t,i)=>{ const x=document.createElement("button"); x.className="alt"; x.innerHTML=`<span class="letra">${letras[i]}</span><span>${t}</span>`; x.onclick=()=>responder(i); b.appendChild(x); }); const f=$("feedback"); f.className="feedback"; f.innerHTML=""; $("proxima").className="proxima"; $("proxima").textContent=atual===jogo.length-1?"Ver resultado 🏁":"Próxima ➜"; }
+function responder(e){ const it=jogo[atual]; document.querySelectorAll(".alt").forEach((b,i)=>{ b.disabled=true; if(i===it.c)b.classList.add("certo"); if(i===e&&e!==it.c)b.classList.add("errado"); }); const f=$("feedback"); if(e===it.c){acertos++; f.className="feedback ok mostrar"; f.innerHTML=`<b>✅ Acertou!</b>${it.e}`;} else {f.className="feedback no mostrar"; f.innerHTML=`<b>❌ Quase!</b> A resposta certa é <b>${letras[it.c]}</b>. ${it.e}`;} $("placar").textContent=`Acertos: ${acertos}`; $("proxima").classList.add("mostrar"); }
+$("proxima").onclick=()=>{ atual++; if(atual<jogo.length)render(); else final(); };
+function final(){ const t=jogo.length; const nota=Math.round((acertos/t)*100)/10; const p=acertos/t; let e,m; if(p>=0.9){e="🏆";m="Fera! Mandou muito bem. Pronto para a prova!";} else if(p>=0.7){e="😃";m="Muito bom! Só falta revisar alguns pontinhos.";} else if(p>=0.45){e="🙂";m="Bom começo! Dá uma relida no resumo e refaça.";} else {e="💪";m="Sem problema! Leia o resumo com calma e tente de novo.";} $("barra").style.width="100%"; $("contador").textContent="Fim do quiz"; $("palco").innerHTML=`<div class="final"><div class="emoji">${e}</div><h2>Quiz concluído!</h2><div class="placar">Você acertou <b>${acertos}</b> de <b>${t}</b></div><div class="nota">Nota ${nota}</div><div class="recado">${m}</div><button class="refazer" onclick="reiniciar()">🔀 Embaralhar e refazer</button></div>`; }
+function reiniciar(){ atual=0; acertos=0; jogo=preparar(); $("palco").innerHTML=`<div class="pergunta" id="pergunta"></div><div class="alternativas" id="alternativas"></div><div class="feedback" id="feedback"></div><button class="proxima" id="proxima">Próxima ➜</button>`; $("proxima").onclick=()=>{ atual++; if(atual<jogo.length)render(); else final(); }; render(); }
+render();
+</script>
+</body>
+</html>
