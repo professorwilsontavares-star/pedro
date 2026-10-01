@@ -21,9 +21,9 @@ Material escolar do Pedro (14 anos, Ensino Fundamental Anos Finais / 9º ano), p
 | `fis-prova3bim-resumo.html` | **Física, avaliação do 3º bimestre** (30/09): o básico da avaliação do 9º ano (ondas eletromagnéticas, unidades, miopia, ímã e bússola, Ørsted, F = m · a, P = m · g) com as **8 questões da avaliação resolvidas**. Fonte: fotos da avaliação de 23/09 |
 | `fis-prova3bim-revisao.html` | Revisão em cartões (23 cartões) |
 | `fis-prova3bim-quiz.html` | Quiz interativo (30 questões, embaralha sozinho) |
-| `hist-prova3bim-resumo.html` | **História, prova do 3º bimestre**: Mód. 12 (p. 182 a 186 e Vietnã na 189), Mód. 13 (sem p. 227 a 230) e músicas do Mód. 14, com respostas curtas do caderno |
-| `hist-prova3bim-revisao.html` | Revisão em cartões (30 cartões) |
-| `hist-prova3bim-quiz.html` | Quiz interativo (32 questões, 8 bem fáceis) |
+| `hist-prova3bim-resumo.html` | **História, prova do 3º bimestre**: Mód. 12 (só p. 182 e 186, e o Vietnã na 189), Mód. 13 (sem p. 227 a 230) e músicas do Mód. 14, com respostas curtas do caderno |
+| `hist-prova3bim-revisao.html` | Revisão em cartões (25 cartões) |
+| `hist-prova3bim-quiz.html` | Quiz interativo (27 questões, 7 bem fáceis) |
 | `geo-prova3bim-resumo.html` | **Geografia, prova do 3º bimestre**: Rússia (p. 290 a 296) e China (módulo inteiro), com o mais fácil no começo e as respostas do caderno |
 | `geo-prova3bim-revisao.html` | Revisão em cartões (26 cartões) |
 | `geo-prova3bim-quiz.html` | Quiz interativo (31 questões, 10 bem fáceis) |
