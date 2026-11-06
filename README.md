@@ -13,7 +13,7 @@ Material escolar do Pedro (14 anos, Ensino Fundamental Anos Finais / 9º ano), p
 
 ## Conteúdo atual
 
-**No ar hoje (História da prova do 3º bimestre e Biologia Módulos 9 e 7):**
+**No ar hoje (4º bimestre, Geografia):**
 
 | Arquivo | O que é |
 |---|---|
@@ -21,6 +21,9 @@ Material escolar do Pedro (14 anos, Ensino Fundamental Anos Finais / 9º ano), p
 | `fis-prova3bim-resumo.html` | **Física, avaliação do 3º bimestre** (30/09): o básico da avaliação do 9º ano (ondas eletromagnéticas, unidades, miopia, ímã e bússola, Ørsted, F = m · a, P = m · g) com as **8 questões da avaliação resolvidas**. Fonte: fotos da avaliação de 23/09 |
 | `fis-prova3bim-revisao.html` | Revisão em cartões (23 cartões) |
 | `fis-prova3bim-quiz.html` | Quiz interativo (30 questões, embaralha sozinho) |
+| `geo-prova4bim-resumo.html` | **Geografia, prova do 4º bimestre**: Oceania e ONU, com respostas curtas do caderno |
+| `geo-prova4bim-revisao.html` | Revisão em cartões (25 cartões) |
+| `geo-prova4bim-quiz.html` | Quiz interativo (28 questões, 8 bem fáceis) |
 | `hist-prova3bim-resumo.html` | **História, prova do 3º bimestre**: Mód. 12 (só p. 182 e 186, e o Vietnã na 189), Mód. 13 (sem p. 227 a 230) e músicas do Mód. 14, com respostas curtas do caderno |
 | `hist-prova3bim-revisao.html` | Revisão em cartões (25 cartões) |
 | `hist-prova3bim-quiz.html` | Quiz interativo (27 questões, 7 bem fáceis) |
