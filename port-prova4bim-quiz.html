@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz do Pedro: Português, prova do 4º bimestre</title>
+<style>
+  :root{--navy:#1E2B38; --q:#6c3fa3; --q-cl:#f0e9f8; --laranja:#FFE4CC; --coral:#E25E42; --ok:#2e7d4f; --ok-cl:#d7f0df; --no:#c0392b; --no-cl:#fbe0dc; --cinza:#64748b;}
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif; background:linear-gradient(160deg,#f5f0fb,#e4d8f1); color:var(--navy); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px; line-height:1.55;}
+  .app{width:100%; max-width:640px; background:#fff; border-radius:24px; box-shadow:0 12px 40px rgba(108,63,163,.16); overflow:hidden;}
+  header{background:linear-gradient(135deg,#6c3fa3,#4a2a75); color:#fff; padding:22px 26px 18px;}
+  header .selo{font-size:.72rem; letter-spacing:1.5px; text-transform:uppercase; opacity:.8; font-weight:700;}
+  header h1{font-size:1.35rem; margin-top:4px;}
+  .barra-topo{display:flex; justify-content:space-between; align-items:center; margin-top:14px; font-size:.9rem; font-weight:700;}
+  .progresso{height:9px; background:rgba(255,255,255,.25); border-radius:20px; margin-top:10px; overflow:hidden;}
+  .progresso span{display:block; height:100%; width:0; background:var(--coral); border-radius:20px; transition:width .35s ease;}
+  main{padding:26px 26px 30px;}
+  .pergunta{font-size:1.25rem; font-weight:800; color:var(--navy); margin-bottom:20px; min-height:60px;}
+  .alternativas{display:flex; flex-direction:column; gap:12px;}
+  .alt{text-align:left; font-size:1.05rem; padding:15px 18px; border:2px solid #e4d8f1; background:#faf7fd; border-radius:14px; cursor:pointer; transition:all .15s ease; display:flex; align-items:center; gap:12px; font-family:inherit; color:var(--navy);}
+  .alt:hover:not(:disabled){border-color:var(--q); background:var(--q-cl); transform:translateY(-1px);}
+  .alt:disabled{cursor:default;}
+  .alt .letra{flex:0 0 30px; height:30px; border-radius:50%; background:var(--q); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:.95rem;}
+  .alt.certo{border-color:var(--ok); background:var(--ok-cl);} .alt.certo .letra{background:var(--ok);}
+  .alt.errado{border-color:var(--no); background:var(--no-cl);} .alt.errado .letra{background:var(--no);}
+  .feedback{margin-top:20px; padding:15px 18px; border-radius:14px; display:none; font-size:1rem;}
+  .feedback.mostrar{display:block;}
+  .feedback.ok{background:var(--ok-cl);}
+  .feedback.no{background:var(--no-cl);}
+  .feedback b:first-child{display:block; margin-bottom:3px;}
+  .proxima{margin-top:20px; width:100%; padding:15px; font-size:1.1rem; font-weight:800; background:var(--coral); color:#fff; border:none; border-radius:14px; cursor:pointer; font-family:inherit; display:none;}
+  .proxima.mostrar{display:block;} .proxima:hover{filter:brightness(1.08);}
+  .final{text-align:center; padding:14px 6px;}
+  .final .emoji{font-size:3.4rem;} .final h2{font-size:1.6rem; margin:10px 0;}
+  .final .placar{font-size:1.15rem; color:var(--cinza); margin-bottom:6px;}
+  .final .nota{font-size:3rem; font-weight:900; color:var(--q); margin:6px 0;}
+  .final .recado{background:var(--laranja); border-radius:14px; padding:14px 18px; margin:18px 0; color:var(--navy);}
+  .refazer{padding:14px 28px; font-size:1.05rem; font-weight:800; background:var(--q); color:#fff; border:none; border-radius:14px; cursor:pointer; font-family:inherit;}
+</style>
+</head>
+<body>
+<a href="index.html" class="btn-voltar-hub" style="position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:9999;display:inline-flex;align-items:center;gap:7px;background:#E25E42;color:#fff;text-decoration:none;font-weight:800;font-size:1rem;padding:11px 18px;border-radius:30px;box-shadow:0 4px 14px rgba(0,0,0,.3);font-family:'Segoe UI',system-ui,Arial,sans-serif;">← Voltar</a>
+<div class="app">
+  <header>
+    <div class="selo">Português · Prova do 4º bimestre · Quiz</div>
+    <h1>Português: o básico ✍️</h1>
+    <div class="barra-topo"><span id="contador">Questão 1</span><span id="placar">Acertos: 0</span></div>
+    <div class="progresso"><span id="barra"></span></div>
+  </header>
+  <main id="palco">
+    <div class="pergunta" id="pergunta"></div>
+    <div class="alternativas" id="alternativas"></div>
+    <div class="feedback" id="feedback"></div>
+    <button class="proxima" id="proxima">Próxima ➜</button>
+  </main>
+</div>
+<script>
+const questoes = [
+  // faceis
+  { q:"\"Talvez chova amanhã.\" O modo do verbo indica...", alt:["dúvida (subjuntivo)","ordem (imperativo)","certeza (indicativo)"], c:0,
+    e:"\"Talvez\" pede o subjuntivo." },
+  { q:"\"Feche a porta.\" O verbo está no...", alt:["imperativo","subjuntivo","indicativo"], c:0,
+    e:"Imperativo indica ordem ou pedido." },
+  { q:"Qual é verbo de ligação?", alt:["estar","correr","comer"], c:0,
+    e:"Ser, estar, ficar e parecer são de ligação." },
+  { q:"A palavra certa é...", alt:["seja","seje","sege"], c:0,
+    e:"\"Seje\" não existe." },
+  { q:"A palavra certa é...", alt:["esteja","esteje","estege"], c:0,
+    e:"\"Esteje\" não existe." },
+  { q:"O travessão aparece no discurso...", alt:["direto","indireto","sem fala"], c:0,
+    e:"É a fala da própria personagem." },
+  { q:"\"Ela disse que estava feliz\" é discurso...", alt:["indireto","direto","poético"], c:0,
+    e:"O narrador conta, usando \"que\"." },
+  { q:"Pergunta com \"por que\": como se escreve?", alt:["Por que você veio?","Porque você veio?","Porquê você veio?"], c:0,
+    e:"Em pergunta, separado e sem acento." },
+  // tempos
+  { q:"\"O pássaro voou.\" O tempo é...", alt:["pretérito perfeito","futuro do presente","presente"], c:0,
+    e:"Ação concluída." },
+  { q:"\"O pássaro voava.\" O tempo é...", alt:["pretérito imperfeito","pretérito perfeito","futuro do pretérito"], c:0,
+    e:"Ação em andamento ou hábito." },
+  { q:"\"Se pudesse, o pássaro voaria.\" \"Voaria\" é...", alt:["futuro do pretérito","futuro do presente","presente"], c:0,
+    e:"Indica hipótese ou condição." },
+  { q:"Complete: \"Se eu puder, eu ...\"", alt:["irei","fosse","iria"], c:0,
+    e:"É a correlação verbal: puder combina com irei." },
+  { q:"Complete: \"Se eu pudesse, eu ...\"", alt:["iria","irei","vou"], c:0,
+    e:"Pudesse combina com iria." },
+  { q:"\"Cantando\" é...", alt:["gerúndio","particípio","infinitivo"], c:0,
+    e:"Processo em andamento." },
+  { q:"\"Cantado\" é...", alt:["particípio","gerúndio","infinitivo"], c:0,
+    e:"Processo concluído." },
+  // ligacao
+  { q:"Em \"O cão está doente\", \"doente\" é...", alt:["predicativo do sujeito","sujeito","verbo"], c:0,
+    e:"É a característica do sujeito." },
+  { q:"Em qual frase NÃO há verbo de ligação?", alt:["Ele ficou em casa.","Ele ficou triste.","Ele está cansado."], c:0,
+    e:"\"Ficou em casa\" indica lugar." },
+  { q:"\"Ele parece cansado.\" O verbo indica...", alt:["falta de certeza","ação concluída","ordem"], c:0,
+    e:"Parecer modaliza: não há certeza." },
+  // discurso
+  { q:"\"Disse\", \"gritou\" e \"perguntou\" são verbos de...", alt:["elocução","ligação","ação concluída"], c:0,
+    e:"Indicam a fala da personagem." },
+  { q:"O discurso que mistura narrador e personagem, sem aviso, é o...", alt:["indireto livre","direto","indireto"], c:0,
+    e:"Não tem travessão nem \"que\"." },
+  { q:"Na passagem para o indireto, \"hoje\" vira...", alt:["naquele dia","amanhã","ontem"], c:0,
+    e:"\"Aqui\" vira \"lá\" e \"estou\" vira \"estava\"." },
+  // ortografia
+  { q:"\"Quando eu ... você, eu aviso.\" (verbo ver)", alt:["vir","ver","vier"], c:0,
+    e:"Futuro do subjuntivo de ver é \"vir\"." },
+  { q:"\"Ontem ele não ... vir.\"", alt:["pôde","pode","podia ser"], c:0,
+    e:"Pôde é passado." },
+  { q:"\"Ele é um ... aluno.\"", alt:["mau","mal","mais"], c:0,
+    e:"Mau é o contrário de bom." },
+  { q:"\"Ele chegou ... dois dias.\"", alt:["há","a","à"], c:0,
+    e:"Tempo passado usa \"há\"." },
+]
+function embaralhar(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function preparar(){ return embaralhar(questoes.slice()).map(q=>{ const alts=q.alt.map((t,i)=>({t,c:i===q.c})); embaralhar(alts); return {q:q.q, alt:alts.map(a=>a.t), c:alts.findIndex(a=>a.c), e:q.e}; }); }
+let jogo = preparar(); let atual=0, acertos=0; const letras=["A","B","C"]; const $=id=>document.getElementById(id);
+function render(){ const it=jogo[atual]; $("contador").textContent=`Questão ${atual+1} de ${jogo.length}`; $("placar").textContent=`Acertos: ${acertos}`; $("barra").style.width=`${(atual/jogo.length)*100}%`; $("pergunta").textContent=it.q; const b=$("alternativas"); b.innerHTML=""; it.alt.forEach((t,i)=>{ const x=document.createElement("button"); x.className="alt"; x.innerHTML=`<span class="letra">${letras[i]}</span><span>${t}</span>`; x.onclick=()=>responder(i); b.appendChild(x); }); const f=$("feedback"); f.className="feedback"; f.innerHTML=""; $("proxima").className="proxima"; $("proxima").textContent=atual===jogo.length-1?"Ver resultado 🏁":"Próxima ➜"; }
+function responder(e){ const it=jogo[atual]; document.querySelectorAll(".alt").forEach((b,i)=>{ b.disabled=true; if(i===it.c)b.classList.add("certo"); if(i===e&&e!==it.c)b.classList.add("errado"); }); const f=$("feedback"); if(e===it.c){acertos++; f.className="feedback ok mostrar"; f.innerHTML=`<b>✅ Acertou!</b>${it.e}`;} else {f.className="feedback no mostrar"; f.innerHTML=`<b>❌ Quase!</b> A resposta certa é <b>${letras[it.c]}</b>. ${it.e}`;} $("placar").textContent=`Acertos: ${acertos}`; $("proxima").classList.add("mostrar"); }
+$("proxima").onclick=()=>{ atual++; if(atual<jogo.length)render(); else final(); };
+function final(){ const t=jogo.length; const nota=Math.round((acertos/t)*100)/10; const p=acertos/t; let e,m; if(p>=0.9){e="🏆";m="Fera! Mandou muito bem. Pronto para a prova!";} else if(p>=0.7){e="😃";m="Muito bom! Só falta revisar alguns pontinhos.";} else if(p>=0.45){e="🙂";m="Bom começo! Dá uma relida no resumo e refaça.";} else {e="💪";m="Sem problema! Leia o resumo com calma e tente de novo.";} $("barra").style.width="100%"; $("contador").textContent="Fim do quiz"; $("palco").innerHTML=`<div class="final"><div class="emoji">${e}</div><h2>Quiz concluído!</h2><div class="placar">Você acertou <b>${acertos}</b> de <b>${t}</b></div><div class="nota">Nota ${nota}</div><div class="recado">${m}</div><button class="refazer" onclick="reiniciar()">🔀 Embaralhar e refazer</button></div>`; }
+function reiniciar(){ atual=0; acertos=0; jogo=preparar(); $("palco").innerHTML=`<div class="pergunta" id="pergunta"></div><div class="alternativas" id="alternativas"></div><div class="feedback" id="feedback"></div><button class="proxima" id="proxima">Próxima ➜</button>`; $("proxima").onclick=()=>{ atual++; if(atual<jogo.length)render(); else final(); }; render(); }
+render();
+</script>
+</body>
+</html>
