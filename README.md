@@ -13,7 +13,7 @@ Material escolar do Pedro (14 anos, Ensino Fundamental Anos Finais / 9º ano), p
 
 ## Conteúdo atual
 
-**No ar hoje (4º bimestre: Português, Química e Geografia):**
+**No ar hoje (4º bimestre: Física, Português, Química e Geografia):**
 
 | Arquivo | O que é |
 |---|---|
@@ -21,6 +21,7 @@ Material escolar do Pedro (14 anos, Ensino Fundamental Anos Finais / 9º ano), p
 | `fis-prova3bim-resumo.html` | **Física, avaliação do 3º bimestre** (30/09): o básico da avaliação do 9º ano (ondas eletromagnéticas, unidades, miopia, ímã e bússola, Ørsted, F = m · a, P = m · g) com as **8 questões da avaliação resolvidas**. Fonte: fotos da avaliação de 23/09 |
 | `fis-prova3bim-revisao.html` | Revisão em cartões (23 cartões) |
 | `fis-prova3bim-quiz.html` | Quiz interativo (30 questões, embaralha sozinho) |
+| `fis-prova4bim-resumo.html` | **Física, prova do 4º bimestre**: Astronomia, Sistema Solar, estrelas e espaço (26 cartões e 30 perguntas nas peças `-revisao` e `-quiz`) |
 | `port-prova4bim-resumo.html` | **Português, prova do 4º bimestre**: verbos, verbo de ligação, discurso e ortografia (24 cartões e 25 perguntas nas peças `-revisao` e `-quiz`) |
 | `quim-prova4bim-resumo.html` | **Química, prova do 4º bimestre**: óxidos, sustentabilidade e Unidades de Conservação (21 cartões e 23 perguntas nas peças `-revisao` e `-quiz`) |
 | `geo-prova4bim-resumo.html` | **Geografia, prova do 4º bimestre**: Oceania e ONU, com respostas curtas do caderno |

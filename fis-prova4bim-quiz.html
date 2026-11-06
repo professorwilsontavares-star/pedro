@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz do Pedro: Física, prova do 4º bimestre</title>
+<style>
+  :root{--navy:#1E2B38; --q:#b45309; --q-cl:#fdf0e1; --laranja:#FFE4CC; --coral:#E25E42; --ok:#2e7d4f; --ok-cl:#d7f0df; --no:#c0392b; --no-cl:#fbe0dc; --cinza:#64748b;}
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif; background:linear-gradient(160deg,#fdf5ea,#f6dfc2); color:var(--navy); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px; line-height:1.55;}
+  .app{width:100%; max-width:640px; background:#fff; border-radius:24px; box-shadow:0 12px 40px rgba(180,83,9,.16); overflow:hidden;}
+  header{background:linear-gradient(135deg,#b45309,#7c2d12); color:#fff; padding:22px 26px 18px;}
+  header .selo{font-size:.72rem; letter-spacing:1.5px; text-transform:uppercase; opacity:.8; font-weight:700;}
+  header h1{font-size:1.35rem; margin-top:4px;}
+  .barra-topo{display:flex; justify-content:space-between; align-items:center; margin-top:14px; font-size:.9rem; font-weight:700;}
+  .progresso{height:9px; background:rgba(255,255,255,.25); border-radius:20px; margin-top:10px; overflow:hidden;}
+  .progresso span{display:block; height:100%; width:0; background:var(--coral); border-radius:20px; transition:width .35s ease;}
+  main{padding:26px 26px 30px;}
+  .pergunta{font-size:1.25rem; font-weight:800; color:var(--navy); margin-bottom:20px; min-height:60px;}
+  .alternativas{display:flex; flex-direction:column; gap:12px;}
+  .alt{text-align:left; font-size:1.05rem; padding:15px 18px; border:2px solid #f6dfc2; background:#fefaf4; border-radius:14px; cursor:pointer; transition:all .15s ease; display:flex; align-items:center; gap:12px; font-family:inherit; color:var(--navy);}
+  .alt:hover:not(:disabled){border-color:var(--q); background:var(--q-cl); transform:translateY(-1px);}
+  .alt:disabled{cursor:default;}
+  .alt .letra{flex:0 0 30px; height:30px; border-radius:50%; background:var(--q); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:.95rem;}
+  .alt.certo{border-color:var(--ok); background:var(--ok-cl);} .alt.certo .letra{background:var(--ok);}
+  .alt.errado{border-color:var(--no); background:var(--no-cl);} .alt.errado .letra{background:var(--no);}
+  .feedback{margin-top:20px; padding:15px 18px; border-radius:14px; display:none; font-size:1rem;}
+  .feedback.mostrar{display:block;}
+  .feedback.ok{background:var(--ok-cl);}
+  .feedback.no{background:var(--no-cl);}
+  .feedback b:first-child{display:block; margin-bottom:3px;}
+  .proxima{margin-top:20px; width:100%; padding:15px; font-size:1.1rem; font-weight:800; background:var(--coral); color:#fff; border:none; border-radius:14px; cursor:pointer; font-family:inherit; display:none;}
+  .proxima.mostrar{display:block;} .proxima:hover{filter:brightness(1.08);}
+  .final{text-align:center; padding:14px 6px;}
+  .final .emoji{font-size:3.4rem;} .final h2{font-size:1.6rem; margin:10px 0;}
+  .final .placar{font-size:1.15rem; color:var(--cinza); margin-bottom:6px;}
+  .final .nota{font-size:3rem; font-weight:900; color:var(--q); margin:6px 0;}
+  .final .recado{background:var(--laranja); border-radius:14px; padding:14px 18px; margin:18px 0; color:var(--navy);}
+  .refazer{padding:14px 28px; font-size:1.05rem; font-weight:800; background:var(--q); color:#fff; border:none; border-radius:14px; cursor:pointer; font-family:inherit;}
+</style>
+</head>
+<body>
+<a href="index.html" class="btn-voltar-hub" style="position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:9999;display:inline-flex;align-items:center;gap:7px;background:#E25E42;color:#fff;text-decoration:none;font-weight:800;font-size:1rem;padding:11px 18px;border-radius:30px;box-shadow:0 4px 14px rgba(0,0,0,.3);font-family:'Segoe UI',system-ui,Arial,sans-serif;">← Voltar</a>
+<div class="app">
+  <header>
+    <div class="selo">Física · Prova do 4º bimestre · Quiz</div>
+    <h1>Física: o básico 🪐</h1>
+    <div class="barra-topo"><span id="contador">Questão 1</span><span id="placar">Acertos: 0</span></div>
+    <div class="progresso"><span id="barra"></span></div>
+  </header>
+  <main id="palco">
+    <div class="pergunta" id="pergunta"></div>
+    <div class="alternativas" id="alternativas"></div>
+    <div class="feedback" id="feedback"></div>
+    <button class="proxima" id="proxima">Próxima ➜</button>
+  </main>
+</div>
+<script>
+const questoes = [
+  // faceis
+  { q:"O maior planeta do Sistema Solar é...", alt:["Júpiter","Terra","Marte"], c:0,
+    e:"Tem a Grande Mancha Vermelha." },
+  { q:"O menor planeta é...", alt:["Mercúrio","Saturno","Netuno"], c:0,
+    e:"Também é o mais perto do Sol." },
+  { q:"O planeta vermelho é...", alt:["Marte","Vênus","Urano"], c:0,
+    e:"A cor vem do óxido de ferro." },
+  { q:"O planeta famoso pelos anéis é...", alt:["Saturno","Mercúrio","Marte"], c:0,
+    e:"É o segundo maior." },
+  { q:"A nossa galáxia é a...", alt:["Via Láctea","Andrômeda","Grande Muralha"], c:0,
+    e:"O Sistema Solar fica nela." },
+  { q:"O ano-luz mede...", alt:["distância","tempo","velocidade"], c:0,
+    e:"É o que a luz percorre em 1 ano." },
+  { q:"O primeiro humano no espaço foi...", alt:["Gagarin","Armstrong","Galileu"], c:0,
+    e:"Em 1961." },
+  { q:"O primeiro humano na Lua foi...", alt:["Armstrong","Gagarin","Newton"], c:0,
+    e:"Em 1969, na Apollo 11." },
+  // modelos
+  { q:"O geocentrismo coloca no centro...", alt:["a Terra","o Sol","a Lua"], c:0,
+    e:"Foi defendido por Ptolomeu." },
+  { q:"O heliocentrismo coloca no centro...", alt:["o Sol","a Terra","Marte"], c:0,
+    e:"Foi defendido por Copérnico." },
+  { q:"Quem mostrou que as órbitas são elipses?", alt:["Kepler","Ptolomeu","Gagarin"], c:0,
+    e:"Usando os dados de Tycho Brahe." },
+  { q:"Quem observou o céu com a luneta em 1609?", alt:["Galileu","Newton","Aristóteles"], c:0,
+    e:"Viu relevo na Lua e satélites de Júpiter." },
+  { q:"A lei da gravitação universal é de...", alt:["Newton","Copérnico","Hubble"], c:0,
+    e:"Matéria atrai matéria." },
+  { q:"Uma estrela é um astro...", alt:["luminoso","iluminado","sem luz"], c:0,
+    e:"Tem luz própria. Planetas apenas refletem." },
+  { q:"Quem indica o sul é...", alt:["o Cruzeiro do Sul","a Estrela Polar","o Sol ao meio-dia"], c:0,
+    e:"A Estrela Polar indica o norte." },
+  // sistema solar
+  { q:"A energia do Sol vem da...", alt:["fusão nuclear","queima de carvão","fissão do urânio"], c:0,
+    e:"Hidrogênio vira hélio." },
+  { q:"Qual é um planeta rochoso?", alt:["Vênus","Júpiter","Netuno"], c:0,
+    e:"Rochosos: Mercúrio, Vênus, Terra e Marte." },
+  { q:"Qual é um planeta gasoso?", alt:["Urano","Marte","Mercúrio"], c:0,
+    e:"Gasosos: Júpiter, Saturno, Urano e Netuno." },
+  { q:"O planeta mais quente é...", alt:["Vênus","Mercúrio","Júpiter"], c:0,
+    e:"Por causa do efeito estufa." },
+  { q:"O Cinturão de Asteroides fica entre...", alt:["Marte e Júpiter","Terra e Marte","Saturno e Urano"], c:0,
+    e:"Asteroides são rochas que sobraram da formação do sistema." },
+  { q:"O que chega ao chão é o...", alt:["meteorito","meteoro","meteoroide"], c:0,
+    e:"Meteoro é o rastro de luz; meteoroide está no espaço." },
+  { q:"Plutão hoje é...", alt:["um planeta-anão","o maior planeta","um satélite da Terra"], c:0,
+    e:"Foi reclassificado em 2006." },
+  // estrelas
+  { q:"O Big Bang foi...", alt:["o início do Universo, que segue em expansão","uma explosão de bomba","o fim do Sol"], c:0,
+    e:"Não foi explosão." },
+  { q:"As estrelas nascem em...", alt:["nebulosas","buracos negros","planetas"], c:0,
+    e:"Nuvens de gás e poeira." },
+  { q:"Uma estrela muito grande termina em...", alt:["supernova","anã branca","planeta"], c:0,
+    e:"Depois vira estrela de nêutrons ou buraco negro." },
+  { q:"O Sol vai terminar como...", alt:["anã branca","buraco negro","supernova"], c:0,
+    e:"Antes vira gigante vermelha." },
+  // espaco
+  { q:"A corrida espacial foi entre...", alt:["EUA e URSS","Brasil e Argentina","China e Japão"], c:0,
+    e:"Durante a Guerra Fria." },
+  { q:"Na ISS existe gravidade?", alt:["Sim, a falta de peso é uma sensação","Não, é gravidade zero","Só à noite"], c:0,
+    e:"Os astronautas estão em queda livre." },
+  { q:"No espaço, o corpo do astronauta perde...", alt:["osso e músculo","a visão de cor","todo o sangue"], c:0,
+    e:"Por isso eles fazem exercício todos os dias." },
+  { q:"Zona habitável é a região onde...", alt:["pode existir água líquida","só tem gelo","não há estrelas"], c:0,
+    e:"Exoplaneta é um planeta fora do Sistema Solar." },
+]
+function embaralhar(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function preparar(){ return embaralhar(questoes.slice()).map(q=>{ const alts=q.alt.map((t,i)=>({t,c:i===q.c})); embaralhar(alts); return {q:q.q, alt:alts.map(a=>a.t), c:alts.findIndex(a=>a.c), e:q.e}; }); }
+let jogo = preparar(); let atual=0, acertos=0; const letras=["A","B","C"]; const $=id=>document.getElementById(id);
+function render(){ const it=jogo[atual]; $("contador").textContent=`Questão ${atual+1} de ${jogo.length}`; $("placar").textContent=`Acertos: ${acertos}`; $("barra").style.width=`${(atual/jogo.length)*100}%`; $("pergunta").textContent=it.q; const b=$("alternativas"); b.innerHTML=""; it.alt.forEach((t,i)=>{ const x=document.createElement("button"); x.className="alt"; x.innerHTML=`<span class="letra">${letras[i]}</span><span>${t}</span>`; x.onclick=()=>responder(i); b.appendChild(x); }); const f=$("feedback"); f.className="feedback"; f.innerHTML=""; $("proxima").className="proxima"; $("proxima").textContent=atual===jogo.length-1?"Ver resultado 🏁":"Próxima ➜"; }
+function responder(e){ const it=jogo[atual]; document.querySelectorAll(".alt").forEach((b,i)=>{ b.disabled=true; if(i===it.c)b.classList.add("certo"); if(i===e&&e!==it.c)b.classList.add("errado"); }); const f=$("feedback"); if(e===it.c){acertos++; f.className="feedback ok mostrar"; f.innerHTML=`<b>✅ Acertou!</b>${it.e}`;} else {f.className="feedback no mostrar"; f.innerHTML=`<b>❌ Quase!</b> A resposta certa é <b>${letras[it.c]}</b>. ${it.e}`;} $("placar").textContent=`Acertos: ${acertos}`; $("proxima").classList.add("mostrar"); }
+$("proxima").onclick=()=>{ atual++; if(atual<jogo.length)render(); else final(); };
+function final(){ const t=jogo.length; const nota=Math.round((acertos/t)*100)/10; const p=acertos/t; let e,m; if(p>=0.9){e="🏆";m="Fera! Mandou muito bem. Pronto para a prova!";} else if(p>=0.7){e="😃";m="Muito bom! Só falta revisar alguns pontinhos.";} else if(p>=0.45){e="🙂";m="Bom começo! Dá uma relida no resumo e refaça.";} else {e="💪";m="Sem problema! Leia o resumo com calma e tente de novo.";} $("barra").style.width="100%"; $("contador").textContent="Fim do quiz"; $("palco").innerHTML=`<div class="final"><div class="emoji">${e}</div><h2>Quiz concluído!</h2><div class="placar">Você acertou <b>${acertos}</b> de <b>${t}</b></div><div class="nota">Nota ${nota}</div><div class="recado">${m}</div><button class="refazer" onclick="reiniciar()">🔀 Embaralhar e refazer</button></div>`; }
+function reiniciar(){ atual=0; acertos=0; jogo=preparar(); $("palco").innerHTML=`<div class="pergunta" id="pergunta"></div><div class="alternativas" id="alternativas"></div><div class="feedback" id="feedback"></div><button class="proxima" id="proxima">Próxima ➜</button>`; $("proxima").onclick=()=>{ atual++; if(atual<jogo.length)render(); else final(); }; render(); }
+render();
+</script>
+</body>
+</html>
