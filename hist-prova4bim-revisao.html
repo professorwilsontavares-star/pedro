@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revisão do Pedro: História, prova do 4º bimestre</title>
+<style>
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:"Segoe UI",system-ui,Arial,sans-serif; background:linear-gradient(160deg,#fdf0f3,#f6d6df); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px; color:#1E2B38;}
+  .box{width:100%; max-width:520px; text-align:center;}
+  h1{font-size:1.3rem; color:#9f1239; margin-bottom:4px;}
+  .sub{color:#64748b; font-size:.9rem; margin-bottom:18px;}
+  .contador{font-weight:700; color:#64748b; margin-bottom:12px;}
+  .cartao{background:#fff; border-radius:22px; box-shadow:0 12px 34px rgba(159,18,57,.16); padding:36px 28px; min-height:250px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:20px;}
+  .rotulo{font-size:.75rem; letter-spacing:1.5px; text-transform:uppercase; font-weight:800;}
+  .rotulo.p{color:#E25E42;} .rotulo.r{color:#9f1239;}
+  .pergunta{font-size:1.4rem; font-weight:800; line-height:1.4;}
+  .resposta{font-size:1.2rem; line-height:1.5; color:#6b0f2a; display:none; white-space:pre-line;}
+  .resposta.mostrar{display:block;}
+  .bts{display:flex; gap:10px; margin-top:18px; justify-content:center; flex-wrap:wrap;}
+  button{font-family:inherit; font-size:1rem; font-weight:800; border:none; cursor:pointer; padding:14px 22px; border-radius:14px; transition:filter .15s;}
+  button:hover{filter:brightness(1.08);}
+  .ver{background:#9f1239; color:#fff;} .prox{background:#E25E42; color:#fff;} .voltar{background:#e2e8f0; color:#1E2B38;}
+</style>
+</head>
+<body>
+<a href="index.html" class="btn-voltar-hub" style="position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:9999;display:inline-flex;align-items:center;gap:7px;background:#E25E42;color:#fff;text-decoration:none;font-weight:800;font-size:1rem;padding:11px 18px;border-radius:30px;box-shadow:0 4px 14px rgba(0,0,0,.3);font-family:'Segoe UI',system-ui,Arial,sans-serif;">← Voltar</a>
+<div class="box">
+  <h1>📜 História: o básico em cartões</h1>
+  <div class="sub">Pergunta e resposta na mesma tela: leia, tente lembrar de cabeça e confira na hora.</div>
+  <div class="contador" id="contador"></div>
+  <div class="cartao">
+    <div><div class="rotulo p">Pergunta</div><div class="pergunta" id="pergunta"></div></div>
+    <div class="resposta" id="resposta"></div>
+  </div>
+  <div class="bts">
+    <button class="voltar" id="voltar">← Voltar</button>
+    <button class="ver" id="ver">👁️ Ver resposta</button>
+    <button class="prox" id="prox">Próximo →</button>
+  </div>
+</div>
+<script>
+const cartoes = [
+  ["Quando acabou a ditadura?", "Em 1985."],
+  ["Qual é a Constituição Cidadã?", "A Constituição de 1988."],
+  ["O que foram as Diretas Já?", "Campanha pelo voto direto para presidente, em 1984."],
+  ["Quem foi eleito em 1985 e morreu antes da posse?", "Tancredo Neves. Sarney assumiu."],
+  ["Quem são os caras-pintadas?", "Jovens que pediram o impeachment de Collor."],
+  ["O que foi o Plano Collor?", "Bloqueio da poupança das pessoas, em 1990."],
+  ["Em que governo veio o Plano Real?", "Itamar Franco, em 1994. FHC era o ministro."],
+  ["Qual é a marca do governo FHC?", "Privatizações e reeleição."],
+  ["Qual é a marca do governo Lula?", "O Bolsa Família."],
+  ["Quem foi a primeira mulher presidente?", "Dilma Rousseff."],
+  ["O que foram as Jornadas de Junho?", "Protestos de 2013, que começaram pela tarifa de ônibus em São Paulo."],
+  ["O que foi o 8 de janeiro de 2023?", "Ataque às sedes dos Três Poderes."],
+  ["Com que idade o voto é obrigatório?", "Dos 18 aos 70 anos. É facultativo aos 16 e 17 anos."],
+  ["O que é a Lei Maria da Penha?", "Lei de 2006 contra a violência doméstica à mulher."],
+  ["Como a Constituição trata o racismo?", "Crime inafiançável e imprescritível."],
+  ["O que é racismo estrutural?", "Racismo enraizado na sociedade e nas instituições."],
+  ["O que é o marco temporal?", "Tese de que indígenas só teriam direito às terras ocupadas em 5/10/1988."],
+  ["O que é o Mapa da Fome?", "Lista da ONU de países com muita fome. O Brasil saiu em 2025."],
+  ["Onde foi a COP30?", "Em Belém, em 2025."],
+  ["O que aconteceu em Mariana e Brumadinho?", "Rompimento de barragens em Minas Gerais."],
+  ["O que é fake news?", "Notícia falsa criada de propósito para enganar."],
+  ["O que é deepfake?", "Montagem de imagem e som feita com inteligência artificial."],
+  ["O que é filtro de bolha?", "O algoritmo mostra só o que você já curte."],
+  ["O que é cyberbullying?", "Intimidação repetida pela internet."],
+]
+let i = 0;
+const $ = id => document.getElementById(id);
+function mostrar(){
+  $("contador").textContent = `Cartão ${i+1} de ${cartoes.length}`;
+  $("pergunta").textContent = cartoes[i][0];
+  $("resposta").textContent = cartoes[i][1];
+  $("resposta").className = "resposta mostrar";   // resposta sempre visivel
+  $("ver").style.display = "none";
+  $("voltar").disabled = (i === 0); $("voltar").style.opacity = (i === 0) ? .4 : 1;
+  $("prox").textContent = (i === cartoes.length-1) ? "🔁 Recomeçar" : "Próximo →";
+}
+$("ver").onclick = ()=>{ $("resposta").className = "resposta mostrar"; $("ver").style.display = "none"; };
+$("prox").onclick = ()=>{ i = (i+1) % cartoes.length; mostrar(); };
+$("voltar").onclick = ()=>{ if(i > 0){ i--; mostrar(); } };
+mostrar();
+</script>
+</body>
+</html>
