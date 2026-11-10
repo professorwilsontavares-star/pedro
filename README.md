@@ -18,6 +18,7 @@ Material escolar do Pedro (14 anos, Ensino Fundamental Anos Finais / 9º ano), p
 | Arquivo | O que é |
 |---|---|
 | `index.html` | **Hub** — página inicial que lista as atividades |
+| `simulado-bioquim-resumo.html` | **Simulado de Biologia e Química** (10/11): biotecnologia e as técnicas, doenças genéticas, ácidos, bases, sais, óxidos e indicadores (34 cartões e 40 perguntas nas peças `-revisao` e `-quiz`). Biotecnologia feita sem os prints do livro (Módulo 8, p. 382): conteúdo-padrão do 9º ano |
 | `fis-prova3bim-resumo.html` | **Física, avaliação do 3º bimestre** (30/09): o básico da avaliação do 9º ano (ondas eletromagnéticas, unidades, miopia, ímã e bússola, Ørsted, F = m · a, P = m · g) com as **8 questões da avaliação resolvidas**. Fonte: fotos da avaliação de 23/09 |
 | `fis-prova3bim-revisao.html` | Revisão em cartões (23 cartões) |
 | `fis-prova3bim-quiz.html` | Quiz interativo (30 questões, embaralha sozinho) |

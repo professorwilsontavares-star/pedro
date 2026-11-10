@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resumo do Pedro: Simulado de Biologia e Química</title>
+<style>
+  :root{--g:#0f766e; --g-claro:#d5f2ee; --g-esc:#115e59; --qm:#4338ca; --qm-claro:#e8e7fb; --navy:#1E2B38; --azul:#1d4e89; --azul-claro:#e8f0fb;
+    --vermelho:#c0392b; --vermelho-claro:#fdecea; --amarelo:#f4b400;
+    --coral:#E25E42; --cinza:#475569; --tinta:#1f2733;}
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{background:#f5f7fa; color:var(--tinta); line-height:1.65; font-size:18px; font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;}
+  .wrap{max-width:820px; margin:0 auto; padding:0 18px 80px;}
+  header.capa{background:linear-gradient(135deg,#0f766e,#4338ca); color:#fff; padding:46px 26px 34px; text-align:center; border-radius:0 0 22px 22px;}
+  header.capa .modulo{display:inline-block; background:rgba(255,255,255,.18); font-weight:700; font-size:.78rem; letter-spacing:1.5px; text-transform:uppercase; padding:6px 16px; border-radius:30px; margin-bottom:14px;}
+  header.capa h1{font-size:2rem; line-height:1.2;} header.capa p{opacity:.92; margin-top:6px;}
+  h2.sec{color:var(--g); font-size:1.5rem; margin:40px 0 6px; padding-bottom:8px; border-bottom:3px solid var(--amarelo); display:flex; align-items:center; gap:12px;}
+  h2.sec .ic{flex:0 0 46px; width:46px; height:46px; border-radius:50%; background:var(--g-claro); display:flex; align-items:center; justify-content:center; font-size:1.5rem;}
+  h3.sub{color:var(--navy); font-size:1.15rem; margin:22px 0 4px;}
+  p{margin:12px 0;} strong{color:var(--g-esc);} .lead{font-size:1.05rem; color:var(--cinza);}
+  ul.top{list-style:none; margin:12px 0; padding:0;}
+  ul.top li{position:relative; padding:8px 0 8px 34px; border-bottom:1px dashed #e2e8f0;}
+  ul.top li:last-child{border-bottom:none;}
+  ul.top li::before{content:"▸"; position:absolute; left:8px; top:8px; color:var(--coral); font-weight:900; font-size:1.1rem;}
+  .card{border-radius:14px; padding:14px 18px; margin:16px 0; background:#fff;}
+  .card .tit{font-weight:800; display:block; margin-bottom:4px;}
+  .chave{background:var(--g-claro);} .chave .tit{color:var(--g);}
+  .lembre{background:var(--azul-claro);} .lembre .tit{color:var(--azul);}
+  .atencao{background:var(--vermelho-claro);} .atencao .tit{color:var(--vermelho);}
+  table.q{width:100%; border-collapse:collapse; margin:14px 0; font-size:.95rem; background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 3px 12px rgba(0,0,0,.06);}
+  table.q th{background:var(--g); color:#fff; padding:10px 12px; text-align:left; font-size:.9rem;}
+  table.q td{padding:10px 12px; border-top:1px solid #e2e8f0; vertical-align:top;}
+  table.q tr:nth-child(even) td{background:#f8fafc;}
+  .gab{background:#fff; border-radius:14px; box-shadow:0 3px 12px rgba(0,0,0,.06); padding:6px 18px 14px; margin:16px 0;}
+  .gab .item{padding:12px 0; border-bottom:1px dashed #e2e8f0;} .gab .item:last-child{border-bottom:none;}
+  .gab .num{display:inline-block; background:var(--coral); color:#fff; font-weight:800; border-radius:8px; padding:1px 9px; margin-right:8px; font-size:.9rem;}
+  .gab .resp{display:block; margin-top:4px; color:var(--g-esc);}
+  footer{text-align:center; color:#94a3b8; font-size:.85rem; margin-top:48px;}
+  .topo{position:fixed; right:16px; bottom:16px; background:var(--g); color:#fff; text-decoration:none; width:46px; height:46px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.3rem; box-shadow:0 4px 12px rgba(0,0,0,.2);}
+  @media(max-width:560px){ body{font-size:17px;} header.capa h1{font-size:1.5rem;} table.q{font-size:.85rem;} table.q th, table.q td{padding:8px 7px;} }
+  .quim h2.sec{color:var(--qm);} .quim h2.sec .ic{background:var(--qm-claro);} .quim table.q th{background:var(--qm);} .quim strong{color:#312e81;} .quim .chave{background:var(--qm-claro);} .quim .chave .tit{color:var(--qm);}
+  .materia-tit{margin:46px 0 0; padding:12px 18px; border-radius:14px; color:#fff; font-size:1.25rem; font-weight:900; letter-spacing:1px; text-transform:uppercase;}
+  .figura{background:#fff; border-radius:14px; box-shadow:0 3px 12px rgba(0,0,0,.06); padding:14px; margin:16px 0; text-align:center;}
+  .figura svg{max-width:100%; height:auto;} .figura .leg{font-size:.85rem; color:var(--cinza); margin-top:6px;}
+  .cor{display:inline-block; width:14px; height:14px; border-radius:4px; vertical-align:-2px; margin-right:6px; border:1px solid #cbd5e1;}
+</style>
+</head>
+<body id="topo">
+<a href="index.html" class="btn-voltar-hub" style="position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:9999;display:inline-flex;align-items:center;gap:7px;background:#E25E42;color:#fff;text-decoration:none;font-weight:800;font-size:1rem;padding:11px 18px;border-radius:30px;box-shadow:0 4px 14px rgba(0,0,0,.3);font-family:'Segoe UI',system-ui,Arial,sans-serif;">← Voltar</a>
+
+<header class="capa">
+  <span class="modulo">Biologia e Química · 9º ano · Simulado</span>
+  <h1>O básico para o simulado 📝</h1>
+  <p>Biotecnologia, doenças genéticas, ácidos, bases, sais, óxidos e indicadores</p>
+</header>
+
+<div class="wrap">
+<div class="card chave" style="text-align:center; font-size:1.15rem; margin-top:22px;"><span class="tit" style="font-size:1.05rem;">🔑 O mais importante de todos</span><strong>BIOTECNOLOGIA</strong>: usar seres vivos ou o DNA deles para fazer produtos.<br><strong>DOENÇA GENÉTICA</strong>: vem de uma alteração no DNA.<br><strong>ÁCIDO</strong> solta H⁺ · <strong>BASE</strong> solta OH⁻ · <strong>ÁCIDO + BASE</strong> = sal + água.<br><strong>INDICADOR</strong>: muda de cor no ácido e na base.</div>
+
+<p class="lead">Leia na ordem: primeiro o mais fácil de cada matéria, depois o resto. Só o que <strong>não pode faltar</strong>. 👇</p>
+
+<div class="materia-tit" style="background:#0f766e;">🧬 Biologia</div>
+
+<h2 class="sec"><span class="ic">🟢</span>Comece aqui: o mais fácil</h2>
+<table class="q">
+  <tr><th>Se aparecer...</th><th>Pense em...</th></tr>
+  <tr><td>transgênico</td><td>ganhou um <strong>gene de outra espécie</strong></td></tr>
+  <tr><td>clone</td><td>cópia com o <strong>mesmo DNA</strong> (ovelha Dolly)</td></tr>
+  <tr><td>insulina feita por bactéria</td><td><strong>engenharia genética</strong></td></tr>
+  <tr><td>teste de paternidade</td><td><strong>teste de DNA</strong></td></tr>
+  <tr><td>célula-tronco</td><td>pode virar <strong>vários tipos de célula</strong></td></tr>
+  <tr><td>síndrome de Down</td><td><strong>trissomia do 21</strong> (47 cromossomos)</td></tr>
+  <tr><td>hemofilia, albinismo, daltonismo</td><td>doenças de <strong>um gene só</strong>, recessivas</td></tr>
+  <tr><td>teste do pezinho</td><td>descobre doenças genéticas no <strong>recém-nascido</strong></td></tr>
+</table>
+
+<h2 class="sec"><span class="ic">🧪</span>1. Biotecnologia e as técnicas</h2>
+<p><strong>Biotecnologia</strong> é usar seres vivos (ou partes deles, como o DNA) para fazer produtos e resolver problemas.</p>
+<ul class="top">
+  <li><strong>A antiga:</strong> fungos e bactérias fazendo <strong>pão, iogurte, queijo e vinho</strong> (fermentação). Já é biotecnologia!</li>
+  <li><strong>A moderna:</strong> mexe direto no <strong>DNA</strong>. É a <strong>engenharia genética</strong>.</li>
+</ul>
+
+<div class="figura">
+<svg viewBox="0 0 640 170" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Arial" font-size="14">
+  <rect x="10" y="40" width="150" height="80" rx="14" fill="#d5f2ee" stroke="#0f766e" stroke-width="2"/>
+  <text x="85" y="72" text-anchor="middle" font-weight="700" fill="#115e59">1. Corta o gene</text>
+  <text x="85" y="94" text-anchor="middle" fill="#1f2733">da insulina humana</text>
+  <text x="85" y="112" text-anchor="middle" fill="#475569" font-size="12">("tesoura" = enzima)</text>
+  <text x="182" y="86" font-size="26" fill="#E25E42">➜</text>
+  <rect x="215" y="40" width="190" height="80" rx="14" fill="#d5f2ee" stroke="#0f766e" stroke-width="2"/>
+  <text x="310" y="72" text-anchor="middle" font-weight="700" fill="#115e59">2. Cola na bactéria</text>
+  <circle cx="310" cy="100" r="13" fill="none" stroke="#E25E42" stroke-width="3"/>
+  <text x="335" y="105" fill="#475569" font-size="12">plasmídeo</text>
+  <text x="427" y="86" font-size="26" fill="#E25E42">➜</text>
+  <rect x="460" y="40" width="170" height="80" rx="14" fill="#d5f2ee" stroke="#0f766e" stroke-width="2"/>
+  <text x="545" y="72" text-anchor="middle" font-weight="700" fill="#115e59">3. A bactéria</text>
+  <text x="545" y="94" text-anchor="middle" fill="#1f2733">fabrica insulina</text>
+  <text x="545" y="112" text-anchor="middle" fill="#475569" font-size="12">para diabéticos</text>
+  <text x="320" y="155" text-anchor="middle" fill="#475569" font-size="13">DNA recombinante: DNA de uma espécie colocado em outra</text>
+</svg>
+</div>
+
+<table class="q">
+  <tr><th>Técnica</th><th>O que é</th><th>Exemplo</th></tr>
+  <tr><td><strong>DNA recombinante</strong></td><td>cortar um gene e colocar em outro ser vivo</td><td>bactéria que fabrica <strong>insulina humana</strong></td></tr>
+  <tr><td><strong>Transgênico (OGM)</strong></td><td>ser vivo que recebeu gene de <strong>outra espécie</strong></td><td>milho que resiste a lagartas; soja que resiste a herbicida</td></tr>
+  <tr><td><strong>Clonagem</strong></td><td>fazer um ser com o <strong>DNA idêntico</strong> ao de outro</td><td>ovelha <strong>Dolly</strong> (1996), o 1º mamífero clonado de uma célula adulta</td></tr>
+  <tr><td><strong>Células-tronco</strong></td><td>células que podem virar <strong>vários tipos</strong> de célula</td><td>embrião, cordão umbilical, medula óssea</td></tr>
+  <tr><td><strong>Teste de DNA</strong> (PCR)</td><td>copia o DNA <strong>milhões de vezes</strong> para comparar</td><td>teste de paternidade e investigação de crimes</td></tr>
+  <tr><td><strong>Terapia gênica</strong></td><td>colocar um gene <strong>normal</strong> no lugar do defeituoso</td><td>tratamento de doenças genéticas</td></tr>
+  <tr><td><strong>Projeto Genoma</strong></td><td>ler <strong>todos os genes</strong> do ser humano</td><td>concluído em 2003</td></tr>
+</table>
+<div class="card lembre"><span class="tit">💡 Clone natural existe</span>Gêmeos idênticos (univitelinos) e mudas de planta feitas de um galho são clones naturais: têm o mesmo DNA.</div>
+<div class="card atencao"><span class="tit">⚠️ Prós e contras dos transgênicos</span><strong>A favor:</strong> plantas mais resistentes, menos agrotóxico, mais produção.<br><strong>Contra:</strong> dúvidas sobre o ambiente e a saúde, e dependência das empresas de sementes. No Brasil, o rótulo traz um <strong>T</strong> num triângulo amarelo.</div>
+
+<h2 class="sec"><span class="ic">🧬</span>2. Genética: doenças</h2>
+<p><strong>Doença genética</strong> é a que vem de uma <strong>alteração no DNA</strong> (mutação) ou no número de cromossomos.</p>
+<div class="card chave"><span class="tit">🔑 A regra que decide tudo</span>Só passa para os filhos se a alteração estiver nos <strong>gametas</strong> (óvulo e espermatozoide).</div>
+<table class="q">
+  <tr><th>Tipo</th><th>Como é</th><th>Exemplos</th></tr>
+  <tr><td><strong>Monogênica</strong></td><td>um gene só, segue Mendel</td><td><strong>recessivas (aa):</strong> albinismo, hemofilia, daltonismo, fibrose cística, fenilcetonúria<br><strong>dominantes (Aa):</strong> acondroplasia (nanismo), síndrome de Marfan</td></tr>
+  <tr><td><strong>Multifatorial</strong></td><td>vários genes + <strong>ambiente</strong></td><td>maioria dos cânceres, hipertensão, doenças do coração</td></tr>
+  <tr><td><strong>Cromossômica</strong></td><td>falta ou sobra cromossomo</td><td><strong>trissomia do 21</strong> (Down, 47 cromossomos); monossomia do X (Turner)</td></tr>
+</table>
+<table class="q">
+  <tr><th>Palavra</th><th>Quer dizer</th></tr>
+  <tr><td><strong>Genética</strong></td><td>vem de alteração no DNA</td></tr>
+  <tr><td><strong>Hereditária</strong></td><td>passa de pais para filhos</td></tr>
+  <tr><td><strong>Congênita</strong></td><td>a pessoa já <strong>nasce</strong> com ela (pode ser por infecção ou álcool na gravidez)</td></tr>
+</table>
+<div class="card atencao"><span class="tit">⚠️ A pegadinha preferida</span>Toda doença hereditária é genética, mas <strong>nem toda genética é hereditária</strong>. E <strong>portador</strong> (Aa numa recessiva) não tem a doença, mas pode passar o gene.</div>
+<ul class="top">
+  <li><strong>Anemia falciforme (SS):</strong> hemácia em forma de <strong>foice</strong>, leva menos oxigênio. Quem é <strong>AS</strong> tem só o <strong>traço</strong>, sem a doença.</li>
+  <li><strong>Teste do pezinho:</strong> gotas de sangue do pé do bebê nos primeiros dias; é <strong>obrigatório</strong> e descobre doenças cedo.</li>
+  <li><strong>Aconselhamento genético:</strong> conversa com especialista quando há casos na família.</li>
+</ul>
+
+<div class="quim">
+<div class="materia-tit" style="background:#4338ca;">⚗️ Química</div>
+
+<h2 class="sec"><span class="ic">🟢</span>Comece aqui: o mais fácil</h2>
+<table class="q">
+  <tr><th>Se aparecer...</th><th>Pense em...</th></tr>
+  <tr><td>H na frente: HCl, H₂SO₄</td><td><strong>ácido</strong></td></tr>
+  <tr><td>OH no fim: NaOH, Ca(OH)₂</td><td><strong>base</strong></td></tr>
+  <tr><td>NaCl, CaCO₃, NaHCO₃</td><td><strong>sal</strong></td></tr>
+  <tr><td>CO₂, CaO, SO₂</td><td><strong>óxido</strong></td></tr>
+  <tr><td>ácido + base</td><td><strong>sal + água</strong> (neutralização)</td></tr>
+  <tr><td>fenolftaleína ficou rosa</td><td>meio <strong>básico</strong></td></tr>
+  <tr><td>pH menor que 7</td><td><strong>ácido</strong></td></tr>
+</table>
+
+<h2 class="sec"><span class="ic">🍋</span>1. Ácidos, bases, sais e óxidos</h2>
+<table class="q">
+  <tr><th>Função</th><th>Como reconhecer</th><th>Exemplos do dia a dia</th></tr>
+  <tr><td><strong>Ácido</strong></td><td>em água solta <strong>H⁺</strong>; sabor <strong>azedo</strong></td><td><strong>HCl</strong> (suco do estômago), <strong>H₂SO₄</strong> (bateria de carro), <strong>H₂CO₃</strong> (refrigerante), vinagre, limão</td></tr>
+  <tr><td><strong>Base</strong></td><td>em água solta <strong>OH⁻</strong>; sabor que <strong>"amarra"</strong>, escorregadia</td><td><strong>NaOH</strong> (soda cáustica), <strong>Mg(OH)₂</strong> (leite de magnésia), <strong>Ca(OH)₂</strong> (cal), sabão</td></tr>
+  <tr><td><strong>Sal</strong></td><td>nasce de <strong>ácido + base</strong></td><td><strong>NaCl</strong> (sal de cozinha), <strong>CaCO₃</strong> (mármore, calcário), <strong>NaHCO₃</strong> (bicarbonato)</td></tr>
+  <tr><td><strong>Óxido</strong></td><td>dois elementos, um é o <strong>oxigênio</strong></td><td><strong>CO₂</strong> (gás carbônico), <strong>CaO</strong> (cal virgem), <strong>CO</strong> (monóxido, tóxico)</td></tr>
+</table>
+<div class="card chave"><span class="tit">🔑 Neutralização</span>ÁCIDO + BASE → SAL + ÁGUA<br>HCl + NaOH → <strong>NaCl</strong> + H₂O</div>
+<table class="q">
+  <tr><th>Óxido</th><th>Com água forma</th><th>Problema que causa</th></tr>
+  <tr><td><strong>ácido</strong> (CO₂, SO₂, NO₂)</td><td>ácido</td><td>SO₂, SO₃ e NO₂: <strong>chuva ácida</strong>; CO₂: <strong>efeito estufa</strong></td></tr>
+  <tr><td><strong>básico</strong> (CaO, MgO)</td><td>base</td><td>CaO + H₂O → Ca(OH)₂</td></tr>
+</table>
+<div class="card lembre"><span class="tit">💡 Leite de magnésia na azia</span>A azia é ácido demais no estômago. A <strong>base</strong> do leite de magnésia <strong>neutraliza</strong> o ácido.</div>
+
+<h2 class="sec"><span class="ic">🌈</span>2. Indicadores químicos</h2>
+<p><strong>Indicador</strong> é uma substância que <strong>muda de cor</strong> se o meio for ácido ou básico.</p>
+<div class="figura">
+<svg viewBox="0 0 640 110" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Arial" font-size="14">
+  <defs><linearGradient id="ph" x1="0" x2="1"><stop offset="0" stop-color="#d7263d"/><stop offset=".3" stop-color="#f4b400"/><stop offset=".5" stop-color="#3fae49"/><stop offset=".75" stop-color="#2b6cb0"/><stop offset="1" stop-color="#6b21a8"/></linearGradient></defs>
+  <rect x="20" y="20" width="600" height="34" rx="10" fill="url(#ph)"/>
+  <text x="20" y="74" fill="#1f2733">0</text><text x="314" y="74" fill="#1f2733" font-weight="700">7</text><text x="604" y="74" fill="#1f2733">14</text>
+  <text x="120" y="98" text-anchor="middle" fill="#c0392b" font-weight="700">ÁCIDO (menor que 7)</text>
+  <text x="320" y="98" text-anchor="middle" fill="#2e7d4f" font-weight="700">NEUTRO</text>
+  <text x="515" y="98" text-anchor="middle" fill="#1d4e89" font-weight="700">BÁSICO (maior que 7)</text>
+</svg>
+<div class="leg">Escala de pH: quanto menor, mais ácido; quanto maior, mais básico. Água pura = 7.</div>
+</div>
+<table class="q">
+  <tr><th>Indicador</th><th>No ácido</th><th>Na base</th></tr>
+  <tr><td><strong>Fenolftaleína</strong></td><td><span class="cor" style="background:#fff"></span>incolor</td><td><span class="cor" style="background:#ec4899"></span><strong>rosa</strong></td></tr>
+  <tr><td><strong>Papel de tornassol</strong></td><td><span class="cor" style="background:#d7263d"></span>fica <strong>vermelho</strong></td><td><span class="cor" style="background:#2b6cb0"></span>fica <strong>azul</strong></td></tr>
+  <tr><td><strong>Repolho roxo</strong> (caseiro)</td><td><span class="cor" style="background:#e5739a"></span>vermelho / rosa</td><td><span class="cor" style="background:#3fae49"></span>verde / amarelo</td></tr>
+</table>
+<div class="card atencao"><span class="tit">⚠️ Decore assim</span>Fenolftaleína: <strong>rosa = base</strong>. Tornassol: <strong>vermelho = ácido, azul = base</strong>.</div>
+</div>
+
+<footer>Simulado de Biologia e Química · bons estudos, Pedro! 💪</footer>
+</div>
+<a href="#topo" class="topo">↑</a>
+</body>
+</html>

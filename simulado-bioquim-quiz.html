@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz do Pedro: Simulado de Biologia e Química</title>
+<style>
+  :root{--navy:#1E2B38; --q:#0f766e; --q-cl:#d5f2ee; --laranja:#FFE4CC; --coral:#E25E42; --ok:#2e7d4f; --ok-cl:#d7f0df; --no:#c0392b; --no-cl:#fbe0dc; --cinza:#64748b;}
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif; background:linear-gradient(160deg,#eeedfb,#d9d6f5); color:var(--navy); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px; line-height:1.55;}
+  .app{width:100%; max-width:640px; background:#fff; border-radius:24px; box-shadow:0 12px 40px rgba(67,56,202,.16); overflow:hidden;}
+  header{background:linear-gradient(135deg,#0f766e,#4338ca); color:#fff; padding:22px 26px 18px;}
+  header .selo{font-size:.72rem; letter-spacing:1.5px; text-transform:uppercase; opacity:.8; font-weight:700;}
+  header h1{font-size:1.35rem; margin-top:4px;}
+  .barra-topo{display:flex; justify-content:space-between; align-items:center; margin-top:14px; font-size:.9rem; font-weight:700;}
+  .progresso{height:9px; background:rgba(255,255,255,.25); border-radius:20px; margin-top:10px; overflow:hidden;}
+  .progresso span{display:block; height:100%; width:0; background:var(--coral); border-radius:20px; transition:width .35s ease;}
+  main{padding:26px 26px 30px;}
+  .pergunta{font-size:1.25rem; font-weight:800; color:var(--navy); margin-bottom:20px; min-height:60px;}
+  .alternativas{display:flex; flex-direction:column; gap:12px;}
+  .alt{text-align:left; font-size:1.05rem; padding:15px 18px; border:2px solid #d9d6f5; background:#f7f6fe; border-radius:14px; cursor:pointer; transition:all .15s ease; display:flex; align-items:center; gap:12px; font-family:inherit; color:var(--navy);}
+  .alt:hover:not(:disabled){border-color:var(--q); background:var(--q-cl); transform:translateY(-1px);}
+  .alt:disabled{cursor:default;}
+  .alt .letra{flex:0 0 30px; height:30px; border-radius:50%; background:var(--q); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:.95rem;}
+  .alt.certo{border-color:var(--ok); background:var(--ok-cl);} .alt.certo .letra{background:var(--ok);}
+  .alt.errado{border-color:var(--no); background:var(--no-cl);} .alt.errado .letra{background:var(--no);}
+  .feedback{margin-top:20px; padding:15px 18px; border-radius:14px; display:none; font-size:1rem;}
+  .feedback.mostrar{display:block;}
+  .feedback.ok{background:var(--ok-cl);}
+  .feedback.no{background:var(--no-cl);}
+  .feedback b:first-child{display:block; margin-bottom:3px;}
+  .proxima{margin-top:20px; width:100%; padding:15px; font-size:1.1rem; font-weight:800; background:var(--coral); color:#fff; border:none; border-radius:14px; cursor:pointer; font-family:inherit; display:none;}
+  .proxima.mostrar{display:block;} .proxima:hover{filter:brightness(1.08);}
+  .final{text-align:center; padding:14px 6px;}
+  .final .emoji{font-size:3.4rem;} .final h2{font-size:1.6rem; margin:10px 0;}
+  .final .placar{font-size:1.15rem; color:var(--cinza); margin-bottom:6px;}
+  .final .nota{font-size:3rem; font-weight:900; color:var(--q); margin:6px 0;}
+  .final .recado{background:var(--laranja); border-radius:14px; padding:14px 18px; margin:18px 0; color:var(--navy);}
+  .refazer{padding:14px 28px; font-size:1.05rem; font-weight:800; background:var(--q); color:#fff; border:none; border-radius:14px; cursor:pointer; font-family:inherit;}
+</style>
+</head>
+<body>
+<a href="index.html" class="btn-voltar-hub" style="position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:9999;display:inline-flex;align-items:center;gap:7px;background:#E25E42;color:#fff;text-decoration:none;font-weight:800;font-size:1rem;padding:11px 18px;border-radius:30px;box-shadow:0 4px 14px rgba(0,0,0,.3);font-family:'Segoe UI',system-ui,Arial,sans-serif;">← Voltar</a>
+<div class="app">
+  <header>
+    <div class="selo">Biologia e Química · Simulado · Quiz</div>
+    <h1>Simulado: o básico 📝</h1>
+    <div class="barra-topo"><span id="contador">Questão 1</span><span id="placar">Acertos: 0</span></div>
+    <div class="progresso"><span id="barra"></span></div>
+  </header>
+  <main id="palco">
+    <div class="pergunta" id="pergunta"></div>
+    <div class="alternativas" id="alternativas"></div>
+    <div class="feedback" id="feedback"></div>
+    <button class="proxima" id="proxima">Próxima ➜</button>
+  </main>
+</div>
+<script>
+const questoes = [
+  // faceis
+  { q:"Fazer pão e iogurte com fungos e bactérias é...", alt:["biotecnologia","clonagem","mutação"], c:0, e:"É a biotecnologia antiga, por fermentação." },
+  { q:"A ovelha Dolly foi um...", alt:["clone","transgênico","híbrido"], c:0, e:"Primeiro mamífero clonado de uma célula adulta, em 1996." },
+  { q:"A síndrome de Down é a trissomia do cromossomo...", alt:["21","13","X"], c:0, e:"Três cromossomos 21: a pessoa tem 47 cromossomos." },
+  { q:"O teste do pezinho é feito...", alt:["no recém-nascido","no adulto","só em quem tem sintoma"], c:0, e:"Gotas de sangue do pé do bebê, nos primeiros dias. É obrigatório." },
+  { q:"Ácido + base forma...", alt:["sal + água","óxido + gás","ácido + ácido"], c:0, e:"É a neutralização: HCl + NaOH → NaCl + H₂O." },
+  { q:"A fenolftaleína fica rosa no meio...", alt:["básico","ácido","neutro"], c:0, e:"No ácido e no neutro ela fica incolor." },
+  { q:"O sal de cozinha é o...", alt:["NaCl","HCl","NaOH"], c:0, e:"Cloreto de sódio." },
+  { q:"Um pH igual a 3 indica meio...", alt:["ácido","básico","neutro"], c:0, e:"Menor que 7 é ácido." },
+  // biotecnologia
+  { q:"Transgênico é o ser vivo que...", alt:["recebeu gene de outra espécie","foi clonado","nasceu com doença genética"], c:0, e:"Também chamado de OGM. Ex.: milho que resiste a lagartas." },
+  { q:"Um milho que recebeu gene de uma bactéria é...", alt:["transgênico","clone","natural"], c:0, e:"Gene de outra espécie = transgênico." },
+  { q:"Bactérias fabricam insulina humana graças ao...", alt:["DNA recombinante","teste do pezinho","pH"], c:0, e:"O gene da insulina humana foi colocado nelas." },
+  { q:"A insulina feita por bactérias serve para...", alt:["diabéticos","hemofílicos","daltônicos"], c:0, e:"Quem tem diabetes precisa de insulina." },
+  { q:"No rótulo, o transgênico aparece com...", alt:["um T no triângulo amarelo","uma estrela verde","um X vermelho"], c:0, e:"É a regra de rotulagem no Brasil." },
+  { q:"Clone é um ser com...", alt:["o DNA idêntico ao de outro","gene de outra espécie","um cromossomo a mais"], c:0, e:"Mesmo DNA, como a ovelha Dolly." },
+  { q:"Qual destes é um clone natural?", alt:["gêmeos idênticos","irmãos de idades diferentes","primos"], c:0, e:"Gêmeos univitelinos têm o mesmo DNA." },
+  { q:"Células-tronco são células que...", alt:["podem virar vários tipos de célula","só viram sangue","não se dividem"], c:0, e:"Vêm do embrião, do cordão umbilical e da medula." },
+  { q:"O teste de paternidade compara...", alt:["o DNA","o tipo de cabelo","a altura"], c:0, e:"O PCR copia o DNA milhões de vezes para comparar." },
+  { q:"Colocar um gene normal no lugar do defeituoso é...", alt:["terapia gênica","clonagem","fermentação"], c:0, e:"Uma forma de tratar doença genética." },
+  // genetica
+  { q:"Doença genética vem de...", alt:["alteração no DNA","vírus","falta de vitamina"], c:0, e:"Mutação no DNA ou no número de cromossomos." },
+  { q:"A alteração passa para os filhos quando está...", alt:["nos gametas","no pulmão","na pele"], c:0, e:"Gametas: óvulo e espermatozoide." },
+  { q:"Hemofilia, albinismo e daltonismo são doenças...", alt:["de um gene só, recessivas","cromossômicas","causadas por vírus"], c:0, e:"Recessivas só aparecem em dose dupla (aa)." },
+  { q:"Quem tem síndrome de Down tem quantos cromossomos?", alt:["47","46","45"], c:0, e:"Um cromossomo 21 a mais." },
+  { q:"Câncer e hipertensão, em geral, são doenças...", alt:["multifatoriais","de um gene só","cromossômicas"], c:0, e:"Vários genes + ambiente (cigarro, sol, alimentação)." },
+  { q:"Doença congênita é a que...", alt:["a pessoa já nasce com ela","sempre vem dos pais","aparece na velhice"], c:0, e:"Pode vir até de infecção ou álcool na gravidez." },
+  { q:"Quem é Aa numa doença recessiva é...", alt:["portador, sem a doença","doente","imune para sempre"], c:0, e:"Não tem a doença, mas pode passar o gene." },
+  { q:"Na anemia falciforme, a hemácia tem forma de...", alt:["foice","estrela","quadrado"], c:0, e:"Leva menos oxigênio. Quem é AS tem só o traço." },
+  // quimica
+  { q:"HCl e H₂SO₄ são...", alt:["ácidos","bases","sais"], c:0, e:"Em água soltam H⁺." },
+  { q:"NaOH e Mg(OH)₂ são...", alt:["bases","ácidos","óxidos"], c:0, e:"Em água soltam OH⁻." },
+  { q:"CaCO₃ (mármore) e NaHCO₃ (bicarbonato) são...", alt:["sais","ácidos","bases"], c:0, e:"Sais nascem da reação de ácido com base." },
+  { q:"CO₂ e CaO são...", alt:["óxidos","sais","ácidos"], c:0, e:"Dois elementos, um deles o oxigênio." },
+  { q:"O sabor azedo do limão e do vinagre é típico de...", alt:["ácidos","bases","sais"], c:0, e:"Ácidos têm sabor azedo." },
+  { q:"O leite de magnésia alivia a azia porque é...", alt:["uma base que neutraliza o ácido","um ácido","um sal"], c:0, e:"Base + ácido = neutralização." },
+  { q:"Quais óxidos causam a chuva ácida?", alt:["SO₂, SO₃ e NO₂","CaO e MgO","H₂O e O₂"], c:0, e:"Com a água da chuva formam ácidos." },
+  // indicadores
+  { q:"Indicador químico é uma substância que...", alt:["muda de cor no ácido e na base","apaga fogo","mede a temperatura"], c:0, e:"Ex.: fenolftaleína, tornassol e repolho roxo." },
+  { q:"O papel de tornassol azul num ácido fica...", alt:["vermelho","verde","rosa"], c:0, e:"Tornassol: vermelho = ácido, azul = base." },
+  { q:"O papel de tornassol vermelho numa base fica...", alt:["azul","amarelo","incolor"], c:0, e:"Azul indica base." },
+  { q:"Uma solução ficou rosa com fenolftaleína. Ela é...", alt:["básica","ácida","neutra"], c:0, e:"Rosa = base." },
+  { q:"O suco de repolho roxo numa base fica...", alt:["verde ou amarelo","vermelho","incolor"], c:0, e:"No ácido ele fica vermelho ou rosa." },
+  { q:"Na escala de pH, o neutro é...", alt:["7","0","14"], c:0, e:"Água pura tem pH 7." },
+  { q:"Qual pH é o mais básico?", alt:["12","8","2"], c:0, e:"Quanto maior o pH, mais básico." },
+]
+function embaralhar(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function preparar(){ return embaralhar(questoes.slice()).map(q=>{ const alts=q.alt.map((t,i)=>({t,c:i===q.c})); embaralhar(alts); return {q:q.q, alt:alts.map(a=>a.t), c:alts.findIndex(a=>a.c), e:q.e}; }); }
+let jogo = preparar(); let atual=0, acertos=0; const letras=["A","B","C"]; const $=id=>document.getElementById(id);
+function render(){ const it=jogo[atual]; $("contador").textContent=`Questão ${atual+1} de ${jogo.length}`; $("placar").textContent=`Acertos: ${acertos}`; $("barra").style.width=`${(atual/jogo.length)*100}%`; $("pergunta").textContent=it.q; const b=$("alternativas"); b.innerHTML=""; it.alt.forEach((t,i)=>{ const x=document.createElement("button"); x.className="alt"; x.innerHTML=`<span class="letra">${letras[i]}</span><span>${t}</span>`; x.onclick=()=>responder(i); b.appendChild(x); }); const f=$("feedback"); f.className="feedback"; f.innerHTML=""; $("proxima").className="proxima"; $("proxima").textContent=atual===jogo.length-1?"Ver resultado 🏁":"Próxima ➜"; }
+function responder(e){ const it=jogo[atual]; document.querySelectorAll(".alt").forEach((b,i)=>{ b.disabled=true; if(i===it.c)b.classList.add("certo"); if(i===e&&e!==it.c)b.classList.add("errado"); }); const f=$("feedback"); if(e===it.c){acertos++; f.className="feedback ok mostrar"; f.innerHTML=`<b>✅ Acertou!</b>${it.e}`;} else {f.className="feedback no mostrar"; f.innerHTML=`<b>❌ Quase!</b> A resposta certa é <b>${letras[it.c]}</b>. ${it.e}`;} $("placar").textContent=`Acertos: ${acertos}`; $("proxima").classList.add("mostrar"); }
+$("proxima").onclick=()=>{ atual++; if(atual<jogo.length)render(); else final(); };
+function final(){ const t=jogo.length; const nota=Math.round((acertos/t)*100)/10; const p=acertos/t; let e,m; if(p>=0.9){e="🏆";m="Fera! Mandou muito bem. Pronto para a prova!";} else if(p>=0.7){e="😃";m="Muito bom! Só falta revisar alguns pontinhos.";} else if(p>=0.45){e="🙂";m="Bom começo! Dá uma relida no resumo e refaça.";} else {e="💪";m="Sem problema! Leia o resumo com calma e tente de novo.";} $("barra").style.width="100%"; $("contador").textContent="Fim do quiz"; $("palco").innerHTML=`<div class="final"><div class="emoji">${e}</div><h2>Quiz concluído!</h2><div class="placar">Você acertou <b>${acertos}</b> de <b>${t}</b></div><div class="nota">Nota ${nota}</div><div class="recado">${m}</div><button class="refazer" onclick="reiniciar()">🔀 Embaralhar e refazer</button></div>`; }
+function reiniciar(){ atual=0; acertos=0; jogo=preparar(); $("palco").innerHTML=`<div class="pergunta" id="pergunta"></div><div class="alternativas" id="alternativas"></div><div class="feedback" id="feedback"></div><button class="proxima" id="proxima">Próxima ➜</button>`; $("proxima").onclick=()=>{ atual++; if(atual<jogo.length)render(); else final(); }; render(); }
+render();
+</script>
+</body>
+</html>
